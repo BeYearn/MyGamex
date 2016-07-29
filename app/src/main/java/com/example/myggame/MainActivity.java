@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysdk.framework.IAPWrapper;
@@ -34,6 +35,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private Handler uiHandler;
     private Button btPay;
     private LinearLayout myLayout;
+    private TextView tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
 
         uiHandler = new Handler();
+        tvName= (TextView) findViewById(R.id.tv_login);
         btLogin = (Button) findViewById(R.id.bt_login);
         btPay = (Button) findViewById(R.id.bt_pay);
 
@@ -56,6 +59,7 @@ public class MainActivity extends Activity implements OnClickListener {
         initLoginListner();
         initPayListner();
 
+        tvName.setOnClickListener(this);
         btLogin.setOnClickListener(this);
         btPay.setOnClickListener(this);
 
@@ -163,6 +167,9 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_login:
+
+                break;
             case R.id.bt_login:
                 if (isSuccess) {
                     DEVICE_ID = EmaSdk.getInstance().login();

@@ -46,12 +46,26 @@ public class EmaSdk {
         Log.e("imei+androidid", DEVICE_ID + ".." + m_szAndroidID);
 
         Map<String, String> info = new HashMap<String, String>();
-        //info.put("server_id", "2");
-        //info.put("server_url", "http://xxx.xxx.xxx");
         info.put("device_info", DEVICE_ID+m_szAndroidID);
         //info.put("key2", "value2");
         AnySDKUser.getInstance().login(info);
-        return DEVICE_ID;
+
+        //请求测试(未来改为call我们的接口)
+        ThreadUtil.runInSubThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //这是一个耗时操作 阻塞
+                    String str= new HttpRequestor().doGet("https://www.baidu.com/");
+
+                    Log.e("baidu",str);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return DEVICE_ID+m_szAndroidID;
     }
 
 
