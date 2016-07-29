@@ -63,6 +63,7 @@ public class MainActivity extends Activity implements OnClickListener {
         btLogin.setOnClickListener(this);
         btPay.setOnClickListener(this);
 
+        Log.e("++++++++++",Thread.currentThread().getName());
     }
 
     private void initPayListner() {
@@ -133,6 +134,7 @@ public class MainActivity extends Activity implements OnClickListener {
                     case UserWrapper.ACTION_RET_LOGIN_CANCEL://登陆取消回调
                         break;
                     case UserWrapper.ACTION_RET_LOGIN_FAIL://登陆失败回调
+                        Log.e("++++++++++",Thread.currentThread().getName());
                         showDialog("登陆失败");
                         break;
                     case UserWrapper.ACTION_RET_LOGOUT_SUCCESS://登出成功回调
