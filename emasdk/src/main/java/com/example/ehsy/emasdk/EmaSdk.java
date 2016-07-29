@@ -46,7 +46,7 @@ public class EmaSdk {
         Log.e("imei+androidid", DEVICE_ID + ".." + m_szAndroidID);
 
         Map<String, String> info = new HashMap<String, String>();
-        info.put("device_info", DEVICE_ID+m_szAndroidID);
+        info.put("device_info", DEVICE_ID + m_szAndroidID);
         //info.put("key2", "value2");
         AnySDKUser.getInstance().login(info);
 
@@ -56,16 +56,17 @@ public class EmaSdk {
             public void run() {
                 try {
                     //这是一个耗时操作 阻塞
-                    String str= new HttpRequestor().doGet("https://www.baidu.com/");
-
-                    Log.e("baidu",str);
+                    String str = new HttpRequestor().doGet("https://www.baidu.com/");
+                    Log.e("baidu", str);
+                    //Thread.sleep(4000); 模拟睡4s
+                    ThreadUtil.handler.sendEmptyMessage(0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        return DEVICE_ID+m_szAndroidID;
+        return DEVICE_ID + m_szAndroidID;
     }
 
 
