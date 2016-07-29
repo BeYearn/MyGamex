@@ -22,7 +22,7 @@ import java.util.Map;
 public class HttpRequestor {
 
     private String charset = "utf-8";
-    private Integer connectTimeout = null;
+    private Integer connectTimeout = 5000;
     private Integer socketTimeout = null;
     private String proxyHost = null;
     private Integer proxyPort = null;
@@ -44,7 +44,7 @@ public class HttpRequestor {
 
         httpURLConnection.setRequestProperty("Accept-Charset", charset);
         httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
+        httpURLConnection.setConnectTimeout(connectTimeout);
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader reader = null;
@@ -129,6 +129,7 @@ public class HttpRequestor {
         httpURLConnection.setRequestProperty("Accept-Charset", charset);
         httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         httpURLConnection.setRequestProperty("Content-Length", String.valueOf(parameterBuffer.length()));
+        httpURLConnection.setConnectTimeout(connectTimeout);
 
         OutputStream outputStream = null;
         OutputStreamWriter outputStreamWriter = null;
@@ -202,7 +203,7 @@ public class HttpRequestor {
     /**
      * Render request according setting
      */
-    private void renderRequest(URLConnection connection) {
+    /*private void renderRequest(URLConnection connection) {
 
         if (connectTimeout != null) {
             connection.setConnectTimeout(connectTimeout);
@@ -212,7 +213,9 @@ public class HttpRequestor {
             connection.setReadTimeout(socketTimeout);
         }
 
-    }
+    }*/
+
+
 
     /*
      * Getter & Setter
