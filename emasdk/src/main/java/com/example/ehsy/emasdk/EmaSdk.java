@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.anysdk.framework.java.AnySDK;
 import com.anysdk.framework.java.AnySDKUser;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Young on 2016/7/9.
@@ -38,7 +42,15 @@ public class EmaSdk {
         //2.获取Android ID  不可靠，可能为null，如果恢复出厂设置会改变，root的话可以任意改变
         String m_szAndroidID = Settings.Secure.getString(mActivity.getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        AnySDKUser.getInstance().login();
+
+        Log.e("imei+androidid", DEVICE_ID + ".." + m_szAndroidID);
+
+        Map<String, String> info = new HashMap<String, String>();
+        //info.put("server_id", "2");
+        //info.put("server_url", "http://xxx.xxx.xxx");
+        info.put("device_info", DEVICE_ID+m_szAndroidID);
+        //info.put("key2", "value2");
+        AnySDKUser.getInstance().login(info);
         return DEVICE_ID;
     }
 
