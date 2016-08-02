@@ -16,6 +16,11 @@ public class ThreadUtil {
         @Override
         public void handleMessage(Message msg) {
             Log.e("++++++++","getget");
+            switch (msg.what){
+                case 1:
+                    Log.e("what=1",(String) msg.obj);
+                    break;
+            }
         }
     };
 

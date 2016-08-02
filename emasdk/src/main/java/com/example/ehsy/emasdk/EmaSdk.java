@@ -2,6 +2,7 @@ package com.example.ehsy.emasdk;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Message;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -55,11 +56,14 @@ public class EmaSdk {
             @Override
             public void run() {
                 try {
-                    //这是一个耗时操作 阻塞
+                    //耗时操作 阻塞
                     String str = new HttpRequestor().doGet("https://www.baidu.com/");
                     Log.e("baidu", str);
                     //Thread.sleep(4000); 模拟睡4s
-                    ThreadUtil.handler.sendEmptyMessage(0);
+                    Message message = ThreadUtil.handler.obtainMessage();
+                    message.what=1;
+                    message.obj=str;
+                    ThreadUtil.handler.sendMessage(message);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
