@@ -192,8 +192,6 @@ public class MainActivity extends Activity implements OnClickListener {
                      */
                     ChoosePayMode(idArrayList);
                 }
-
-
                 break;
         }
 

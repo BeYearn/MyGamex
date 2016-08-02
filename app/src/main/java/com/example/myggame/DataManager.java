@@ -1,14 +1,13 @@
 package com.example.myggame;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.text.format.Time;
 
 import com.anysdk.framework.AnalyticsWrapper;
 import com.anysdk.framework.java.AnySDK;
-import com.anysdk.framework.java.AnySDKAnalytics;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DataManager {
 	private Map<String, String> mRoleInfo = null;
@@ -65,6 +64,8 @@ public class DataManager {
 		}else{
 			mProductionInfo.put("Product_Id", "monthly");
 		}
+		//试图透传过去
+		mProductionInfo.put("uid","888888");
         mProductionInfo.put("Product_Name","gold");
         mProductionInfo.put("Server_Id", "13");
         mProductionInfo.put("Product_Count", "1");
