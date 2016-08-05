@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKUser;
+import com.example.sdk.emasdk.http.HttpRequestor;
+import com.example.sdk.emasdk.http.ThreadUtil;
 
 import java.util.HashMap;
 import java.util.Map;

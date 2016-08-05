@@ -1,4 +1,4 @@
-package com.example.sdk.emasdk;
+package com.example.sdk.emasdk.http;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

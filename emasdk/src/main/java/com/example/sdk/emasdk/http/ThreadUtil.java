@@ -1,4 +1,4 @@
-package com.example.sdk.emasdk;
+package com.example.sdk.emasdk.http;
 
 import android.os.Handler;
 import android.os.Message;
