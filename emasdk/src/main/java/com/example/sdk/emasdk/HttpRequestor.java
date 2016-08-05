@@ -1,4 +1,4 @@
-package com.example.ehsy.emasdk;
+package com.example.sdk.emasdk;
 
 /**
  * Created by Administrator on 2016/7/29.

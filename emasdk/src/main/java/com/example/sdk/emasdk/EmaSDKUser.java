@@ -1,4 +1,4 @@
-package com.example.ehsy.emasdk;
+package com.example.sdk.emasdk;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,33 +7,41 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.anysdk.framework.java.AnySDK;
+import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKUser;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Young on 2016/7/9.
+ * Created by Administrator on 2016/8/5.
  */
-public class EmaSdk {
-    private static EmaSdk instance = null;
+public class EmaSDKUser {
+    private static EmaSDKUser instance = null;
     private static Activity mActivity = null;
+    private static AnySDKUser anySDKUser;
+    private EmaSDKListener listener;
 
-    public EmaSdk() {
-    }
-
-    public static EmaSdk getInstance() {
+    public static EmaSDKUser getInstance() {
         if (instance == null) {
-            return new EmaSdk();
+            instance = new EmaSDKUser();
         }
+        anySDKUser = AnySDKUser.getInstance();
+        mActivity = EmaSDK.mActivity;
         return instance;
     }
 
 
-    public void init(Activity activity, String appKey, String appSecret, String privateKey, String authLoginServer) {
-        this.mActivity = activity;
-        AnySDK.getInstance().init(activity, appKey, appSecret, privateKey, authLoginServer);
+    public void setListener(EmaSDKListener listener) {
+        this.listener = listener;
+        anySDKUser.setListener(new AnySDKListener() {
+            @Override
+            public void onCallBack(int i, String s) {
+                if (EmaSDKUser.this.listener != null) {
+                    EmaSDKUser.this.listener.onCallBack(i, s);
+                }
+            }
+        });
     }
 
     public String login() {
@@ -49,7 +57,7 @@ public class EmaSdk {
         Map<String, String> info = new HashMap<String, String>();
         info.put("device_info", DEVICE_ID + m_szAndroidID);
         //info.put("key2", "value2");
-        AnySDKUser.getInstance().login(info);
+        anySDKUser.login(info);
 
         //请求测试(未来改为call我们的接口)
         ThreadUtil.runInSubThread(new Runnable() {
@@ -61,8 +69,8 @@ public class EmaSdk {
                     Log.e("baidu", str);
                     //Thread.sleep(4000); 模拟睡4s
                     Message message = ThreadUtil.handler.obtainMessage();
-                    message.what=1;
-                    message.obj=str;
+                    message.what = 1;
+                    message.obj = str;
                     ThreadUtil.handler.sendMessage(message);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -72,32 +80,4 @@ public class EmaSdk {
 
         return DEVICE_ID + m_szAndroidID;
     }
-
-
-
-    /*private String getUniqueId() {
-        String m_szLongID = m_szImei + m_szDevIDShort
-                + m_szAndroidID + m_szWLANMAC + m_szBTMAC;
-        // compute md5
-        MessageDigest m = null;
-        try {
-            m = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        m.update(m_szLongID.getBytes(), 0, m_szLongID.length());
-        // get md5 bytes
-        byte p_md5Data[] = m.digest();
-        // create a hex string
-        String m_szUniqueID = new String();
-        for (int i = 0; i < p_md5Data.length; i++) {
-            int b = (0xFF & p_md5Data[i]);
-        // if it is a single digit, make sure it have 0 in front (proper padding)
-            if (b <= 0xF)
-                m_szUniqueID += "0";
-        // add number to string
-            m_szUniqueID += Integer.toHexString(b);
-        }   // hex string to uppercase
-        m_szUniqueID = m_szUniqueID.toUpperCase();
-    }*/
 }

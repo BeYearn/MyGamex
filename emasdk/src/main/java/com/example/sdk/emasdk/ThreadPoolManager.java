@@ -1,4 +1,4 @@
-package com.example.ehsy.emasdk;
+package com.example.sdk.emasdk;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

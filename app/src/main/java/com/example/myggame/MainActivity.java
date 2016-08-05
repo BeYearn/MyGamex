@@ -19,11 +19,10 @@ import android.widget.Toast;
 import com.anysdk.framework.IAPWrapper;
 import com.anysdk.framework.PluginWrapper;
 import com.anysdk.framework.UserWrapper;
-import com.anysdk.framework.java.AnySDK;
-import com.anysdk.framework.java.AnySDKIAP;
-import com.anysdk.framework.java.AnySDKListener;
-import com.anysdk.framework.java.AnySDKUser;
-import com.example.ehsy.emasdk.EmaSdk;
+import com.example.sdk.emasdk.EmaSDK;
+import com.example.sdk.emasdk.EmaSDKIAP;
+import com.example.sdk.emasdk.EmaSDKListener;
+import com.example.sdk.emasdk.EmaSDKUser;
 
 import java.util.ArrayList;
 
@@ -43,7 +42,7 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
 
         uiHandler = new Handler();
-        tvName= (TextView) findViewById(R.id.tv_login);
+        tvName = (TextView) findViewById(R.id.tv_login);
         btLogin = (Button) findViewById(R.id.bt_login);
         btPay = (Button) findViewById(R.id.bt_pay);
 
@@ -54,7 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
         //String oauthLoginServer = "http://116.228.88.149:8090/ema-platform/login/notify";
         String oauthLoginServer = "http://192.168.10.80:8080/ema-platform/authLogin.jsp";
         //String oauthLoginServer = "http://116.228.88.149:8090/ema-platform/authLogin.jsp";
-        EmaSdk.getInstance().init(this, appKey, appSecret, privateKey, oauthLoginServer);
+        EmaSDK.getInstance().init(this, appKey, appSecret, privateKey, oauthLoginServer);
 
         initLoginListner();
         initPayListner();
@@ -63,14 +62,14 @@ public class MainActivity extends Activity implements OnClickListener {
         btLogin.setOnClickListener(this);
         btPay.setOnClickListener(this);
 
-        Log.e("++++++++++",Thread.currentThread().getName());
+        Log.e("++++++++++", Thread.currentThread().getName());
     }
 
     private void initPayListner() {
         /**
          * 为支付系统设置监听
          */
-        AnySDKIAP.getInstance().setListener(new AnySDKListener() {
+        EmaSDKIAP.getInstance().setListener(new EmaSDKListener() {
 
             @Override
             public void onCallBack(int arg0, String arg1) {
@@ -114,7 +113,7 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     public void initLoginListner() {
-        AnySDKUser.getInstance().setListener(new AnySDKListener() {
+        EmaSDKUser.getInstance().setListener(new EmaSDKListener() {
             @Override
             public void onCallBack(int arg0, String arg1) {
                 switch (arg0) {
@@ -134,7 +133,7 @@ public class MainActivity extends Activity implements OnClickListener {
                     case UserWrapper.ACTION_RET_LOGIN_CANCEL://登陆取消回调
                         break;
                     case UserWrapper.ACTION_RET_LOGIN_FAIL://登陆失败回调
-                        Log.e("++++++++++",Thread.currentThread().getName());
+                        Log.e("++++++++++", Thread.currentThread().getName());
                         showDialog("登陆失败");
                         break;
                     case UserWrapper.ACTION_RET_LOGOUT_SUCCESS://登出成功回调
@@ -174,14 +173,14 @@ public class MainActivity extends Activity implements OnClickListener {
                 break;
             case R.id.bt_login:
                 if (isSuccess) {
-                    DEVICE_ID = EmaSdk.getInstance().login();
+                    DEVICE_ID = EmaSDKUser.getInstance().login();
                     //AnySDKUser.getInstance().login();
                 } else {
                     Toast.makeText(this, "sdk未初始化成功", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.bt_pay:
-                AnySDKIAP iap = AnySDKIAP.getInstance();
+                EmaSDKIAP iap = EmaSDKIAP.getInstance();
                 ArrayList<String> idArrayList = iap.getPluginId();
                 if (idArrayList.size() == 1) {
                     iap.payForProduct(idArrayList.get(0), DataManager
@@ -211,7 +210,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
             @Override
             public void onClick(View v) {
-                AnySDKIAP.getInstance().payForProduct((String) v.getTag(), DataManager.getInstance().getProductionInfo());
+                EmaSDKIAP.getInstance().payForProduct((String) v.getTag(), DataManager.getInstance().getProductionInfo());
             }
         };
         for (int i = 0; i < payMode.size(); i++) {
@@ -268,7 +267,7 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onDestroy() {
         PluginWrapper.onDestroy();
-        AnySDK.getInstance().release();
+        EmaSDK.getInstance().release();
         super.onDestroy();
     }
 
