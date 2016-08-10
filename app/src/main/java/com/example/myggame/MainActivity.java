@@ -45,14 +45,8 @@ public class MainActivity extends Activity implements OnClickListener {
         btLogin = (Button) findViewById(R.id.bt_login);
         btPay = (Button) findViewById(R.id.bt_pay);
 
-        String appKey = "B9E60577-E146-C403-0CB4-35FFB8C053E6";
-        String appSecret = "cc78ba68ef75b2249d0a7edf27db5d3d";
-        String privateKey = "E1797C83D90832FAD90784C059C0742B";
-        //String oauthLoginServer = "http://oauth.anysdk.com/api/OauthLoginDemo/Login.php";
-        //String oauthLoginServer = "http://116.228.88.149:8090/ema-platform/login/notify";
-        String oauthLoginServer = "http://192.168.10.80:8080/ema-platform/authLogin.jsp";
-        //String oauthLoginServer = "http://116.228.88.149:8090/ema-platform/authLogin.jsp";
-        EmaSDK.getInstance().init(this, appKey, appSecret, privateKey, oauthLoginServer);
+
+        EmaSDK.getInstance().init(this);
 
         initLoginListner();
         initPayListner();

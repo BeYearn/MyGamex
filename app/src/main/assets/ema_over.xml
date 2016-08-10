@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<developer>
+<channel
+    appKey="B9E60577-E146-C403-0CB4-35FFB8C053E6"
+    appSecret="cc78ba68ef75b2249d0a7edf27db5d3d"
+    privateKey="E1797C83D90832FAD90784C059C0742B"
+    authLoginServer="http://192.168.10.80:8080/ema-platform/authLogin.jsp" />
+</developer>
