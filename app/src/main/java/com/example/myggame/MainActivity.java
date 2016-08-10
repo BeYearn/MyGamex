@@ -30,7 +30,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private Button btLogin;
     protected boolean isSuccess;
-    protected String DEVICE_ID;
     private Handler uiHandler;
     private Button btPay;
     private LinearLayout myLayout;
@@ -124,7 +123,7 @@ public class MainActivity extends Activity implements OnClickListener {
                     case UserWrapper.ACTION_RET_INIT_FAIL://初始化SDK失败回调
                         break;
                     case UserWrapper.ACTION_RET_LOGIN_SUCCESS://登陆成功回调
-                        showDialog("登陆成功\n设备id为\n" + DEVICE_ID);
+                        showDialog("登陆成功\n设备id为\n");
                         break;
                     case UserWrapper.ACTION_RET_LOGIN_TIMEOUT://登陆超时回调
                         break;
@@ -173,7 +172,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 break;
             case R.id.bt_login:
                 if (isSuccess) {
-                    DEVICE_ID = EmaSDKUser.getInstance().login();
+                    EmaSDKUser.getInstance().login();
                     //AnySDKUser.getInstance().login();
                 } else {
                     Toast.makeText(this, "sdk未初始化成功", Toast.LENGTH_LONG).show();
