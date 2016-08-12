@@ -118,6 +118,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         break;
                     case UserWrapper.ACTION_RET_LOGIN_SUCCESS://登陆成功回调
                         showDialog("登陆成功\n设备id为\n");
+                        EmaSDKUser.getInstance().getUserID();
                         break;
                     case UserWrapper.ACTION_RET_LOGIN_TIMEOUT://登陆超时回调
                         break;

@@ -103,6 +103,9 @@ public class EmaSDKUser {
 
     public void login() {
         creatWeakAccount();
+    }
 
+    public String getUserID(){
+        return anySDKUser.getUserID();
     }
 }
