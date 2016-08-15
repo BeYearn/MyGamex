@@ -1,9 +1,6 @@
 package com.example.sdk.emasdk;
 
 import android.app.Activity;
-import android.content.Context;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.anysdk.framework.java.AnySDKListener;
@@ -26,7 +23,6 @@ public class EmaSDKUser {
     private EmaSDKListener listener;
     private String userid;
     private String deviceId;
-    private String mSzAndroidID;
 
     public static EmaSDKUser getInstance() {
         if (instance == null) {
@@ -48,7 +44,7 @@ public class EmaSDKUser {
                 }
                 /*//登录成功后，创建弱账号
                 if(i== UserWrapper.ACTION_RET_LOGIN_SUCCESS){
-                    creatWeakAccount();
+                    creatWeakAccount();     不能如此的原因是 需要在执行真正登录时想要透传uid（即uid的得到必须在登录之前）
                 }*/
             }
         });
@@ -56,12 +52,7 @@ public class EmaSDKUser {
 
     private void creatWeakAccount() {
 
-        //1.获取deviceID 其实是IMEI
-        TelephonyManager tm = (TelephonyManager) mActivity.getSystemService(Context.TELEPHONY_SERVICE);
-        deviceId = tm.getDeviceId();
-
-        //2.获取Android ID  不可靠，可能为null，如果恢复出厂设置会改变，root的话可以任意改变
-        mSzAndroidID = Settings.Secure.getString(mActivity.getContentResolver(), Settings.Secure.ANDROID_ID);
+        deviceId=ULocalUtils.getIMEI(mActivity);
 
         //请求测试(未来改为call我们的接口)
         ThreadUtil.runInSubThread(new Runnable() {

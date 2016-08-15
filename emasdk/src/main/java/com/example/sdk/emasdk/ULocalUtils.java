@@ -1,6 +1,7 @@
 package com.example.sdk.emasdk;
 
 import android.content.Context;
+import android.telephony.TelephonyManager;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -78,5 +79,13 @@ public class ULocalUtils {
         }
     }
 
+    public static String getIMEI(Context context){
+        //1.获取deviceID 其实是IMEI
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getDeviceId();
+
+        /*//2.获取Android ID  不可靠，可能为null，如果恢复出厂设置会改变，root的话可以任意改变
+        mSzAndroidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);*/
+    }
 
 }
