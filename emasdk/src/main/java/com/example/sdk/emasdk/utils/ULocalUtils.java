@@ -1,7 +1,9 @@
-package com.example.sdk.emasdk;
+package com.example.sdk.emasdk.utils;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+
+import com.example.sdk.emasdk.EmaSDK;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;

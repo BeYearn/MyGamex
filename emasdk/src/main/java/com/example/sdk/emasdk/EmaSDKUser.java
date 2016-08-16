@@ -1,12 +1,13 @@
 package com.example.sdk.emasdk;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKUser;
 import com.example.sdk.emasdk.http.HttpRequestor;
 import com.example.sdk.emasdk.http.ThreadUtil;
+import com.example.sdk.emasdk.utils.Instants;
+import com.example.sdk.emasdk.utils.ULocalUtils;
 
 import org.json.JSONObject;
 
@@ -52,7 +53,7 @@ public class EmaSDKUser {
 
     private void creatWeakAccount() {
 
-        deviceId=ULocalUtils.getIMEI(mActivity);
+        deviceId = ULocalUtils.getIMEI(mActivity);
 
         //请求测试(未来改为call我们的接口)
         ThreadUtil.runInSubThread(new Runnable() {
@@ -60,22 +61,19 @@ public class EmaSDKUser {
             public void run() {
                 try {
                     //耗时操作 阻塞
-                    String urlGet = "http://192.168.10.80:8080/ema-platform/member/createWeakAccount?deviceType=android&deviceKey=";
+                    String urlGet = Instants.CREAT_WEAKCOUNT_URL;
                     String strGet = new HttpRequestor().doGet(urlGet + deviceId);
-                    Log.e("baidu", strGet);
 
                     JSONObject jsonObject = new JSONObject(strGet);
                     JSONObject data = jsonObject.getJSONObject("data");
                     userid = data.getString("userid");
-                    Log.e("_____userid____", userid);
-                    Log.e("imei", deviceId);
                     /*//Thread.sleep(4000); 模拟睡4s
                     Message message = ThreadUtil.handler.obtainMessage();
                     message.what = 1;
                     message.obj = strGet;
                     ThreadUtil.handler.sendMessage(message);*/
 
-                    loginActual(userid,deviceId);
+                    loginActual(userid, deviceId);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -85,7 +83,7 @@ public class EmaSDKUser {
         });
     }
 
-    private void loginActual(String userid,String deviceId) {
+    private void loginActual(String userid, String deviceId) {
         Map<String, String> info = new HashMap<String, String>();
         info.put("device_info", deviceId);
         info.put("uid", userid);
@@ -96,7 +94,7 @@ public class EmaSDKUser {
         creatWeakAccount();
     }
 
-    public String getUserID(){
+    public String getUserID() {
         return anySDKUser.getUserID();
     }
 }

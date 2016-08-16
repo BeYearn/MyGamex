@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.anysdk.framework.java.AnySDK;
+import com.example.sdk.emasdk.utils.ULocalUtils;
 
 /**
  * Created by Young on 2016/7/9.
