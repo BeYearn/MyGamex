@@ -45,6 +45,9 @@ public class EmaSDKIAP {
     }
 
     public void payForProduct(String pluginID, Map<String, String> orders) {
+        /*if(channel==70){
+
+        }*/
         anySDKIAP.payForProduct(pluginID, orders);
     }
 }

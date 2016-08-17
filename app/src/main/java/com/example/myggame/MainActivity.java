@@ -176,15 +176,15 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.bt_pay:
                 EmaSDKIAP iap = EmaSDKIAP.getInstance();
                 ArrayList<String> idArrayList = iap.getPluginId();
-                if (idArrayList.size() == 1) {
+                //if (idArrayList.size() == 1) {
                     iap.payForProduct(idArrayList.get(0), DataManager
                             .getInstance().getProductionInfo());
-                } else {
-                    /**
+               /* } else {
+                    *//**
                      * 多支付
-                     */
+                     *//*
                     ChoosePayMode(idArrayList);
-                }
+                }*/
                 break;
         }
 

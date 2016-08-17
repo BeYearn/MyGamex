@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <developer>
 <channel
-    appKey="B9E60577-E146-C403-0CB4-35FFB8C053E6"
-    appSecret="cc78ba68ef75b2249d0a7edf27db5d3d"
-    privateKey="E1797C83D90832FAD90784C059C0742B"
+    appKey="CB673C65-9E01-5530-A280-77EA6D8D42DD"
+    appSecret="bad2f8c81bf5ad2ec9a4e4563c1e8ad2"
+    privateKey="21A90ABB70F1CBB43095F79AF73440E7"
     authLoginServer="http://192.168.10.80:8080/ema-platform/authLogin.jsp" />
 </developer>
+
+    <!--authLoginServer="http://oauth.anysdk.com/api/OauthLoginDemo/Login.php"-->
