@@ -46,67 +46,7 @@ public class MainActivity extends Activity implements OnClickListener {
         btPay = (Button) findViewById(R.id.bt_pay);
 
 
-        EmaSDK.getInstance().init(this);
-
-        initLoginListner();
-        initPayListner();
-
-        tvName.setOnClickListener(this);
-        btLogin.setOnClickListener(this);
-        btPay.setOnClickListener(this);
-
-        Log.e("++++++++++", Thread.currentThread().getName());
-    }
-
-    private void initPayListner() {
-        /**
-         * 为支付系统设置监听
-         */
-        EmaSDKIAP.getInstance().setListener(new EmaSDKListener() {
-
-            @Override
-            public void onCallBack(int arg0, String arg1) {
-                Log.d(String.valueOf(arg0), arg1);
-                String temp = "fail";
-                switch (arg0) {
-                    case IAPWrapper.PAYRESULT_INIT_FAIL:// 支付初始化失败回调
-                        break;
-                    case IAPWrapper.PAYRESULT_INIT_SUCCESS:// 支付初始化成功回调
-                        break;
-                    case IAPWrapper.PAYRESULT_SUCCESS:// 支付成功回调
-                        temp = "Success";
-                        showDialog("pay successful");
-                        break;
-                    case IAPWrapper.PAYRESULT_FAIL:// 支付失败回调
-                        showDialog("pay failed");
-                        break;
-                    case IAPWrapper.PAYRESULT_CANCEL:// 支付取消回调
-                        //showDialog(temp, "Cancel");
-                        break;
-                    case IAPWrapper.PAYRESULT_NETWORK_ERROR:// 支付超时回调
-                        //showDialog(temp, "NetworkError");
-                        break;
-                    case IAPWrapper.PAYRESULT_PRODUCTIONINFOR_INCOMPLETE:// 支付超时回调
-                        //showDialog(temp, "ProductionInforIncomplete");
-                        break;
-                    /**
-                     * 新增加:正在进行中回调 支付过程中若SDK没有回调结果，就认为支付正在进行中
-                     * 游戏开发商可让玩家去判断是否需要等待，若不等待则进行下一次的支付
-                     */
-                    case IAPWrapper.PAYRESULT_NOW_PAYING:
-                        //showTipDialog();
-                        break;
-                    case IAPWrapper.PAYRESULT_RECHARGE_SUCCESS:// 充值成功回调
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-    }
-
-    public void initLoginListner() {
-        EmaSDKUser.getInstance().setListener(new EmaSDKListener() {
+        EmaSDK.getInstance().init(this, new EmaSDKListener() {
             @Override
             public void onCallBack(int arg0, String arg1) {
                 switch (arg0) {
@@ -117,7 +57,7 @@ public class MainActivity extends Activity implements OnClickListener {
                     case UserWrapper.ACTION_RET_INIT_FAIL://初始化SDK失败回调
                         break;
                     case UserWrapper.ACTION_RET_LOGIN_SUCCESS://登陆成功回调
-                        showDialog("登陆成功\n设备id为\n");
+                        showDialog("登陆成功\n设备id为\n----");
                         EmaSDKUser.getInstance().getUserID();
                         break;
                     case UserWrapper.ACTION_RET_LOGIN_TIMEOUT://登陆超时回调
@@ -157,8 +97,24 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
             }
         });
+
+        //initPayListner();
+
+        tvName.setOnClickListener(this);
+        btLogin.setOnClickListener(this);
+        btPay.setOnClickListener(this);
+
+        Log.e("++++++++++", Thread.currentThread().getName());
     }
 
+    /*private void initPayListner() {
+        */
+
+    /**
+     * 为支付系统设置监听
+     *//*
+        EmaSDKIAP.getInstance().setListener();
+    }*/
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -177,12 +133,52 @@ public class MainActivity extends Activity implements OnClickListener {
                 EmaSDKIAP iap = EmaSDKIAP.getInstance();
                 ArrayList<String> idArrayList = iap.getPluginId();
                 //if (idArrayList.size() == 1) {
-                    iap.payForProduct(idArrayList.get(0), DataManager
-                            .getInstance().getProductionInfo());
+                iap.payForProduct(idArrayList.get(0), DataManager
+                        .getInstance().getProductionInfo(), new EmaSDKListener() {
+
+                    @Override
+                    public void onCallBack(int arg0, String arg1) {
+                        Log.d(String.valueOf(arg0), arg1);
+                        String temp = "fail";
+                        switch (arg0) {
+                            case IAPWrapper.PAYRESULT_INIT_FAIL:// 支付初始化失败回调
+                                break;
+                            case IAPWrapper.PAYRESULT_INIT_SUCCESS:// 支付初始化成功回调
+                                break;
+                            case IAPWrapper.PAYRESULT_SUCCESS:// 支付成功回调
+                                temp = "Success";
+                                showDialog("pay successful---");
+                                break;
+                            case IAPWrapper.PAYRESULT_FAIL:// 支付失败回调
+                                showDialog("pay failed---");
+                                break;
+                            case IAPWrapper.PAYRESULT_CANCEL:// 支付取消回调
+                                //showDialog(temp, "Cancel");
+                                break;
+                            case IAPWrapper.PAYRESULT_NETWORK_ERROR:// 支付超时回调
+                                //showDialog(temp, "NetworkError");
+                                break;
+                            case IAPWrapper.PAYRESULT_PRODUCTIONINFOR_INCOMPLETE:// 支付超时回调
+                                //showDialog(temp, "ProductionInforIncomplete");
+                                break;
+                            /**
+                             * 新增加:正在进行中回调 支付过程中若SDK没有回调结果，就认为支付正在进行中
+                             * 游戏开发商可让玩家去判断是否需要等待，若不等待则进行下一次的支付
+                             */
+                            case IAPWrapper.PAYRESULT_NOW_PAYING:
+                                //showTipDialog();
+                                break;
+                            case IAPWrapper.PAYRESULT_RECHARGE_SUCCESS:// 充值成功回调
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
                /* } else {
                     *//**
-                     * 多支付
-                     *//*
+             * 多支付
+             *//*
                     ChoosePayMode(idArrayList);
                 }*/
                 break;
@@ -191,13 +187,15 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
 
+   /* */
+
     /**
      * @param @param payMode
      * @return void
      * @throws
      * @Title: ChoosePayMode
      * @Description: 多支付调用方法
-     */
+     *//*
     public void ChoosePayMode(ArrayList<String> payMode) {
         myLayout = new LinearLayout(this);
         OnClickListener onclick = new OnClickListener() {
@@ -223,8 +221,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 
         dialog02.show();
-    }
-
+    }*/
     private void showDialog(String str) {
         final String curMsg = str;
         uiHandler.post(new Runnable() {

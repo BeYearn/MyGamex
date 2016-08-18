@@ -27,7 +27,7 @@ public class EmaSDKIAP {
     }
 
 
-    public void setListener(EmaSDKListener listener) {
+    /*public void setListener(EmaSDKListener listener) {
         this.listener = listener;
         anySDKIAP.setListener(new AnySDKListener() {
             @Override
@@ -37,17 +37,25 @@ public class EmaSDKIAP {
                 }
             }
         });
-
-    }
+    }*/
 
     public ArrayList<String> getPluginId() {
         return anySDKIAP.getPluginId();
     }
 
-    public void payForProduct(String pluginID, Map<String, String> orders) {
+    public void payForProduct(String pluginID, Map<String, String> orders,EmaSDKListener listener) {
         /*if(channel==70){
 
         }*/
+        this.listener=listener;
+        AnySDKIAP.getInstance().setListener(new AnySDKListener() {
+            @Override
+            public void onCallBack(int i, String s) {
+                if (EmaSDKIAP.this.listener != null) {
+                    EmaSDKIAP.this.listener.onCallBack(i, s);
+                }
+            }
+        });
         anySDKIAP.payForProduct(pluginID, orders);
     }
 }

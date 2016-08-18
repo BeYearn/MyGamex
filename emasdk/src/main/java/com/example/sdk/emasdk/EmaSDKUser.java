@@ -1,8 +1,8 @@
 package com.example.sdk.emasdk;
 
 import android.app.Activity;
+import android.util.Log;
 
-import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKUser;
 import com.example.sdk.emasdk.http.HttpRequestor;
 import com.example.sdk.emasdk.http.ThreadUtil;
@@ -35,7 +35,7 @@ public class EmaSDKUser {
     }
 
 
-    public void setListener(EmaSDKListener listener) {
+    /*public void setListener(EmaSDKListener listener) {
         this.listener = listener;
         anySDKUser.setListener(new AnySDKListener() {
             @Override
@@ -43,13 +43,9 @@ public class EmaSDKUser {
                 if (EmaSDKUser.this.listener != null) {
                     EmaSDKUser.this.listener.onCallBack(i, s);
                 }
-                /*//登录成功后，创建弱账号
-                if(i== UserWrapper.ACTION_RET_LOGIN_SUCCESS){
-                    creatWeakAccount();     不能如此的原因是 需要在执行真正登录时想要透传uid（即uid的得到必须在登录之前）
-                }*/
             }
         });
-    }
+    }*/
 
     private void creatWeakAccount() {
 
@@ -77,6 +73,7 @@ public class EmaSDKUser {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Log.e("error","maybe is SocketTimeoutException");
                 }
 
             }

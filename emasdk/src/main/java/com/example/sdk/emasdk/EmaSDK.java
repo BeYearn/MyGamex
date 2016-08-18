@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.anysdk.framework.java.AnySDK;
+import com.anysdk.framework.java.AnySDKListener;
+import com.anysdk.framework.java.AnySDKUser;
 import com.example.sdk.emasdk.utils.ULocalUtils;
 
 /**
@@ -12,6 +14,7 @@ import com.example.sdk.emasdk.utils.ULocalUtils;
 public class EmaSDK {
     private static EmaSDK instance = null;
     public static Activity mActivity = null;
+    private EmaSDKListener listener;
 
     public static EmaSDK getInstance() {
         if (instance == null) {
@@ -21,7 +24,7 @@ public class EmaSDK {
     }
 
 
-    public void init(Activity activity) {
+    public void init(Activity activity,EmaSDKListener listener) {
 
         this.mActivity = activity;
         ULocalUtils.EmaSdkInfo.readXml("ema_over.xml", activity);
@@ -30,6 +33,16 @@ public class EmaSDK {
         String privateKey = ULocalUtils.EmaSdkInfo.getStringFromXML("privateKey");
         String authLoginServer = ULocalUtils.EmaSdkInfo.getStringFromXML("authLoginServer");
         AnySDK.getInstance().init(activity, appKey, appSecret, privateKey, authLoginServer);
+
+        this.listener = listener;
+        AnySDKUser.getInstance().setListener(new AnySDKListener() {
+            @Override
+            public void onCallBack(int i, String s) {
+                if (EmaSDK.this.listener != null) {
+                    EmaSDK.this.listener.onCallBack(i, s);
+                }
+            }
+        });
     }
 
 
