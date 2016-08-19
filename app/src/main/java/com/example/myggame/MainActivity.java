@@ -16,9 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anysdk.framework.IAPWrapper;
 import com.anysdk.framework.PluginWrapper;
-import com.anysdk.framework.UserWrapper;
+import com.example.sdk.emasdk.EmaCallBackConst;
 import com.example.sdk.emasdk.EmaSDK;
 import com.example.sdk.emasdk.EmaSDKIAP;
 import com.example.sdk.emasdk.EmaSDKListener;
@@ -50,41 +49,27 @@ public class MainActivity extends Activity implements OnClickListener {
             @Override
             public void onCallBack(int arg0, String arg1) {
                 switch (arg0) {
-                    case UserWrapper.ACTION_RET_INIT_SUCCESS://初始化SDK成功回调
+                    case EmaCallBackConst.INITSUCCESS://初始化SDK成功回调
                         isSuccess = true;
                         Toast.makeText(MainActivity.this, "sdk初始化成功", Toast.LENGTH_LONG).show();
                         break;
-                    case UserWrapper.ACTION_RET_INIT_FAIL://初始化SDK失败回调
+                    case EmaCallBackConst.INITFALIED://初始化SDK失败回调
                         break;
-                    case UserWrapper.ACTION_RET_LOGIN_SUCCESS://登陆成功回调
+                    case EmaCallBackConst.LOGINSUCCESS://登陆成功回调
                         showDialog("登陆成功\n设备id为\n----");
                         EmaSDKUser.getInstance().getUserID();
                         break;
-                    case UserWrapper.ACTION_RET_LOGIN_TIMEOUT://登陆超时回调
+                    case EmaCallBackConst.LOGINCANELL://登陆取消回调
                         break;
-                    case UserWrapper.ACTION_RET_LOGIN_NO_NEED://无需登陆回调
-                        break;
-                    case UserWrapper.ACTION_RET_LOGIN_CANCEL://登陆取消回调
-                        break;
-                    case UserWrapper.ACTION_RET_LOGIN_FAIL://登陆失败回调
+                    case EmaCallBackConst.LOGINFALIED://登陆失败回调
                         Log.e("++++++++++", Thread.currentThread().getName());
                         showDialog("登陆失败");
                         break;
-                    case UserWrapper.ACTION_RET_LOGOUT_SUCCESS://登出成功回调
+                    case EmaCallBackConst.LOGOUTSUCCESS://登出成功回调
                         break;
-                    case UserWrapper.ACTION_RET_LOGOUT_FAIL://登出失败回调
+                    case EmaCallBackConst.LOGOUTFALIED://登出失败回调
                         break;
-                    case UserWrapper.ACTION_RET_PLATFORM_ENTER://平台中心进入回调
-                        break;
-                    case UserWrapper.ACTION_RET_PLATFORM_BACK://平台中心退出回调
-                        break;
-                    case UserWrapper.ACTION_RET_PAUSE_PAGE://暂停界面回调
-                        break;
-                    case UserWrapper.ACTION_RET_EXIT_PAGE://退出游戏回调
-                        break;
-                    case UserWrapper.ACTION_RET_ANTIADDICTIONQUERY://防沉迷查询回调
-                        break;
-                    case UserWrapper.ACTION_RET_REALNAMEREGISTER://实名注册回调
+                    /*case UserWrapper.ACTION_RET_REALNAMEREGISTER://实名注册回调
                         break;
                     case UserWrapper.ACTION_RET_ACCOUNTSWITCH_SUCCESS://切换账号成功回调
                         break;
@@ -93,7 +78,7 @@ public class MainActivity extends Activity implements OnClickListener {
                     case UserWrapper.ACTION_RET_OPENSHOP://应用汇特有回调，接受到该回调调出游戏商店界面
                         break;
                     default:
-                        break;
+                        break;*/
                 }
             }
         });
@@ -119,7 +104,6 @@ public class MainActivity extends Activity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login:
-
                 break;
             case R.id.bt_login:
                 if (isSuccess) {
@@ -141,37 +125,17 @@ public class MainActivity extends Activity implements OnClickListener {
                         Log.d(String.valueOf(arg0), arg1);
                         String temp = "fail";
                         switch (arg0) {
-                            case IAPWrapper.PAYRESULT_INIT_FAIL:// 支付初始化失败回调
-                                break;
-                            case IAPWrapper.PAYRESULT_INIT_SUCCESS:// 支付初始化成功回调
-                                break;
-                            case IAPWrapper.PAYRESULT_SUCCESS:// 支付成功回调
+                            case EmaCallBackConst.PAYSUCCESS:// 支付成功回调
                                 temp = "Success";
                                 showDialog("pay successful---");
                                 break;
-                            case IAPWrapper.PAYRESULT_FAIL:// 支付失败回调
+                            case EmaCallBackConst.PAYFALIED:// 支付失败回调
                                 showDialog("pay failed---");
                                 break;
-                            case IAPWrapper.PAYRESULT_CANCEL:// 支付取消回调
+                            case EmaCallBackConst.PAYCANELI:// 支付取消回调
                                 //showDialog(temp, "Cancel");
                                 break;
-                            case IAPWrapper.PAYRESULT_NETWORK_ERROR:// 支付超时回调
-                                //showDialog(temp, "NetworkError");
-                                break;
-                            case IAPWrapper.PAYRESULT_PRODUCTIONINFOR_INCOMPLETE:// 支付超时回调
-                                //showDialog(temp, "ProductionInforIncomplete");
-                                break;
-                            /**
-                             * 新增加:正在进行中回调 支付过程中若SDK没有回调结果，就认为支付正在进行中
-                             * 游戏开发商可让玩家去判断是否需要等待，若不等待则进行下一次的支付
-                             */
-                            case IAPWrapper.PAYRESULT_NOW_PAYING:
-                                //showTipDialog();
-                                break;
-                            case IAPWrapper.PAYRESULT_RECHARGE_SUCCESS:// 充值成功回调
-                                break;
-                            default:
-                                break;
+
                         }
                     }
                 });
