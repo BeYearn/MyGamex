@@ -3,6 +3,7 @@ package com.example.sdk.emasdk;
 import android.app.Activity;
 import android.util.Log;
 
+import com.anysdk.framework.PluginWrapper;
 import com.anysdk.framework.java.AnySDK;
 import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKUser;
@@ -54,4 +55,22 @@ public class EmaSDK {
     public  void EmaDebug(String s1, String s2) {
         Log.e(s1, s2);
     }
+
+    public void onDestroy(){
+        PluginWrapper.onDestroy();
+        EmaSDK.getInstance().release();
+    }
+
+    public void onPause() {
+        PluginWrapper.onPause();
+    }
+
+    public void onResume() {
+        PluginWrapper.onResume();
+    }
+
+    public void onStop() {
+        PluginWrapper.onStop();
+    }
+
 }

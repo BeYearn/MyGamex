@@ -3,7 +3,6 @@ package com.example.myggame;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -16,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anysdk.framework.PluginWrapper;
 import com.example.sdk.emasdk.EmaCallBackConst;
 import com.example.sdk.emasdk.EmaSDK;
 import com.example.sdk.emasdk.EmaSDKIAP;
@@ -221,47 +219,28 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     protected void onDestroy() {
-        PluginWrapper.onDestroy();
-        EmaSDK.getInstance().release();
+        EmaSDK.getInstance().onDestroy();
         super.onDestroy();
     }
 
     @Override
     protected void onPause() {
-        PluginWrapper.onPause();
+        EmaSDK.getInstance().onPause();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-        PluginWrapper.onResume();
+        EmaSDK.getInstance().onResume();
         super.onResume();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        PluginWrapper.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        PluginWrapper.onNewIntent(intent);
-        super.onNewIntent(intent);
-    }
 
     @Override
     protected void onStop() {
-        PluginWrapper.onStop();
+        EmaSDK.getInstance().onStop();
         super.onStop();
     }
-
-    @Override
-    protected void onRestart() {
-        PluginWrapper.onRestart();
-        super.onRestart();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
