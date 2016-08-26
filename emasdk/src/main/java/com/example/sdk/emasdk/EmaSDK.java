@@ -29,10 +29,10 @@ public class EmaSDK {
 
         this.mActivity = activity;
         ULocalUtils.EmaSdkInfo.readXml("ema_over.xml", activity);
-        String appKey = ULocalUtils.EmaSdkInfo.getStringFromXML("appKey");
-        String appSecret = ULocalUtils.EmaSdkInfo.getStringFromXML("appSecret");
-        String privateKey = ULocalUtils.EmaSdkInfo.getStringFromXML("privateKey");
-        String authLoginServer = ULocalUtils.EmaSdkInfo.getStringFromXML("authLoginServer");
+        String appKey = ULocalUtils.EmaSdkInfo.getStringFromMetaData(activity,"appKey");
+        String appSecret = ULocalUtils.EmaSdkInfo.getStringFromMetaData(activity,"appSecret");
+        String privateKey = ULocalUtils.EmaSdkInfo.getStringFromMetaData(activity,"privateKey");
+        String authLoginServer = ULocalUtils.EmaSdkInfo.getStringFromMetaData(activity,"authLoginServer");
         AnySDK.getInstance().init(activity, appKey, appSecret, privateKey, authLoginServer);
 
         this.listener = listener;
