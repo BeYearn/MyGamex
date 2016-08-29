@@ -23,7 +23,6 @@ android {
 }
 
 dependencies {
-    compile project(':anysdklib')
+    compile project(':emasdklib')
     compile 'com.android.support:support-v4:19.1.0'
-    compile project(':emasdk')
 }

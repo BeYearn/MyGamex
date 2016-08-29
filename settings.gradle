@@ -1,2 +1,2 @@
-include ':anysdklib', ':emasdk'
+include ':emasdklib'
 include ':app'
