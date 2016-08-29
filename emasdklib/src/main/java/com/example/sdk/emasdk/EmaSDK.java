@@ -6,8 +6,13 @@ import android.util.Log;
 import com.anysdk.framework.PluginWrapper;
 import com.anysdk.framework.java.AnySDK;
 import com.anysdk.framework.java.AnySDKListener;
+import com.anysdk.framework.java.AnySDKParam;
 import com.anysdk.framework.java.AnySDKUser;
+import com.anysdk.framework.java.ToolBarPlaceEnum;
 import com.example.sdk.emasdk.utils.ULocalUtils;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Young on 2016/7/9.
@@ -47,30 +52,52 @@ public class EmaSDK {
     }
 
 
-    public void release() {
-        AnySDK.getInstance().release();
+    public void doLogin(){
+        EmaSDKUser.getInstance().login();
+    }
+
+    public void doLogout() {
+        AnySDKUser.getInstance().callFunction("logout");
+    }
+
+    public void doPay(Map map,EmaSDKListener listener){
+        EmaSDKIAP iap = EmaSDKIAP.getInstance();
+        ArrayList<String> idArrayList = iap.getPluginId();
+        iap.payForProduct(idArrayList.get(0), map,listener);
+    }
+
+    public void doShowToolbar() {
+        AnySDKParam param = new AnySDKParam(ToolBarPlaceEnum.kToolBarTopLeft.getPlace());
+        AnySDKUser.getInstance().callFunction("showToolBar", param);
     }
 
 
-    public  void EmaDebug(String s1, String s2) {
-        Log.e(s1, s2);
+    public void doHideToobar() {
+        if (AnySDKUser.getInstance().isFunctionSupported("hideToolBar")) {
+            AnySDKUser.getInstance().callFunction("hideToolBar");
+        }
     }
 
-    public void onDestroy(){
-        PluginWrapper.onDestroy();
-        EmaSDK.getInstance().release();
+
+    public void onResume() {
+        PluginWrapper.onResume();
     }
 
     public void onPause() {
         PluginWrapper.onPause();
     }
 
-    public void onResume() {
-        PluginWrapper.onResume();
-    }
-
     public void onStop() {
         PluginWrapper.onStop();
+    }
+
+    public void onDestroy(){
+        PluginWrapper.onDestroy();
+        AnySDK.getInstance().release();
+    }
+
+    public  void EmaDebug(String s1, String s2) {
+        Log.e(s1, s2);
     }
 
 }

@@ -17,11 +17,8 @@ import android.widget.Toast;
 
 import com.example.sdk.emasdk.EmaCallBackConst;
 import com.example.sdk.emasdk.EmaSDK;
-import com.example.sdk.emasdk.EmaSDKIAP;
 import com.example.sdk.emasdk.EmaSDKListener;
 import com.example.sdk.emasdk.EmaSDKUser;
-
-import java.util.ArrayList;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -105,19 +102,15 @@ public class MainActivity extends Activity implements OnClickListener {
                 break;
             case R.id.bt_login:
                 if (isSuccess) {
-                    EmaSDKUser.getInstance().login();
+                    EmaSDK.getInstance().doLogin();
                     //AnySDKUser.getInstance().login();
                 } else {
                     Toast.makeText(this, "sdk未初始化成功", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.bt_pay:
-                EmaSDKIAP iap = EmaSDKIAP.getInstance();
-                ArrayList<String> idArrayList = iap.getPluginId();
-                //if (idArrayList.size() == 1) {
-                iap.payForProduct(idArrayList.get(0), DataManager
+                EmaSDK.getInstance().doPay(DataManager
                         .getInstance().getProductionInfo(), new EmaSDKListener() {
-
                     @Override
                     public void onCallBack(int arg0, String arg1) {
                         Log.d(String.valueOf(arg0), arg1);
@@ -133,16 +126,9 @@ public class MainActivity extends Activity implements OnClickListener {
                             case EmaCallBackConst.PAYCANELI:// 支付取消回调
                                 //showDialog(temp, "Cancel");
                                 break;
-
                         }
                     }
                 });
-               /* } else {
-                    *//**
-             * 多支付
-             *//*
-                    ChoosePayMode(idArrayList);
-                }*/
                 break;
         }
 
