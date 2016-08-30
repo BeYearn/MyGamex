@@ -4,7 +4,7 @@ android {
     compileSdkVersion 19
     buildToolsVersion "23.0.3"
     defaultConfig {
-        applicationId 'cn.emagroup.kom'
+        applicationId 'com.example.myggame'
         minSdkVersion 14
         targetSdkVersion 19
         compileOptions {

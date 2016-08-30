@@ -33,4 +33,7 @@ public class EmaCallBackConst {
 	//注册状态 500开始
 	public final static int REGISTERSUCCESS = 500;//注册成功
 	public final static int REGISTERFALIED = 501;//注册失败
+
+	//接收推送消息
+	public final static int RECIVEMSG_MSG = 123;//接收到
 }

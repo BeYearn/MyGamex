@@ -10,6 +10,7 @@ import com.anysdk.framework.java.AnySDKParam;
 import com.anysdk.framework.java.AnySDKUser;
 import com.anysdk.framework.java.ToolBarPlaceEnum;
 import com.example.sdk.emasdk.utils.ULocalUtils;
+import com.igexin.sdk.PushManager;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class EmaSDK {
     private static EmaSDK instance = null;
     public static Activity mActivity = null;
     private EmaSDKListener listener;
+    private EmaSDKListener reciveMsgListener;
 
     public static EmaSDK getInstance() {
         if (instance == null) {
@@ -49,6 +51,9 @@ public class EmaSDK {
                 }
             }
         });
+
+        //个推初始化
+        PushManager.getInstance().initialize(activity.getApplicationContext());
     }
 
 
@@ -77,6 +82,20 @@ public class EmaSDK {
             AnySDKUser.getInstance().callFunction("hideToolBar");
         }
     }
+
+
+    public void doSetRecivePushListner(EmaSDKListener listener){
+        this.reciveMsgListener=listener;
+    }
+
+    public void makeCallBack(int msgCode, String msgObj){
+        if(reciveMsgListener == null){
+            Log.w("warn", "未设置回调");
+            return;
+        }
+        reciveMsgListener.onCallBack(msgCode,msgObj);
+    }
+
 
 
     public void onResume() {
