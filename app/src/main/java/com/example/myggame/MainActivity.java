@@ -28,6 +28,9 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button btPay;
     private LinearLayout myLayout;
     private TextView tvName;
+    private Button btLogout;
+    private Button btShowBar;
+    private Button btHideBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,9 @@ public class MainActivity extends Activity implements OnClickListener {
         tvName = (TextView) findViewById(R.id.tv_login);
         btLogin = (Button) findViewById(R.id.bt_login);
         btPay = (Button) findViewById(R.id.bt_pay);
+        btLogout= (Button) findViewById(R.id.bt_logout);
+        btShowBar= (Button) findViewById(R.id.bt_showbar);
+        btHideBar= (Button) findViewById(R.id.bt_hidebar);
 
 
         EmaSDK.getInstance().init(this, new EmaSDKListener() {
@@ -93,6 +99,9 @@ public class MainActivity extends Activity implements OnClickListener {
         tvName.setOnClickListener(this);
         btLogin.setOnClickListener(this);
         btPay.setOnClickListener(this);
+        btLogout.setOnClickListener(this);
+        btShowBar.setOnClickListener(this);
+        btHideBar.setOnClickListener(this);
 
         Log.e("++++++++++", Thread.currentThread().getName());
     }
@@ -117,6 +126,15 @@ public class MainActivity extends Activity implements OnClickListener {
                 } else {
                     Toast.makeText(this, "sdk未初始化成功", Toast.LENGTH_LONG).show();
                 }
+                break;
+            case R.id.bt_logout:
+                EmaSDK.getInstance().doLogout();
+                break;
+            case R.id.bt_showbar:
+                EmaSDK.getInstance().doShowToolbar();
+                break;
+            case R.id.bt_hidebar:
+                EmaSDK.getInstance().doHideToobar();
                 break;
             case R.id.bt_pay:
                 EmaSDK.getInstance().doPay(DataManager

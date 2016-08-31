@@ -20,10 +20,28 @@
         android:layout_below="@+id/tv_login"
         android:text="点击登陆" />
     <Button
-        android:id="@+id/bt_pay"
+        android:id="@+id/bt_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bt_login"
+        android:text="点击登出" />
+    <Button
+        android:id="@+id/bt_showbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_logout"
+        android:text="点击显示bar" />
+    <Button
+        android:id="@+id/bt_hidebar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_showbar"
+        android:text="点击隐藏bar" />
+    <Button
+        android:id="@+id/bt_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_hidebar"
         android:text="点击支付" />
 
 </RelativeLayout>

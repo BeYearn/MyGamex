@@ -58,7 +58,7 @@
             android:value="E1797C83D90832FAD90784C059C0742B" />
         <meta-data
             android:name="authLoginServer"
-            android:value="http://192.168.10.80:8080/ema-platform/authLogin.jsp" />
+            android:value="https://staging-platform.lemonade-game.com/ema-platform/member/createWeakAccount" />
         <!--authLoginServer="http://oauth.anysdk.com/api/OauthLoginDemo/Login.php"-->
         <!--authLoginServer="http://192.168.10.80:8080/ema-platform/authLogin.jsp"-->
 
