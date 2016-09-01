@@ -1,4 +1,4 @@
-package com.example.sdk.emasdk.http;
+package com.emagroup.emasdk.http;
 
 /**
  * Created by Administrator on 2016/7/29.

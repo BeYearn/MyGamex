@@ -15,10 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sdk.emasdk.EmaCallBackConst;
-import com.example.sdk.emasdk.EmaSDK;
-import com.example.sdk.emasdk.EmaSDKListener;
-import com.example.sdk.emasdk.EmaSDKUser;
+import com.emagroup.emasdk.EmaCallBackConst;
+import com.emagroup.emasdk.EmaSDK;
+import com.emagroup.emasdk.EmaSDKListener;
+import com.emagroup.emasdk.EmaSDKUser;
 
 public class MainActivity extends Activity implements OnClickListener {
 

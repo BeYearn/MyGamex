@@ -1,4 +1,4 @@
-package com.example.sdk.emasdk;
+package com.emagroup.emasdk;
 
 /**
  * 回调方法返回值的状态常量定义类

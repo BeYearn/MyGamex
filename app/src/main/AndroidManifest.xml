@@ -80,7 +80,7 @@
 
         <!-- 配置第三方Receiver -->
         <receiver
-            android:name="com.example.sdk.emasdk.PushDemoReceiver"
+            android:name="com.emagroup.emasdk.PushDemoReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.augb87iFQ1AcrdvCWfN9L4" />

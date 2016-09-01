@@ -1,4 +1,4 @@
-package com.example.sdk.emasdk.utils;
+package com.emagroup.emasdk.utils;
 
 /**
  * Created by Administrator on 2016/8/16.
