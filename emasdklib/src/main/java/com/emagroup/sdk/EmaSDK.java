@@ -64,6 +64,7 @@ public class EmaSDK {
         AnySDKUser.getInstance().callFunction("logout");
     }
 
+    // TODO: 2016/9/2 支付方法还未完全统一，暂时放下
     public void doPay(Map map,EmaSDKListener listener){
         EmaSDKIAP iap = EmaSDKIAP.getInstance();
         ArrayList<String> idArrayList = iap.getPluginId();
@@ -113,10 +114,6 @@ public class EmaSDK {
     public void onDestroy(){
         PluginWrapper.onDestroy();
         AnySDK.getInstance().release();
-    }
-
-    public  void EmaDebug(String s1, String s2) {
-        Log.e(s1, s2);
     }
 
 }

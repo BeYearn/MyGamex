@@ -38,7 +38,7 @@ public class ULocalUtils {
                     builder = factory.newDocumentBuilder();
                 } catch (ParserConfigurationException e1) {
                     // TODO Auto-generated catch block
-                    EmaSDK.getInstance().EmaDebug("ULocalUtils", "factory创建失败");
+                    Log.e("ULocalUtils", "factory创建失败");
                     e1.printStackTrace();
                 }
                 try {
@@ -49,23 +49,23 @@ public class ULocalUtils {
 
                     //遍历xml
                     int leng = NodeMap.getLength();
-                    EmaSDK.getInstance().EmaDebug("ULocalUtils", filename + "中节点数量： " + leng);
+                    Log.e("ULocalUtils", filename + "中节点数量： " + leng);
                     for (int i = 0; i < NodeMap.getLength(); i++) {
                         String mString5 = NodeMap.item(i).getNodeName();
                         String mString6 = NodeMap.item(i).getNodeValue();
-                        EmaSDK.getInstance().EmaDebug("ULocalUtils", "遍历" + filename + "中节点： " + mString5 + mString6);
+                        Log.e("ULocalUtils", "遍历" + filename + "中节点： " + mString5 + mString6);
                     }
                     //遍历end
 
 
                 } catch (SAXException e) {
                     // TODO Auto-generated catch block
-                    EmaSDK.getInstance().EmaDebug("", "解析" + filename + "失败2");
+                    Log.e("", "解析" + filename + "失败2");
                     e.printStackTrace();
                 }
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                EmaSDK.getInstance().EmaDebug("ULocalUtils", "读取" + filename + "出错！！！");
+                Log.e("ULocalUtils", "读取" + filename + "出错！！！");
                 e.printStackTrace();
             }
         }
@@ -75,7 +75,7 @@ public class ULocalUtils {
             Node mNode = NodeMap.getNamedItem(str);
             String mString = mNode.getNodeValue();
             if (mString == null) {
-                EmaSDK.getInstance().EmaDebug("", str + "为空");
+                Log.e("", str + "为空");
             }
             return mString;
         }
