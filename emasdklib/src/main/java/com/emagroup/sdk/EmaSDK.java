@@ -1,4 +1,4 @@
-package com.emagroup.emasdk;
+package com.emagroup.sdk;
 
 import android.app.Activity;
 import android.util.Log;
@@ -9,7 +9,6 @@ import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKParam;
 import com.anysdk.framework.java.AnySDKUser;
 import com.anysdk.framework.java.ToolBarPlaceEnum;
-import com.emagroup.emasdk.utils.ULocalUtils;
 import com.igexin.sdk.PushManager;
 
 import java.util.ArrayList;

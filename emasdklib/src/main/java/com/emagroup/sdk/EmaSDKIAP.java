@@ -1,4 +1,4 @@
-package com.emagroup.emasdk;
+package com.emagroup.sdk;
 
 import android.app.Activity;
 

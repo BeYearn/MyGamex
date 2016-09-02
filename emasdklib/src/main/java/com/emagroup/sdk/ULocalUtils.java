@@ -1,4 +1,4 @@
-package com.emagroup.emasdk.utils;
+package com.emagroup.sdk;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -6,8 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-
-import com.emagroup.emasdk.EmaSDK;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;

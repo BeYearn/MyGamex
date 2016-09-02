@@ -1,13 +1,9 @@
-package com.emagroup.emasdk;
+package com.emagroup.sdk;
 
 import android.app.Activity;
 import android.util.Log;
 
 import com.anysdk.framework.java.AnySDKUser;
-import com.emagroup.emasdk.http.HttpRequestor;
-import com.emagroup.emasdk.http.ThreadUtil;
-import com.emagroup.emasdk.utils.Instants;
-import com.emagroup.emasdk.utils.ULocalUtils;
 
 import org.json.JSONObject;
 
