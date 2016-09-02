@@ -21,7 +21,7 @@ public class EmaSDK {
     private static EmaSDK instance = null;
     public static Activity mActivity = null;
     private EmaSDKListener listener;
-    private EmaSDKListener reciveMsgListener;
+    private static EmaSDKListener reciveMsgListener;
 
     public static EmaSDK getInstance() {
         if (instance == null) {
@@ -85,6 +85,7 @@ public class EmaSDK {
 
     public void doSetRecivePushListner(EmaSDKListener listener){
         this.reciveMsgListener=listener;
+        Log.e("111","listner 已设置");
     }
 
     public void makeCallBack(int msgCode, String msgObj){

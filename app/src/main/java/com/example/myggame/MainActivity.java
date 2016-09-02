@@ -91,7 +91,6 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
             }
         });
-
         //initPayListner();
 
         tvName.setOnClickListener(this);
