@@ -68,16 +68,6 @@ public class MainActivity extends Activity implements OnClickListener {
                         break;
                     case EmaCallBackConst.LOGOUTFALIED://登出失败回调
                         break;
-                    /*case UserWrapper.ACTION_RET_REALNAMEREGISTER://实名注册回调
-                        break;
-                    case UserWrapper.ACTION_RET_ACCOUNTSWITCH_SUCCESS://切换账号成功回调
-                        break;
-                    case UserWrapper.ACTION_RET_ACCOUNTSWITCH_FAIL://切换账号失败回调
-                        break;
-                    case UserWrapper.ACTION_RET_OPENSHOP://应用汇特有回调，接受到该回调调出游戏商店界面
-                        break;
-                    default:
-                        break;*/
                 }
             }
         });
@@ -134,7 +124,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 EmaSDK.getInstance().doHideToobar();
                 break;
             case R.id.bt_pay:
-                EmaSDK.getInstance().doPay(DataManager
+                /*EmaSDK.getInstance().doPay(DataManager
                         .getInstance().getProductionInfo(), new EmaSDKListener() {
                     @Override
                     public void onCallBack(int arg0, String arg1) {
@@ -153,48 +143,13 @@ public class MainActivity extends Activity implements OnClickListener {
                                 break;
                         }
                     }
-                });
+                });*/
                 break;
         }
 
 
     }
 
-   /* */
-
-    /**
-     * @param @param payMode
-     * @return void
-     * @throws
-     * @Title: ChoosePayMode
-     * @Description: 多支付调用方法
-     *//*
-    public void ChoosePayMode(ArrayList<String> payMode) {
-        myLayout = new LinearLayout(this);
-        OnClickListener onclick = new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                EmaSDKIAP.getInstance().payForProduct((String) v.getTag(), DataManager.getInstance().getProductionInfo());
-            }
-        };
-        for (int i = 0; i < payMode.size(); i++) {
-            Button button = new Button(this);
-            String res = "Channel" + payMode.get(i);
-            //button.setText(getResourceId(res, "string"));
-            button.setText("xxxxx");
-            button.setOnClickListener(onclick);
-            button.setTag(payMode.get(i));
-            myLayout.addView(button);
-        }
-
-        AlertDialog.Builder dialog02 = new AlertDialog.Builder(this);
-        dialog02.setView(myLayout);
-        dialog02.setTitle("UI PAY");
-
-
-        dialog02.show();
-    }*/
     private void showDialog(String str) {
         final String curMsg = str;
         uiHandler.post(new Runnable() {
