@@ -53,6 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         Toast.makeText(MainActivity.this, "sdk初始化成功", Toast.LENGTH_LONG).show();
                         break;
                     case EmaCallBackConst.INITFALIED://初始化SDK失败回调
+                        Toast.makeText(MainActivity.this, "sdk初始化失败", Toast.LENGTH_LONG).show();
                         break;
                     case EmaCallBackConst.LOGINSUCCESS://登陆成功回调
                         showDialog("登陆成功\n设备id为\n----");
@@ -109,7 +110,6 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.bt_login:
                 if (isSuccess) {
                     EmaSDK.getInstance().doLogin();
-                    //AnySDKUser.getInstance().login();
                 } else {
                     Toast.makeText(this, "sdk未初始化成功", Toast.LENGTH_LONG).show();
                 }

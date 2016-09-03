@@ -25,7 +25,7 @@ public class EmaSDK {
 
     public static EmaSDK getInstance() {
         if (instance == null) {
-            return new EmaSDK();
+            instance=new EmaSDK();
         }
         return instance;
     }
@@ -45,6 +45,7 @@ public class EmaSDK {
         AnySDKUser.getInstance().setListener(new AnySDKListener() {
             @Override
             public void onCallBack(int i, String s) {
+                Log.e("EMASDK",s+"+++++++++++++++++++++++++++++++ "+i);
                 if (EmaSDK.this.listener != null) {
                     EmaSDK.this.listener.onCallBack(i, s);
                 }
