@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eeeeee"
+    android:orientation="vertical"
+    tools:context=".EmaRechargeMabi" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#ff7111" >
+
+            <Button
+                android:id="@+id/ema_recharge_mabi_back"
+                android:layout_width="45dp"
+                android:layout_height="19dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ema_account_btn6" />
+
+            <ImageView
+                android:id="@+id/ema_recharge_mabi_imageView_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:paddingBottom="2dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:src="@drawable/ema_3rd_btn1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="充值钱包"
+                android:textColor="#ffffff"
+                android:textSize="18dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp" >
+
+                <TextView
+                    android:id="@+id/ema_recharge_mabi_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="账户："
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/ema_recharge_mabi_account_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/ema_recharge_mabi_count"
+                    android:layout_alignBottom="@+id/ema_recharge_mabi_count"
+                    android:layout_toRightOf="@+id/ema_recharge_mabi_count"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp" >
+
+                <TextView
+                    android:id="@+id/ema_recharge_mabi_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="余额："
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/ema_recharge_mabi_balance_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/ema_recharge_mabi_balance"
+                    android:layout_alignBottom="@+id/ema_recharge_mabi_balance"
+                    android:layout_toRightOf="@+id/ema_recharge_mabi_balance"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+          
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="11dp"
+                android:background="#b3b3b3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="0dp"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp" >
+
+                <TextView
+                    android:id="@+id/ema_recharge_EditText_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:text="充值金额："
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/ema_recharge_EditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/ema_recharge_EditText_text"
+                    android:layout_toRightOf="@+id/ema_recharge_EditText_text"
+                    android:background="#ffffff"
+                    android:cursorVisible="true"
+                    android:digits="0123456789."
+                    android:hint="请输入充值金额（1元=1柠檬）"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textColorHint="#673300"
+                    android:textCursorDrawable="@drawable/ema_edittext_cursor"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp"
+                android:background="#b3b3b3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="快速选择其他金额："
+                    android:textColor="#000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#b3b3b3"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/ema_recharge_mabi_btn_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1px"
+                        android:layout_marginLeft="1px"
+                        android:layout_marginRight="1px"
+                        android:layout_marginTop="1px"
+                        android:layout_weight="1.0"
+                        android:background="#ffffff"
+                        android:text="10元"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+                    <Button
+                        android:id="@+id/ema_recharge_mabi_btn_50"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1px"
+                        android:layout_marginLeft="0px"
+                        android:layout_marginRight="1px"
+                        android:layout_marginTop="1px"
+                        android:layout_weight="1.0"
+                        android:background="#ffffff"
+                        android:text="50元"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+                    <Button
+                        android:id="@+id/ema_recharge_mabi_btn_100"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1px"
+                        android:layout_marginLeft="0px"
+                        android:layout_marginRight="1px"
+                        android:layout_marginTop="1px"
+                        android:layout_weight="1.0"
+                        android:background="#ffffff"
+                        android:text="100元"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#b3b3b3"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/ema_recharge_mabi_btn_200"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1px"
+                        android:layout_marginLeft="1px"
+                        android:layout_marginRight="1px"
+                        android:layout_marginTop="0px"
+                        android:layout_weight="1.0"
+                        android:background="#ffffff"
+                        android:text="200元"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+                    <Button
+                        android:id="@+id/ema_recharge_mabi_btn_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1px"
+                        android:layout_marginLeft="0px"
+                        android:layout_marginRight="1px"
+                        android:layout_marginTop="0px"
+                        android:layout_weight="1.0"
+                        android:background="#ffffff"
+                        android:text="500元"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+                    <Button
+                        android:id="@+id/ema_recharge_mabi_btn_1000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1px"
+                        android:layout_marginLeft="0px"
+                        android:layout_marginRight="1px"
+                        android:layout_marginTop="0px"
+                        android:layout_weight="1.0"
+                        android:background="#ffffff"
+                        android:text="1000元"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="15dp"
+                android:background="#b3b3b3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="0dp"
+                android:background="#b3b3b3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:text="请选择支付方式："
+                android:textColor="#000000"
+                android:textSize="15dp" />
+
+            <GridView
+                android:id="@+id/ema_recharge_mabi_PayList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:verticalSpacing="10dp"
+                android:numColumns="4" >
+            </GridView>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

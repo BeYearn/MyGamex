@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        layout="@layout/ema_com_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:paddingLeft="10dp" >
+
+            <ListView
+                android:id="@+id/ema_list_gcard"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#f2e9d1"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                android:dividerHeight="5dp"
+                android:listSelector="@android:color/transparent"
+                android:padding="10dp" >
+            </ListView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="#e3dbc0" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f2e9d1"
+                android:src="@drawable/ema_logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f2e9d1"
+                android:gravity="center"
+                android:text="客服QQ：1468408425"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ema_logo_sign_bottom" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="本次待付金额："
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/ema_pay_gcard_need"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10元"
+                        android:textColor="#ff7111"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（扣除支付金额后所剩余金额将转换成柠檬自动存入您的账户）"
+                    android:textColor="#ff7111"
+                    android:textSize="12dp" />
+
+                <com.emagroup.sdk.MyGridView
+                    android:id="@+id/ema_gridview_gcard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:cacheColorHint="#00000000"
+                    android:horizontalSpacing="10dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="5"
+                    android:verticalSpacing="10dp" >
+                </com.emagroup.sdk.MyGridView>
+
+                <EditText
+                    android:id="@+id/ema_pay_gamecard_card_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/ema_pay_gcard_edt_bg"
+                    android:cursorVisible="true"
+                    android:hint="请输入充值卡号码"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textColorHint="#673300"
+                    android:textCursorDrawable="@drawable/ema_edittext_cursor"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/ema_pay_gamecard_card_passw"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ema_pay_gcard_edt_bg"
+                    android:cursorVisible="true"
+                    android:hint="请输入充值卡密码"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textColorHint="#673300"
+                    android:textCursorDrawable="@drawable/ema_edittext_cursor"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/ema_pay_gamecard_btn_pay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/ema_pay_gcard_list_itme_btn"
+                    android:text="支付"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="温馨提示：请选择与卡面额相符的金额！否则支付可能会支付失败"
+                    android:textColor="#ff0000"
+                    android:textSize="10dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

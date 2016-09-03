@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eeeeee"
+    android:orientation="vertical" >
+
+    <!-- 页面头部 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ff7111" >
+
+        <ImageView
+            android:id="@+id/ema_pay_thrd_return_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:paddingBottom="2dp"
+            android:paddingRight="10dp"
+            android:paddingTop="2dp"
+            android:src="@drawable/ema_3rd_btn1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="支付订单"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    <!-- 页面内容 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#b3b3b3" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp" >
+
+            <TextView
+                android:id="@+id/ema_pay_thrd_totalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:text="支付金额："
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/ema_pay_thrd_total_price_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/ema_pay_thrd_totalPrice"
+                android:text="10000麻豆"
+                android:textColor="#ff7111"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="11dp"
+            android:background="#b3b3b3" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp" >
+
+            <TextView
+                android:id="@+id/ema_pay_thrd_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:text="充值用户："
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/ema_pay_thrd_username_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/ema_pay_thrd_username"
+                android:text="ema123"
+                android:textColor="#ff7111"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="11dp"
+            android:background="#b3b3b3" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp" >
+
+            <TextView
+                android:id="@+id/ema_pay_thrd_goodsName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:text="购买商品："
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/ema_pay_thrd_goodsname_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/ema_pay_thrd_goodsName"
+                android:text="EmaGoods"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="#b3b3b3" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp"
+            android:background="#eeeeee" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:text="选择支付方式："
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <GridView
+            android:id="@+id/ema_pay_thrd_PayList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:verticalSpacing="10dp"
+            android:numColumns="4" >
+        </GridView>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <drawable name="ema_clr_normal">#f5f5dc</drawable>
+    <drawable name="ema_clr_pressed">#f5f5f5</drawable>
+    
+</resources>

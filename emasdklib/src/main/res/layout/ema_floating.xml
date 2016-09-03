@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="1dp"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/ema_toolbar_left"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/ema_btn_account_left"
+            android:layout_width="@dimen/ema_toolbar_width"
+            android:layout_height="@dimen/ema_toolbar_height"
+            android:background="@null"
+            android:drawableTop="@drawable/ema_floating_accoun"
+            android:padding="@dimen/ema_toolbar_padding"
+            android:text="账户"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/ema_btn_gift_left"
+            android:layout_width="@dimen/ema_toolbar_width"
+            android:layout_height="@dimen/ema_toolbar_height"
+            android:background="@null"
+            android:drawableTop="@drawable/ema_floating_giftbag"
+            android:padding="@dimen/ema_toolbar_padding"
+            android:text="礼包"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+        
+         <Button
+            android:id="@+id/ema_btn_promotion_left"
+            android:layout_width="@dimen/ema_toolbar_width"
+            android:layout_height="@dimen/ema_toolbar_height"
+            android:background="@null"
+            android:drawableTop="@drawable/ema_floating_promotion"
+            android:padding="@dimen/ema_toolbar_padding"
+            android:text="推广"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/ema_btn_help_left"
+            android:layout_width="@dimen/ema_toolbar_width"
+            android:layout_height="@dimen/ema_toolbar_height"
+            android:background="@null"
+            android:drawableTop="@drawable/ema_floating_help"
+            android:padding="@dimen/ema_toolbar_padding"
+            android:text="帮助"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ema_btn_toolbar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ema_floating_icon"
+        android:padding="@dimen/ema_toolbar_padding" />
+
+    <LinearLayout
+        android:id="@+id/ema_toolbar_right"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ema_btn_account"
+            android:layout_width="@dimen/ema_toolbar_width"
+            android:layout_height="@dimen/ema_toolbar_height"
+            android:background="@null"
+            android:drawableTop="@drawable/ema_floating_accoun"
+            android:padding="@dimen/ema_toolbar_padding"
+            android:text="账户"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/ema_btn_gift"
+            android:layout_width="@dimen/ema_toolbar_width"
+            android:layout_height="@dimen/ema_toolbar_height"
+            android:background="@null"
+            android:drawableTop="@drawable/ema_floating_giftbag"
+            android:padding="@dimen/ema_toolbar_padding"
+            android:text="礼包"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/ema_btn_promotion"
+            android:layout_width="@dimen/ema_toolbar_width"
+            android:layout_height="@dimen/ema_toolbar_height"
+            android:background="@null"
+            android:drawableTop="@drawable/ema_floating_promotion"
+            android:padding="@dimen/ema_toolbar_padding"
+            android:text="推广"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+        
+        <Button
+            android:id="@+id/ema_btn_help"
+            android:layout_width="@dimen/ema_toolbar_width"
+            android:layout_height="@dimen/ema_toolbar_height"
+            android:background="@null"
+            android:drawableTop="@drawable/ema_floating_help"
+            android:padding="@dimen/ema_toolbar_padding"
+            android:text="帮助"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+    </LinearLayout>
+
+</LinearLayout>
