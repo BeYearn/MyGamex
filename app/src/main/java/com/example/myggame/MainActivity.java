@@ -13,10 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anysdk.framework.java.AnySDK;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
+
+import java.util.HashMap;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -82,8 +85,6 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
             }
         });
-        //initPayListner();
-
         tvName.setOnClickListener(this);
         btLogin.setOnClickListener(this);
         btPay.setOnClickListener(this);
@@ -94,14 +95,7 @@ public class MainActivity extends Activity implements OnClickListener {
         Log.e("++++++++++", Thread.currentThread().getName());
     }
 
-    /*private void initPayListner() {
-        */
 
-    /**
-     * 为支付系统设置监听
-     *//*
-        EmaSDKIAP.getInstance().setListener();
-    }*/
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -124,26 +118,39 @@ public class MainActivity extends Activity implements OnClickListener {
                 EmaSDK.getInstance().doHideToobar();
                 break;
             case R.id.bt_pay:
-                /*EmaSDK.getInstance().doPay(DataManager
-                        .getInstance().getProductionInfo(), new EmaSDKListener() {
+
+                HashMap<String, String> payInfoMap = new HashMap<>();
+                payInfoMap.put("Product_Price", "0.01");
+                if(AnySDK.getInstance().getChannelId().equals("000016") || AnySDK.getInstance().getChannelId().equals("000009")|| AnySDK.getInstance().getChannelId().equals("000349")){
+                    payInfoMap.put("Product_Id", "10");
+                }else{
+                    payInfoMap.put("Product_Id", "monthly");
+                }
+                payInfoMap.put("Product_Name","gold");
+                payInfoMap.put("Server_Id", "13");
+                payInfoMap.put("Product_Count", "1");
+                payInfoMap.put("Role_Id","1");
+                payInfoMap.put("Role_Name", "1");
+                payInfoMap.put("Role_Grade", "1");
+                payInfoMap.put("Role_Balance", "1");
+
+                EmaSDK.getInstance().doPay(payInfoMap, new EmaSDKListener() {
                     @Override
                     public void onCallBack(int arg0, String arg1) {
                         Log.d(String.valueOf(arg0), arg1);
-                        String temp = "fail";
                         switch (arg0) {
                             case EmaCallBackConst.PAYSUCCESS:// 支付成功回调
-                                temp = "Success";
                                 showDialog("pay successful---");
                                 break;
                             case EmaCallBackConst.PAYFALIED:// 支付失败回调
                                 showDialog("pay failed---");
                                 break;
                             case EmaCallBackConst.PAYCANELI:// 支付取消回调
-                                //showDialog(temp, "Cancel");
+                                showDialog("pay cancle");
                                 break;
                         }
                     }
-                });*/
+                });
                 break;
         }
 
