@@ -64,13 +64,13 @@
 
         <meta-data
             android:name="appKey"
-            android:value="B9E60577-E146-C403-0CB4-35FFB8C053E6" />
+            android:value="CB673C65-9E01-5530-A280-77EA6D8D42DD" />
         <meta-data
             android:name="appSecret"
-            android:value="cc78ba68ef75b2249d0a7edf27db5d3d" />
+            android:value="bad2f8c81bf5ad2ec9a4e4563c1e8ad2" />
         <meta-data
             android:name="privateKey"
-            android:value="E1797C83D90832FAD90784C059C0742B" />
+            android:value="21A90ABB70F1CBB43095F79AF73440E7" />
         <meta-data
             android:name="authLoginServer"
             android:value="https://platform.lemonade-game.com/ema-platform/authLogin.jsp"/>
