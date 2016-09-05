@@ -54,18 +54,20 @@ public class EmaSDKUser {
                 try {
                     //耗时操作 阻塞
                     String urlGet = Instants.CREAT_WEAKCOUNT_URL;
-                    String strGet = new HttpRequestor().doGet(urlGet + deviceId);
+
+                    Map<String, String> paramMap = new HashMap<String, String>();
+                    paramMap.put("deviceType","android");
+                    paramMap.put("deviceKey",deviceId);
+
+                    Log.e("创建弱账户","deviceKey:"+deviceId);
+
+                    String strGet = new HttpRequestor().doPost(urlGet,paramMap);
 
                     JSONObject jsonObject = new JSONObject(strGet);
                     JSONObject data = jsonObject.getJSONObject("data");
                     userid = data.getString("userid");
-                    /*//Thread.sleep(4000); 模拟睡4s
-                    Message message = ThreadUtil.handler.obtainMessage();
-                    message.what = 1;
-                    message.obj = strGet;
-                    ThreadUtil.handler.sendMessage(message);*/
 
-                    Log.e("EmaSdkUser","弱账户创建成功");
+                    Log.e("User creatweakAccount","弱账户创建成功:"+userid);
 
                 } catch (Exception e) {
                     e.printStackTrace();
