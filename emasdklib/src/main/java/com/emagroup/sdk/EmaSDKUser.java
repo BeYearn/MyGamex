@@ -65,7 +65,7 @@ public class EmaSDKUser {
                     message.obj = strGet;
                     ThreadUtil.handler.sendMessage(message);*/
 
-                    loginActual(userid, deviceId);
+                    Log.e("EmaSdkUser","弱账户创建成功");
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -74,10 +74,12 @@ public class EmaSDKUser {
 
             }
         });
+
+        loginActual(userid, deviceId);
     }
 
     private void loginActual(String userid, String deviceId) {
-        Log.e("EmaSdkUser","弱账户创建成功");
+
         Map<String, String> info = new HashMap<String, String>();
         info.put("device_info", deviceId);
         info.put("uid", userid);
