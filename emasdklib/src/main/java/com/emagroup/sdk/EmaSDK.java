@@ -48,6 +48,11 @@ public class EmaSDK {
                 Log.e("EMASDK",s+"+++++++++++++++++++++++++++++++ "+i);
                 if (EmaSDK.this.listener != null) {
                     EmaSDK.this.listener.onCallBack(i, s);
+
+                    //登录成功后 显示toolbar
+                    if(EmaCallBackConst.LOGINSUCCESS==i){
+                        EmaSDK.getInstance().doShowToolbar();
+                    }
                 }
             }
         });
