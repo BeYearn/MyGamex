@@ -18,6 +18,7 @@ import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
+import com.emagroup.sdk.EmaUser;
 
 import java.util.HashMap;
 
@@ -61,6 +62,9 @@ public class MainActivity extends Activity implements OnClickListener {
                     case EmaCallBackConst.LOGINSUCCESS://登陆成功回调
                         showDialog("登陆成功\n设备id为\n----");
                         EmaSDKUser.getInstance().getUserID();
+
+                        EmaUser.getInstance().getNickName();
+                        EmaUser.getInstance().getmUid();
                         break;
                     case EmaCallBackConst.LOGINCANELL://登陆取消回调
                         break;
