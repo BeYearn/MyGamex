@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anysdk.framework.java.AnySDK;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
@@ -125,11 +124,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
                 HashMap<String, String> payInfoMap = new HashMap<>();
                 payInfoMap.put("Product_Price", "0.01");
-                if(AnySDK.getInstance().getChannelId().equals("000016") || AnySDK.getInstance().getChannelId().equals("000009")|| AnySDK.getInstance().getChannelId().equals("000349")){
-                    payInfoMap.put("Product_Id", "10");
-                }else{
-                    payInfoMap.put("Product_Id", "monthly");
-                }
+                payInfoMap.put("Product_Id", "10");
+
                 payInfoMap.put("Product_Name","gold");
                 payInfoMap.put("Server_Id", "13");
                 payInfoMap.put("Product_Count", "1");
