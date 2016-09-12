@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.anysdk.framework.java.AnySDK;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -105,7 +107,48 @@ public class ULocalUtils {
         }
 
 
+        /**
+         * 根据key获取metaData的Integer类型的数据
+         *
+         * @param context
+         * @param key
+         * @return
+         */
+        public static int getIntegerFromMetaData(Context context, String key){
+            ApplicationInfo ai;
+            int value = 0;
+            try {
+                ai = context.getPackageManager().getApplicationInfo(
+                        context.getPackageName(), PackageManager.GET_META_DATA);
+                Bundle bundle = ai.metaData;
+                value = bundle.getInt(key);
+            } catch (Exception e) {
+                Log.e("ullocalUtils", "参数设置错误, 请检查！");
+                e.printStackTrace();
+            }
+            return value;
+        }
+
     }
+
+    /**
+     * 得到的是ema定义的appkey，而不是anysdk的apkey
+     * @param context
+     * @return
+     */
+    public static String getAppKey(Context context){
+        return ULocalUtils.EmaSdkInfo.getIntegerFromMetaData(context,"EMA_APP_ID")+"";
+    }
+
+    /**
+     * 我们和anysdk对于渠道id的定义一样（即使用anysdk的渠道号）
+     * @return
+     */
+    public static String getAllienceId(){
+        String channelID = AnySDK.getInstance().getChannelId();
+        return channelID;
+    }
+
 
     public static String getIMEI(Context context){
         //1.获取deviceID 其实是IMEI

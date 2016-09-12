@@ -19,7 +19,9 @@ public class EmaSDKUser {
     private static AnySDKUser anySDKUser;
     private EmaSDKListener listener;
     private String userid;
-    private String deviceId;
+    private String deviceKey;
+    private String EmaAppKey;
+    private String allienceId;
 
     public static EmaSDKUser getInstance() {
         if (instance == null) {
@@ -45,9 +47,9 @@ public class EmaSDKUser {
 
     private void creatWeakAccount() {
 
-        deviceId = ULocalUtils.getIMEI(mActivity);
-
-        //请求测试(未来改为call我们的接口)
+        deviceKey = ULocalUtils.getIMEI(mActivity);
+        EmaAppKey= ULocalUtils.getAppKey(mActivity);
+        allienceId=ULocalUtils.getAllienceId();
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
@@ -57,9 +59,11 @@ public class EmaSDKUser {
 
                     Map<String, String> paramMap = new HashMap<String, String>();
                     paramMap.put("deviceType","android");
-                    paramMap.put("deviceKey",deviceId);
+                    paramMap.put("appKey",EmaAppKey);
+                    paramMap.put("allianceId",allienceId);
+                    paramMap.put("deviceKey",deviceKey);
 
-                    Log.e("创建弱账户","deviceKey:"+deviceId);
+                    Log.e("创建弱账户","deviceKey:"+ deviceKey+".."+EmaAppKey+"..."+allienceId);
 
                     String strGet = new HttpRequestor().doPost(urlGet,paramMap);
 
@@ -71,13 +75,49 @@ public class EmaSDKUser {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("error","maybe is SocketTimeoutException");
+                    Log.e("creatweakAccount","maybe is SocketTimeoutException");
                 }
 
             }
         });
 
-        loginActual(userid, deviceId);
+        loginActual(userid, deviceKey);
+    }
+
+    /**
+     * 在登录成功之后再call一次，将渠道uid传过去
+     */
+    public static void updateWeakAccount(final String appKey, final String allianceId, final String deviceKey,final String allianceUId){
+        ThreadUtil.runInSubThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //耗时操作 阻塞
+                    String url = Instants.UPDATE_WEAKCOUT_URL;
+
+                    Map<String, String> paramMap = new HashMap<String, String>();
+                    paramMap.put("deviceType","android");
+                    paramMap.put("appKey",appKey);
+                    paramMap.put("allianceId",allianceId);
+                    paramMap.put("deviceKey",deviceKey);
+                    paramMap.put("allianceUId",allianceUId);
+
+                    Log.e("update弱账户","....:"+appKey+"..."+allianceId+"..."+deviceKey+"..."+allianceUId);
+
+                    String restult = new HttpRequestor().doPost(url,paramMap);
+
+                    JSONObject jsonObject = new JSONObject(restult);
+                    String message = jsonObject.getString("message");
+
+                    Log.e("update弱账户创建:","结果:"+message);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("update弱账户创建","maybe is SocketTimeoutException");
+                }
+
+            }
+        });
     }
 
     private void loginActual(String userid, String deviceId) {

@@ -31,7 +31,7 @@ public class EmaSDK {
     }
 
 
-    public void init(Activity activity,EmaSDKListener listener) {
+    public void init(final Activity activity, EmaSDKListener listener) {
 
         this.mActivity = activity;
         ULocalUtils.EmaSdkInfo.readXml("ema_over.xml", activity);
@@ -49,9 +49,12 @@ public class EmaSDK {
                 if (EmaSDK.this.listener != null) {
                     EmaSDK.this.listener.onCallBack(i, s);
 
-                    //登录成功后 显示toolbar
+                    //登录成功后
                     if(EmaCallBackConst.LOGINSUCCESS==i){
+                        //显示toolbar
                         EmaSDK.getInstance().doShowToolbar();
+                        //补充弱账户信息
+                        EmaSDKUser.updateWeakAccount(ULocalUtils.getAppKey(activity),ULocalUtils.getAllienceId(),ULocalUtils.getIMEI(activity),EmaSDKUser.getInstance().getUserID());
                     }
                 }
             }

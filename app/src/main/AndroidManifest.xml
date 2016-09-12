@@ -77,6 +77,11 @@
         <!--authLoginServer="http://oauth.anysdk.com/api/OauthLoginDemo/Login.php"-->
         <!--authLoginServer="http://192.168.10.80:8080/ema-platform/authLogin.jsp"-->
 
+        <meta-data
+            android:name="EMA_APP_ID"
+            android:value="1000"/>
+        <!--EMA_APP_ID  ema对app的标识，此处添加，真正替换的时候，已经有了，不用再加-->
+
 
 
 
