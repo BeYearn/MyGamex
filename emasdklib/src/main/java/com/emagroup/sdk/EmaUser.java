@@ -8,6 +8,7 @@ import com.anysdk.framework.java.AnySDKUser;
 public class EmaUser {
 
     private static EmaUser instance;
+    private static String token;
 
     private EmaUser(){}
     public static EmaUser getInstance(){
@@ -25,5 +26,13 @@ public class EmaUser {
 
     public String getmUid(){
         return AnySDKUser.getInstance().getUserID();
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

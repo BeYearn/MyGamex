@@ -107,9 +107,10 @@ public class EmaSDKUser {
                     String restult = new HttpRequestor().doPost(url,paramMap);
 
                     JSONObject jsonObject = new JSONObject(restult);
-                    String message = jsonObject.getString("message");
+                    String token = jsonObject.getString("data");
+                    EmaUser.getInstance().setToken(token);
 
-                    Log.e("update弱账户创建:","结果:"+message);
+                    Log.e("update弱账户创建:","结果:"+token);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -132,7 +133,4 @@ public class EmaSDKUser {
         creatWeakAccount();
     }
 
-    public String getUserID() {
-        return anySDKUser.getUserID();
-    }
 }

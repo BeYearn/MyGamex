@@ -5,5 +5,9 @@ package com.emagroup.sdk;
  */
 public class Instants {
 
-    public static final String CREAT_WEAKCOUNT_URL = "https://platform.lemonade-game.com/ema-platform/member/createWeakAccount";
+    public static final String CREAT_WEAKCOUNT_URL = "https://testing-platform.lemonade-game.com:8443/ema-platform/member/createAlianceAccount";
+
+    public static final String UPDATE_WEAKCOUT_URL = "https://testing-platform.lemonade-game.com:8443/ema-platform/member/updateAlianceAccount";
+
+    public static final String HEART_BEAT_URL = "https://testing-platform.lemonade-game.com:8443/ema-platform/member/heartbeat";
 }

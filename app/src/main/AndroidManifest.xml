@@ -62,6 +62,9 @@
             </intent-filter>
         </activity>
 
+
+        <service android:name="com.emagroup.sdk.EmaService" />
+
         <meta-data
             android:name="appKey"
             android:value="CB673C65-9E01-5530-A280-77EA6D8D42DD" />

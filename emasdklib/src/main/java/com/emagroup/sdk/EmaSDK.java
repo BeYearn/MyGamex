@@ -1,6 +1,11 @@
 package com.emagroup.sdk;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.util.Log;
 
 import com.anysdk.framework.PluginWrapper;
@@ -31,6 +36,16 @@ public class EmaSDK {
     }
 
 
+    //绑定服务
+    private ServiceConnection mServiceCon = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+        }
+        @Override
+        public void onServiceConnected(ComponentName arg0, IBinder arg1) {
+        }
+    };
+
     public void init(final Activity activity, EmaSDKListener listener) {
 
         this.mActivity = activity;
@@ -53,8 +68,13 @@ public class EmaSDK {
                     if(EmaCallBackConst.LOGINSUCCESS==i){
                         //显示toolbar
                         EmaSDK.getInstance().doShowToolbar();
+
+                        //绑定服务
+                        Intent serviceIntent = new Intent(activity, EmaService.class);
+                        activity.bindService(serviceIntent, mServiceCon, Context.BIND_AUTO_CREATE);
+
                         //补充弱账户信息
-                        EmaSDKUser.updateWeakAccount(ULocalUtils.getAppKey(activity),ULocalUtils.getAllienceId(),ULocalUtils.getIMEI(activity),EmaSDKUser.getInstance().getUserID());
+                        EmaSDKUser.updateWeakAccount(ULocalUtils.getAppKey(activity),ULocalUtils.getAllienceId(),ULocalUtils.getIMEI(activity),EmaUser.getInstance().getmUid());
                     }
                 }
             }
