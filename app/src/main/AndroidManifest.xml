@@ -82,7 +82,7 @@
 
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="1000"/>
+            android:value="10001"/>
         <!--EMA_APP_ID  ema对app的标识，此处添加，真正替换的时候，已经有了，不用再加-->
 
 

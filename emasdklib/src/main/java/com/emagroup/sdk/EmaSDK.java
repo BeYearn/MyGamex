@@ -115,9 +115,13 @@ public class EmaSDK {
 
     public void doSetRecivePushListner(EmaSDKListener listener){
         this.reciveMsgListener=listener;
-        Log.e("111","listner 已设置");
     }
 
+    /**
+     * 个推的reciver收到透传消息后回调该方法
+     * @param msgCode
+     * @param msgObj
+     */
     public void makeCallBack(int msgCode, String msgObj){
         if(reciveMsgListener == null){
             Log.w("warn", "未设置回调");
@@ -126,6 +130,10 @@ public class EmaSDK {
         reciveMsgListener.onCallBack(msgCode,msgObj);
     }
 
+
+    public String getChannelId(){
+        return AnySDK.getInstance().getChannelId();
+    }
 
 
     public void onResume() {

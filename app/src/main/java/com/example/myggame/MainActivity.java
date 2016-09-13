@@ -59,9 +59,9 @@ public class MainActivity extends Activity implements OnClickListener {
                         break;
                     case EmaCallBackConst.LOGINSUCCESS://登陆成功回调
                         showDialog("登陆成功\n设备id为\n----");
-
-                        EmaUser.getInstance().getNickName();
-                        EmaUser.getInstance().getmUid();
+                        Log.e("Mainactivity",EmaUser.getInstance().getNickName());
+                        Log.e("Mainactivity", EmaUser.getInstance().getmUid());
+                        Log.e("Mainactivity", EmaSDK.getInstance().getChannelId());
                         break;
                     case EmaCallBackConst.LOGINCANELL://登陆取消回调
                         break;
