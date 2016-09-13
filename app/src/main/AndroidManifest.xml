@@ -175,12 +175,6 @@
             </intent-filter>
         </receiver>
 
-        <!--"authorities' downloads后配为你的包名-->
-        <provider
-            android:name="com.igexin.download.DownloadProvider"
-            android:authorities="downloads.com.example.myggame"
-            android:exported="true"
-            android:process=":pushservice" />
         <!-- 个推SDK配置结束 -->
 
 
