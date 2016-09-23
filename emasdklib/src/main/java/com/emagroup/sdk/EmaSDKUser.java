@@ -109,7 +109,7 @@ public class EmaSDKUser {
                     JSONObject jsonObject = new JSONObject(restult);
                     String token = jsonObject.getString("data");
                     EmaUser.getInstance().setToken(token);
-
+                    EmaUser.getInstance().setIsLogin(true);
                     Log.e("update弱账户创建:","结果:"+token);
 
                 } catch (Exception e) {

@@ -16,7 +16,6 @@ import com.anysdk.framework.java.AnySDKUser;
 import com.anysdk.framework.java.ToolBarPlaceEnum;
 import com.igexin.sdk.PushManager;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -93,11 +92,23 @@ public class EmaSDK {
         AnySDKUser.getInstance().callFunction("logout");
     }
 
-    // TODO: 2016/9/2 支付方法还未完全统一，暂时放下
-    public void doPay(Map map,EmaSDKListener listener){
-        EmaSDKIAP iap = EmaSDKIAP.getInstance();
-        ArrayList<String> idArrayList = iap.getPluginId();
-        iap.payForProduct(idArrayList.get(0), map,listener);
+    public void doPay(Map<String,String> info,EmaSDKListener listener){
+
+        //在这里把这个map转化到emapayinfo里面  目前需要 商品pid，数量
+        EmaPayInfo emaPayInfo = new EmaPayInfo();
+
+        for (Map.Entry<String,String> entry :info.entrySet()){
+            String infoValue=entry.getValue();
+            switch (entry.getKey()){
+                case EmaConst.EMA_PAYINFO_PRODUCT_ID:
+                    emaPayInfo.setProductId(infoValue);
+                    break;
+                case EmaConst.EMA_PAYINFO_PRODUCT_COUNT:
+                    emaPayInfo.setProductNum(infoValue);
+                    break;
+            }
+        }
+        EmaPay.getInstance(mActivity).pay(emaPayInfo,listener);
     }
 
     public void doShowToolbar() {

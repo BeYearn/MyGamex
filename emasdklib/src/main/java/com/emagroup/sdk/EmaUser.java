@@ -9,6 +9,7 @@ public class EmaUser {
 
     private static EmaUser instance;
     private static String token;
+    private boolean isLogin;
 
     private EmaUser(){}
     public static EmaUser getInstance(){
@@ -34,5 +35,12 @@ public class EmaUser {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public void setIsLogin(boolean isLogin) {
+        this.isLogin = isLogin;
+    }
+    public boolean isLogin(){
+        return isLogin;
     }
 }

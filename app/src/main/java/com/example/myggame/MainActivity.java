@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaUser;
@@ -121,16 +122,14 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.bt_pay:
 
                 HashMap<String, String> payInfoMap = new HashMap<>();
-                payInfoMap.put("Product_Price", "0.01");
-                payInfoMap.put("Product_Id", "10");
-
-                payInfoMap.put("Product_Name","gold");
-                payInfoMap.put("Server_Id", "13");
-                payInfoMap.put("Product_Count", "1");
-                payInfoMap.put("Role_Id","1");
-                payInfoMap.put("Role_Name", "1");
-                payInfoMap.put("Role_Grade", "1");
-                payInfoMap.put("Role_Balance", "1");
+                payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_ID, "10001");
+                payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_COUNT, "1");
+                //payInfoMap.put("Product_Name","gold");
+                //payInfoMap.put("Server_Id", "13");
+                //payInfoMap.put("Role_Id","1");
+                //payInfoMap.put("Role_Name", "1");
+                //payInfoMap.put("Role_Grade", "1");
+                //payInfoMap.put("Role_Balance", "1");
 
                 EmaSDK.getInstance().doPay(payInfoMap, new EmaSDKListener() {
                     @Override
@@ -138,13 +137,13 @@ public class MainActivity extends Activity implements OnClickListener {
                         Log.d(String.valueOf(arg0), arg1);
                         switch (arg0) {
                             case EmaCallBackConst.PAYSUCCESS:// 支付成功回调
-                                showDialog("pay successful---");
+                                showDialog("anysdk pay successful---");
                                 break;
                             case EmaCallBackConst.PAYFALIED:// 支付失败回调
-                                showDialog("pay failed---");
+                                showDialog("anysdk pay failed---");
                                 break;
                             case EmaCallBackConst.PAYCANELI:// 支付取消回调
-                                showDialog("pay cancle");
+                                showDialog("anysdk pay cancle");
                                 break;
                         }
                     }
