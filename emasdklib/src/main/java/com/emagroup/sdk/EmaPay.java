@@ -3,6 +3,7 @@ package com.emagroup.sdk;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -143,6 +144,9 @@ public class EmaPay {
                 params.put("pid", payInfo.getProductId());
                 params.put("token", mEmaUser.getToken());
                 params.put("quantity", payInfo.getProductNum());
+                if(!TextUtils.isEmpty(payInfo.getGameTransCode())){
+                    params.put("gameTransCode", payInfo.getGameTransCode());
+                }
                 Log.e("Emapay_pay", payInfo.getProductId() + ".." + mEmaUser.getToken() + ".." + payInfo.getProductNum());
 
                 try {

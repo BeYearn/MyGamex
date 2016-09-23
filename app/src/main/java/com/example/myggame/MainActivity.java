@@ -124,6 +124,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 HashMap<String, String> payInfoMap = new HashMap<>();
                 payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_ID, "10001");
                 payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_COUNT, "1");
+                payInfoMap.put(EmaConst.EMA_GAMETRANS_CODE,"游戏透传参数");
                 //payInfoMap.put("Product_Name","gold");
                 //payInfoMap.put("Server_Id", "13");
                 //payInfoMap.put("Role_Id","1");

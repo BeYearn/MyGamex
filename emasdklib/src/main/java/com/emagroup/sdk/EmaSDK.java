@@ -106,6 +106,9 @@ public class EmaSDK {
                 case EmaConst.EMA_PAYINFO_PRODUCT_COUNT:
                     emaPayInfo.setProductNum(infoValue);
                     break;
+                case EmaConst.EMA_GAMETRANS_CODE:
+                    emaPayInfo.setGameTransCode(infoValue);
+                    break;
             }
         }
         EmaPay.getInstance(mActivity).pay(emaPayInfo,listener);
