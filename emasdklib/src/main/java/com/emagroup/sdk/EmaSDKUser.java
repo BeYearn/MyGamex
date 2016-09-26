@@ -22,6 +22,7 @@ public class EmaSDKUser {
     private String deviceKey;
     private String EmaAppKey;
     private String allienceId;
+    private String channelTag;
 
     public static EmaSDKUser getInstance() {
         if (instance == null) {
@@ -49,7 +50,8 @@ public class EmaSDKUser {
 
         deviceKey = ULocalUtils.getIMEI(mActivity);
         EmaAppKey= ULocalUtils.getAppKey(mActivity);
-        allienceId=ULocalUtils.getAllienceId();
+        allienceId=ULocalUtils.getChannelId();
+        channelTag=ULocalUtils.getChannelTag(mActivity);
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
@@ -61,6 +63,7 @@ public class EmaSDKUser {
                     paramMap.put("deviceType","android");
                     paramMap.put("appKey",EmaAppKey);
                     paramMap.put("allianceId",allienceId);
+                    paramMap.put("channelTag",channelTag);
                     paramMap.put("deviceKey",deviceKey);
 
                     Log.e("创建弱账户","deviceKey:"+ deviceKey+".."+EmaAppKey+"..."+allienceId);
@@ -87,7 +90,7 @@ public class EmaSDKUser {
     /**
      * 在登录成功之后再call一次，将渠道uid传过去
      */
-    public static void updateWeakAccount(final String appKey, final String allianceId, final String deviceKey,final String allianceUId){
+    public static void updateWeakAccount(final String appKey, final String allianceId, final String channelTag,final String deviceKey,final String allianceUId){
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
@@ -99,6 +102,7 @@ public class EmaSDKUser {
                     paramMap.put("deviceType","android");
                     paramMap.put("appKey",appKey);
                     paramMap.put("allianceId",allianceId);
+                    paramMap.put("channelTag",channelTag);
                     paramMap.put("deviceKey",deviceKey);
                     paramMap.put("allianceUId",allianceUId);
 

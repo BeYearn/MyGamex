@@ -144,9 +144,13 @@ public class ULocalUtils {
      * 我们和anysdk对于渠道id的定义一样（即使用anysdk的渠道号）
      * @return
      */
-    public static String getAllienceId(){
+    public static String getChannelId(){
         String channelID = AnySDK.getInstance().getChannelId();
         return channelID;
+    }
+
+    public static String getChannelTag(Context context){
+        return ULocalUtils.EmaSdkInfo.getIntegerFromMetaData(context,"EMA_CHANNEL_TAG")+"";
     }
 
 
