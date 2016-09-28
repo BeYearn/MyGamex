@@ -54,15 +54,19 @@ public class EmaPay {
     private void doRealAnyPay(EmaPayInfo emaPayInfo) {
 
         Map<String, String> anyPayInfo = new HashMap();
-        anyPayInfo.put("Product_Price", "1");
-        anyPayInfo.put("Product_Id", "10");
-        anyPayInfo.put("Product_Name","gold");
-        anyPayInfo.put("Server_Id", "13");
-        anyPayInfo.put("Product_Count", "1");
+        anyPayInfo.put("Product_Price", emaPayInfo.getPrice()+"");
+        anyPayInfo.put("Product_Id",emaPayInfo.getProductId());
+        anyPayInfo.put("Product_Name",emaPayInfo.getProductName());
+        anyPayInfo.put("Product_Count", emaPayInfo.getProductNum());
+        anyPayInfo.put("EXT",emaPayInfo.getOrderId());
+
+        anyPayInfo.put("Coin_Name", "coin");
+        anyPayInfo.put("Server_Id", "1");
         anyPayInfo.put("Role_Id","1");
-        anyPayInfo.put("Role_Name", "1");
-        anyPayInfo.put("Role_Grade", "1");
-        anyPayInfo.put("Role_Balance", "1");
+        anyPayInfo.put("Role_Name", "16");
+        anyPayInfo.put("Role_Grade", "12");
+        anyPayInfo.put("Server_Name", "lemonade-game.com");
+        anyPayInfo.put("Role_Balance", "10");
 
         EmaSDKIAP iap = EmaSDKIAP.getInstance();
         ArrayList<String> idArrayList = iap.getPluginId();
@@ -182,6 +186,7 @@ public class EmaPay {
                     msg.obj = payInfo;
                     mHandler.sendMessage(msg);
                 } catch (Exception e) {
+                    mHandler.sendEmptyMessage(ORDER_FAIL);
                     e.printStackTrace();
                 }
 
