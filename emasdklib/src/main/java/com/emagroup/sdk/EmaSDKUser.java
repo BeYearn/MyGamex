@@ -90,7 +90,7 @@ public class EmaSDKUser {
     /**
      * 在登录成功之后再call一次，将渠道uid传过去
      */
-    public static void updateWeakAccount(final String appKey, final String allianceId, final String channelTag,final String deviceKey,final String allianceUId){
+    public static void updateWeakAccount(final String appId, final String allianceId, final String channelTag,final String deviceKey,final String allianceUId){
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
@@ -100,13 +100,13 @@ public class EmaSDKUser {
 
                     Map<String, String> paramMap = new HashMap<String, String>();
                     paramMap.put("deviceType","android");
-                    paramMap.put("appKey",appKey);
+                    paramMap.put("appKey",appId);
                     paramMap.put("allianceId",allianceId);
                     paramMap.put("channelTag",channelTag);
                     paramMap.put("deviceKey",deviceKey);
                     paramMap.put("allianceUId",allianceUId);
 
-                    Log.e("update弱账户","....:"+appKey+"..."+allianceId+"..."+deviceKey+"..."+allianceUId);
+                    Log.e("update弱账户","....:"+appId+"..."+allianceId+"..."+deviceKey+"..."+allianceUId);
 
                     String restult = new HttpRequestor().doPost(url,paramMap);
 

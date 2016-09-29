@@ -239,7 +239,7 @@ public class EmaUtils {
                         activity.bindService(serviceIntent, EmaSDK.getInstance().mServiceCon, Context.BIND_AUTO_CREATE);
 
                         //补充弱账户信息
-                        EmaSDKUser.updateWeakAccount(EmaUser.getInstance().getAppkey(),ULocalUtils.getChannelId(activity),ULocalUtils.getChannelTag(activity),ULocalUtils.getIMEI(activity),EmaUser.getInstance().getmUid());
+                        EmaSDKUser.updateWeakAccount(ULocalUtils.getAppId(activity),ULocalUtils.getChannelId(activity),ULocalUtils.getChannelTag(activity),ULocalUtils.getIMEI(activity),EmaUser.getInstance().getmUid());
                     }
                 }
             }
