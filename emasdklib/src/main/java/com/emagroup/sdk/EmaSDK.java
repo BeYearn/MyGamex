@@ -2,15 +2,12 @@ package com.emagroup.sdk;
 
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 
 import com.anysdk.framework.PluginWrapper;
 import com.anysdk.framework.java.AnySDK;
-import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKParam;
 import com.anysdk.framework.java.AnySDKUser;
 import com.anysdk.framework.java.ToolBarPlaceEnum;
@@ -36,7 +33,7 @@ public class EmaSDK {
 
 
     //绑定服务
-    private ServiceConnection mServiceCon = new ServiceConnection() {
+    public ServiceConnection mServiceCon = new ServiceConnection() {
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
         }
@@ -45,39 +42,14 @@ public class EmaSDK {
         }
     };
 
-    public void init(final Activity activity, EmaSDKListener listener) {
+    public void init(String appKey,Activity activity, EmaSDKListener listener) {
 
+        EmaUser.getInstance().setAppkey(appKey);
         this.mActivity = activity;
-        ULocalUtils.EmaSdkInfo.readXml("ema_over.xml", activity);
-        String appKey = ULocalUtils.EmaSdkInfo.getStringFromMetaData(activity,"appKey");
-        String appSecret = ULocalUtils.EmaSdkInfo.getStringFromMetaData(activity,"appSecret");
-        String privateKey = ULocalUtils.EmaSdkInfo.getStringFromMetaData(activity,"privateKey");
-        String authLoginServer = ULocalUtils.EmaSdkInfo.getStringFromMetaData(activity,"authLoginServer");
-        AnySDK.getInstance().init(activity, appKey, appSecret, privateKey, authLoginServer);
-
         this.listener = listener;
-        AnySDKUser.getInstance().setListener(new AnySDKListener() {
-            @Override
-            public void onCallBack(int i, String s) {
-                Log.e("EMASDK",s+"+++++++++++++++++++++++++++++++ "+i);
-                if (EmaSDK.this.listener != null) {
-                    EmaSDK.this.listener.onCallBack(i, s);
 
-                    //登录成功后
-                    if(EmaCallBackConst.LOGINSUCCESS==i){
-                        //显示toolbar
-                        EmaSDK.getInstance().doShowToolbar();
-
-                        //绑定服务
-                        Intent serviceIntent = new Intent(activity, EmaService.class);
-                        activity.bindService(serviceIntent, mServiceCon, Context.BIND_AUTO_CREATE);
-
-                        //补充弱账户信息
-                        EmaSDKUser.updateWeakAccount(ULocalUtils.getAppKey(activity),ULocalUtils.getChannelId(),ULocalUtils.getChannelTag(activity),ULocalUtils.getIMEI(activity),EmaUser.getInstance().getmUid());
-                    }
-                }
-            }
-        });
+        //原来的anysdk初始化放着里面了
+        EmaUtils.getInstance(activity).checkSDKStatus(listener);
 
         //个推初始化
         PushManager.getInstance().initialize(activity.getApplicationContext());
@@ -85,7 +57,9 @@ public class EmaSDK {
 
 
     public void doLogin(){
-        EmaSDKUser.getInstance().login();
+        //弱账户
+        EmaSDKUser.getInstance().creatWeakAccount();  // 在这其中包含any真正的登录（写在里面是想要两个透传参数）
+
     }
 
     public void doLogout() {
@@ -146,7 +120,7 @@ public class EmaSDK {
 
 
     public String getChannelId(){
-        return AnySDK.getInstance().getChannelId();
+        return ULocalUtils.getChannelId(mActivity);
     }
 
 

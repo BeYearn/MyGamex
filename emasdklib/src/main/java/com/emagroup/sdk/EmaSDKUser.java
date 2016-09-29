@@ -20,9 +20,9 @@ public class EmaSDKUser {
     private EmaSDKListener listener;
     private String userid;
     private String deviceKey;
-    private String EmaAppKey;
     private String allienceId;
     private String channelTag;
+    private String appId;
 
     public static EmaSDKUser getInstance() {
         if (instance == null) {
@@ -46,11 +46,11 @@ public class EmaSDKUser {
         });
     }*/
 
-    private void creatWeakAccount() {
+    public void creatWeakAccount() {
 
         deviceKey = ULocalUtils.getIMEI(mActivity);
-        EmaAppKey= ULocalUtils.getAppKey(mActivity);
-        allienceId=ULocalUtils.getChannelId();
+        appId= ULocalUtils.getAppId(mActivity);
+        allienceId=ULocalUtils.getChannelId(mActivity);
         channelTag=ULocalUtils.getChannelTag(mActivity);
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
@@ -61,12 +61,12 @@ public class EmaSDKUser {
 
                     Map<String, String> paramMap = new HashMap<String, String>();
                     paramMap.put("deviceType","android");
-                    paramMap.put("appKey",EmaAppKey);
+                    paramMap.put("appKey",appId);
                     paramMap.put("allianceId",allienceId);
                     paramMap.put("channelTag",channelTag);
                     paramMap.put("deviceKey",deviceKey);
 
-                    Log.e("创建弱账户","deviceKey:"+ deviceKey+".."+EmaAppKey+"..."+allienceId);
+                    Log.e("创建弱账户","deviceKey:"+ deviceKey+".."+appId+"..."+allienceId);
 
                     String strGet = new HttpRequestor().doPost(urlGet,paramMap);
 
@@ -133,8 +133,5 @@ public class EmaSDKUser {
         anySDKUser.login(info);
     }
 
-    public void login() {
-        creatWeakAccount();
-    }
 
 }

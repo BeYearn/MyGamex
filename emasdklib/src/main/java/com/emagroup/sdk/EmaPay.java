@@ -102,14 +102,8 @@ public class EmaPay {
                     case IAPWrapper.PAYRESULT_PRODUCTIONINFOR_INCOMPLETE://支付信息提供不完全回调
                         //统一接口里面没有
                         break;
-                    /**
-                     * 新增加:正在进行中回调
-                     * 支付过程中若SDK没有回调结果，就认为支付正在进行中
-                     * 游戏开发商可让玩家去判断是否需要等待，若不等待则进行下一次的支付
-                     */
-                    case IAPWrapper.PAYRESULT_NOW_PAYING:
-                        break;
                     default:
+                        listener.onCallBack(EmaCallBackConst.PAYFALIED,"购买失败");
                         break;
                 }
             }

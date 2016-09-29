@@ -2,12 +2,11 @@ package com.emagroup.sdk;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-
-import com.anysdk.framework.java.AnySDK;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -132,25 +131,25 @@ public class ULocalUtils {
     }
 
     /**
-     * 得到的是ema定义的appkey，而不是anysdk的apkey
+     * 获得官方定义的appid
      * @param context
      * @return
      */
-    public static String getAppKey(Context context){
-        return ULocalUtils.EmaSdkInfo.getIntegerFromMetaData(context,"EMA_APP_ID")+"";
+    public static String getAppId(Context context){
+        return ULocalUtils.EmaSdkInfo.getStringFromMetaData(context,"EMA_APP_ID").substring(1);
     }
 
     /**
      * 我们和anysdk对于渠道id的定义一样（即使用anysdk的渠道号）
      * @return
      */
-    public static String getChannelId(){
-        String channelID = AnySDK.getInstance().getChannelId();
-        return channelID;
+    public static String getChannelId(Context context){
+         //return AnySDK.getInstance().getChannelId();
+        return ULocalUtils.EmaSdkInfo.getStringFromMetaData(context,"EMA_CHANNEL_ID").substring(1);
     }
 
     public static String getChannelTag(Context context){
-        return ULocalUtils.EmaSdkInfo.getIntegerFromMetaData(context,"EMA_CHANNEL_TAG")+"";
+        return ULocalUtils.EmaSdkInfo.getStringFromMetaData(context,"EMA_CHANNEL_TAG").substring(1);
     }
 
 
@@ -163,4 +162,23 @@ public class ULocalUtils {
         mSzAndroidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);*/
     }
 
+
+
+    /**
+     * 获取versioncode 整数
+     * @param context
+     * @return
+     */
+    public static int getVersionCode(Context context){
+        PackageManager packageManager=context.getPackageManager();
+        PackageInfo packageInfo;
+        int versionCode=0;
+        try {
+            packageInfo=packageManager.getPackageInfo(context.getPackageName(),0);
+            versionCode=packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionCode;
+    }
 }

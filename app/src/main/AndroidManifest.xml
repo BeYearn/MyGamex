@@ -54,8 +54,7 @@
         <activity
             android:theme="@android:style/Theme.NoTitleBar"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:name=".MainActivity"
-            android:label="mygame">
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -67,13 +66,13 @@
 
         <meta-data
             android:name="appKey"
-            android:value="CB673C65-9E01-5530-A280-77EA6D8D42DD" />
+            android:value="D8676EF0-FF45-B770-25DB-28C5E861797C" />
         <meta-data
             android:name="appSecret"
-            android:value="bad2f8c81bf5ad2ec9a4e4563c1e8ad2" />
+            android:value="08eecf71a971c7a44ce6b32f16ba303c" />
         <meta-data
             android:name="privateKey"
-            android:value="21A90ABB70F1CBB43095F79AF73440E7" />
+            android:value="717BEDEE7AD30841F484EF0A4AD59265" />
         <meta-data
             android:name="authLoginServer"
             android:value="https://platform.lemonade-game.com/ema-platform/authLogin.jsp"/>
@@ -82,12 +81,14 @@
 
 
         <meta-data
-            android:name="EMA_CHANNEL_TAG"
-            android:value="0" />
-        <meta-data
             android:name="EMA_APP_ID"
-            android:value="10001"/>
-        <!--EMA_APP_ID  ema对app的标识，此处添加，真正替换的时候，已经有了，不用再加-->
+            android:value="n20015"/>
+        <meta-data
+            android:name="EMA_CHANNEL_ID"
+            android:value="n110000"/>
+        <meta-data
+            android:name="EMA_CHANNEL_TAG"
+            android:value="n0" />
 
 
 
