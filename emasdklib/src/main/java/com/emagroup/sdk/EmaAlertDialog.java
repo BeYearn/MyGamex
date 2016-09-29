@@ -15,6 +15,7 @@ public class EmaAlertDialog extends Dialog {
 	private final Dialog dialogFrom; //从这个dialog来
 	private final int clickType;
 	private final Map mContentMap;
+	private final Context mContext;
 	private ResourceManager mResourceManager;// 资源管理
 
 	//views
@@ -33,6 +34,7 @@ public class EmaAlertDialog extends Dialog {
      */
 	public EmaAlertDialog(Context context, Dialog dialog, Map contentMap, int showType, int clickType) {
 		super(context, ResourceManager.getInstance(context).getIdentifier("ema_activity_dialog", "style"));
+		this.mContext=context;
 		this.showType=showType;
 		this.clickType=clickType;
 		this.dialogFrom=dialog;
@@ -62,6 +64,7 @@ public class EmaAlertDialog extends Dialog {
 			@Override
 			public void onClick(View arg0) {
 				//开始更新
+				ToastHelper.toast(mContext,"开始更新。。。（测试）");
 			}
 		});
 
