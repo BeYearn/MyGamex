@@ -75,6 +75,12 @@ public class EmaUtils {
                 Map<String,String> params = new HashMap<>();
                 params.put("appId",ULocalUtils.getAppId(activity));
                 params.put("channelId",EmaSDK.getInstance().getChannelId());
+
+                String sign =ULocalUtils.getAppId(activity)+EmaSDK.getInstance().getChannelId()+EmaUser.getInstance().getAppkey();
+                //LOG.e("rawSign",sign);
+                sign = ULocalUtils.MD5(sign);
+                params.put("sign", sign);
+
                 Message message = Message.obtain();
                 try {
                     String result = new HttpRequestor().doPost(Instants.SDK_STATUS_URL, params);

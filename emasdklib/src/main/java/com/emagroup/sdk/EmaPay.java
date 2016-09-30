@@ -142,10 +142,16 @@ public class EmaPay {
                 params.put("pid", payInfo.getProductId());
                 params.put("token", mEmaUser.getToken());
                 params.put("quantity", payInfo.getProductNum());
+                params.put("appId",ULocalUtils.getAppId(mContext));
                 if(!TextUtils.isEmpty(payInfo.getGameTransCode())){
                     params.put("gameTransCode", payInfo.getGameTransCode());
                 }
                 Log.e("Emapay_pay", payInfo.getProductId() + ".." + mEmaUser.getToken() + ".." + payInfo.getProductNum());
+
+                String sign = ULocalUtils.getAppId(mContext)+(TextUtils.isEmpty(payInfo.getGameTransCode())?null:payInfo.getGameTransCode())+payInfo.getProductId()+payInfo.getProductNum()+mEmaUser.getToken()+EmaUser.getInstance().getAppkey();
+                //LOG.e("rawSign",sign);
+                sign = ULocalUtils.MD5(sign);
+                params.put("sign", sign);
 
                 try {
                     String result = new HttpRequestor().doPost(Instants.CREAT_ORDER_URL, params);

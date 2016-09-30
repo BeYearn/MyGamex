@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements OnClickListener {
         btHideBar= (Button) findViewById(R.id.bt_hidebar);
 
 
-        EmaSDK.getInstance().init("800a924c499772bac7b76432803ea47a",this, new EmaSDKListener() {
+        EmaSDK.getInstance().init("5600441101c8818c4480d3c503742a3b",this, new EmaSDKListener() {
             @Override
             public void onCallBack(int arg0, String arg1) {
                 switch (arg0) {

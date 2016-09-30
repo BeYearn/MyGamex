@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -180,5 +181,30 @@ public class ULocalUtils {
             e.printStackTrace();
         }
         return versionCode;
+    }
+
+
+    /**
+     * 返回md5加密后的字符串
+     *
+     * @param str
+     * @return
+     */
+    public static String MD5(String str) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.reset();
+            messageDigest.update(str.getBytes("UTF-8"));
+            byte bytes[] = messageDigest.digest();
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < bytes.length; i++)
+                if (Integer.toHexString(0xff & bytes[i]).length() == 1)
+                    sb.append("0").append(Integer.toHexString(0xff & bytes[i]));
+                else
+                    sb.append(Integer.toHexString(0xff & bytes[i]));
+            return sb.toString().toUpperCase();
+        } catch (Exception e) {
+        }
+        return "";
     }
 }
