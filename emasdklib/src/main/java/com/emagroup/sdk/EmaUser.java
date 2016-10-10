@@ -40,7 +40,7 @@ public class EmaUser {
     }
 
 
-    public String getmUid(){
+    public String getAllianceUid(){
         return AnySDKUser.getInstance().getUserID();
     }
 
