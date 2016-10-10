@@ -53,6 +53,9 @@ public class EmaSDK {
     }
 
     public void doPay(Map<String,String> info,EmaSDKListener listener){
+
+        EmaUtils.getInstance(mActivity).doPayPre(listener);
+
         //在这里把这个map转化到emapayinfo里面  目前需要 商品pid，数量
         EmaPayInfo emaPayInfo = new EmaPayInfo();
 

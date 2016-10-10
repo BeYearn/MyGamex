@@ -107,8 +107,11 @@ public class EmaUtilsImpl {
     }
 
 
-    public void realPay(final EmaSDKListener listener, EmaPayInfo emaPayInfo) {
-
+    /**
+     * 因为any的支付监听是单独先设置的
+     * @param listener
+     */
+    public void doPayPre(final EmaSDKListener listener) {
         AnySDKIAP.getInstance().setListener(new AnySDKListener() {
             @Override
             public void onCallBack(int arg0, String arg1) {
@@ -138,6 +141,9 @@ public class EmaUtilsImpl {
                 }
             }
         });
+    }
+
+    public void realPay(final EmaSDKListener listener, EmaPayInfo emaPayInfo) {
 
         Map<String, String> anyPayInfo = new HashMap();
         anyPayInfo.put("Product_Price", emaPayInfo.getPrice()+"");
@@ -154,9 +160,11 @@ public class EmaUtilsImpl {
         anyPayInfo.put("Server_Name", "lemonade-game.com");
         anyPayInfo.put("Role_Balance", "10");
 
-        EmaSDKIAP iap = EmaSDKIAP.getInstance();
+        /*EmaSDKIAP iap = EmaSDKIAP.getInstance();
         ArrayList<String> idArrayList = iap.getPluginId();
-        iap.payForProduct(idArrayList.get(0), anyPayInfo,listener);
+        iap.payForProduct(idArrayList.get(0), anyPayInfo,listener);*/
+        ArrayList<String> idArrayList =  AnySDKIAP.getInstance().getPluginId();
+        AnySDKIAP.getInstance().payForProduct(idArrayList.get(0), anyPayInfo);
         Log.e("dopay","dopay");
     }
 }

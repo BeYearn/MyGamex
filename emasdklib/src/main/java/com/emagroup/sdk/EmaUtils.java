@@ -235,6 +235,10 @@ public class EmaUtils {
         AnySDKUser.getInstance().callFunction("logout");
     }
 
+    public void doPayPre(EmaSDKListener listener) {
+        EmaUtilsImpl.getInstance(activity).doPayPre(listener);
+    }
+
     public void realPay(EmaSDKListener listener, EmaPayInfo emaPayInfo) {
         EmaUtilsImpl.getInstance(activity).realPay(listener,emaPayInfo);
     }
