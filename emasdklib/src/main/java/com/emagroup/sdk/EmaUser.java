@@ -1,14 +1,13 @@
 package com.emagroup.sdk;
 
-import com.anysdk.framework.java.AnySDKUser;
+
+import android.text.TextUtils;
 
 /**
  * Created by Administrator on 2016/9/7.
  */
 public class EmaUser {
-
     private static EmaUser instance;
-
 
     //只能暂时委屈放在这里啦
     private static String appkey;
@@ -21,9 +20,9 @@ public class EmaUser {
         EmaUser.appkey = appkey;
     }
 
-
-
     private static String token;
+    private static String mUid;
+    private static String nickName;
     private boolean isLogin;
 
     private EmaUser(){}
@@ -36,12 +35,23 @@ public class EmaUser {
 
 
     public String getNickName(){
-        return "";
+        if(TextUtils.isEmpty(nickName)){
+            return "";
+        }else {
+            return nickName;
+        }
     }
 
+    public void setNickName(String nickName){
+        this.nickName=nickName;
+    }
 
     public String getAllianceUid(){
-        return AnySDKUser.getInstance().getUserID();
+        return mUid;
+    }
+
+    public void setmUid(String uid){
+        this.mUid=uid;
     }
 
     public String getToken() {
