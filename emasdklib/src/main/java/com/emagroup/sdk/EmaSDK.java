@@ -1,9 +1,6 @@
 package com.emagroup.sdk;
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.util.Log;
 
 import com.anysdk.framework.PluginWrapper;
@@ -11,7 +8,6 @@ import com.anysdk.framework.java.AnySDK;
 import com.anysdk.framework.java.AnySDKParam;
 import com.anysdk.framework.java.AnySDKUser;
 import com.anysdk.framework.java.ToolBarPlaceEnum;
-import com.igexin.sdk.PushManager;
 
 import java.util.Map;
 
@@ -21,7 +17,7 @@ import java.util.Map;
 public class EmaSDK {
     private static EmaSDK instance = null;
     public static Activity mActivity = null;
-    private EmaSDKListener listener;
+    private EmaSDKListener mListener;
     private static EmaSDKListener reciveMsgListener;
 
     public static EmaSDK getInstance() {
@@ -32,42 +28,31 @@ public class EmaSDK {
     }
 
 
-    //绑定服务
-    public ServiceConnection mServiceCon = new ServiceConnection() {
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-        }
-        @Override
-        public void onServiceConnected(ComponentName arg0, IBinder arg1) {
-        }
-    };
-
     public void init(String appKey,Activity activity, EmaSDKListener listener) {
 
         EmaUser.getInstance().setAppkey(appKey);
         this.mActivity = activity;
-        this.listener = listener;
+        this.mListener = listener;
 
         //原来的anysdk初始化放着里面了
         EmaUtils.getInstance(activity).checkSDKStatus(listener);
 
         //个推初始化
-        PushManager.getInstance().initialize(activity.getApplicationContext());
+        EmaUtils.getInstance(activity).initGeTui(activity);
     }
 
 
     public void doLogin(){
-        //弱账户
-        EmaSDKUser.getInstance().creatWeakAccount();  // 在这其中包含any真正的登录（写在里面是想要两个透传参数）
+        //先创建弱账户，随后。。真正登录
+        EmaSDKUser.getInstance().creatWeakAccount(mListener);  // 在这其中包含any真正的登录（写在里面是想要两个透传参数）
 
     }
 
     public void doLogout() {
-        AnySDKUser.getInstance().callFunction("logout");
+        EmaSDKUser.getInstance().logout();
     }
 
     public void doPay(Map<String,String> info,EmaSDKListener listener){
-
         //在这里把这个map转化到emapayinfo里面  目前需要 商品pid，数量
         EmaPayInfo emaPayInfo = new EmaPayInfo();
 

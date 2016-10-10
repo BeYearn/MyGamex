@@ -3,8 +3,6 @@ package com.emagroup.sdk;
 import android.app.Activity;
 import android.util.Log;
 
-import com.anysdk.framework.java.AnySDKUser;
-
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -16,8 +14,6 @@ import java.util.Map;
 public class EmaSDKUser {
     private static EmaSDKUser instance = null;
     private static Activity mActivity = null;
-    private static AnySDKUser anySDKUser;
-    private EmaSDKListener listener;
     private String userid;
     private String deviceKey;
     private String allienceId;
@@ -28,25 +24,11 @@ public class EmaSDKUser {
         if (instance == null) {
             instance = new EmaSDKUser();
         }
-        anySDKUser = AnySDKUser.getInstance();
         mActivity = EmaSDK.mActivity;
         return instance;
     }
 
-
-    /*public void setListener(EmaSDKListener listener) {
-        this.listener = listener;
-        anySDKUser.setListener(new AnySDKListener() {
-            @Override
-            public void onCallBack(int i, String s) {
-                if (EmaSDKUser.this.listener != null) {
-                    EmaSDKUser.this.listener.onCallBack(i, s);
-                }
-            }
-        });
-    }*/
-
-    public void creatWeakAccount() {
+    public void creatWeakAccount(EmaSDKListener listener) {
 
         deviceKey = ULocalUtils.getIMEI(mActivity);
         appId= ULocalUtils.getAppId(mActivity);
@@ -84,7 +66,7 @@ public class EmaSDKUser {
             }
         });
 
-        loginActual(userid, deviceKey);
+        EmaUtils.getInstance(mActivity).realLogin(listener,userid, deviceKey);
     }
 
     /**
@@ -125,13 +107,7 @@ public class EmaSDKUser {
         });
     }
 
-    private void loginActual(String userid, String deviceId) {
-
-        Map<String, String> info = new HashMap<String, String>();
-        info.put("device_info", deviceId);
-        info.put("uid", userid);
-        anySDKUser.login(info);
+    public void logout() {
+        EmaUtils.getInstance(mActivity).logout();
     }
-
-
 }

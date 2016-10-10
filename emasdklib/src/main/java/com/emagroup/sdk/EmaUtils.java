@@ -1,16 +1,15 @@
 package com.emagroup.sdk;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 
-import com.anysdk.framework.UserWrapper;
-import com.anysdk.framework.java.AnySDK;
-import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKUser;
+import com.igexin.sdk.PushManager;
 
 import org.json.JSONObject;
 
@@ -27,6 +26,7 @@ public class EmaUtils {
     private static final int DISMISS_NOW = 11;
     private static final int DISMISS = 10;
     private static final int ALERT_SHOW = 13;
+
     private EmaSDKListener mListener;
 
     private static final int ALERT_WEBVIEW_SHOW = 21;
@@ -49,6 +49,16 @@ public class EmaUtils {
         }
     };
 
+
+    //绑定服务
+    public ServiceConnection mServiceCon = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+        }
+        @Override
+        public void onServiceConnected(ComponentName arg0, IBinder arg1) {
+        }
+    };
 
     private EmaUtils(Activity activity) {
         this.activity=activity;
@@ -144,16 +154,20 @@ public class EmaUtils {
                         case HttpInvokerConst.SDK_RESULT_FAILED://
                             Log.e("Emautils", "请求状态失败！！");
                             ToastHelper.toast(activity,json.getString("message"));
+
+                            //初始化失败
                             mListener.onCallBack(EmaCallBackConst.INITFALIED,"初始化失败");
                             break;
                         default:
+                            //初始化失败
                             Log.e("Emautils", json.getString("message"));
                             mListener.onCallBack(EmaCallBackConst.INITFALIED,"初始化失败");
                             break;
                     }
                 } catch (Exception e) {
-                    Log.w("error", "sdk status error", e);
+                    //初始化失败
                     mListener.onCallBack(EmaCallBackConst.INITFALIED,"初始化失败");
+                    Log.w("error", "sdk status error", e);
                 }
             }
         });
@@ -173,14 +187,10 @@ public class EmaUtils {
                     int status = jsonObject.getInt("status");
                     switch (status) {
                         case HttpInvokerConst.SDK_RESULT_SUCCESS:// 请求状态成功
+                            // TODO: 2016/10/9 解耦：不同的地方放在另外一个类面处理，保证两边EmaUtils相同
                             Log.d("getkeyinfo", "请求状态成功！！");
                             JSONObject data = jsonObject.getJSONObject("data");
-                            String channelAppKey = data.getString("channelAppKey");
-                            String channelAppSecret = data.getString("channelAppSecret");
-                            String channelAppPrivate = data.getString("channelAppPrivate");
-
-                            realInitialAny(channelAppKey,channelAppSecret,channelAppPrivate,"https://platform.lemonade-game.com/ema-platform/authLogin.jsp");
-                            //这里之所以不回调“初始化成功”  是因为any本身就有成功回调，让它来吧；
+                            EmaUtilsImpl.getInstance(activity).realInit(mListener,data);
                             break;
                         case HttpInvokerConst.SDK_RESULT_FAILED://
                             Log.e("getkeyinfo", "请求状态失败！！");
@@ -201,54 +211,31 @@ public class EmaUtils {
 
     }
 
+    /**
+     * 初始化个推
+     * @param activity
+     */
+    public void initGeTui(Activity activity){
+        PushManager.getInstance().initialize(activity.getApplicationContext());
+    }
 
-    private void realInitialAny(String appKey,String appSecret,String privateKey,String authLoginServer){
+    /**
+     * 登录
+     * @param listener
+     * @param userid
+     * @param deviceKey
+     */
+    public void realLogin(EmaSDKListener listener, String userid, String deviceKey) {
 
-        AnySDK.getInstance().init(activity, appKey, appSecret, privateKey, authLoginServer);
+        EmaUtilsImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
 
-        AnySDKUser.getInstance().setListener(new AnySDKListener() {
-            @Override
-            public void onCallBack(int i, String s) {
-                Log.e("EMASDK",s+"+++++++++++++++++++++++++++++++ "+i);
-                if (mListener != null) {
-                    switch(i)
-                    {
-                        case UserWrapper.ACTION_RET_INIT_SUCCESS://初始化成功
-                            mListener.onCallBack(EmaCallBackConst.INITSUCCESS,"初始化成功");
-                            break;
-                        case UserWrapper.ACTION_RET_INIT_FAIL://初始化SDK失败回调
-                            mListener.onCallBack(EmaCallBackConst.INITFALIED,"初始化SDK失败回调");
-                            break;
-                        case UserWrapper.ACTION_RET_LOGIN_SUCCESS://登陆成功回调
-                            mListener.onCallBack(EmaCallBackConst.LOGINSUCCESS,"登陆成功回调");
-                            break;
-                        case UserWrapper.ACTION_RET_LOGIN_CANCEL://登陆取消回调
-                            mListener.onCallBack(EmaCallBackConst.LOGINCANELL,"登陆取消回调");
-                            break;
-                        case UserWrapper.ACTION_RET_LOGIN_FAIL://登陆失败回调
-                            mListener.onCallBack(EmaCallBackConst.LOGINFALIED,"登陆失败回调");
-                            break;
-                        case UserWrapper.ACTION_RET_LOGOUT_SUCCESS://登出成功回调
-                            mListener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功回调");
-                            break;
-                        case UserWrapper.ACTION_RET_LOGOUT_FAIL://登出失败回调
-                            mListener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败回调");
-                            break;
-                    }
-                    //登录成功后
-                    if(EmaCallBackConst.LOGINSUCCESS==i){
-                        //显示toolbar
-                        EmaSDK.getInstance().doShowToolbar();
+    }
 
-                        //绑定服务
-                        Intent serviceIntent = new Intent(activity, EmaService.class);
-                        activity.bindService(serviceIntent, EmaSDK.getInstance().mServiceCon, Context.BIND_AUTO_CREATE);
+    public void logout() {
+        AnySDKUser.getInstance().callFunction("logout");
+    }
 
-                        //补充弱账户信息
-                        EmaSDKUser.updateWeakAccount(ULocalUtils.getAppId(activity),ULocalUtils.getChannelId(activity),ULocalUtils.getChannelTag(activity),ULocalUtils.getIMEI(activity),EmaUser.getInstance().getmUid());
-                    }
-                }
-            }
-        });
+    public void realPay(EmaSDKListener listener, EmaPayInfo emaPayInfo) {
+        EmaUtilsImpl.getInstance(activity).realPay(listener,emaPayInfo);
     }
 }
