@@ -28,8 +28,8 @@ public class EmaSDK {
         this.mActivity = activity;
         this.mListener = listener;
 
-        //原来的anysdk初始化放着里面了
-        EmaUtils.getInstance(activity).checkSDKStatus(listener);
+        //sdk初始化，先sdk初始化，完了再请求公告更新等信息
+        EmaUtils.getInstance(activity).getChannelKeyInfo(listener);
 
         //个推初始化
         EmaUtils.getInstance(activity).initGeTui(activity);

@@ -72,6 +72,10 @@ public class EmaUtilsAnyImpl {
                     switch(i) {
                         case UserWrapper.ACTION_RET_INIT_SUCCESS://初始化成功
                             listener.onCallBack(EmaCallBackConst.INITSUCCESS,"初始化成功");
+
+                            //初始化成功之后再检查公告更新等信息
+                            EmaUtils.getInstance(mActivity).checkSDKStatus();
+
                             break;
                         case UserWrapper.ACTION_RET_INIT_FAIL://初始化SDK失败回调
                             listener.onCallBack(EmaCallBackConst.INITFALIED,"初始化SDK失败回调");

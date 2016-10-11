@@ -75,17 +75,16 @@ public class EmaUtils {
 
     /**
      * 检查sdk是否维护状态，并能拿到appkey
-     * @param listener
      */
-    public void checkSDKStatus(EmaSDKListener listener) {
-        this.mListener=listener;
+    public void checkSDKStatus() {
+
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
 
                 Map<String,String> params = new HashMap<>();
                 params.put("appId",ULocalUtils.getAppId(activity));
-                params.put("channelId",EmaSDK.getInstance().getChannelId());
+                params.put("channelId",ULocalUtils.getChannelId(activity));
 
                 String sign =ULocalUtils.getAppId(activity)+EmaSDK.getInstance().getChannelId()+EmaUser.getInstance().getAppkey();
                 //LOG.e("rawSign",sign);
@@ -107,8 +106,6 @@ public class EmaUtils {
                     switch (resultCode) {
                         case HttpInvokerConst.SDK_RESULT_SUCCESS:// 请求状态成功
                             Log.d("检查维护状态", "请求状态成功！！");
-
-                            getChannelKeyInfo();
 
 
                             JSONObject dataObj = json.getJSONObject("data");
@@ -175,13 +172,14 @@ public class EmaUtils {
     }
 
 
-    private void getChannelKeyInfo() {
+    public void getChannelKeyInfo(EmaSDKListener listener) {
+        this.mListener=listener;
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
                 Map<String,String> params = new HashMap<>();
                 params.put("appId",ULocalUtils.getAppId(activity));
-                params.put("channelId",EmaSDK.getInstance().getChannelId());
+                params.put("channelId",ULocalUtils.getChannelId(activity));
                 try {
                     String result = new HttpRequestor().doPost(Instants.GET_KEY_INFO, params);
                     JSONObject jsonObject = new JSONObject(result);
