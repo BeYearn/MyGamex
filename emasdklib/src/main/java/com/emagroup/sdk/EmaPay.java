@@ -103,7 +103,7 @@ public class EmaPay {
                 try {
                     String result = new HttpRequestor().doPost(Instants.CREAT_ORDER_URL, params);
 
-                    Log.e("pay creatOrder",result);
+                    Log.e("creatOrder",result);
                     JSONObject jsonObject = new JSONObject(result);
                     String message = jsonObject.getString("message");
                     String status = jsonObject.getString("status");
@@ -127,8 +127,9 @@ public class EmaPay {
                     payInfo.setProductName(productName);
                     payInfo.setPrice(Integer.parseInt(productPrice));
                     payInfo.setDescription(description);
+                    payInfo.setProductId(channelProductCode);
 
-                    Log.e("createOrder", message + coinEnough + orderId + unit + productPrice);
+                    Log.e("createOrder", orderId + channelProductCode + description + productName + productPrice);
 
                     Message msg = new Message();
                     msg.what = ORDER_SUCCESS;
