@@ -3,12 +3,6 @@ package com.emagroup.sdk;
 import android.app.Activity;
 import android.util.Log;
 
-import com.anysdk.framework.PluginWrapper;
-import com.anysdk.framework.java.AnySDK;
-import com.anysdk.framework.java.AnySDKParam;
-import com.anysdk.framework.java.AnySDKUser;
-import com.anysdk.framework.java.ToolBarPlaceEnum;
-
 import java.util.Map;
 
 /**
@@ -77,15 +71,12 @@ public class EmaSDK {
     }
 
     public void doShowToolbar() {
-        AnySDKParam param = new AnySDKParam(ToolBarPlaceEnum.kToolBarTopLeft.getPlace());
-        AnySDKUser.getInstance().callFunction("showToolBar", param);
+        EmaUtils.getInstance(mActivity).doShowToolbar();
     }
 
 
     public void doHideToobar() {
-        if (AnySDKUser.getInstance().isFunctionSupported("hideToolBar")) {
-            AnySDKUser.getInstance().callFunction("hideToolBar");
-        }
+        EmaUtils.getInstance(mActivity).doHideToobar();
     }
 
 
@@ -113,20 +104,19 @@ public class EmaSDK {
 
 
     public void onResume() {
-        PluginWrapper.onResume();
+        EmaUtils.getInstance(mActivity).onResume();
     }
 
     public void onPause() {
-        PluginWrapper.onPause();
+        EmaUtils.getInstance(mActivity).onPause();
     }
 
     public void onStop() {
-        PluginWrapper.onStop();
+        EmaUtils.getInstance(mActivity).onStop();
     }
 
     public void onDestroy(){
-        PluginWrapper.onDestroy();
-        AnySDK.getInstance().release();
+        EmaUtils.getInstance(mActivity).onDestroy();
     }
 
 }

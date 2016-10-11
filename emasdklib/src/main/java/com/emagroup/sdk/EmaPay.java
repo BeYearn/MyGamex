@@ -102,6 +102,8 @@ public class EmaPay {
 
                 try {
                     String result = new HttpRequestor().doPost(Instants.CREAT_ORDER_URL, params);
+
+                    Log.e("pay creatOrder",result);
                     JSONObject jsonObject = new JSONObject(result);
                     String message = jsonObject.getString("message");
                     String status = jsonObject.getString("status");

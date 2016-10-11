@@ -8,7 +8,8 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 
-import com.anysdk.framework.java.AnySDKUser;
+import com.emagroup.sdk.any.EmaUtilsAnyImpl;
+import com.emagroup.sdk.mi.EmaUtilsMiImpl;
 import com.igexin.sdk.PushManager;
 
 import org.json.JSONObject;
@@ -187,10 +188,9 @@ public class EmaUtils {
                     int status = jsonObject.getInt("status");
                     switch (status) {
                         case HttpInvokerConst.SDK_RESULT_SUCCESS:// 请求状态成功
-                            // TODO: 2016/10/9 解耦：不同的地方放在另外一个类面处理，保证两边EmaUtils相同
                             Log.d("getkeyinfo", "请求状态成功！！");
                             JSONObject data = jsonObject.getJSONObject("data");
-                            EmaUtilsImpl.getInstance(activity).realInit(mListener,data);
+                            realInit(data);
                             break;
                         case HttpInvokerConst.SDK_RESULT_FAILED://
                             Log.e("getkeyinfo", "请求状态失败！！");
@@ -211,6 +211,14 @@ public class EmaUtils {
 
     }
 
+    private void realInit(JSONObject data) {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).realInit(mListener,data);
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).realInit(mListener,data);
+        }
+    }
+
     /**
      * 初始化个推
      * @param activity
@@ -226,20 +234,83 @@ public class EmaUtils {
      * @param deviceKey
      */
     public void realLogin(EmaSDKListener listener, String userid, String deviceKey) {
-
-        EmaUtilsImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
+        }
 
     }
 
     public void logout() {
-        AnySDKUser.getInstance().callFunction("logout");
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).logout();
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).logout();
+        }
     }
 
     public void doPayPre(EmaSDKListener listener) {
-        EmaUtilsImpl.getInstance(activity).doPayPre(listener);
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).doPayPre(listener);
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).doPayPre(listener);
+        }
     }
 
     public void realPay(EmaSDKListener listener, EmaPayInfo emaPayInfo) {
-        EmaUtilsImpl.getInstance(activity).realPay(listener,emaPayInfo);
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).realPay(listener,emaPayInfo);
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).realPay(listener,emaPayInfo);
+        }
+    }
+
+    public void doShowToolbar() {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).doShowToolbar();
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).doShowToolbar();
+        }
+    }
+
+    public void doHideToobar() {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).doHideToobar();
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).doHideToobar();
+        }
+    }
+
+    public void onResume() {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).onResume();
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).onResume();
+        }
+    }
+
+    public void onPause() {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).onPause();
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).onPause();
+        }
+    }
+
+    public void onStop() {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).onStop();
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).onStop();
+        }
+    }
+
+    public void onDestroy() {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).onDestroy();
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).onDestroy();
+        }
     }
 }

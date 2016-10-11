@@ -1,4 +1,4 @@
-package com.emagroup.sdk;
+package com.emagroup.sdk.any;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,11 +6,23 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.anysdk.framework.IAPWrapper;
+import com.anysdk.framework.PluginWrapper;
 import com.anysdk.framework.UserWrapper;
 import com.anysdk.framework.java.AnySDK;
 import com.anysdk.framework.java.AnySDKIAP;
 import com.anysdk.framework.java.AnySDKListener;
+import com.anysdk.framework.java.AnySDKParam;
 import com.anysdk.framework.java.AnySDKUser;
+import com.anysdk.framework.java.ToolBarPlaceEnum;
+import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaPayInfo;
+import com.emagroup.sdk.EmaSDK;
+import com.emagroup.sdk.EmaSDKListener;
+import com.emagroup.sdk.EmaSDKUser;
+import com.emagroup.sdk.EmaService;
+import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
+import com.emagroup.sdk.ULocalUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,27 +34,26 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/10/9.
  */
-public class EmaUtilsImpl {
+public class EmaUtilsAnyImpl {
 
-    private static EmaUtilsImpl instance;
+    private static EmaUtilsAnyImpl instance;
 
     private Activity mActivity;
 
-    public static EmaUtilsImpl getInstance(Activity activity) {
+    public static EmaUtilsAnyImpl getInstance(Activity activity) {
         if (instance == null) {
-            instance = new EmaUtilsImpl(activity);
+            instance = new EmaUtilsAnyImpl(activity);
         }
         return instance;
     }
 
-    private EmaUtilsImpl(Activity activity){
+    private EmaUtilsAnyImpl(Activity activity){
         this.mActivity =activity;
     }
 
     public void realInit(final EmaSDKListener listener, JSONObject data){
 
         try {
-
             String channelAppKey = data.getString("channelAppKey");
             String channelAppSecret = data.getString("channelAppSecret");
             String channelAppPrivate = data.getString("channelAppPrivate");
@@ -68,6 +79,8 @@ public class EmaUtilsImpl {
                         case UserWrapper.ACTION_RET_LOGIN_SUCCESS://登陆成功回调
                             listener.onCallBack(EmaCallBackConst.LOGINSUCCESS,"登陆成功回调");
 
+                            EmaUser.getInstance().setmUid(AnySDKUser.getInstance().getUserID());
+                            EmaUser.getInstance().setNickName("");
 
                             //显示toolbar
                             EmaSDK.getInstance().doShowToolbar();
@@ -77,7 +90,7 @@ public class EmaUtilsImpl {
                             mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                             //补充弱账户信息
-                            EmaSDKUser.updateWeakAccount(ULocalUtils.getAppId(mActivity),ULocalUtils.getChannelId(mActivity),ULocalUtils.getChannelTag(mActivity),ULocalUtils.getIMEI(mActivity),EmaUser.getInstance().getAllianceUid());
+                            EmaSDKUser.getInstance().updateWeakAccount(ULocalUtils.getAppId(mActivity),ULocalUtils.getChannelId(mActivity),ULocalUtils.getChannelTag(mActivity),ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
 
                             break;
                         case UserWrapper.ACTION_RET_LOGIN_CANCEL://登陆取消回调
@@ -166,5 +179,37 @@ public class EmaUtilsImpl {
         ArrayList<String> idArrayList =  AnySDKIAP.getInstance().getPluginId();
         AnySDKIAP.getInstance().payForProduct(idArrayList.get(0), anyPayInfo);
         Log.e("dopay","dopay");
+    }
+
+    public void logout() {
+        AnySDKUser.getInstance().callFunction("logout");
+    }
+
+    public void doShowToolbar() {
+        AnySDKParam param = new AnySDKParam(ToolBarPlaceEnum.kToolBarTopLeft.getPlace());
+        AnySDKUser.getInstance().callFunction("showToolBar", param);
+    }
+
+    public void doHideToobar() {
+        if (AnySDKUser.getInstance().isFunctionSupported("hideToolBar")) {
+            AnySDKUser.getInstance().callFunction("hideToolBar");
+        }
+    }
+
+    public void onResume() {
+        PluginWrapper.onResume();
+    }
+
+    public void onPause() {
+        PluginWrapper.onPause();
+    }
+
+    public void onStop() {
+        PluginWrapper.onStop();
+    }
+
+    public void onDestroy() {
+        PluginWrapper.onDestroy();
+        AnySDK.getInstance().release();
     }
 }

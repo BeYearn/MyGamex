@@ -64,28 +64,13 @@
 
         <service android:name="com.emagroup.sdk.EmaService" />
 
-        <meta-data
-            android:name="appKey"
-            android:value="D8676EF0-FF45-B770-25DB-28C5E861797C" />
-        <meta-data
-            android:name="appSecret"
-            android:value="08eecf71a971c7a44ce6b32f16ba303c" />
-        <meta-data
-            android:name="privateKey"
-            android:value="717BEDEE7AD30841F484EF0A4AD59265" />
-        <meta-data
-            android:name="authLoginServer"
-            android:value="https://platform.lemonade-game.com/ema-platform/authLogin.jsp"/>
-        <!--authLoginServer="http://oauth.anysdk.com/api/OauthLoginDemo/Login.php"-->
-        <!--authLoginServer="http://192.168.10.80:8080/ema-platform/authLogin.jsp"-->
-
 
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="n20015"/>
+            android:value="n10000"/>
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n110000"/>
+            android:value="n000066"/>
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n0" />

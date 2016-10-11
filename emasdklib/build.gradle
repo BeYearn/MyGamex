@@ -30,4 +30,5 @@ android {
 dependencies {
     compile files('libs/libPluginProtocolForJava_fat.jar')
     compile files('libs/GetuiSDK2.9.0.0.jar')
+    compile files('libs/SDK_TY_4.6.11.jar')
 }
