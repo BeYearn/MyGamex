@@ -17,6 +17,8 @@ public class Instants {
     //创建订单接口
     public static final String CREAT_ORDER_URL = serverUrl+"/ema-platform/order/createOrder";
 
+    public static final String REJECT_ORDER_URL = serverUrl+"/ema-platform/order/rejectOrder";
+
     public static final String SDK_STATUS_URL= serverUrl+"/ema-platform/admin/getSystemInfo";
 
     public static final String GET_KEY_INFO=serverUrl+"/ema-platform/admin/channelKeyInfo";

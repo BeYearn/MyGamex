@@ -15,6 +15,7 @@ import com.anysdk.framework.java.AnySDKParam;
 import com.anysdk.framework.java.AnySDKUser;
 import com.anysdk.framework.java.ToolBarPlaceEnum;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
@@ -140,10 +141,16 @@ public class EmaUtilsAnyImpl {
                         break;
                     case IAPWrapper.PAYRESULT_FAIL://支付失败回调
                         // 购买失败
+                        //call一次取消订单
+                        EmaPay.getInstance(mActivity).cancelOrder();
+
                         listener.onCallBack(EmaCallBackConst.PAYFALIED,"购买失败");
                         break;
                     case IAPWrapper.PAYRESULT_CANCEL://支付取消回调
                         // 取消购买
+                        //call一次取消订单
+                        EmaPay.getInstance(mActivity).cancelOrder();
+
                         listener.onCallBack(EmaCallBackConst.PAYCANELI,"取消购买");
                         break;
                     case IAPWrapper.PAYRESULT_NETWORK_ERROR://支付超时回调
@@ -153,6 +160,10 @@ public class EmaUtilsAnyImpl {
                         //统一接口里面没有
                         break;
                     default:
+                        //购买失败
+                        //call一次取消订单
+                        EmaPay.getInstance(mActivity).cancelOrder();
+
                         listener.onCallBack(EmaCallBackConst.PAYFALIED,"购买失败");
                         break;
                 }

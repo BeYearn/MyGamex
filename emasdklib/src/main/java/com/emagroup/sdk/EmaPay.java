@@ -44,11 +44,11 @@ public class EmaPay {
         }
 
     };
+    private EmaPayInfo mPayInfo;
 
     private void doRealPay(EmaPayInfo emaPayInfo) {
 
-        EmaUtils.getInstance((Activity) mContext).realPay(mListener,emaPayInfo);
-
+        EmaUtils.getInstance((Activity) mContext).realPay(mListener, emaPayInfo);
 
 
     }
@@ -57,6 +57,7 @@ public class EmaPay {
         mContext = context;
         mEmaUser = EmaUser.getInstance();
     }
+
     public static EmaPay getInstance(Context context) {
         if (mInstance == null) {
             synchronized (synchron) {
@@ -74,9 +75,9 @@ public class EmaPay {
      *
      * @param
      */
-    public void pay(final EmaPayInfo payInfo, EmaSDKListener listener) {
+    public void pay(EmaPayInfo payInfo, EmaSDKListener listener) {
         this.mListener = listener;
-
+        this.mPayInfo = payInfo;
         if (!mEmaUser.isLogin()) {
             Log.e(TAG, "没有登陆，或者已经退出！订单创建失败");
             return;
@@ -86,16 +87,16 @@ public class EmaPay {
             public void run() {
                 //发起购买---->对订单号及信息的请求
                 Map<String, String> params = new HashMap<>();
-                params.put("pid", payInfo.getProductId());
+                params.put("pid", mPayInfo.getProductId());
                 params.put("token", mEmaUser.getToken());
-                params.put("quantity", payInfo.getProductNum());
-                params.put("appId",ULocalUtils.getAppId(mContext));
-                if(!TextUtils.isEmpty(payInfo.getGameTransCode())){
-                    params.put("gameTransCode", payInfo.getGameTransCode());
+                params.put("quantity", mPayInfo.getProductNum());
+                params.put("appId", ULocalUtils.getAppId(mContext));
+                if (!TextUtils.isEmpty(mPayInfo.getGameTransCode())) {
+                    params.put("gameTransCode", mPayInfo.getGameTransCode());
                 }
-                Log.e("Emapay_pay", payInfo.getProductId() + ".." + mEmaUser.getToken() + ".." + payInfo.getProductNum());
+                Log.e("Emapay_pay", mPayInfo.getProductId() + ".." + mEmaUser.getToken() + ".." + mPayInfo.getProductNum());
 
-                String sign = ULocalUtils.getAppId(mContext)+(TextUtils.isEmpty(payInfo.getGameTransCode())?null:payInfo.getGameTransCode())+payInfo.getProductId()+payInfo.getProductNum()+mEmaUser.getToken()+EmaUser.getInstance().getAppkey();
+                String sign = ULocalUtils.getAppId(mContext) + (TextUtils.isEmpty(mPayInfo.getGameTransCode()) ? null : mPayInfo.getGameTransCode()) + mPayInfo.getProductId() + mPayInfo.getProductNum() + mEmaUser.getToken() + EmaUser.getInstance().getAppkey();
                 //LOG.e("rawSign",sign);
                 sign = ULocalUtils.MD5(sign);
                 params.put("sign", sign);
@@ -103,7 +104,7 @@ public class EmaPay {
                 try {
                     String result = new HttpRequestor().doPost(Instants.CREAT_ORDER_URL, params);
 
-                    Log.e("creatOrder",result);
+                    Log.e("creatOrder", result);
                     JSONObject jsonObject = new JSONObject(result);
                     String message = jsonObject.getString("message");
                     String status = jsonObject.getString("status");
@@ -122,24 +123,47 @@ public class EmaPay {
                     String productPrice = productInfo.getString("productPrice");
                     String unit = productInfo.getString("unit");
 
-                    payInfo.setOrderId(orderId);
-                    payInfo.setUid(mEmaUser.getAllianceUid());
-                    payInfo.setProductName(productName);
-                    payInfo.setPrice(Integer.parseInt(productPrice));
-                    payInfo.setDescription(description);
-                    payInfo.setProductId(channelProductCode);
+                    mPayInfo.setOrderId(orderId);
+                    mPayInfo.setUid(mEmaUser.getAllianceUid());
+                    mPayInfo.setProductName(productName);
+                    mPayInfo.setPrice(Integer.parseInt(productPrice));
+                    mPayInfo.setDescription(description);
+                    mPayInfo.setProductId(channelProductCode);
 
                     Log.e("createOrder", orderId + channelProductCode + description + productName + productPrice);
 
                     Message msg = new Message();
                     msg.what = ORDER_SUCCESS;
-                    msg.obj = payInfo;
+                    msg.obj = mPayInfo;
                     mHandler.sendMessage(msg);
                 } catch (Exception e) {
                     mHandler.sendEmptyMessage(ORDER_FAIL);
                     e.printStackTrace();
                 }
 
+            }
+        });
+    }
+
+
+    /**
+     * 取消订单
+     */
+    public void cancelOrder() {
+        ThreadUtil.runInSubThread(new Runnable() {
+            @Override
+            public void run() {
+                Map<String, String> params = new HashMap<>();
+                params.put("orderId", mPayInfo.getOrderId());
+                params.put("token", mEmaUser.getToken());
+                try {
+
+                    String result = new HttpRequestor().doPost(Instants.REJECT_ORDER_URL, params);
+
+                    Log.e("rejectOrder",result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

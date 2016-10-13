@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
@@ -140,10 +141,16 @@ public class EmaUtilsMiImpl {
                                 break;
                             case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_PAY_CANCEL:
                                 // 取消购买
+                                //call一次取消订单
+                                EmaPay.getInstance(mActivity).cancelOrder();
+
                                 listener.onCallBack(EmaCallBackConst.PAYCANELI, "取消购买");
                                 break;
                             case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_PAY_FAILURE:
                                 // 购买失败
+                                //call一次取消订单
+                                EmaPay.getInstance(mActivity).cancelOrder();
+
                                 listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
                                 break;
                             case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_ACTION_EXECUTED:
@@ -152,6 +159,9 @@ public class EmaUtilsMiImpl {
                                 break;
                             default:
                                 // 购买失败
+                                //call一次取消订单
+                                EmaPay.getInstance(mActivity).cancelOrder();
+
                                 listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
                                 break;
                         }
