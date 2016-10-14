@@ -5,8 +5,9 @@ package com.emagroup.sdk;
  */
 public class Instants {
 
-    private static String serverUrl="https://testing-platform.lemonade-game.com:8443";
+    //private static String serverUrl="https://testing-platform.lemonade-game.com:8443";
     //private static String serverUrl="https://platform.lemonade-game.com";
+    private static String serverUrl="https://staging-platform.lemonade-game.com";
 
     public static final String CREAT_WEAKCOUNT_URL = serverUrl+"/ema-platform/member/createAlianceAccount";
 
