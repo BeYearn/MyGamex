@@ -54,7 +54,10 @@ public class EmaUtilsMiImpl {
             appInfo.setAppId(channelAppId);
             appInfo.setAppKey(channelAppKey);
             MiCommplatform.Init(mActivity, appInfo);
+
             listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
+            //初始化成功之后再检查公告更新等信息
+            EmaUtils.getInstance(mActivity).checkSDKStatus();
 
         } catch (JSONException e) {
             listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");

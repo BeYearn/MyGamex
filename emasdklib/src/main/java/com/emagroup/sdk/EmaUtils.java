@@ -6,9 +6,11 @@ import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.emagroup.sdk.any.EmaUtilsAnyImpl;
+import com.emagroup.sdk.m4399.EmaUtils4399Impl;
 import com.emagroup.sdk.mi.EmaUtilsMiImpl;
 import com.igexin.sdk.PushManager;
 
@@ -50,6 +52,12 @@ public class EmaUtils {
         }
     };
 
+    private int necessary;
+    private String updateUrl;
+    private int version;
+    private String maintainBg;
+    private String maintainContent;
+    private String showStatus;
 
     //绑定服务
     public ServiceConnection mServiceCon = new ServiceConnection() {
@@ -109,35 +117,68 @@ public class EmaUtils {
 
 
                             JSONObject dataObj = json.getJSONObject("data");
-                            JSONObject appVersionInfo = dataObj.getJSONObject("appVersionInfo");
-                            JSONObject maintainInfo = dataObj.getJSONObject("maintainInfo");
+                            try{
+                                JSONObject appVersionInfo = dataObj.getJSONObject("appVersionInfo");
+                                necessary = appVersionInfo.getInt("necessary");
+                                updateUrl = appVersionInfo.getString("updateUrl");
+                                version = appVersionInfo.getInt("version");
+                            }catch (Exception e) {
+                                Log.w("检查维护状态", "jiexi appVersionInfo error", e);
+                            }
 
-                            int necessary = appVersionInfo.getInt("necessary");
-                            String updateUrl = appVersionInfo.getString("updateUrl");
-                            int version = appVersionInfo.getInt("version");
+                            try {
+                                JSONObject maintainInfo = dataObj.getJSONObject("maintainInfo");
+                                maintainBg = maintainInfo.getString("maintainBg");
+                                maintainContent = maintainInfo.getString("maintainContent");
+                                showStatus = maintainInfo.getString("status");// 0-维护/1-公告
+                            }catch (Exception e) {
+                                Log.w("检查维护状态", "jiexi maintainInfo error", e);
+                            }
 
-                            String maintainBg = maintainInfo.getString("maintainBg");
-                            String maintainContent = maintainInfo.getString("maintainContent");
-                            String showStatus = maintainInfo.getString("status"); // 0-维护/1-公告
 
                             contentMap.put("updateUrl",updateUrl);
                             contentMap.put("maintainContent",maintainContent);
                             contentMap.put("whichUpdate","none");
 
-                            if("1".equals(showStatus)){ //显示公告
+                            if(TextUtils.isEmpty(showStatus)){
+
+                                if(!TextUtils.isEmpty(updateUrl)){
+                                    HashMap<String, String> updateMap = new HashMap<>();
+                                    updateMap.put("updateUrl",updateUrl);
+
+                                    if(ULocalUtils.getVersionCode(activity)<version){ // 需要更新
+                                        Log.e("gengxin",ULocalUtils.getVersionCode(activity)+"..."+version);
+                                        if(1==necessary){  //necessary 1强更
+                                            message.arg2=2;
+                                        }else {
+                                            message.arg2=1;
+                                        }
+
+                                        message.what=ALERT_SHOW;
+                                        message.arg1=2;               //显示形式 1只有确定按钮
+                                        message.obj=updateMap; 		//内容
+                                        mHandler.sendMessage(message);
+                                    }
+                                }
+
+                            }else if("1".equals(showStatus)){ //显示公告
 
                                 message.what=ALERT_WEBVIEW_SHOW;
                                 message.arg1=1;               //显示形式 1只有确定按钮
                                 message.arg2=2;					//------2确定按钮按下顺利进  3有更新，有后续dialog
                                 message.obj=contentMap; //内容
 
-                                if(ULocalUtils.getVersionCode(activity)<version){ // 需要更新
-                                    Log.e("gengxin",ULocalUtils.getVersionCode(activity)+"..."+version);
-                                    if(1==necessary){  //necessary 1强更
-                                        contentMap.put("whichUpdate","hard");
-                                    }else {
-                                        contentMap.put("whichUpdate","soft");
+                                if(!TextUtils.isEmpty(updateUrl)){
+                                    if(ULocalUtils.getVersionCode(activity)<version){ // 需要更新
+                                        Log.e("gengxin",ULocalUtils.getVersionCode(activity)+"..."+version);
+                                        if(1==necessary){  //necessary 1强更
+                                            contentMap.put("whichUpdate","hard");
+                                        }else {
+                                            contentMap.put("whichUpdate","soft");
+                                        }
                                     }
+                                }else {
+                                    contentMap.put("whichUpdate","none");
                                 }
                                 mHandler.sendMessage(message);
 
@@ -209,20 +250,22 @@ public class EmaUtils {
 
     }
 
-    private void realInit(JSONObject data) {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
-            EmaUtilsMiImpl.getInstance(activity).realInit(mListener,data);
-        }else{  //否则走any渠道
-            EmaUtilsAnyImpl.getInstance(activity).realInit(mListener,data);
-        }
-    }
-
     /**
      * 初始化个推
      * @param activity
      */
     public void initGeTui(Activity activity){
         PushManager.getInstance().initialize(activity.getApplicationContext());
+    }
+
+    private void realInit(JSONObject data) {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).realInit(mListener,data);
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).realInit(mListener,data);
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).realInit(mListener,data);
+        }
     }
 
     /**
@@ -234,6 +277,8 @@ public class EmaUtils {
     public void realLogin(EmaSDKListener listener, String userid, String deviceKey) {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }
@@ -243,6 +288,8 @@ public class EmaUtils {
     public void logout() {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).logout();
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).logout();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).logout();
         }
@@ -251,6 +298,8 @@ public class EmaUtils {
     public void doPayPre(EmaSDKListener listener) {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).doPayPre(listener);
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).doPayPre(listener);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doPayPre(listener);
         }
@@ -259,6 +308,8 @@ public class EmaUtils {
     public void realPay(EmaSDKListener listener, EmaPayInfo emaPayInfo) {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).realPay(listener,emaPayInfo);
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).realPay(listener,emaPayInfo);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realPay(listener,emaPayInfo);
         }
@@ -267,6 +318,8 @@ public class EmaUtils {
     public void doShowToolbar() {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).doShowToolbar();
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).doShowToolbar();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doShowToolbar();
         }
@@ -275,6 +328,8 @@ public class EmaUtils {
     public void doHideToobar() {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).doHideToobar();
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).doHideToobar();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doHideToobar();
         }
@@ -283,6 +338,8 @@ public class EmaUtils {
     public void onResume() {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).onResume();
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).onResume();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onResume();
         }
@@ -291,6 +348,8 @@ public class EmaUtils {
     public void onPause() {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).onPause();
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).onPause();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onPause();
         }
@@ -299,6 +358,8 @@ public class EmaUtils {
     public void onStop() {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).onStop();
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).onStop();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onStop();
         }
@@ -307,6 +368,8 @@ public class EmaUtils {
     public void onDestroy() {
         if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).onDestroy();
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).onDestroy();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onDestroy();
         }
