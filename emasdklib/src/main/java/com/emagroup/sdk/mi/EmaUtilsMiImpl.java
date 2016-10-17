@@ -64,7 +64,7 @@ public class EmaUtilsMiImpl {
     }
 
 
-    public void realLogin(final EmaSDKListener Listener, String userid, String deviceId) {
+    public void realLogin(final EmaSDKListener listener, String userid, String deviceId) {
         //可以通过实现OnLoginProcessListener接口来捕获登录结果
         MiCommplatform.getInstance().miLogin(mActivity, new OnLoginProcessListener() {
             @Override
@@ -72,7 +72,7 @@ public class EmaUtilsMiImpl {
                 switch (i) {
                     case MiErrorCode.MI_XIAOMI_GAMECENTER_SUCCESS:
                         // 登陆成功
-                        Listener.onCallBack(EmaCallBackConst.LOGINSUCCESS, "登陆成功回调");
+                        listener.onCallBack(EmaCallBackConst.LOGINSUCCESS, "登陆成功回调");
 
                         //获取用户的登陆后的 UID(即用户唯一标识)
                         long uid = miAccountInfo.getUid();
@@ -94,15 +94,15 @@ public class EmaUtilsMiImpl {
                         break;
                     case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_LOGIN_FAIL:
                         // 登陆失败
-                        Listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
                         break;
                     case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_CANCEL:
                         // 取消登录
-                        Listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
+                        listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
                         break;
                     default:
                         // 登录失败
-                        Listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
                         break;
                 }
             }
