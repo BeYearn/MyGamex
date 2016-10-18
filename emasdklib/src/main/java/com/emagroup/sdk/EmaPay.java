@@ -78,6 +78,15 @@ public class EmaPay {
     public void pay(EmaPayInfo payInfo, EmaSDKListener listener) {
         this.mListener = listener;
         this.mPayInfo = payInfo;
+
+        try {
+            if(mPayInfo.getGameTransCode().getBytes().length>256){
+                throw new RuntimeException("参数过长，超过256byte");
+            }
+        }catch(Exception e){
+            Log.e("pay","参数过长，超过256byte");
+            return;
+        }
         if (!mEmaUser.isLogin()) {
             Log.e(TAG, "没有登陆，或者已经退出！订单创建失败");
             return;
