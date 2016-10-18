@@ -223,6 +223,7 @@ public class EmaUtils {
                 params.put("channelId",ULocalUtils.getChannelId(activity));
                 try {
                     String result = new HttpRequestor().doPost(Instants.GET_KEY_INFO, params);
+                    Log.e("getChannelKeyInfo",result);
                     JSONObject jsonObject = new JSONObject(result);
                     int status = jsonObject.getInt("status");
                     switch (status) {

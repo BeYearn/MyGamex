@@ -75,6 +75,9 @@ public class EmaUtils4399Impl {
                                 EmaUser.getInstance().setmUid(uid);
                                 EmaUser.getInstance().setNickName(nikename);
                             }*/
+
+                            //初始化成功之后再检查公告更新等信息
+                            EmaUtils.getInstance(mActivity).checkSDKStatus();
                         }
 
                         // 注销帐号的回调， 包括个人中心里的注销和logout()注销方式
