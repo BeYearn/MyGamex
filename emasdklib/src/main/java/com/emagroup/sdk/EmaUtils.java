@@ -375,4 +375,14 @@ public class EmaUtils {
             EmaUtilsAnyImpl.getInstance(activity).onDestroy();
         }
     }
+
+    public void onBackPressed(EmaBackPressedAction action) {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+            EmaUtilsMiImpl.getInstance(activity).onBackPressed(action);
+        }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
+            EmaUtils4399Impl.getInstance(activity).onBackPressed(action);
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).onBackPressed(action);
+        }
+    }
 }

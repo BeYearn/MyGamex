@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.util.Log;
 
+import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
@@ -196,5 +197,9 @@ public class EmaUtils4399Impl {
 
     public void onDestroy() {
         OperateCenter.getInstance().destroy();
+    }
+
+    public void onBackPressed(EmaBackPressedAction action) {
+        action.doBackPressedAction();
     }
 }

@@ -13,11 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.ToastHelper;
 
 import java.util.HashMap;
 
@@ -46,8 +48,8 @@ public class MainActivity extends Activity implements OnClickListener {
         btShowBar= (Button) findViewById(R.id.bt_showbar);
         btHideBar= (Button) findViewById(R.id.bt_hidebar);
 
-
-        EmaSDK.getInstance().init("6cdd60ea0045eb7a6ec44c54d29ed402",this, new EmaSDKListener() {
+        //EmaSDK.getInstance().init("6cdd60ea0045eb7a6ec44c54d29ed402",this, new EmaSDKListener() {
+        EmaSDK.getInstance().init("5600441101c8818c4480d3c503742a3b",this, new EmaSDKListener() {
             @Override
             public void onCallBack(int arg0, String arg1) {
                 switch (arg0) {
@@ -122,7 +124,7 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.bt_pay:
 
                 HashMap<String, String> payInfoMap = new HashMap<>();
-                payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_ID, "10001");
+                payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_ID, "CYDZZ_1001");
                 payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_COUNT, "1");
                 payInfoMap.put(EmaConst.EMA_GAMETRANS_CODE,"游戏透传参数");
                 //payInfoMap.put("Product_Name","gold");
@@ -213,5 +215,16 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onStop();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        EmaSDK.getInstance().onBackPressed(new EmaBackPressedAction(){
+            @Override
+            public void doBackPressedAction() {
+                //游戏需要做的逻辑
+                ToastHelper.toast(MainActivity.this,"我是游戏自己的逻辑xxxxxxxxxxxxx");
+                //MainActivity.super.onBackPressed();
+            }
+        });
+        super.onBackPressed();
+    }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
@@ -194,4 +195,7 @@ public class EmaUtilsMiImpl {
     public void onDestroy() {
     }
 
+    public void onBackPressed(EmaBackPressedAction action) {
+        action.doBackPressedAction();
+    }
 }

@@ -14,6 +14,7 @@ import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKParam;
 import com.anysdk.framework.java.AnySDKUser;
 import com.anysdk.framework.java.ToolBarPlaceEnum;
+import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
@@ -226,5 +227,13 @@ public class EmaUtilsAnyImpl {
     public void onDestroy() {
         PluginWrapper.onDestroy();
         AnySDK.getInstance().release();
+    }
+
+    public void onBackPressed(EmaBackPressedAction action) {
+        if (AnySDKUser.getInstance().isFunctionSupported("exit")) {
+			AnySDKUser.getInstance().callFunction("exit");
+		}else {
+            action.doBackPressedAction();
+        }
     }
 }
