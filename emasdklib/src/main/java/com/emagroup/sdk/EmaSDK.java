@@ -47,6 +47,10 @@ public class EmaSDK {
         EmaSDKUser.getInstance().logout();
     }
 
+    public void doSwichAccount() {
+        EmaSDKUser.getInstance().swichAccount();
+    }
+
     public void doPay(Map<String,String> info,EmaSDKListener listener){
 
         EmaUtils.getInstance(mActivity).doPayPre(listener);

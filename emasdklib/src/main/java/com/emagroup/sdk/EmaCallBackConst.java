@@ -34,6 +34,14 @@ public class EmaCallBackConst {
 	public final static int REGISTERSUCCESS = 500;//注册成功
 	public final static int REGISTERFALIED = 501;//注册失败
 
+	//切换帐号
+	public final static int ACCOUNTSWITCHSUCCESS = 600;
+	public final static int ACCOUNTSWITCHFAIL = 601;
+
+
+
+
+
 	//接收推送消息
 	public final static int RECIVEMSG_MSG = 123;//接收到
 }

@@ -177,6 +177,10 @@ public class EmaUtilsMiImpl {
     public void logout() {
     }
 
+    public void swichAccount() {
+
+    }
+
     public void doShowToolbar() {
     }
 

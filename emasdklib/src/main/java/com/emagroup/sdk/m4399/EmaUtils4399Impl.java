@@ -175,6 +175,10 @@ public class EmaUtils4399Impl {
         OperateCenter.getInstance().logout();
     }
 
+    public void swichAccount() {
+
+    }
+
     public void doShowToolbar() {
 
     }

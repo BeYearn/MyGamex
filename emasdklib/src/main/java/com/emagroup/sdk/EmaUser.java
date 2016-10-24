@@ -68,4 +68,13 @@ public class EmaUser {
     public boolean getIsLogin(){
         return isLogin;
     }
+
+
+    /**
+     * 退出登录后，清空所有用户信息
+     */
+    public void clearUserInfo() {
+        instance=null;  //这样再getInstance就得到的是一个空的实例 妙
+    }
+
 }

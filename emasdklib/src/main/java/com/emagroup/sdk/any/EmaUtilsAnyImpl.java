@@ -112,6 +112,12 @@ public class EmaUtilsAnyImpl {
                         case UserWrapper.ACTION_RET_LOGOUT_FAIL://登出失败回调
                             listener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败回调");
                             break;
+                        case UserWrapper.ACTION_RET_ACCOUNTSWITCH_SUCCESS://切换账号成功回调
+                            listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS,"切换成功回调");
+                            break;
+                        case UserWrapper.ACTION_RET_ACCOUNTSWITCH_FAIL://切换账号失败回调
+                            listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHFAIL,"切换失败回调");
+                            break;
                         case UserWrapper.ACTION_RET_EXIT_PAGE://退出游戏回调
                             if(s == "onGameExit" || s == "onNo3rdExiterProvide") {
                                 //弹出游戏退出界面
@@ -214,7 +220,15 @@ public class EmaUtilsAnyImpl {
     }
 
     public void logout() {
-        AnySDKUser.getInstance().callFunction("logout");
+        if (AnySDKUser.getInstance().isFunctionSupported("logout")) {
+            AnySDKUser.getInstance().callFunction("logout");
+        }
+    }
+
+    public void swichAccount() {
+        if (AnySDKUser.getInstance().isFunctionSupported("accountSwitch")) {
+            AnySDKUser.getInstance().callFunction("accountSwitch");
+        }
     }
 
     public void doShowToolbar() {

@@ -76,6 +76,10 @@ public class MainActivity extends Activity implements OnClickListener {
                         break;
                     case EmaCallBackConst.LOGOUTFALIED://登出失败回调
                         break;
+                    case EmaCallBackConst.ACCOUNTSWITCHSUCCESS:
+                        break;
+                    case EmaCallBackConst.ACCOUNTSWITCHFAIL:
+                        break;
                 }
             }
         });
@@ -103,7 +107,8 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_login:
+            case R.id.tv_login:   // 点击那个字，现在是登出功能
+                EmaSDK.getInstance().doSwichAccount();
                 break;
             case R.id.bt_login:
                 EmaSDK.getInstance().doLogin();
@@ -225,6 +230,5 @@ public class MainActivity extends Activity implements OnClickListener {
                 //MainActivity.super.onBackPressed();
             }
         });
-        super.onBackPressed();
     }
 }

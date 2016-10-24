@@ -157,6 +157,11 @@ public class EmaSDKUser {
 
     public void logout() {
         EmaUtils.getInstance(mActivity).logout();
-        EmaUser.getInstance().setIsLogin(false);
+        EmaUser.getInstance().clearUserInfo();
+    }
+
+    public void swichAccount() {
+        EmaUtils.getInstance(mActivity).swichAccount();
+        EmaUser.getInstance().clearUserInfo();
     }
 }
