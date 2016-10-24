@@ -65,7 +65,7 @@ public class EmaUser {
     public void setIsLogin(boolean isLogin) {
         this.isLogin = isLogin;
     }
-    public boolean isLogin(){
+    public boolean getIsLogin(){
         return isLogin;
     }
 }

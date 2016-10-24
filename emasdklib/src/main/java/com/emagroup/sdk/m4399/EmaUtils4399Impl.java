@@ -69,7 +69,7 @@ public class EmaUtils4399Impl {
                         public void onInitFinished(boolean isLogin, User userInfo) {
                             listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
 
-                            /*if(mOpeCenter.isLogin()){  //注：登录后如果未注销，登录状态将一直保持直至登录凭证过期或失效（若用户修改平台账户密码，所有游戏授权凭证将失效，需重新登录）。 建议游戏在初始化完成后调用登录状态查询接口查询用户当前登录状态。
+                            /*if(mOpeCenter.getIsLogin()){  //注：登录后如果未注销，登录状态将一直保持直至登录凭证过期或失效（若用户修改平台账户密码，所有游戏授权凭证将失效，需重新登录）。 建议游戏在初始化完成后调用登录状态查询接口查询用户当前登录状态。
                                 User currentAccount = mOpeCenter.getCurrentAccount();
                                 String uid = currentAccount.getUid();
                                 String nikename = currentAccount.getName();
@@ -112,7 +112,7 @@ public class EmaUtils4399Impl {
                 //登录结束后的游戏逻辑
                 if(16==resultCode){
                     // 登陆成功
-                    listener.onCallBack(EmaCallBackConst.LOGINSUCCESS, "登陆成功回调");
+                    //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
 
                     //获取用户的登陆后的 UID(即用户唯一标识)
                     String uid = userInfo.getUid();
@@ -128,7 +128,7 @@ public class EmaUtils4399Impl {
                     mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                     //补充弱账户信息
-                    EmaSDKUser.getInstance().updateWeakAccount(ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
+                    EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
 
                 }else if(18==resultCode){
                     // 取消登录

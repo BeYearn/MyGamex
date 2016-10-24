@@ -113,7 +113,7 @@ public class EmaUtils {
 
                     switch (resultCode) {
                         case HttpInvokerConst.SDK_RESULT_SUCCESS:// 请求状态成功
-                            Log.d("检查维护状态", "请求状态成功！！");
+                            Log.d("1.0检查维护状态", "请求状态成功！！");
 
 
                             JSONObject dataObj = json.getJSONObject("data");
@@ -228,7 +228,7 @@ public class EmaUtils {
                     int status = jsonObject.getInt("status");
                     switch (status) {
                         case HttpInvokerConst.SDK_RESULT_SUCCESS:// 请求状态成功
-                            Log.d("getkeyinfo", "请求状态成功！！");
+                            Log.d("getkeyinfo", "1.0请求状态成功！！");
                             JSONObject data = jsonObject.getJSONObject("data");
                             realInit(data);
                             break;

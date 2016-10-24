@@ -38,6 +38,7 @@ public class EmaSDK {
 
     public void doLogin(){
         //先创建弱账户，随后。。真正登录
+        Log.e("emasdk1.0","login");
         EmaSDKUser.getInstance().creatWeakAccount(mListener);  // 在这其中包含any真正的登录（写在里面是想要两个透传参数）
 
     }

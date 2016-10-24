@@ -146,6 +146,7 @@ public class ULocalUtils {
      */
     public static String getChannelId(Context context){
          //return AnySDK.getInstance().getChannelId();
+        //anysdk的话用这个ASC_ChannelID，如果是单接的比如小米这种就得换回  EMA_CHANNEL_ID
         return ULocalUtils.EmaSdkInfo.getStringFromMetaData(context,"EMA_CHANNEL_ID").substring(1);
     }
 

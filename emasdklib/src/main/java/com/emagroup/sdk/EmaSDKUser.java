@@ -29,7 +29,7 @@ public class EmaSDKUser {
 
     public void creatWeakAccount(EmaSDKListener listener) {
 
-        deviceKey = ULocalUtils.getIMEI(mActivity);
+        /*deviceKey = ULocalUtils.getIMEI(mActivity);
         appId= ULocalUtils.getAppId(mActivity);
         allienceId= ULocalUtils.getChannelId(mActivity);
         allienceTag= ULocalUtils.getChannelTag(mActivity);
@@ -52,7 +52,7 @@ public class EmaSDKUser {
                     JSONObject jsonObject = new JSONObject(strGet);
                     JSONObject data = jsonObject.getJSONObject("data");
                     String userid = data.getString("userid");
-                    EmaUser.getInstance().setmUid(userid);
+                    //EmaUser.getInstance().setmUid(userid);
 
                     Log.e("User creatweakAccount","弱账户创建成功:"+userid);
 
@@ -62,7 +62,7 @@ public class EmaSDKUser {
                 }
 
             }
-        });
+        });*/
 
         EmaUtils.getInstance(mActivity).realLogin(listener,"", "");
     }
@@ -70,7 +70,7 @@ public class EmaSDKUser {
     /**
      * 在登录成功之后再call一次，将渠道uid传过去
      */
-    public void updateWeakAccount(final String appId, final String allianceId,final String channelTag,final String deviceKey,final String allianceUid){
+    public void updateWeakAccount(final EmaSDKListener listener, final String appId, final String allianceId, final String channelTag, final String deviceKey, final String allianceUid){
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
@@ -114,7 +114,7 @@ public class EmaSDKUser {
 
                     Log.e("update弱账户","结果:"+aUid+".."+nickname+".."+authCode+".."+callbackUrl);
 
-                    doCallbackUrl(dataStr,callbackUrl);
+                    doCallbackUrl(listener,dataStr,callbackUrl);
 
                     Log.e("doCallbackUrl",dataStr);
                 } catch (Exception e) {
@@ -126,7 +126,7 @@ public class EmaSDKUser {
         });
     }
 
-    private void doCallbackUrl(final String dataStr, final String callbackUrl) {
+    private void doCallbackUrl(final EmaSDKListener listener, final String dataStr, final String callbackUrl) {
 
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
@@ -145,7 +145,7 @@ public class EmaSDKUser {
                     Log.e("doCallbackUrl:token", token);
                     EmaUser.getInstance().setToken(token);
                     EmaUser.getInstance().setIsLogin(true);
-
+                    listener.onCallBack(EmaCallBackConst.LOGINSUCCESS,"登陆成功回调");
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("doCallbackUrl","maybe is SocketTimeoutException");
@@ -157,5 +157,6 @@ public class EmaSDKUser {
 
     public void logout() {
         EmaUtils.getInstance(mActivity).logout();
+        EmaUser.getInstance().setIsLogin(false);
     }
 }

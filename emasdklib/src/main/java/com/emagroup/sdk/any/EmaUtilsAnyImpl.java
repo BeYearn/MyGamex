@@ -69,11 +69,11 @@ public class EmaUtilsAnyImpl {
         AnySDKUser.getInstance().setListener(new AnySDKListener() {
             @Override
             public void onCallBack(int i, String s) {
-                Log.e("EMASDK",s+"+++++++++++++++++++++++++++++++ "+i);
                 if (listener != null) {
                     switch(i) {
                         case UserWrapper.ACTION_RET_INIT_SUCCESS://初始化成功
                             listener.onCallBack(EmaCallBackConst.INITSUCCESS,"初始化成功");
+                            Log.e("EmaAnySDK","初始化成功");
 
                             //初始化成功之后再检查公告更新等信息
                             EmaUtils.getInstance(mActivity).checkSDKStatus();
@@ -83,7 +83,8 @@ public class EmaUtilsAnyImpl {
                             listener.onCallBack(EmaCallBackConst.INITFALIED,"初始化SDK失败回调");
                             break;
                         case UserWrapper.ACTION_RET_LOGIN_SUCCESS://登陆成功回调
-                            listener.onCallBack(EmaCallBackConst.LOGINSUCCESS,"登陆成功回调");
+
+                            //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
 
                             EmaUser.getInstance().setmUid(AnySDKUser.getInstance().getUserID());
                             EmaUser.getInstance().setNickName("");
@@ -96,7 +97,7 @@ public class EmaUtilsAnyImpl {
                             mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                             //补充弱账户信息
-                            EmaSDKUser.getInstance().updateWeakAccount(ULocalUtils.getAppId(mActivity),ULocalUtils.getChannelId(mActivity),ULocalUtils.getChannelTag(mActivity),ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
+                            EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity),ULocalUtils.getChannelId(mActivity),ULocalUtils.getChannelTag(mActivity),ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
 
                             break;
                         case UserWrapper.ACTION_RET_LOGIN_CANCEL://登陆取消回调
@@ -110,6 +111,21 @@ public class EmaUtilsAnyImpl {
                             break;
                         case UserWrapper.ACTION_RET_LOGOUT_FAIL://登出失败回调
                             listener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败回调");
+                            break;
+                        case UserWrapper.ACTION_RET_EXIT_PAGE://退出游戏回调
+                            if(s == "onGameExit" || s == "onNo3rdExiterProvide") {
+                                //弹出游戏退出界面
+                                Log.e("tuichu","1");
+                            } else {
+                                Log.e("tuichu","2");
+                                //执行游戏退出逻辑
+                                /*System.exit(0);
+                                ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+                                am.killBackgroundProcesses (getPackageName());*/
+                                //android.os.Process.killProcess(android.os.Process.myPid());
+                                mActivity.finish();
+                                System.exit(0);
+                            }
                             break;
                     }
                 }

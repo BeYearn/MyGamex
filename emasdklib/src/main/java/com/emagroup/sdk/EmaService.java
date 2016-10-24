@@ -48,9 +48,11 @@ public class EmaService extends Service {
 			 }
 			 //之后都是5分钟发送一次
 			 while(mFlagRuning){
-				 trySleep(INTERVAL_TIME_THIRD);
 				 mIntervalTime += 300;
-				 EmaService.sendOnlineAlive(mIntervalTime);
+				 trySleep(INTERVAL_TIME_THIRD);
+				 if(EmaUser.getInstance().getIsLogin()){
+					 EmaService.sendOnlineAlive(mIntervalTime);
+				 }
 			}
 		 }
 	}

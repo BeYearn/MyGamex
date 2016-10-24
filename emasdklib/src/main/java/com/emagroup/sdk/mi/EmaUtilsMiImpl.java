@@ -76,7 +76,7 @@ public class EmaUtilsMiImpl {
                 switch (i) {
                     case MiErrorCode.MI_XIAOMI_GAMECENTER_SUCCESS:
                         // 登陆成功
-                        listener.onCallBack(EmaCallBackConst.LOGINSUCCESS, "登陆成功回调");
+                        //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
 
                         //获取用户的登陆后的 UID(即用户唯一标识)
                         long uid = miAccountInfo.getUid();
@@ -93,7 +93,7 @@ public class EmaUtilsMiImpl {
                         mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                         //补充弱账户信息
-                        EmaSDKUser.getInstance().updateWeakAccount(ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
+                        EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
 
                         break;
                     case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_LOGIN_FAIL:

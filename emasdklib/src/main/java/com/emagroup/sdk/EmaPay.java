@@ -87,7 +87,7 @@ public class EmaPay {
             Log.e("pay","参数过长，超过256byte");
             return;
         }
-        if (!mEmaUser.isLogin()) {
+        if (!mEmaUser.getIsLogin()) {
             Log.e(TAG, "没有登陆，或者已经退出！订单创建失败");
             return;
         }
