@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ema_scrollView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eeeeee">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eeeeee"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#ff7111" >
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/ema_pay_mabi_back"
+                android:layout_width="45dp"
+                android:layout_height="19dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ema_account_btn6" />
+
+            <ImageView
+                android:id="@+id/ema_pay_mabi_imageView_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingBottom="2dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:src="@drawable/ema_3rd_btn1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+                android:text="支付订单"
+                android:textColor="#ffffff"
+                android:textSize="18dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp" >
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_goodsNametext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:text="订购商品："
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_goodsName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/ema_pay_mabi_goodsNametext"
+                    android:text="sdasda "
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp" >
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_GoodsNumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:text="商品数量："
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_GoodsNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_toRightOf="@+id/ema_pay_mabi_GoodsNumText"
+                    android:gravity="bottom|left"
+                    android:text="1000"
+                    android:textColor="#ff7111"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp" >
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_totalPrice_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="总价："
+                    android:layout_centerVertical="true"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_totalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_toRightOf="@+id/ema_pay_mabi_totalPrice_text"
+                    android:gravity="bottom|left"
+                    android:text="100"
+                    android:textColor="#ff7111"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="11dp"
+                android:background="#b3b3b3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp" >
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:text="账户："
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/ema_pay_mabi_Price"
+                    android:text="ema"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="6dp" >
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_stillPay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:text="余额："
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_balance_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/ema_pay_mabi_stillPay"
+                    android:gravity="bottom|left"
+                    android:text="1000"
+                    android:textColor="#ff7111"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/ema_pay_mabi_congzhi"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ema_shape_corner_btn4"
+                    android:text="充  值"
+                    android:textColor="#ffffff"
+                    android:textSize="10dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_pay_limit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
+                    android:text="支付限额："
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/ema_pay_mabi_pay_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/ema_pay_mabi_pay_limit_text"
+                    android:gravity="bottom|left"
+                    android:text="9000麻豆"
+                    android:textColor="#ff7111"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/ema_pay_mabi_pay_btn_limit_change"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/ema_shape_corner_btn5"
+                    android:text="修  改"
+                    android:textColor="#ff7111"
+                    android:textSize="10dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="5dp"
+                android:background="#b3b3b3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/ema_pay_pass_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:paddingLeft="10dp"
+                android:text="支付密码："
+                android:textColor="#000000"
+                android:textSize="15dp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp"
+                android:background="#b3b3b3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/ema_pay_mabi_edt_pay_passw"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="7dp"
+                    android:background="#ffffff"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:hint="请输入支付密码"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
+                    android:scaleType="fitXY"
+                    android:textColor="#ff6600"
+                    android:textColorHint="#673300"
+                    android:textCursorDrawable="@drawable/ema_edittext_cursor"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/ema_pay_mabi_find_passwd"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/ema_shape_corner_btn5"
+                    android:text="修改密码"
+                    android:textColor="#ff7111"
+                    android:textSize="10dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="5dp"
+                android:background="#b3b3b3" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/ema_pay_mabi_btn_pay"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/ema_shape_corner_btn0"
+            android:text="确定付款"
+            android:textColor="#ffffff"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+</ScrollView>

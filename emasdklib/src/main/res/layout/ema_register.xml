@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="320dp"
+    android:background="#ffffff"
+    android:gravity="left|right"
+    android:orientation="vertical"
+    android:paddingTop="0dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#e0e0e0"
+        android:paddingBottom="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="15dp"
+            android:src="@drawable/ema_title" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:background="#1B6AAE" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:paddingTop="15dp"
+            android:text="快速注册"
+            android:textColor="#1B6AAE" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="5dp"
+        android:text="您可以输入邮箱、字母/数字/下划线作为通行证账号，也可以使用系统为您默认分配的账号。"
+        android:textColor="#ff7111"
+        android:textSize="11dp" />
+
+    <RelativeLayout
+        android:id="@+id/ema_register_RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" >
+
+        <EditText
+            android:id="@+id/ema_register_loginname"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="#ffffff"
+            android:cursorVisible="true"
+            android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_.@"
+            android:ems="10"
+            android:hint="请输入账号/手机/邮箱"
+            android:inputType="textEmailAddress"
+            android:maxLength="50"
+            android:paddingBottom="0dp"
+            android:paddingLeft="35dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="#ff6600"
+            android:textColorHint="#673300"
+            android:textCursorDrawable="@drawable/ema_edittext_cursor"
+            android:textSize="16sp" >
+        </EditText>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ema_user" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ema_register_RelativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" >
+
+        <EditText
+            android:id="@+id/ema_register_passwd"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:cursorVisible="true"
+            android:ems="10"
+            android:hint="请输入密码"
+            android:inputType="textEmailAddress"
+            android:maxLength="16"
+            android:paddingBottom="8dp"
+            android:paddingLeft="35dp"
+            android:paddingRight="10dp"
+            android:textColor="#ff6600"
+            android:textColorHint="#673300"
+            android:textCursorDrawable="@drawable/ema_edittext_cursor"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ema_lock" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/ema_register_login"
+            android:layout_width="300dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:adjustViewBounds="false"
+            android:background="@drawable/ema_button_blue_long"
+            android:minHeight="45dp"
+            android:text="进入游戏"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/ema_register_phoneLogin"
+            android:layout_width="145dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ema_button_orange"
+            android:minHeight="45dp"
+            android:text="手机一键登录"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/ema_register_returnLogin"
+            android:layout_width="145dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/ema_button_blue"
+            android:minHeight="45dp"
+            android:text="返回登录"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="注册即同意《柠檬水服务条款》"
+        android:textColor="#ff7111"
+        android:textSize="11dp" />
+
+</LinearLayout>

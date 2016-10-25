@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:layout_height="wrap_content" >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp" >
+        <ImageView
+            android:id="@+id/ema_pay_trd_itemImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#000000" >
+        </ImageView>
+
+        <TextView
+            android:id="@+id/ema_pay_trd_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/ema_pay_trd_itemImage"
+            android:background="@drawable/ema_pay_discount_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="8sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+</LinearLayout>
