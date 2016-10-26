@@ -5,8 +5,8 @@ android {
     buildToolsVersion "23.0.3"
     defaultConfig {
         //applicationId 'cn.emagroup.sdmb.xiaomi'
-        //applicationId 'com.emagroup.mbzw2.m4399'
-        applicationId 'com.emagroup.mbzw2.uc'
+        applicationId 'com.emagroup.mbzw2.m4399'
+        //applicationId 'com.emagroup.mbzw2.uc'
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 5
