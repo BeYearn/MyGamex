@@ -111,7 +111,7 @@ public class EmaPay {
                 params.put("sign", sign);
 
                 try {
-                    String result = new HttpRequestor().doPost(Instants.CREAT_ORDER_URL, params);
+                    String result = new HttpRequestor().doPost(Url.createOrder(), params);
 
                     Log.e("creatOrder", result);
                     JSONObject jsonObject = new JSONObject(result);
@@ -167,7 +167,7 @@ public class EmaPay {
                 params.put("token", mEmaUser.getToken());
                 try {
 
-                    String result = new HttpRequestor().doPost(Instants.REJECT_ORDER_URL, params);
+                    String result = new HttpRequestor().doPost(Url.rejectOrder(), params);
 
                     Log.e("rejectOrder",result);
                 } catch (Exception e) {

@@ -69,7 +69,7 @@ public class EmaService extends Service {
 				try {
 					Log.e(TAG, "sendOnlineAlive");
 
-					String url = Instants.HEART_BEAT_URL;
+					String url = Url.heartbeat();
 					Map<String, String> params = new HashMap<String, String>();
 					params.put("token", EmaUser.getInstance().getToken());
 					String result = new HttpRequestor().doPost(url,params);

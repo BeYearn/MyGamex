@@ -47,7 +47,7 @@ public class EmaSDKUser {
 
                     Log.e("创建弱账户","deviceKey:"+ deviceKey+".."+appId+"..."+allienceId);
 
-                    String strGet = new HttpRequestor().doPost(Instants.CREAT_WEAKCOUNT_URL,paramMap);
+                    String strGet = new HttpRequestor().doPost(Url.CREAT_WEAKCOUNT_URL,paramMap);
 
                     JSONObject jsonObject = new JSONObject(strGet);
                     JSONObject data = jsonObject.getJSONObject("data");
@@ -76,7 +76,7 @@ public class EmaSDKUser {
             public void run() {
                 try {
                     //耗时操作 阻塞
-                    String url = Instants.UPDATE_WEAKCOUT_URL;
+                    String url = Url.updateAlianceAccount();
 
                     Map<String, String> paramMap = new HashMap<String, String>();
                     paramMap.put("deviceType","android");

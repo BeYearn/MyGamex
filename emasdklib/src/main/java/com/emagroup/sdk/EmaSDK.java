@@ -28,6 +28,8 @@ public class EmaSDK {
         this.mActivity = activity;
         this.mListener = listener;
 
+        EmaUtils.getInstance(activity).initServerUrl();
+
         //sdk初始化，先sdk初始化，完了再请求公告更新等信息
         EmaUtils.getInstance(activity).getChannelKeyInfo(listener);
 

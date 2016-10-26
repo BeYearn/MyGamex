@@ -87,6 +87,9 @@
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n0" />
+        <meta-data
+            android:name="EMA_WHICH_ENVI"
+            android:value="testing" />
 
         <!--uc begin-->
         <activity

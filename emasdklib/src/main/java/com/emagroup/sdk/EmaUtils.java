@@ -82,6 +82,20 @@ public class EmaUtils {
 
 
     /**
+     * 初始化服务器地址，在sdk初始化的时候做
+     */
+    public void initServerUrl(){
+        String emaEnvi =ULocalUtils.EmaSdkInfo.getStringFromMetaData(activity,"EMA_WHICH_ENVI");
+        if("staging".equals(emaEnvi)){
+            Url.setServerUrl(Url.STAGING_SERVER_URL);
+        }else if("testing".equals(emaEnvi)){
+            Url.setServerUrl(Url.TESTING_SERVER_URL);
+        }else{
+            Url.setServerUrl(Url.PRODUCTION_SERVER_URL);
+        }
+    }
+
+    /**
      * 检查sdk是否维护状态，并能拿到appkey
      */
     public void checkSDKStatus() {
@@ -101,7 +115,7 @@ public class EmaUtils {
 
                 Message message = Message.obtain();
                 try {
-                    String result = new HttpRequestor().doPost(Instants.SDK_STATUS_URL, params);
+                    String result = new HttpRequestor().doPost(Url.getSystemInfo(), params);
 
                     Log.e("xxxxx",result);
                     Log.e("xxxxxx",ULocalUtils.getAppId(activity)+"///"+EmaSDK.getInstance().getChannelId());
@@ -222,8 +236,8 @@ public class EmaUtils {
                 params.put("appId",ULocalUtils.getAppId(activity));
                 params.put("channelId",ULocalUtils.getChannelId(activity));
                 try {
-                    String result = new HttpRequestor().doPost(Instants.GET_KEY_INFO, params);
-                    Log.e("getChannelKeyInfo",result);
+                    String result = new HttpRequestor().doPost(Url.channelKeyInfo(), params);
+                    Log.e("getChannelKeyInfo", Url.channelKeyInfo()+"///"+result);
                     JSONObject jsonObject = new JSONObject(result);
                     int status = jsonObject.getInt("status");
                     switch (status) {
