@@ -196,10 +196,11 @@ public class EmaUtils4399Impl {
     }
 
     public void onStop() {
-        OperateCenter.getInstance().logout();  //4399在没有logout的情况下，会一直保留登录信息直至失效，因为我们不能保证两边的token失效时间一致（）
+        //害人 现在放到destroy里面了，应该可以吧  OperateCenter.getInstance().logout();  //4399在没有logout的情况下，会一直保留登录信息直至失效，因为我们不能保证两边的token失效时间一致（）
     }
 
     public void onDestroy() {
+        OperateCenter.getInstance().logout();
         OperateCenter.getInstance().destroy();
     }
 

@@ -45,19 +45,6 @@
     <!--小米权限-->
 
     <!--uc权限-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <!--uc权限-->
 
     <!--4399权限 start-->
@@ -86,6 +73,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:theme="@android:style/Theme.NoTitleBar"
+            android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:name=".MainActivity">
             <intent-filter>
@@ -109,19 +97,8 @@
             android:name="EMA_WHICH_ENVI"
             android:value="production" />
 
-        <!--uc begin-->
-        <activity
-            android:name="cn.uc.gamesdk.activity.ProxyActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="adjustResize" >
-            <intent-filter>
-                <action android:name="cn.uc.gamesdk.sdkweb" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <!--uc end-->
+        <!--uc 声明begin-->
+        <!--uc 声明end-->
 
         <!--4399配置开始-->
         <!--6.0系统授权辅助Actiivty-->
