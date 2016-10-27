@@ -58,6 +58,12 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
     <!--uc权限-->
 
 
@@ -83,7 +89,7 @@
             android:value="n20015"/>
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n110000"/>
+            android:value="n000255"/>
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n0" />
@@ -91,7 +97,7 @@
             android:name="EMA_WHICH_ENVI"
             android:value="testing" />
 
-        <!--uc begin-->
+        <!--uc 声明begin-->
         <activity
             android:name="cn.uc.gamesdk.activity.ProxyActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -103,69 +109,22 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--uc end-->
-
-        <!--4399配置开始-->
-        <!--6.0系统授权辅助Actiivty-->
-        <activity
-            android:name="cn.m4399.common.permission.AuthActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="behind"
-            android:theme="@style/m4399PermissionActivityStyle" />
-        <!-- For 4399 recharging SDK. 请不要在此处修改RechargeActivity的方向设置，因为某些2。3的机型启动Activity总是先启动
-            竖屏，然后强制转换成横屏，这会导致潜在问题. -->
-        <!-- activity的配置不能少于orientation|screenSize|keyboardHidden，这些配置是为了防止Activity被系统或第三方界面强
-            拉成竖屏时，发生重建而加入的。SDK的Activity支持横屏或竖屏，但不支持横竖屏切换，否则会包初始化问题 -->
-        <activity
-            android:name="cn.m4399.recharge.ui.activity.RechargeActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="true"
-            android:theme="@style/m4399ActivityTheme" />
-        <!-- For 4399 Operation SDK -->
-        <activity
-            android:name="cn.m4399.operate.ui.activity.LoginActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/m4399TransparentStyle" />
-        <activity
-            android:name="cn.m4399.operate.ui.activity.UserCenterActivity"
-            android:hardwareAccelerated="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="cn.m4399.operate.ui.activity.CustomWebActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-        <!--　以下为第三方支付SDK Activity&Service配置　-->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:screenOrientation="behind" >
+        </activity>
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
-            android:screenOrientation="behind"/>
-        <!-- For YouYiFu -->
-        <activity
-            android:name="com.arcsoft.hpay100.HPaySdkActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="behind"
-            android:theme="@style/hpay_dialog_style" >
+            android:screenOrientation="behind" >
         </activity>
-        <activity
-            android:name="com.arcsoft.hpay100.web.HPayWebActivity"
-            android:screenOrientation="behind"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:theme="@style/hpay_custom_confim_dialog" >
-        </activity>
-        <activity
-            android:name="com.arcsoft.hpay100.web.HPayWebFullActivity"
-            android:screenOrientation="behind"
-            android:configChanges="keyboardHidden|screenSize|orientation" >
-        </activity>
+        <!--uc 声明end-->
+
+        <!--4399配置开始-->
+
         <!--4399配置结束-->
 
 

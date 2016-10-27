@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.emagroup.sdk.any.EmaUtilsAnyImpl;
 import com.emagroup.sdk.mi.EmaUtilsMiImpl;
+import com.emagroup.sdk.uc.EmaUtilsUcImpl;
 import com.igexin.sdk.PushManager;
 
 import org.json.JSONObject;
@@ -277,6 +278,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).realInit(mListener,data);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).realInit(mListener,data);
+        }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
+            EmaUtilsUcImpl.getInstance(activity).realInit(mListener,data);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realInit(mListener,data);
         }
@@ -293,6 +296,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).realLogin(listener,userid,deviceKey);
+        }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
+            EmaUtilsUcImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }

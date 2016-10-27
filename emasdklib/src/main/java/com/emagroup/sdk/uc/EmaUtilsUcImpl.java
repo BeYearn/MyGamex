@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
@@ -14,7 +15,10 @@ import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaService;
 import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtils;
+import com.emagroup.sdk.HttpRequestor;
+import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ULocalUtils;
+import com.emagroup.sdk.Url;
 import com.xiaomi.gamecenter.sdk.GameInfoField;
 import com.xiaomi.gamecenter.sdk.MiCommplatform;
 import com.xiaomi.gamecenter.sdk.MiErrorCode;
@@ -22,6 +26,9 @@ import com.xiaomi.gamecenter.sdk.OnPayProcessListener;
 import com.xiaomi.gamecenter.sdk.entry.MiBuyInfoOnline;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.uc.gamesdk.UCGameSdk;
 import cn.uc.gamesdk.exception.UCCallbackListenerNullException;
@@ -41,6 +48,7 @@ public class EmaUtilsUcImpl {
     private static EmaUtilsUcImpl instance;
 
     private Activity mActivity;
+    private String mChannelAppId; //uc的gameID
 
     public static EmaUtilsUcImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -55,13 +63,13 @@ public class EmaUtilsUcImpl {
 
     public void realInit(final EmaSDKListener listener, JSONObject data) {
         try {
-            String channelAppId = data.getString("channelAppId");
+            mChannelAppId = data.getString("channelAppId");
 
             GameParamInfo gpi = new GameParamInfo();
-            gpi.setGameId(Integer.parseInt(channelAppId)); // 从UC九游开放平台获取自己游戏的参数信息
+            gpi.setGameId(Integer.parseInt(mChannelAppId)); // 从UC九游开放平台获取自己游戏的参数信息
             gpi.setEnablePayHistory(true);//开启查询充值历史功能
             gpi.setEnableUserChange(false);//开启账号切换功能
-            gpi.setOrientation(UCOrientation.PORTRAIT);//LANDSCAPE：横屏，横屏游戏必须设置为横屏 PORTRAIT： 竖屏
+            gpi.setOrientation(UCOrientation.LANDSCAPE);//LANDSCAPE：横屏，横屏游戏必须设置为横屏 PORTRAIT： 竖屏
 
             UCGameSdk.defaultSdk().initSdk(mActivity, UCLogLevel.DEBUG, true, gpi, new UCCallbackListener<String>() {
                 @Override
@@ -102,22 +110,8 @@ public class EmaUtilsUcImpl {
                         // 登陆成功
                         //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
 
-                       /* //获取用户的登陆后的 UID(即用户唯一标识)         // 根据sid  登录二次验证和获得account信息
-                        long uid = miAccountInfo.getUid();
-                        String nikename = miAccountInfo.getNikename();
-                        EmaUser.getInstance().setmUid(uid + "");
-                        EmaUser.getInstance().setNickName(nikename);
-
-                        //获取用户的登陆的 Session(请参考 3.3用户session验证接口)
-                        String session = miAccountInfo.getSessionId();//若没有登录返回 null
-                        //请开发者完成将uid和session提交给开发者自己服务器进行session验证*/
-
-                        //绑定服务
-                        Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                        mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
-
-                        //补充弱账户信息
-                        EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
+                        String sid = UCGameSdk.defaultSdk().getSid();
+                        getUCAccontInfo(sid,listener);  // 绑定和补充弱账户在这里面了
 
                     }
                     if (code == UCGameSdkStatusCode.LOGIN_EXIT) {//登录界面关闭， 游戏需判断此时是否已登录成功进行相应操作
@@ -262,6 +256,56 @@ public class EmaUtilsUcImpl {
     }
 
     public void onDestroy() {
+    }
+
+    public void onBackPressed(EmaBackPressedAction action) {
+        action.doBackPressedAction();
+    }
+
+
+    //-----------------------------------UC的各种网络请求方法-------------------------------------------------------------------------
+
+    public void getUCAccontInfo(final String sid, final EmaSDKListener listener) {
+        ThreadUtil.runInSubThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //耗时操作 阻塞
+                    String url = Url.getUCAccontInfo();
+
+                    Map<String, String> paramMap = new HashMap<String, String>();
+                    paramMap.put("gameId", mChannelAppId);
+                    paramMap.put("sid", sid);
+                    paramMap.put("appId", ULocalUtils.getAppId(mActivity));
+                    paramMap.put("channelId", ULocalUtils.getChannelId(mActivity));
+
+                    String result = new HttpRequestor().doPost(url, paramMap);
+
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+
+                    String accountId = data.getString("accountId");
+                    String nickName = data.getString("nickName");
+
+                    EmaUser.getInstance().setmUid(accountId);
+                    EmaUser.getInstance().setNickName(nickName);
+
+                    //绑定服务
+                    Intent serviceIntent = new Intent(mActivity, EmaService.class);
+                    mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
+                    //补充弱账户信息
+                    EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
+
+                    Log.e("getUCAccontInfo", "结果:" + accountId + ".." + nickName);
+
+                } catch (Exception e) {
+                    listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                    Log.e("getUCAccontInfo", "maybe is SocketTimeoutException");
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
 }

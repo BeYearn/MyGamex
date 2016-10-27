@@ -43,4 +43,14 @@ public class Url {
     public static String channelKeyInfo(){
         return serverUrl+"/ema-platform/admin/channelKeyInfo";
     }
+
+
+
+
+    //-----------------------------------UC 特有接口---------------------------------------------------
+    public static String getUCAccontInfo(){
+        return serverUrl+"ema-platform/channelLogin/uc";
+    }
+    //-----------------------------------UC 特有接口---------------------------------------------------
+
 }
