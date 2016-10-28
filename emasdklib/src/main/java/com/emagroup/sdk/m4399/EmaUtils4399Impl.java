@@ -54,7 +54,7 @@ public class EmaUtils4399Impl {
             OperateCenterConfig mOpeConfig = new OperateCenterConfig.Builder(mActivity)
                     .setGameKey(channelAppKey)     //设置AppKey
                     .setDebugEnabled(false)     //设置DEBUG模式,用于接入过程中开关日志输出，发布前必须设置为false或删除该行。默认为false。
-                    .setOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)  //设置横竖屏方向，默认为横屏，现支持横竖屏，和180度旋转
+                    .setOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)  //设置横竖屏方向，默认为横屏，现支持横竖屏，和180度旋转
                     .setSupportExcess(true)     //设置服务端是否支持处理超出部分金额，默认为false
                     .setPopLogoStyle(OperateCenterConfig.PopLogoStyle.POPLOGOSTYLE_ONE) //设置悬浮窗样式，现有四种可选
                     .setPopWinPosition(OperateCenterConfig.PopWinPosition.POS_LEFT) //设置悬浮窗默认显示位置，现有四种可选
