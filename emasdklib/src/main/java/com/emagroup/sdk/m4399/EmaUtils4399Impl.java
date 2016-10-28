@@ -148,7 +148,7 @@ public class EmaUtils4399Impl {
     }
 
     public void realPay(final EmaSDKListener listener, EmaPayInfo emaPayInfo) {
-        OperateCenter.getInstance().recharge(mActivity,emaPayInfo.getPrice(),emaPayInfo.getOrderId().substring(32),emaPayInfo.getProductName(), new OperateCenter.OnRechargeFinishedListener() {
+        OperateCenter.getInstance().recharge(mActivity,emaPayInfo.getPrice(),emaPayInfo.getOrderId(),emaPayInfo.getProductName(), new OperateCenter.OnRechargeFinishedListener() {
                     @Override
                     public void onRechargeFinished(boolean success, int resultCode, String msg) {
                         Log.e("4399 Rechargeresult",resultCode+"..."+msg);
