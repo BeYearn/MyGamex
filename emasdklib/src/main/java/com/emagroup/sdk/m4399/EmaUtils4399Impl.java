@@ -85,11 +85,13 @@ public class EmaUtils4399Impl {
                         // fromUserCenter区分是否是从个人中心注销的，若是则为true，不是为false
                         @Override
                         public void onUserAccountLogout(boolean fromUserCenter, int resultCode) {
+                            listener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功");
                         }
 
                         // 个人中心里切换帐号的回调
                         @Override
                         public void onSwitchUserAccountFinished(User userInfo) {
+                            listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS, "切换帐号成功");
                         }
                     });
                 }
