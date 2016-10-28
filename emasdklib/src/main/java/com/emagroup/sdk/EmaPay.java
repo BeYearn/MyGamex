@@ -121,6 +121,7 @@ public class EmaPay {
                     JSONObject productData = jsonObject.getJSONObject("data");
                     boolean coinEnough = productData.getBoolean("coinEnough");
                     String orderId = productData.getString("orderId");
+                    String orderShortId = productData.getString("orderShortId");
                     JSONObject productInfo = productData.getJSONObject("productInfo");
 
                     String appId = productInfo.getString("appId");
@@ -133,6 +134,7 @@ public class EmaPay {
                     String unit = productInfo.getString("unit");
 
                     mPayInfo.setOrderId(orderId);
+                    mPayInfo.setOrderShortId(orderShortId);
                     mPayInfo.setUid(mEmaUser.getAllianceUid());
                     mPayInfo.setProductName(productName);
                     mPayInfo.setPrice(Integer.parseInt(productPrice)*Integer.parseInt(mPayInfo.getProductNum()));  // 总额

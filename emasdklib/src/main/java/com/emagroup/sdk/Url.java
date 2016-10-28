@@ -49,7 +49,7 @@ public class Url {
 
     //-----------------------------------UC 特有接口---------------------------------------------------
     public static String getUCAccontInfo(){
-        return serverUrl+"ema-platform/channelLogin/uc";
+        return serverUrl+"/ema-platform/channelLogin/uc";
     }
     //-----------------------------------UC 特有接口---------------------------------------------------
 
