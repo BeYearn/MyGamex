@@ -39,27 +39,6 @@
     <!-- 个推SDK权限配置结束 -->
 
 
-    <!--小米权限-->
-    <uses-permission android:name="android.permission.GET_TASKS"  />
-    <uses-permission android:name="com.xiaomi.sdk.permission.PAYMENT" />
-    <!--小米权限-->
-
-    <!--uc权限-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <!--uc权限-->
-
 
     <application
         android:allowBackup="true"
@@ -91,82 +70,6 @@
             android:name="EMA_WHICH_ENVI"
             android:value="testing" />
 
-        <!--uc begin-->
-        <activity
-            android:name="cn.uc.gamesdk.activity.ProxyActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="adjustResize" >
-            <intent-filter>
-                <action android:name="cn.uc.gamesdk.sdkweb" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <!--uc end-->
-
-        <!--4399配置开始-->
-        <!--6.0系统授权辅助Actiivty-->
-        <activity
-            android:name="cn.m4399.common.permission.AuthActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="behind"
-            android:theme="@style/m4399PermissionActivityStyle" />
-        <!-- For 4399 recharging SDK. 请不要在此处修改RechargeActivity的方向设置，因为某些2。3的机型启动Activity总是先启动
-            竖屏，然后强制转换成横屏，这会导致潜在问题. -->
-        <!-- activity的配置不能少于orientation|screenSize|keyboardHidden，这些配置是为了防止Activity被系统或第三方界面强
-            拉成竖屏时，发生重建而加入的。SDK的Activity支持横屏或竖屏，但不支持横竖屏切换，否则会包初始化问题 -->
-        <activity
-            android:name="cn.m4399.recharge.ui.activity.RechargeActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="true"
-            android:theme="@style/m4399ActivityTheme" />
-        <!-- For 4399 Operation SDK -->
-        <activity
-            android:name="cn.m4399.operate.ui.activity.LoginActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/m4399TransparentStyle" />
-        <activity
-            android:name="cn.m4399.operate.ui.activity.UserCenterActivity"
-            android:hardwareAccelerated="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="cn.m4399.operate.ui.activity.CustomWebActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-        <!--　以下为第三方支付SDK Activity&Service配置　-->
-        <activity
-            android:name="com.alipay.sdk.app.H5PayActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="com.alipay.sdk.auth.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind"/>
-        <!-- For YouYiFu -->
-        <activity
-            android:name="com.arcsoft.hpay100.HPaySdkActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="behind"
-            android:theme="@style/hpay_dialog_style" >
-        </activity>
-        <activity
-            android:name="com.arcsoft.hpay100.web.HPayWebActivity"
-            android:screenOrientation="behind"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:theme="@style/hpay_custom_confim_dialog" >
-        </activity>
-        <activity
-            android:name="com.arcsoft.hpay100.web.HPayWebFullActivity"
-            android:screenOrientation="behind"
-            android:configChanges="keyboardHidden|screenSize|orientation" >
-        </activity>
-        <!--4399配置结束-->
 
 
         <!-- 个推SDK配置开始 -->
