@@ -15,6 +15,7 @@ import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaService;
 import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtils;
+import com.emagroup.sdk.SdkSplashDialog;
 import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ULocalUtils;
 
@@ -47,6 +48,13 @@ public class EmaUtils4399Impl {
 
     public void realInit(final EmaSDKListener listener, JSONObject data){
 
+        mActivity.runOnUiThread(new Runnable() {  //萨比4399需要自己实现闪屏
+            @Override
+            public void run() {
+                SdkSplashDialog mSplashDialog = new SdkSplashDialog(mActivity, "sdk_splash_4399land");
+                mSplashDialog.start();
+            }
+        });
         try {
             String channelAppKey = data.getString("channelAppKey");
 
@@ -202,7 +210,7 @@ public class EmaUtils4399Impl {
     }
 
     public void onDestroy() {
-        OperateCenter.getInstance().logout();
+        //OperateCenter.getInstance().logout();  后来又发现它再调用一次自动成功登录了，回调也会到登录成功那里，所以不必这样了
         OperateCenter.getInstance().destroy();
     }
 

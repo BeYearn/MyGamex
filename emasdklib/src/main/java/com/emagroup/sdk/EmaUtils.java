@@ -43,7 +43,6 @@ public class EmaUtils {
                     new EmaAlertDialog(activity,null,(Map) msg.obj,msg.arg1,msg.arg2).show();
                     break;
                 case DISMISS_NOW:
-                    //SplashDialog.this.dismiss();
                     break;
                 case ALERT_WEBVIEW_SHOW:
                     new EmaWebviewDialog(activity,null,(Map) msg.obj,msg.arg1,msg.arg2,mHandler).show();

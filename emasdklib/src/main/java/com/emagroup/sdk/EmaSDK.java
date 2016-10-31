@@ -46,6 +46,7 @@ public class EmaSDK {
     }
 
     public void doLogout() {
+        Log.e("emasdk1.0","logout");
         EmaSDKUser.getInstance().logout();
     }
 
