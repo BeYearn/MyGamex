@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.emagroup.sdk.any.EmaUtilsAnyImpl;
+import com.emagroup.sdk.huawei.EmaUtilsHuaWeiImpl;
 import com.emagroup.sdk.mi.EmaUtilsMiImpl;
 import com.igexin.sdk.PushManager;
 
@@ -236,7 +237,7 @@ public class EmaUtils {
                 params.put("channelId",ULocalUtils.getChannelId(activity));
                 try {
                     String result = new HttpRequestor().doPost(Url.channelKeyInfo(), params);
-                    Log.e("getChannelKeyInfo", Url.channelKeyInfo()+"///"+result);
+                    Log.e("getChannelKeyInfo", Url.channelKeyInfo()+"///"+result.substring(0,50));
                     JSONObject jsonObject = new JSONObject(result);
                     int status = jsonObject.getInt("status");
                     switch (status) {
@@ -277,6 +278,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).realInit(mListener,data);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).realInit(mListener,data);
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).realInit(mListener,data);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realInit(mListener,data);
         }
@@ -293,6 +296,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).realLogin(listener,userid,deviceKey);
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }
@@ -304,6 +309,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).logout();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).logout();
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).logout();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).logout();
         }
@@ -314,6 +321,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).swichAccount();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).swichAccount();
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).swichAccount();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).swichAccount();
         }
@@ -324,6 +333,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).doPayPre(listener);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).doPayPre(listener);
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).doPayPre(listener);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doPayPre(listener);
         }
@@ -334,6 +345,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).realPay(listener,emaPayInfo);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).realPay(listener,emaPayInfo);
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).realPay(listener,emaPayInfo);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realPay(listener,emaPayInfo);
         }
@@ -344,6 +357,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).doShowToolbar();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).doShowToolbar();
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).doShowToolbar();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doShowToolbar();
         }
@@ -354,6 +369,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).doHideToobar();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).doHideToobar();
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).doHideToobar();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doHideToobar();
         }
@@ -364,6 +381,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).onResume();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onResume();
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).onResume();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onResume();
         }
@@ -374,6 +393,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).onPause();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onPause();
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).onPause();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onPause();
         }
@@ -384,6 +405,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).onStop();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onStop();
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).onStop();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onStop();
         }
@@ -394,6 +417,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).onDestroy();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onDestroy();
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).onDestroy();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onDestroy();
         }
@@ -404,6 +429,8 @@ public class EmaUtils {
             EmaUtilsMiImpl.getInstance(activity).onBackPressed(action);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onBackPressed(action);
+        }else if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).onBackPressed(action);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onBackPressed(action);
         }

@@ -22,11 +22,15 @@ public class EmaPayInfo implements Parcelable {
         this.gameTransCode = gameTransCode;
     }
 
+    public EmaPayInfo() {
+    }
+
     //登录后才能拿到
     private String uid;
 
     //订单号，发起支付才能得到
     private String orderId;
+    private String orderShortId;  // 短orderId
 
     //订单金额
     private int price;
@@ -89,7 +93,12 @@ public class EmaPayInfo implements Parcelable {
         this.productNum = productNum;
     }
 
-    public EmaPayInfo() {
+    public String getOrderShortId() {
+        return orderShortId;
+    }
+
+    public void setOrderShortId(String orderShortId) {
+        this.orderShortId = orderShortId;
     }
 
     @Override
@@ -103,6 +112,7 @@ public class EmaPayInfo implements Parcelable {
         dest.writeString(productNum);
         dest.writeString(productId);
         dest.writeString(orderId);
+        dest.writeString(orderShortId);
         dest.writeString(uid);
         dest.writeFloat(price);
         dest.writeString(gameTransCode);
@@ -114,6 +124,7 @@ public class EmaPayInfo implements Parcelable {
         productNum = source.readString();
         productId = source.readString();
         orderId = source.readString();
+        orderShortId=source.readString();
         uid = source.readString();
         price = source.readInt();
         gameTransCode = source.readString();
