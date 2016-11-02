@@ -91,7 +91,7 @@
             android:value="n20015"/>
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n110000"/>
+            android:value="n000368"/>
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n0" />

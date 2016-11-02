@@ -43,4 +43,11 @@ public class Url {
     public static String channelKeyInfo(){
         return serverUrl+"/ema-platform/admin/channelKeyInfo";
     }
+
+
+    //------------------------------------vivo的----------------------------------------------------------------
+
+    public static String vivoCreateOrder() {
+        return serverUrl+"/ema-platform/extra/vivoCreateOrder";
+    }
 }
