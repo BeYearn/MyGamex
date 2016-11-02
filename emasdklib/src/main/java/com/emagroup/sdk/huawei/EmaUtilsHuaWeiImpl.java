@@ -13,6 +13,7 @@ import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
+import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaService;
@@ -119,7 +120,7 @@ public class EmaUtilsHuaWeiImpl {
                     EmaUser.getInstance().setNickName(userResult.displayName);
 
                     //显示toolbar
-                    //EmaSDK.getInstance().doShowToolbar();  华为自己会显示
+                    EmaSDK.getInstance().doShowToolbar();
 
                     //绑定服务
                     Intent serviceIntent = new Intent(mActivity, EmaService.class);
