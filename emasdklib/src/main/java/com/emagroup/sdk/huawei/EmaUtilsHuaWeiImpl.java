@@ -49,6 +49,8 @@ public class EmaUtilsHuaWeiImpl {
     private String buo_secret;
     private String cp_id;
     private String pay_id;
+    private EmaSDKListener mListener; //登录和初始化的listener
+    private JSONObject mData;
 
     public static EmaUtilsHuaWeiImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -62,6 +64,8 @@ public class EmaUtilsHuaWeiImpl {
     }
 
     public void realInit(final EmaSDKListener listener, JSONObject data) {
+        this.mListener=listener;
+        this.mData=data;
         try {
             appId = data.getString("channelAppId");
             channelAppKey = data.getString("channelAppKey");//登录鉴权公钥？？？？
@@ -80,6 +84,7 @@ public class EmaUtilsHuaWeiImpl {
         GameServiceSDK.init(mActivity, appId, cp_id, "com.huawei.gb.huawei.installnewtype.provider", new GameEventHandler() {
             @Override
             public void onResult(Result result) {// 判断如果初始化成功，则此处调用登录接口并继续加载游戏资源
+                Log.e("huaweiinit",result.toString());
                 if (result.rtnCode == Result.RESULT_OK) {
 
                     listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
@@ -88,15 +93,15 @@ public class EmaUtilsHuaWeiImpl {
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //华为的检测游戏更新（注意我们的就给华为特殊配一下不走我们的了）  这个真心蛋疼！!!
+                            //华为的检测游戏更新（注意我们的就给华为特殊配一下不走我们的了）  这个真心蛋疼！！
                             checkUpdate();
                         }
                     });
-
                     //初始化成功之后再检查公告更新等信息
                     EmaUtils.getInstance(mActivity).checkSDKStatus();
                 } else {
-                    listener.onCallBack(EmaCallBackConst.INITFALIED, "HW初始化SDK失败");
+                    //listener.onCallBack(EmaCallBackConst.INITFALIED, "HW初始化SDK失败");
+                    listener.onCallBack(EmaCallBackConst.INITSUCCESS, "huawei初始化成功"); // 华为蛋疼！！  因为他还有二次机会（但游戏要是失败了，就不再给调别的了）
                 }
             }
 
@@ -114,7 +119,18 @@ public class EmaUtilsHuaWeiImpl {
             @Override
             public void onResult(Result result) {
                 UserResult userResult = (UserResult) result;
+                Log.e("huaweirealLogin",userResult.toString());
                 if (userResult.rtnCode == Result.RESULT_ERR_NOT_INIT) {// 未初始化，需要先调用初始化接口
+                    realInit(mListener,mData);
+                    return;
+                }
+                if (userResult.rtnCode == Result.RESULT_ERR_COMM) {// 安装游戏中心取消掉了
+                    realInit(mListener,mData);
+                    Log.e("huawei","re Init");
+                    return;
+                }
+                if(userResult.rtnCode == Result.RESULT_ERR_CANCEL){
+                    listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
                     return;
                 }
                 if (userResult.rtnCode != Result.RESULT_OK) {//登录失败
