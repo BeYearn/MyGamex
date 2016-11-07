@@ -19,12 +19,16 @@ import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaService;
 import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtils;
+import com.emagroup.sdk.HttpRequestor;
+import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ULocalUtils;
+import com.emagroup.sdk.Url;
 import com.huawei.gameservice.sdk.GameServiceSDK;
 import com.huawei.gameservice.sdk.api.GameEventHandler;
 import com.huawei.gameservice.sdk.api.PayResult;
 import com.huawei.gameservice.sdk.api.Result;
 import com.huawei.gameservice.sdk.api.UserResult;
+import com.huawei.gameservice.sdk.model.RoleInfo;
 import com.huawei.gameservice.sdk.util.LogUtil;
 
 import org.json.JSONException;
@@ -81,12 +85,16 @@ public class EmaUtilsHuaWeiImpl {
                     listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
                     Log.e("EmaAnySDK", "HW初始化成功");
 
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //华为的检测游戏更新（注意我们的就给华为特殊配一下不走我们的了）  这个真心蛋疼！!!
+                            checkUpdate();
+                        }
+                    });
+
                     //初始化成功之后再检查公告更新等信息
                     EmaUtils.getInstance(mActivity).checkSDKStatus();
-
-                    //华为的检测游戏更新（注意我们的就给华为特殊配一下不走我们的了）// TODO: 2016/11/1 暂时屏蔽掉
-                    //checkUpdate();
-
                 } else {
                     listener.onCallBack(EmaCallBackConst.INITFALIED, "HW初始化SDK失败");
                 }
@@ -128,18 +136,19 @@ public class EmaUtilsHuaWeiImpl {
 
                     //补充弱账户信息
                     EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
-                    return;
+
+                    //华为上传游戏信息
+                    addPlayerInfo();
                 }
 
                 if (userResult.rtnCode == Result.RESULT_OK && userResult.isAuth != null && userResult.isAuth == 1) {// 场景二： 通知鉴权签名校验
                     // 收到SDK的鉴权签名校验通知， CP可通过服务端校验该返回值，参见4.4.1.5
-                    Log.e("emasdk", "鉴权签名校验完成。。");
-                    return;
+
+                    checkSign(userResult.gameAuthSign,userResult.playerId,appId,userResult.ts);
                 }
                 if (userResult.rtnCode == Result.RESULT_OK && userResult.isChange != null && userResult.isChange == 1) {// 场景三： 通知帐号变换
                     // 收到SDK的帐号变更通知，退出游戏重新登录
                     listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS, "切换成功回调");
-                    return;
                 }
             }
 
@@ -350,8 +359,9 @@ public class EmaUtilsHuaWeiImpl {
 
             @Override
             public void onResult(Result result) {
-                if (result.rtnCode != Result.RESULT_OK) {
-
+                Log.e("huaweicheckUpdate",result.toString());
+                if (result.rtnCode !=Result.RESULT_OK) {
+                    Log.e("huawei","check update failed");
                 }
             }
 
@@ -360,6 +370,65 @@ public class EmaUtilsHuaWeiImpl {
                 return createGameSign(appId + cpId + ts);
             }
 
+        });
+    }
+
+
+    private void checkSign(final String gameAuthSign , final String playerId , final String appId , final String ts) {
+
+        ThreadUtil.runInSubThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //耗时操作 阻塞
+                    String url = Url.checkSign();
+
+                    Map<String, String> paramMap = new HashMap<String, String>();
+                    paramMap.put("gameAuthSign",gameAuthSign);
+                    paramMap.put("playerId",playerId);
+                    paramMap.put("appId",appId);
+                    paramMap.put("ts",ts);
+
+                    String result = new HttpRequestor().doPost(url,paramMap);
+
+                    JSONObject json = new JSONObject(result);
+                    String dataStr=json.getString("data");
+
+                    if("true".equals(dataStr)){
+
+                    }
+                    Log.e("huaweicheckSign", "checkSign"+dataStr);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("update弱账户创建","maybe is SocketTimeoutException");
+                }
+
+            }
+        });
+    }
+
+    private void addPlayerInfo() {
+        /**
+         * 将用户的等级等信息保存起来，必须的参数为RoleInfo.GAME_RANK(等
+         级)/RoleInfo.GAME_ROLE(角色名称)/RoleInfo.GAME_AREA(角色所属区)
+         /RoleInfo.GAME_SOCIATY(角色所属公会名称)
+         * 全部使用String类型存放
+         */
+        HashMap<String, String> playerInfo = new HashMap<>();
+        playerInfo.put(RoleInfo.GAME_RANK, (Math.random()*100)+"");
+        playerInfo.put(RoleInfo.GAME_ROLE, "猎人");
+        playerInfo.put(RoleInfo.GAME_AREA, "天空之城");
+        // 存储用户当前的角色信息
+        GameServiceSDK.addPlayerInfo(mActivity, playerInfo, new GameEventHandler(){
+            @Override
+            public void onResult(Result result) {
+                // 返回操作结果
+                Log.e("huaweiaddPlayerInfo",result.toString());
+            }
+            @Override
+            public String getGameSign(String appId, String cpId, String ts) {
+                return createGameSign(appId + cpId + ts);
+            }
         });
     }
 }

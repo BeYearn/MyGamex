@@ -43,4 +43,10 @@ public class Url {
     public static String channelKeyInfo(){
         return serverUrl+"/ema-platform/admin/channelKeyInfo";
     }
+
+
+    //_---——————————————————————————————华为的————————————————————————————————————————————————
+    public static String checkSign(){
+        return serverUrl+"/ema-platform/channelLogin/huawei";
+    }
 }
