@@ -2,6 +2,7 @@ package com.emagroup.sdk;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
@@ -409,4 +410,15 @@ public class EmaUtils {
         }
     }
 
+    public void onNewIntent(Intent intent) {
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
+
+    public void onRestart() {
+
+    }
 }

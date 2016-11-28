@@ -1,6 +1,7 @@
 package com.emagroup.sdk;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
 import java.util.Map;
@@ -110,6 +111,14 @@ public class EmaSDK {
         return ULocalUtils.getChannelId(mActivity);
     }
 
+    public void onNewIntent(Intent intent){
+        EmaUtils.getInstance(mActivity).onNewIntent(intent);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        EmaUtils.getInstance(mActivity).onActivityResult(requestCode, resultCode, data);
+    }
+
 
     public void onResume() {
         EmaUtils.getInstance(mActivity).onResume();
@@ -121,6 +130,10 @@ public class EmaSDK {
 
     public void onStop() {
         EmaUtils.getInstance(mActivity).onStop();
+    }
+
+    public void onRestart(){
+        EmaUtils.getInstance(mActivity).onRestart();
     }
 
     public void onDestroy(){
