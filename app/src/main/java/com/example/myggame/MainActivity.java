@@ -3,6 +3,7 @@ package com.example.myggame;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -194,6 +195,24 @@ public class MainActivity extends Activity implements OnClickListener {
         });
     }
 
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        EmaSDK.getInstance().onNewIntent(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        EmaSDK.getInstance().onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        EmaSDK.getInstance().onRestart();
+    }
 
     @Override
     protected void onDestroy() {
