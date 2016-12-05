@@ -29,7 +29,7 @@ public class EmaSDKUser {
 
     public void creatWeakAccount(EmaSDKListener listener) {
 
-        /*deviceKey = ULocalUtils.getIMEI(mActivity);
+        /*deviceKey = ULocalUtils.getDeviceId(mActivity);
         appId= ULocalUtils.getAppId(mActivity);
         allienceId= ULocalUtils.getChannelId(mActivity);
         allienceTag= ULocalUtils.getChannelTag(mActivity);
