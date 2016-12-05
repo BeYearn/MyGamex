@@ -99,6 +99,7 @@ public class EmaPay {
                 params.put("token", EmaUser.getInstance().getToken());
                 params.put("quantity", mPayInfo.getProductNum());
                 params.put("appId", ULocalUtils.getAppId(mContext));
+                params.put("uid",EmaUser.getInstance().getmUid());
                 if (!TextUtils.isEmpty(mPayInfo.getGameTransCode())) {
                     params.put("gameTransCode", mPayInfo.getGameTransCode());
                 }
@@ -120,7 +121,6 @@ public class EmaPay {
                     JSONObject productData = jsonObject.getJSONObject("data");
                     boolean coinEnough = productData.getBoolean("coinEnough");
                     String orderId = productData.getString("orderId");
-                    String orderShortId = productData.getString("orderShortId");
                     JSONObject productInfo = productData.getJSONObject("productInfo");
 
                     String appId = productInfo.getString("appId");
@@ -133,7 +133,6 @@ public class EmaPay {
                     String unit = productInfo.getString("unit");
 
                     mPayInfo.setOrderId(orderId);
-                    mPayInfo.setOrderShortId(orderShortId);
                     mPayInfo.setUid(EmaUser.getInstance().getAllianceUid());
                     mPayInfo.setProductName(productName);
                     mPayInfo.setPrice(Integer.parseInt(productPrice)*Integer.parseInt(mPayInfo.getProductNum()));  // 总额
@@ -166,6 +165,8 @@ public class EmaPay {
                 Map<String, String> params = new HashMap<>();
                 params.put("orderId", mPayInfo.getOrderId());
                 params.put("token", EmaUser.getInstance().getToken());
+                params.put("appId", ULocalUtils.getAppId(mContext));
+                params.put("uid",EmaUser.getInstance().getmUid());
                 try {
 
                     String result = new HttpRequestor().doPost(Url.rejectOrder(), params);
