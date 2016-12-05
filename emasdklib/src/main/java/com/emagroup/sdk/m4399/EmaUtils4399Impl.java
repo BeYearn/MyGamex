@@ -138,7 +138,7 @@ public class EmaUtils4399Impl {
                     mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                     //补充弱账户信息
-                    EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
+                    EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
 
                 }else if(18==resultCode){
                     // 取消登录
