@@ -140,7 +140,7 @@ public class EmaUtilsHuaWeiImpl {
                 if (userResult.rtnCode == Result.RESULT_OK && userResult.isAuth != null && userResult.isAuth == 0) {// 场景一： 登录成功
                     //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
 
-                    EmaUser.getInstance().setmUid(userResult.playerId);
+                    EmaUser.getInstance().setAllianceUid(userResult.playerId);
                     EmaUser.getInstance().setNickName(userResult.displayName);
 
                     //显示toolbar
