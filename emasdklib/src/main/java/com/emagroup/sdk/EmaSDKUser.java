@@ -105,10 +105,15 @@ public class EmaSDKUser {
                     int resultCode = json.getInt("status");
                     JSONObject data = json.getJSONObject("data");
 
+                    String uid = data.getString("uid");
+                    EmaUser.getInstance().setmUid(uid);
+
                     String aUid = data.getString("allianceUid");
-                    EmaUser.getInstance().setmUid(aUid);
+                    EmaUser.getInstance().setAllianceUid(aUid);
+
                     String nickname = data.getString("nickname");
                     EmaUser.getInstance().setNickName(nickname);
+
                     String authCode = data.getString("authCode");
                     String callbackUrl = data.getString("callbackUrl");
 

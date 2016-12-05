@@ -28,7 +28,7 @@ public class EmaPay {
     private Context mContext;
     private EmaSDKListener mListener;
 
-    private EmaUser mEmaUser;
+    //private EmaUser mEmaUser;  因为mEmauser这个对象的状态有可能在变化，所以不应该直接得到一个示例就放在这里一劳永逸，每次应该getInstance；
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -55,7 +55,6 @@ public class EmaPay {
 
     private EmaPay(Context context) {
         mContext = context;
-        mEmaUser = EmaUser.getInstance();
     }
 
     public static EmaPay getInstance(Context context) {
@@ -87,7 +86,7 @@ public class EmaPay {
             Log.e("pay","参数过长，超过256byte");
             return;
         }
-        if (!mEmaUser.getIsLogin()) {
+        if (!EmaUser.getInstance().getIsLogin()) {
             Log.e(TAG, "没有登陆，或者已经退出！订单创建失败");
             return;
         }
@@ -97,15 +96,16 @@ public class EmaPay {
                 //发起购买---->对订单号及信息的请求
                 Map<String, String> params = new HashMap<>();
                 params.put("pid", mPayInfo.getProductId());
-                params.put("token", mEmaUser.getToken());
+                params.put("token", EmaUser.getInstance().getToken());
                 params.put("quantity", mPayInfo.getProductNum());
                 params.put("appId", ULocalUtils.getAppId(mContext));
+                params.put("uid",EmaUser.getInstance().getmUid());
                 if (!TextUtils.isEmpty(mPayInfo.getGameTransCode())) {
                     params.put("gameTransCode", mPayInfo.getGameTransCode());
                 }
-                Log.e("Emapay_pay", mPayInfo.getProductId() + ".." + mEmaUser.getToken() + ".." + mPayInfo.getProductNum());
+                Log.e("Emapay_pay", mPayInfo.getProductId() + ".." + EmaUser.getInstance().getToken() + ".." + mPayInfo.getProductNum());
 
-                String sign = ULocalUtils.getAppId(mContext) + (TextUtils.isEmpty(mPayInfo.getGameTransCode()) ? null : mPayInfo.getGameTransCode()) + mPayInfo.getProductId() + mPayInfo.getProductNum() + mEmaUser.getToken() + EmaUser.getInstance().getAppkey();
+                String sign = ULocalUtils.getAppId(mContext) + (TextUtils.isEmpty(mPayInfo.getGameTransCode()) ? null : mPayInfo.getGameTransCode()) + mPayInfo.getProductId() + mPayInfo.getProductNum() + EmaUser.getInstance().getToken() + EmaUser.getInstance().getAppkey();
                 //LOG.e("rawSign",sign);
                 sign = ULocalUtils.MD5(sign);
                 params.put("sign", sign);
@@ -133,7 +133,7 @@ public class EmaPay {
                     String unit = productInfo.getString("unit");
 
                     mPayInfo.setOrderId(orderId);
-                    mPayInfo.setUid(mEmaUser.getAllianceUid());
+                    mPayInfo.setUid(EmaUser.getInstance().getAllianceUid());
                     mPayInfo.setProductName(productName);
                     mPayInfo.setPrice(Integer.parseInt(productPrice)*Integer.parseInt(mPayInfo.getProductNum()));  // 总额
                     mPayInfo.setDescription(description);
@@ -164,7 +164,9 @@ public class EmaPay {
             public void run() {
                 Map<String, String> params = new HashMap<>();
                 params.put("orderId", mPayInfo.getOrderId());
-                params.put("token", mEmaUser.getToken());
+                params.put("token", EmaUser.getInstance().getToken());
+                params.put("appId", ULocalUtils.getAppId(mContext));
+                params.put("uid",EmaUser.getInstance().getmUid());
                 try {
 
                     String result = new HttpRequestor().doPost(Url.rejectOrder(), params);
