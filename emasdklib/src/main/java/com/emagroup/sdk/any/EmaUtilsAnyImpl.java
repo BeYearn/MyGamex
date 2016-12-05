@@ -97,7 +97,7 @@ public class EmaUtilsAnyImpl {
                             mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                             //补充弱账户信息
-                            EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity),ULocalUtils.getChannelId(mActivity),ULocalUtils.getChannelTag(mActivity),ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
+                            EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity),ULocalUtils.getChannelId(mActivity),ULocalUtils.getChannelTag(mActivity),ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
 
                             break;
                         case UserWrapper.ACTION_RET_LOGIN_CANCEL://登陆取消回调

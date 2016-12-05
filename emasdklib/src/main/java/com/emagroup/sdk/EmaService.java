@@ -19,6 +19,7 @@ public class EmaService extends Service {
 	private boolean mFlagRuning = true;
 	private int mIntervalTime = 0;
 
+
 	@Override
 	public IBinder onBind(Intent arg0) {
 		return null;
@@ -35,23 +36,23 @@ public class EmaService extends Service {
 	private class MyThread extends Thread {
 		 @Override
 		public void run() {
-			 EmaService.sendOnlineAlive(mIntervalTime);
+			sendOnlineAlive(mIntervalTime);
 			 for(int i=0; i<2; i++){//前1分钟 30秒一次 发送2次心跳包
 				 trySleep(INTERVAL_TIME_FIRST);
 				 mIntervalTime += 30;
-				 EmaService.sendOnlineAlive(mIntervalTime);
+				sendOnlineAlive(mIntervalTime);
 			 }
 			 for(int i=0; i<2; i++){//第1分钟到第5分钟  2分钟一次  发送2次心跳包
 				 trySleep(INTERVAL_TIME_SENCOND);
 				 mIntervalTime += 120;
-				 EmaService.sendOnlineAlive(mIntervalTime);
+				sendOnlineAlive(mIntervalTime);
 			 }
 			 //之后都是5分钟发送一次
 			 while(mFlagRuning){
 				 mIntervalTime += 300;
 				 trySleep(INTERVAL_TIME_THIRD);
 				 if(EmaUser.getInstance().getIsLogin()){
-					 EmaService.sendOnlineAlive(mIntervalTime);
+					sendOnlineAlive(mIntervalTime);
 				 }
 			}
 		 }
@@ -61,7 +62,7 @@ public class EmaService extends Service {
 	/**
 	 * 发送心跳包
 	 */
-	public static void sendOnlineAlive(int totleTime){
+	public void sendOnlineAlive(int totleTime){
 
 		ThreadUtil.runInSubThread(new Runnable() {
 			@Override
@@ -70,8 +71,14 @@ public class EmaService extends Service {
 					Log.e(TAG, "sendOnlineAlive");
 
 					String url = Url.heartbeat();
+					/*Map<String, String> params = new HashMap<String, String>();
+					params.put("token", EmaUser.getInstance().getToken());*/
 					Map<String, String> params = new HashMap<String, String>();
 					params.put("token", EmaUser.getInstance().getToken());
+					params.put("uid",EmaUser.getInstance().getAllianceUid());
+					params.put("appId",ULocalUtils.getAppId(EmaService.this));
+					params.put("allianceId ",ULocalUtils.getChannelId(EmaService.this));
+					params.put("channelTag",ULocalUtils.getChannelTag(EmaService.this));
 					String result = new HttpRequestor().doPost(url,params);
 					Log.e(TAG, "heartbeat result__:" + result);
 				} catch (Exception e) {

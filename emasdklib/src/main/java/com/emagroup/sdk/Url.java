@@ -25,7 +25,8 @@ public class Url {
     }
 
     public static String heartbeat(){
-        return serverUrl+"/ema-platform/member/heartbeat";
+      //  return serverUrl+"/ema-platform/member/heartbeat";
+        return serverUrl+"/ema-platform/member/newheartbeat";
     }
 
     public static String createOrder(){
@@ -37,7 +38,8 @@ public class Url {
     }
 
     public static String getSystemInfo(){
-        return serverUrl+"/ema-platform/admin/getSystemInfo";
+       // return serverUrl+"/ema-platform/admin/getSystemInfo";
+        return serverUrl+"/ema-platform/admin/getSystemInfoEx";
     }
 
     public static String channelKeyInfo(){
