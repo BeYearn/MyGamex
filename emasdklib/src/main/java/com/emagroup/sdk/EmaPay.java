@@ -100,6 +100,7 @@ public class EmaPay {
                 params.put("token", mEmaUser.getToken());
                 params.put("quantity", mPayInfo.getProductNum());
                 params.put("appId", ULocalUtils.getAppId(mContext));
+                params.put("uid",EmaUser.getInstance().getmUid());
                 if (!TextUtils.isEmpty(mPayInfo.getGameTransCode())) {
                     params.put("gameTransCode", mPayInfo.getGameTransCode());
                 }
@@ -165,6 +166,8 @@ public class EmaPay {
                 Map<String, String> params = new HashMap<>();
                 params.put("orderId", mPayInfo.getOrderId());
                 params.put("token", mEmaUser.getToken());
+                params.put("appId", ULocalUtils.getAppId(mContext));
+                params.put("uid",EmaUser.getInstance().getmUid());
                 try {
 
                     String result = new HttpRequestor().doPost(Url.rejectOrder(), params);

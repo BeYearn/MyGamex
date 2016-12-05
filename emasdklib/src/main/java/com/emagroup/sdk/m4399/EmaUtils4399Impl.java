@@ -127,7 +127,7 @@ public class EmaUtils4399Impl {
                     //获取用户的登陆后的 UID(即用户唯一标识)
                     String uid = userInfo.getUid();
                     String nikename = userInfo.getName();
-                    EmaUser.getInstance().setmUid(uid);
+                    EmaUser.getInstance().setAllianceUid(uid);
                     EmaUser.getInstance().setNickName(nikename);
 
                     //User类型的用户信息中将包含State登录凭证，该信息可用于游戏服务端进行用户信息二次验证

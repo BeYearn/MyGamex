@@ -21,7 +21,8 @@ public class EmaUser {
     }
 
     private static String token;
-    private static String mUid;
+    private static String mUid;    // 官方平台uid
+    private static String mAlienceUid;  // 渠道的uid
     private static String nickName;
     private boolean isLogin;
 
@@ -47,11 +48,18 @@ public class EmaUser {
     }
 
     public String getAllianceUid(){
-        return mUid;
+        return mAlienceUid;
+    }
+
+    public void setAllianceUid(String aUid){
+        this.mAlienceUid=aUid;
     }
 
     public void setmUid(String uid){
         this.mUid=uid;
+    }
+    public String getmUid(){
+        return mUid;
     }
 
     public String getToken() {

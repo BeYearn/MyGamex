@@ -81,7 +81,7 @@ public class EmaUtilsMiImpl {
                         //获取用户的登陆后的 UID(即用户唯一标识)
                         long uid = miAccountInfo.getUid();
                         String nikename = miAccountInfo.getNikename();
-                        EmaUser.getInstance().setmUid(uid + "");
+                        EmaUser.getInstance().setAllianceUid(uid + "");
                         EmaUser.getInstance().setNickName(nikename);
 
                         //获取用户的登陆的 Session(请参考 3.3用户session验证接口)

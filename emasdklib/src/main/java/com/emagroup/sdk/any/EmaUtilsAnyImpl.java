@@ -86,7 +86,7 @@ public class EmaUtilsAnyImpl {
 
                             //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
 
-                            EmaUser.getInstance().setmUid(AnySDKUser.getInstance().getUserID());
+                            EmaUser.getInstance().setAllianceUid(AnySDKUser.getInstance().getUserID());
                             EmaUser.getInstance().setNickName("");
 
                             //显示toolbar
