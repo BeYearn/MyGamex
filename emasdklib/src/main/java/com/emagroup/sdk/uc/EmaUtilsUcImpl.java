@@ -298,7 +298,7 @@ public class EmaUtilsUcImpl {
                     String accountId = datadata.getString("accountId");
                     String nickName = datadata.getString("nickName");
 
-                    EmaUser.getInstance().setmUid(accountId);
+                    EmaUser.getInstance().setAllianceUid(accountId);
                     EmaUser.getInstance().setNickName(nickName);
 
                     //绑定服务
