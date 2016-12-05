@@ -73,6 +73,7 @@ public class EmaUtils {
         this.activity=activity;
     }
 
+
     public static EmaUtils getInstance(Activity activity) {
         if (instance == null) {
             instance = new EmaUtils(activity);
@@ -104,11 +105,26 @@ public class EmaUtils {
             @Override
             public void run() {
 
-                Map<String,String> params = new HashMap<>();
+              /*  Map<String,String> params = new HashMap<>();
                 params.put("appId",ULocalUtils.getAppId(activity));
                 params.put("channelId",ULocalUtils.getChannelId(activity));
 
                 String sign =ULocalUtils.getAppId(activity)+EmaSDK.getInstance().getChannelId()+EmaUser.getInstance().getAppkey();
+                //LOG.e("rawSign",sign);
+                sign = ULocalUtils.MD5(sign);
+                params.put("sign", sign);*/
+
+                Map<String,String> params = new HashMap<>();
+                params.put("appId",ULocalUtils.getAppId(activity));
+                params.put("channelId",ULocalUtils.getChannelId(activity));
+
+                params.put("channelTag",ULocalUtils.getChannelTag(activity));
+                params.put("deviceId",ULocalUtils.getDeviceId(activity));
+                String sign =ULocalUtils.getAppId(activity)+ULocalUtils.getChannelId(activity)
+                        +ULocalUtils.getChannelTag(activity)+ULocalUtils.getDeviceId(activity)
+                        +EmaUser.getInstance().getAppkey();
+
+                //String sign =ConfigManager.getInstance(mActivity).getAppId()+ConfigManager.getInstance(mActivity).getChannel()+EmaUser.getInstance().getAppKey();
                 //LOG.e("rawSign",sign);
                 sign = ULocalUtils.MD5(sign);
                 params.put("sign", sign);
@@ -421,4 +437,5 @@ public class EmaUtils {
     public void onRestart() {
 
     }
+
 }

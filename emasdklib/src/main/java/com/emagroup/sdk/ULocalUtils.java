@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.w3c.dom.Element;
@@ -157,13 +159,28 @@ public class ULocalUtils {
     }
 
 
-    public static String getIMEI(Context context){
+    public static String getDeviceId(Context context){
         //1.获取deviceID 其实是IMEI
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.getDeviceId();
+       // TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+       // return tm.getDeviceId();
 
         /*//2.获取Android ID  不可靠，可能为null，如果恢复出厂设置会改变，root的话可以任意改变
-        mSzAndroidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);*/
+       // mSzAndroidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);*/
+
+        TelephonyManager tm = (TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+        WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
+        String DEVICE_ID = tm.getDeviceId();
+        String MacAddress = manager.getConnectionInfo().getMacAddress();
+        String AndroidSerialNum=android.os.Build.SERIAL;
+
+        if(TextUtils.isEmpty(DEVICE_ID)){
+            String oneIdNoMd5=MacAddress+AndroidSerialNum;
+            String oneId = MD5(oneIdNoMd5).substring(8, 24);
+            return oneId;
+        }
+        Log.e("DEVICE_ID"+"MAC",DEVICE_ID+"......"+MacAddress+"..."+AndroidSerialNum);
+        return DEVICE_ID;
     }
 
 
