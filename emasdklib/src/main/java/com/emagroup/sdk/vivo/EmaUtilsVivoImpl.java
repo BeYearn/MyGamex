@@ -74,7 +74,7 @@ public class EmaUtilsVivoImpl {
 
                     // 登陆成功//登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
                     //获取用户的登陆后的 UID(即用户唯一标识)
-                    EmaUser.getInstance().setmUid(openid);
+                    EmaUser.getInstance().setAllianceUid(openid);
                     EmaUser.getInstance().setNickName(name);
 
                     //绑定服务
