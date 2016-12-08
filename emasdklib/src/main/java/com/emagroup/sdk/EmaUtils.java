@@ -454,15 +454,21 @@ public class EmaUtils {
     }
 
     public void onNewIntent(Intent intent) {
-
+        if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).onNewIntent(intent);
+        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).onActivityResult(requestCode,resultCode,data);
+        }
     }
 
     public void onRestart() {
-
+        if("000054".equals(ULocalUtils.getChannelId(activity))){   //huawei
+            EmaUtilsHuaWeiImpl.getInstance(activity).onRestart();
+        }
     }
 
 }
