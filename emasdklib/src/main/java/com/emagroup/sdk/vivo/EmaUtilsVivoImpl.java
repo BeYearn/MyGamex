@@ -82,7 +82,7 @@ public class EmaUtilsVivoImpl {
                     mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                     //补充弱账户信息
-                    EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getIMEI(mActivity), EmaUser.getInstance().getAllianceUid());
+                    EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
 
                 }
 
@@ -252,5 +252,17 @@ public class EmaUtilsVivoImpl {
 
             }
         });
+    }
+
+    public void onRestart() {
+
+    }
+
+    public void onNewIntent(Intent intent) {
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 }

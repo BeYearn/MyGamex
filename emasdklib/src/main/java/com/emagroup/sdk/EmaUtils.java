@@ -455,7 +455,7 @@ public class EmaUtils {
 
     public void onRestart() {
         if("160136".equals(ULocalUtils.getChannelId(activity))){   //应用宝
-            EmaUtilsYingYBImpl.getInstance(activity).onRestart();
+            EmaUtilsVivoImpl.getInstance(activity).onRestart();
         }else{  // 剩下的渠道目前无操作
 
         }
@@ -463,7 +463,7 @@ public class EmaUtils {
 
     public void onNewIntent(Intent intent) {
         if("160136".equals(ULocalUtils.getChannelId(activity))){   //应用宝
-            EmaUtilsYingYBImpl.getInstance(activity).onNewIntent(intent);
+            EmaUtilsVivoImpl.getInstance(activity).onNewIntent(intent);
         }else{  // 剩下的渠道目前无操作
 
         }
@@ -471,7 +471,7 @@ public class EmaUtils {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if("160136".equals(ULocalUtils.getChannelId(activity))){   //应用宝
-            EmaUtilsYingYBImpl.getInstance(activity).onActivityResult(requestCode, resultCode, data);
+            EmaUtilsVivoImpl.getInstance(activity).onActivityResult(requestCode, resultCode, data);
         }else{  // 剩下的渠道目前无操作
 
         }
