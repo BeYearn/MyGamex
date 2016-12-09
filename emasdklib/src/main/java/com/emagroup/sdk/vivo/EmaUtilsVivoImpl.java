@@ -55,7 +55,6 @@ public class EmaUtilsVivoImpl {
 
     public void realInit(final EmaSDKListener listener, JSONObject data) {
         try {
-
             JSONObject paramsMap = data.getJSONObject("paramsMap");
 
             //浮标密钥
@@ -63,47 +62,53 @@ public class EmaUtilsVivoImpl {
             String cpId = paramsMap.getString("CpId");
             String cpKey = paramsMap.getString("CpKey");
 
-
-            mVivoUnionManager = new VivoUnionManager(mActivity);
-
-            mAccountListener = new OnVivoAccountChangedListener() {
-                //通过该方法获取用户信息
+            mActivity.runOnUiThread(new Runnable() {   //全部装到runonuithread中（VivoUnionManager必须在主线程），否则线程不安全
                 @Override
-                public void onAccountLogin(String name, String openid, String authtoken) {
-                    //authtoken：第三方游戏用此token到vivo帐户系统服务端校验帐户信息//openid：帐户唯一标识//name:帐户名
+                public void run() {
 
-                    // 登陆成功//登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
-                    //获取用户的登陆后的 UID(即用户唯一标识)
-                    EmaUser.getInstance().setAllianceUid(openid);
-                    EmaUser.getInstance().setNickName(name);
+                    mVivoUnionManager = new VivoUnionManager(mActivity);
 
-                    //绑定服务
-                    Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                    mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
+                    mAccountListener = new OnVivoAccountChangedListener() {
+                        //通过该方法获取用户信息
+                        @Override
+                        public void onAccountLogin(String name, String openid, String authtoken) {
+                            //authtoken：第三方游戏用此token到vivo帐户系统服务端校验帐户信息//openid：帐户唯一标识//name:帐户名
 
-                    //补充弱账户信息
-                    EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                            // 登陆成功//登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
+                            //获取用户的登陆后的 UID(即用户唯一标识)
+                            EmaUser.getInstance().setAllianceUid(openid);
+                            EmaUser.getInstance().setNickName(name);
+
+                            //绑定服务
+                            Intent serviceIntent = new Intent(mActivity, EmaService.class);
+                            mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
+
+                            //补充弱账户信息
+                            EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+
+                        }
+
+                        //第三方游戏不需要使用此回调方法
+                        @Override
+                        public void onAccountRemove(boolean isRemoved) {
+                        }
+
+                        @Override
+                        //取消登录的回调方法
+                        public void onAccountLoginCancled() {
+                            listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
+                        }
+                    };
+
+                    mVivoUnionManager.registVivoAccountChangeListener(mAccountListener);
+                    mVivoUnionManager.bindUnionService();
+
+                    listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
+                    //初始化成功之后再检查公告更新等信息
+                    EmaUtils.getInstance(mActivity).checkSDKStatus();
 
                 }
-
-                //第三方游戏不需要使用此回调方法
-                @Override
-                public void onAccountRemove(boolean isRemoved) {
-                }
-
-                @Override
-                //取消登录的回调方法
-                public void onAccountLoginCancled() {
-                    listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
-                }
-            };
-
-            mVivoUnionManager.registVivoAccountChangeListener(mAccountListener);
-            mVivoUnionManager.bindUnionService();
-
-            listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
-            //初始化成功之后再检查公告更新等信息
-            EmaUtils.getInstance(mActivity).checkSDKStatus();
+            });
 
         } catch (JSONException e) {
             listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");

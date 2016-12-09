@@ -99,11 +99,11 @@
             android:name="EMA_WHICH_ENVI"
             android:value="testing" />
 
-        <!-- vivo 组件声明begin -->
+        <!-- vivo begin -->
+        <!-- vivo activity support portrait and landscape begin -->
         <meta-data
             android:name="APP_MONITOR_APPID"
             android:value="b1002c" />
-        <!-- vivo activity support portrait and landscape begin -->
         <activity
             android:name="com.vivo.sdkplugin.activity.LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -353,6 +353,7 @@
             android:theme="@style/vivo_animation_transparent" >
         </activity>
         <!-- vivo activity support portrait and landscape end -->
+
         <!-- vivo activity not support portrait and landscape begin -->
         <activity
             android:name="com.bbk.payment.CardActivity"
@@ -445,7 +446,7 @@
             android:screenOrientation="behind" >
         </activity>
         <activity
-            android:name="com.emagroup.mbzw2.huawei.wxapi.WXPayEntryActivity"
+            android:name="com.emagroup.mbzw2.vivo.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/pop_view"
@@ -458,7 +459,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="qwalletcom.emagroup.mbzw2.huawei" />
+                <data android:scheme="qwalletcom.emagroup.mbzw2.vivo" />
             </intent-filter>
         </activity>
         <activity
@@ -553,7 +554,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <!-- vivo 组件声明end -->
+        <!-- vivo  end -->
 
         <!-- 个推SDK配置开始 -->
         <meta-data

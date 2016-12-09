@@ -67,6 +67,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         Log.e("Mainactivity", EmaSDK.getInstance().getChannelId());
                         break;
                     case EmaCallBackConst.LOGINCANELL://登陆取消回调
+                        Log.e("Mainactivity","登录取消");
                         break;
                     case EmaCallBackConst.LOGINFALIED://登陆失败回调
                         Log.e("++++++++++", Thread.currentThread().getName());
