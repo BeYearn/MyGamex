@@ -133,9 +133,6 @@ public class EmaUtilsVivoImpl {
 
     public void realPay(final EmaSDKListener listener, EmaPayInfo emaPayInfo) {
 
-        vivoCreateOrder(emaPayInfo);
-
-        mVivoUnionManager.initVivoPaymentAndRecharge(mActivity, mPayResultListener);
         mPayResultListener = new OnVivoPayResultListener() {
             //通过该回调方法获取支付结果
             @Override
@@ -166,6 +163,10 @@ public class EmaUtilsVivoImpl {
             @Override
             public void rechargeResult(String openid, boolean pay_result, String result_code, String pay_msg) {}
         };
+
+        vivoCreateOrder(emaPayInfo);
+
+        mVivoUnionManager.initVivoPaymentAndRecharge(mActivity, mPayResultListener);
     }
 
 
@@ -235,7 +236,7 @@ public class EmaUtilsVivoImpl {
                     localBundle.putString("appId", appId); //在vivo开发者平台注册应用后获取到的appId
                     localBundle.putString("productName", emaPayInfo.getProductName()); //商品名称
                     localBundle.putString("productDes", emaPayInfo.getDescription());//商品描述
-                    localBundle.putLong("price", emaPayInfo.getPrice());//商品价格，单位为分（1000即10.00元）
+                    localBundle.putLong("price", emaPayInfo.getPrice()*100);//商品价格，单位为分（1000即10.00元）
 
                     // 以下为可选参数，能收集到务必填写，如未填写，掉单、用户密码找回等问题可能无法解决。
                     localBundle.putString("blance", "100元宝");
