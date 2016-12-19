@@ -1,6 +1,7 @@
 package com.emagroup.sdk;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
 import java.util.Map;
@@ -104,9 +105,24 @@ public class EmaSDK {
         reciveMsgListener.onCallBack(msgCode,msgObj);
     }
 
+    public boolean isEma(){
+        return !(ULocalUtils.getChannelId(mActivity).length()==6);
+    }
 
     public String getChannelId(){
         return ULocalUtils.getChannelId(mActivity);
+    }
+
+    public String getChannelTag() {
+        return ULocalUtils.getChannelTag(mActivity);
+    }
+
+    public void onNewIntent(Intent intent){
+        EmaUtils.getInstance(mActivity).onNewIntent(intent);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        EmaUtils.getInstance(mActivity).onActivityResult(requestCode, resultCode, data);
     }
 
 
@@ -120,6 +136,10 @@ public class EmaSDK {
 
     public void onStop() {
         EmaUtils.getInstance(mActivity).onStop();
+    }
+
+    public void onRestart(){
+        EmaUtils.getInstance(mActivity).onRestart();
     }
 
     public void onDestroy(){
