@@ -107,7 +107,7 @@ public class EmaSDK {
     }
 
     public boolean isEma(){
-        return ULocalUtils.getChannelId(mActivity).length()==6;
+        return !(ULocalUtils.getChannelId(mActivity).length()==6);
     }
 
     public String getChannelId(){
