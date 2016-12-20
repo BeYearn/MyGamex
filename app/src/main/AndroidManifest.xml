@@ -86,16 +86,16 @@
         <service android:name="com.emagroup.sdk.EmaService" />
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="n20015"/>
+            android:value="n20007"/>
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n000108"/>
+            android:value="n26"/>
         <meta-data
             android:name="EMA_CHANNEL_TAG"
-            android:value="n0" />
+            android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="production" />
+            android:value="staging" />
 
         <!--uc 声明begin-->
         <!--uc 声明end-->
