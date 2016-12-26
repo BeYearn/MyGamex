@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:layout_width="300dp"
-    android:layout_height="150dp"
-    android:background="@drawable/ema_prompt_paybg"
+   android:layout_width="280dp"
+    android:layout_height="180dp"
+    android:background="@drawable/ema_shape_webview_dialog"
     android:padding="10dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"  >
 
+    <ImageView
+        android:id="@+id/ema_img_pay_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ema_bind_dialog_logo" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="为了保证您的财产安全，请设置支付密码"
         android:gravity="center"
         android:textColor="@android:color/black"
@@ -25,7 +32,7 @@
         android:cursorVisible="true"
         android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_."
         android:ems="10"
-        android:hint="密  码："
+        android:hint=" 输 入 支 付 密  码"
         android:inputType="textPassword"
         android:maxLength="16"
         android:paddingBottom="7dp"

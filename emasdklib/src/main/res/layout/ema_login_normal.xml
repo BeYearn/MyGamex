@@ -2,31 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="320dp"
     android:layout_height="300dp"
-    android:background="#ffffff"
+    android:background="@drawable/ema_shape_webview_dialog"
     android:gravity="left|right"
     android:orientation="vertical"
-    android:paddingTop="0dp" >
+    android:padding="3dp" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#e0e0e0"
-		android:gravity="center_vertical">
+         >
 
         <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
             android:id="@+id/ema_login_image_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 			android:layout_marginLeft="10dp"
             android:src="@drawable/ema_title" />
 
-        <View
+        <!--<View
             android:layout_width="1dp"
             android:layout_height="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="#1B6AAE" />
+            android:background="#1B6AAE"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="0dp"
@@ -34,9 +35,10 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:text="帐号登录"
-            android:textColor="#1B6AAE" />
+            android:textColor="#1B6AAE"
+            android:visibility="gone"/>-->
 
-        <TextView
+      <!--  <TextView
             android:id="@+id/ema_login_btn_login_by_anlaiye"
             android:layout_width="120dp"
             android:layout_height="36dp"
@@ -46,8 +48,8 @@
             android:gravity="left|center_vertical"
             android:visibility="invisible"
             android:paddingLeft="15dp"
-            android:background="@drawable/ema_logo_anlaiye_bg" />
-    </LinearLayout>
+            android:background="@drawable/ema_logo_anlaiye_bg" />-->
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/ema_login_normal_RelativeLayout1"
@@ -67,7 +69,7 @@
             android:cursorVisible="true"
             android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_.@"
             android:ems="10"
-            android:hint="请输入账号/手机/邮箱"
+            android:hint="请输入手机号码/邮箱"
             android:inputType="textEmailAddress"
             android:maxLength="50"
             android:paddingBottom="0dp"
@@ -81,6 +83,7 @@
         </EditText>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/ema_account_go_list"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -159,18 +162,26 @@
             android:textColor="#ff7111"
             android:textSize="10dp" />
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/ema_normalLogin_enterGame"
-        android:layout_width="300dp"
-        android:layout_marginTop="20dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:adjustViewBounds="false"
-        android:background="@drawable/ema_button_blue_long"
-        android:minHeight="45dp"
-        android:text="进入游戏"
-        android:textColor="@android:color/white" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/ema_normalLogin_enterGame"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:adjustViewBounds="false"
+            android:background="@drawable/ema_button_blue_long"
+            android:minHeight="45dp"
+            android:text="进入游戏"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/ema_normallogin_change_emalogin"
@@ -188,6 +199,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:weightSum="2"
         android:layout_gravity="center"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="10dp"
@@ -197,10 +209,11 @@
 
         <Button
             android:id="@+id/ema_normalLogin_phoneLogin"
-            android:layout_width="145dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/ema_button_orange"
             android:minHeight="45dp"
             android:text="手机登录"
@@ -208,13 +221,33 @@
 
         <Button
             android:id="@+id/ema_normalLogin_oneKeyReg"
-            android:layout_width="145dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/ema_button_blue"
             android:minHeight="45dp"
-            android:text="一键登录"
+            android:text="游客登录"
             android:textColor="@android:color/white" />
     </LinearLayout>
 
+<!--    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:id="@+id/ema_wachate_login"
+            android:src="@drawable/ema_wachate_login"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:id="@+id/ema_qq_login"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:src="@drawable/ema_qq_login"
+            android:layout_height="40dp" />
+    </LinearLayout>-->
 </LinearLayout>

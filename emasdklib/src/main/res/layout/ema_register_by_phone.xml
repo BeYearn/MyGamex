@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="320dp"
-    android:layout_height="300dp"
-    android:background="#ffffff"
+    android:layout_height="290dp"
+    android:background="@drawable/ema_shape_webview_dialog"
     android:gravity="left|right"
     android:orientation="vertical"
-    android:paddingTop="0dp" >
+    android:padding="3dp" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#e0e0e0"
-        android:paddingBottom="10dp" >
+        >
 
         <ImageView
+            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:paddingLeft="5sp"
-            android:paddingTop="15sp"
             android:src="@drawable/ema_title" />
 
-        <View
+       <!-- <View
             android:layout_width="1dp"
             android:layout_height="20dp"
             android:layout_marginLeft="5dp"
@@ -35,8 +34,8 @@
             android:layout_marginRight="10dp"
             android:paddingTop="15dp"
             android:text="手机一键登录"
-            android:textColor="#1B6AAE" />
-    </LinearLayout>
+            android:textColor="#1B6AAE" />-->
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -54,11 +53,8 @@
             android:layout_alignParentTop="true"
             android:background="#ffffff"
             android:cursorVisible="true"
-            android:ems="10"
             android:fadingEdge="horizontal"
-            android:hint="请输入手机号码"
-            android:inputType="number|phone"
-            android:maxLength="11"
+            android:hint="请输入手机号码/邮箱"
             android:paddingLeft="15dp"
             android:paddingRight="10sp"
             android:singleLine="true"
@@ -95,7 +91,7 @@
 
         <Button
             android:id="@+id/ema_btn_start_work"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:adjustViewBounds="false"
@@ -113,11 +109,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:weightSum="2"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/ema_btn_return_login"
-            android:layout_width="145dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
@@ -128,20 +126,43 @@
 
         <Button
             android:id="@+id/ema_btn_return_register"
-            android:layout_width="145dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:background="@drawable/ema_button_blue"
             android:minHeight="45dp"
-            android:text="一键登录"
+            android:text="游客登录"
             android:textColor="@android:color/white" />
     </LinearLayout>
 
     <TextView
+        android:visibility="gone"
         android:textColor="@android:color/holo_red_light"
         android:layout_margin="10dp"
         android:layout_gravity="center_horizontal"
         android:text="首次登陆，帐号密码会下发到手机，请妥善保管"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+       android:layout_gravity="center_horizontal"
+        >
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+           android:id="@+id/ema_wachate_login"
+            android:src="@drawable/ema_wachate_login"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:id="@+id/ema_qq_login"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:src="@drawable/ema_qq_login"
+            android:layout_height="40dp" />
+    </LinearLayout>
 </LinearLayout>
