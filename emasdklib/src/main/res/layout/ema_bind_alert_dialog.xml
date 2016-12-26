@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="170dp"
+    android:background="@drawable/ema_shape_webview_dialog"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+         >
+        <!--<TextView
+            android:id="@+id/dialog_canel"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="X"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />-->
+<ImageView
+    android:layout_marginTop="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ema_bind_dialog_logo"
+    android:layout_centerHorizontal="true"
+    android:layout_alignParentTop="true"
+    android:id="@+id/ema_logo"/>
+
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/ema_logo"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/ema_txt_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="xxxxx"
+            android:lineSpacingExtra="8dp"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+       >
+
+
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:id="@+id/ema_tv_cancel"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ema_tv_sure"
+            android:gravity="center"
+            android:text="下次再说"
+            android:textColor="#ff7111"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/ema_tv_sure"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ema_shape_corner_btn0"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="现在就去"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+             />
+    </RelativeLayout>
+
+</LinearLayout>
