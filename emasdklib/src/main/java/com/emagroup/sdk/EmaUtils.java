@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.emagroup.sdk.any.EmaUtilsAnyImpl;
 import com.emagroup.sdk.mi.EmaUtilsMiImpl;
+import com.emagroup.sdk.oppo.EmaUtilsOppoImpl;
 import com.emagroup.sdk.uc.EmaUtilsUcImpl;
 import com.igexin.sdk.PushManager;
 
@@ -102,7 +103,7 @@ public class EmaUtils {
      */
     public void checkSDKStatus() {
 
-        ThreadUtil.runInSubThread(new Runnable() {
+        ThreadUtil.runInSubThread(  new Runnable() {
             @Override
             public void run() {
 
@@ -297,7 +298,9 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).realInit(mListener,data);
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).realInit(mListener,data);
-        }else{  //否则走any渠道
+        }else if("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).realInit(mListener,data);
+        } else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realInit(mListener,data);
         }
     }
@@ -315,6 +318,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).realLogin(listener);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }
@@ -328,6 +333,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).logout();
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).logout();
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).logout();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).logout();
         }
@@ -340,6 +347,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).swichAccount();
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).swichAccount();
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).swichAccount();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).swichAccount();
         }
@@ -352,6 +361,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).doPayPre(listener);
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).doPayPre(listener);
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).doPayPre(listener);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doPayPre(listener);
         }
@@ -364,6 +375,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).realPay(listener,emaPayInfo);
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).realPay(listener,emaPayInfo);
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).realPay(listener,emaPayInfo);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realPay(listener,emaPayInfo);
         }
@@ -376,6 +389,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).doShowToolbar();
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).doShowToolbar();
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).doShowToolbar();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doShowToolbar();
         }
@@ -388,6 +403,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).doHideToobar();
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).doHideToobar();
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).doHideToobar();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doHideToobar();
         }
@@ -400,6 +417,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).onResume();
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).onResume();
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).onResume();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onResume();
         }
@@ -412,6 +431,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).onPause();
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).onPause();
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).onPause();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onPause();
         }
@@ -424,6 +445,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).onStop();
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).onStop();
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).onStop();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onStop();
         }
@@ -436,6 +459,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).onDestroy();
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).onDestroy();
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){//oppo
+            EmaUtilsOppoImpl.getInstance(activity).onDestroy();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onDestroy();
         }
@@ -448,6 +473,8 @@ public class EmaUtils {
             //EmaUtils4399Impl.getInstance(activity).onBackPressed(action);
         }else if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
             EmaUtilsUcImpl.getInstance(activity).onBackPressed(action);
+        }else if ("000020".equals(ULocalUtils.getChannelId(activity))){
+            EmaUtilsOppoImpl.getInstance(activity).onBackPressed(action);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onBackPressed(action);
         }

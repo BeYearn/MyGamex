@@ -47,7 +47,9 @@ public class Url {
     }
 
 
-
+    public static  String getOppoCallbackUrl(){
+        return serverUrl+"/ema-platform/pay/oppo";
+    }
 
     //-----------------------------------UC 特有接口---------------------------------------------------
     public static String getUCAccontInfo(){
