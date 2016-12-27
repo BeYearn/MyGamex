@@ -15,6 +15,7 @@ public class EmaSDK {
     private EmaSDKListener mListener;
     private static EmaSDKListener reciveMsgListener;
 
+
     public static EmaSDK getInstance() {
         if (instance == null) {
             instance=new EmaSDK();

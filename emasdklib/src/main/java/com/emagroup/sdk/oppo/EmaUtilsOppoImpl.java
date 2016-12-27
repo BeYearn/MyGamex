@@ -1,21 +1,16 @@
 package com.emagroup.sdk.oppo;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.SystemClock;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaComUtils;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaService;
 import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtils;
-import com.emagroup.sdk.EmaUtilsInterface;
-import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 import com.nearme.game.sdk.GameCenterSDK;
 import com.nearme.game.sdk.callback.ApiCallback;
@@ -31,7 +26,7 @@ import org.json.JSONObject;
  * Created by Administrator on 2016/12/13.
  */
 
-public class EmaUtilsOppoImpl implements EmaUtilsInterface {
+public class EmaUtilsOppoImpl extends EmaComUtils {
     private Activity mActivity;
     private static EmaUtilsOppoImpl mInstance;
 
@@ -93,12 +88,8 @@ public class EmaUtilsOppoImpl implements EmaUtilsInterface {
                             JSONObject json = new JSONObject(resultMsg);
                             String ssoid = json.getString("ssoid");
                             EmaUser.getInstance().setAllianceUid(ssoid + "");
-                            //绑定服务
-                            Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                            mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
+                            binderServiceAndUpdateWeakAccount(listener,mActivity);
 
-                            //补充弱账户信息
-                            EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
 
                         } catch (JSONException e) {
                             listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
@@ -120,6 +111,7 @@ public class EmaUtilsOppoImpl implements EmaUtilsInterface {
             }
         });
     }
+
 
     @Override
     public void logout() {
@@ -164,7 +156,7 @@ public class EmaUtilsOppoImpl implements EmaUtilsInterface {
         });
     }
 
-    @Override
+/*    @Override
     public void doPayPre(EmaSDKListener listener) {
 
     }
@@ -177,7 +169,7 @@ public class EmaUtilsOppoImpl implements EmaUtilsInterface {
     @Override
     public void doHideToobar() {
 
-    }
+    }*/
 
     @Override
     public void onResume() {
@@ -203,7 +195,7 @@ public class EmaUtilsOppoImpl implements EmaUtilsInterface {
         GameCenterSDK.getInstance().onPause();
     }
 
-    @Override
+   /* @Override
     public void onStop() {
 
     }
@@ -216,5 +208,5 @@ public class EmaUtilsOppoImpl implements EmaUtilsInterface {
     @Override
     public void onDestroy() {
 
-    }
+    }*/
 }

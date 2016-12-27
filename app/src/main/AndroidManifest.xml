@@ -211,7 +211,7 @@
         <!-- oppo start -->
         <meta-data android:name="debug_mode" android:value="false" />    <!-- 日志开关，发布时候设置为false -->
         <meta-data android:name="is_offline_game" android:value="false" />  <!-- true:单机游戏   false:网游 -->
-        <meta-data android:name="app_key" android:value="c5217trjnrmU6gO5jG8VvUFU0" />  <!-- appKey -->
+        <meta-data android:name="app_key" android:value="63Zizm7RQtOo8o88o0gGk8K0w" />  <!-- appKey -->
 
         <activity
             android:name="com.nearme.game.sdk.component.proxy.ProxyActivity"

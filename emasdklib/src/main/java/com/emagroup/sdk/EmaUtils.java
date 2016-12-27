@@ -10,10 +10,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.emagroup.sdk.any.EmaUtilsAnyImpl;
-import com.emagroup.sdk.mi.EmaUtilsMiImpl;
 import com.emagroup.sdk.oppo.EmaUtilsOppoImpl;
-import com.emagroup.sdk.uc.EmaUtilsUcImpl;
 import com.igexin.sdk.PushManager;
 
 import org.json.JSONObject;
@@ -60,6 +57,7 @@ public class EmaUtils {
     private String maintainBg;
     private String maintainContent;
     private String showStatus;
+    private  EmaComUtils emaUtilsOppo;
 
     //绑定服务
     public ServiceConnection mServiceCon = new ServiceConnection() {
@@ -73,6 +71,9 @@ public class EmaUtils {
 
     private EmaUtils(Activity activity) {
         this.activity=activity;
+        if("000020".equals(ULocalUtils.getChannelId(activity))){
+            emaUtilsOppo=EmaUtilsOppoImpl.getInstance(activity);
+        }
     }
 
 
@@ -292,7 +293,7 @@ public class EmaUtils {
     }
 
     private void realInit(JSONObject data) {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+     /*   if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).realInit(mListener,data);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).realInit(mListener,data);
@@ -302,7 +303,12 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).realInit(mListener,data);
         } else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realInit(mListener,data);
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.realInit(mListener,data);
     }
 
     /**
@@ -312,7 +318,7 @@ public class EmaUtils {
      * @param deviceKey
      */
     public void realLogin(EmaSDKListener listener, String userid, String deviceKey) {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+        /*if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).realLogin(listener,userid,deviceKey);
@@ -322,12 +328,17 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).realLogin(listener);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.realLogin(listener);
 
     }
 
     public void logout() {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+       /* if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).logout();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).logout();
@@ -337,11 +348,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).logout();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).logout();
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.logout();
     }
 
     public void swichAccount() {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+   /*     if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).swichAccount();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).swichAccount();
@@ -351,11 +367,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).swichAccount();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).swichAccount();
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.swichAccount();
     }
 
     public void doPayPre(EmaSDKListener listener) {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+     /*   if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).doPayPre(listener);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).doPayPre(listener);
@@ -365,11 +386,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).doPayPre(listener);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doPayPre(listener);
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.doPayPre(listener);
     }
 
     public void realPay(EmaSDKListener listener, EmaPayInfo emaPayInfo) {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+       /* if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).realPay(listener,emaPayInfo);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).realPay(listener,emaPayInfo);
@@ -379,11 +405,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).realPay(listener,emaPayInfo);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).realPay(listener,emaPayInfo);
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.realPay(listener,emaPayInfo);
     }
 
     public void doShowToolbar() {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+  /*      if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).doShowToolbar();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).doShowToolbar();
@@ -393,11 +424,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).doShowToolbar();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doShowToolbar();
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.doShowToolbar();
     }
 
     public void doHideToobar() {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+       /* if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).doHideToobar();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).doHideToobar();
@@ -407,11 +443,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).doHideToobar();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).doHideToobar();
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.doHideToobar();
     }
 
     public void onResume() {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+        /*if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).onResume();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onResume();
@@ -421,11 +462,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).onResume();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onResume();
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.onResume();
     }
 
     public void onPause() {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+      /*  if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).onPause();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onPause();
@@ -435,11 +481,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).onPause();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onPause();
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.onPause();
     }
 
     public void onStop() {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+        /*if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).onStop();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onStop();
@@ -449,11 +500,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).onStop();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onStop();
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.onStop();
     }
 
     public void onDestroy() {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+        /*if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).onDestroy();
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onDestroy();
@@ -463,11 +519,16 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).onDestroy();
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onDestroy();
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.onDestroy();
     }
 
     public void onBackPressed(EmaBackPressedAction action) {
-        if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
+    /*    if("000066".equals(ULocalUtils.getChannelId(activity))){   //小米渠道
             EmaUtilsMiImpl.getInstance(activity).onBackPressed(action);
         }else if("000108".equals(ULocalUtils.getChannelId(activity))){   //4399
             //EmaUtils4399Impl.getInstance(activity).onBackPressed(action);
@@ -477,7 +538,12 @@ public class EmaUtils {
             EmaUtilsOppoImpl.getInstance(activity).onBackPressed(action);
         }else{  //否则走any渠道
             EmaUtilsAnyImpl.getInstance(activity).onBackPressed(action);
+        }*/
+        if(emaUtilsOppo==null){
+            ToastHelper.toast(activity,"请配置正确的渠道ID");
+            return;
         }
+        emaUtilsOppo.onBackPressed(action);
     }
 
     public void onNewIntent(Intent intent) {
