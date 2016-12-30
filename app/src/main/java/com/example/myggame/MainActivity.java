@@ -65,6 +65,11 @@ public class MainActivity extends Activity implements OnClickListener {
                         Log.e("Mainactivity",EmaUser.getInstance().getNickName());
                         Log.e("Mainactivity", EmaUser.getInstance().getAllianceUid());
                         Log.e("Mainactivity", EmaSDK.getInstance().getChannelId());
+
+                        HashMap<String, String> gameRoleInfo = new HashMap<>();
+                        gameRoleInfo.put("roleId","woshizhongren");
+                        EmaUser.getInstance().submitLoginGameRole(gameRoleInfo);
+
                         break;
                     case EmaCallBackConst.LOGINCANELL://登陆取消回调
                         Log.e("Mainactivity","登录取消");
