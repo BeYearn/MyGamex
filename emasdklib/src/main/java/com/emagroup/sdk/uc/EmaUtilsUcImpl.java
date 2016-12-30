@@ -168,9 +168,9 @@ public class EmaUtilsUcImpl {
         PaymentInfo pInfo = new PaymentInfo(); //创建Payment对象，用于传递充值信息
 
         pInfo.setCustomInfo("custOrderId=PX299392#ip=139.91.192.29#...");//设置充值自定义参数，此参数不作任何处理，在充值完成后通知游戏服务器充值结果时原封不动传给游戏服务器。此参数为可选参数，默认为空。充值前建议
-        pInfo.setRoleId("102"); //设置用户的游戏角色的ID，此为可选参数
-        pInfo.setRoleName("游戏角色名"); //设置用户的游戏角色名字，此为可选参数
-        pInfo.setGrade("12"); //设置用户的游戏角色等级，此为可选参数
+        pInfo.setRoleId((String) ULocalUtils.spGet(mActivity,"roleId_R","")); //设置用户的游戏角色的ID，此为可选参数
+        pInfo.setRoleName((String) ULocalUtils.spGet(mActivity,"roleName_R","")); //设置用户的游戏角色名字，此为可选参数
+        pInfo.setGrade((String) ULocalUtils.spGet(mActivity,"roleLevel_R","")); //设置用户的游戏角色等级，此为可选参数
         pInfo.setAmount(emaPayInfo.getPrice()); //单位：元 设置允许充值的金额，此为可选参数，默认为 0。如果设置了此金额不为 0，则表示只允许用户按指定金额充值；如果不指定金额或指定为 0，则表示用户在充值时可以自由选择或输入希望充入的金额。 设置定额充值的游戏服务端收到回调信息必须校验 amount 值与客户端下单时传递的是否一致
         //pInfo.setNotifyUrl("http://192.168.1.1/notifypage.do");// 回调地址，非必填参数，此处设置或开放平台录入，优先取客户端设置的地址，设置后游戏在支付完成后SDK回调充值信息到此地址，必须为带有http头的URL形式。
         pInfo.setTransactionNumCP(emaPayInfo.getOrderShortId());// 设置CP自有的订单号，此为可选参数，对于需要使用此参数的游戏， 充值前建议先判断下此参数传递的值是否正常不为空再调充值接口，注意长度不能超过30
