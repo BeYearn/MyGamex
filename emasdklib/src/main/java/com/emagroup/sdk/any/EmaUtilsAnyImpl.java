@@ -197,17 +197,17 @@ public class EmaUtilsAnyImpl {
     public void realPay(final EmaSDKListener listener, EmaPayInfo emaPayInfo) {
 
         Map<String, String> anyPayInfo = new HashMap();
-        anyPayInfo.put("Product_Price", emaPayInfo.getPrice()+"");
+        anyPayInfo.put("Product_Price", emaPayInfo.getPrice()/Integer.parseInt(emaPayInfo.getProductNum())+"");
         anyPayInfo.put("Product_Id",emaPayInfo.getProductId());
         anyPayInfo.put("Product_Name",emaPayInfo.getProductName());
         anyPayInfo.put("Product_Count", emaPayInfo.getProductNum());
         anyPayInfo.put("EXT",emaPayInfo.getOrderId());
 
         anyPayInfo.put("Coin_Name", "coin");
-        anyPayInfo.put("Server_Id", "1");
-        anyPayInfo.put("Role_Id","1");
-        anyPayInfo.put("Role_Name", "16");
-        anyPayInfo.put("Role_Grade", "12");
+        anyPayInfo.put("Server_Id", (String) ULocalUtils.spGet(mActivity,"zoneId_R",""));
+        anyPayInfo.put("Role_Id",(String) ULocalUtils.spGet(mActivity,"roleId_R",""));
+        anyPayInfo.put("Role_Name", (String) ULocalUtils.spGet(mActivity,"roleName_R",""));
+        anyPayInfo.put("Role_Grade", (String) ULocalUtils.spGet(mActivity,"roleLevel_R",""));
         anyPayInfo.put("Server_Name", "lemonade-game.com");
         anyPayInfo.put("Role_Balance", "10");
 
