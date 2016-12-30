@@ -93,12 +93,16 @@
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n0" />
-        <meta-data
+     <!--   <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="testing" />
+            android:value="testing" />-->
+
+        <meta-data
+           android:name="EMA_WHICH_ENVI"
+           android:value="staging" />
 
         <!--uc 声明begin-->
-        <activity
+      <!--  <activity
             android:name="cn.uc.gamesdk.activity.ProxyActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
@@ -107,7 +111,7 @@
                 <action android:name="cn.uc.gamesdk.sdkweb" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
+        </activity>-->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"

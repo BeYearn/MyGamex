@@ -105,6 +105,13 @@ public class EmaSDK {
         }
         reciveMsgListener.onCallBack(msgCode,msgObj);
     }
+    public boolean isEma(){
+        return !(ULocalUtils.getChannelId(mActivity).length()==6);
+    }
+
+    public String getChannelTag() {
+        return ULocalUtils.getChannelTag(mActivity);
+    }
 
 
     public String getChannelId(){
