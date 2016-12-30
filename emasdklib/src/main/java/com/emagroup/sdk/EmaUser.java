@@ -114,7 +114,7 @@ public class EmaUser {
         ULocalUtils.spPut(EmaSDK.mActivity,"ext_R",ext_R);
 
         //这个稍微特殊点，因为这个sdk有3种4399和小米都在，所以通过这样的方式来给anysdk提交这个(这是登录处的，支付处的自己取)
-        if(!"000066".equals(ULocalUtils.getChannelId(EmaSDK.mActivity))||!"000108".equals(ULocalUtils.getChannelId(EmaSDK.mActivity))){
+        if(!"000066".equals(ULocalUtils.getChannelId(EmaSDK.mActivity))&&!"000108".equals(ULocalUtils.getChannelId(EmaSDK.mActivity))){
             if(AnySDKUser.getInstance().isFunctionSupported("submitLoginGameRole")){
                 Map<String, String> map = new HashMap<>();
                 map.put("dataType", dataType_R);
