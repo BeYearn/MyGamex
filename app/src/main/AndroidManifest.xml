@@ -92,7 +92,7 @@
             android:value="n000255"/>
         <meta-data
             android:name="EMA_CHANNEL_TAG"
-            android:value="n0" />
+            android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
             android:value="testing" />

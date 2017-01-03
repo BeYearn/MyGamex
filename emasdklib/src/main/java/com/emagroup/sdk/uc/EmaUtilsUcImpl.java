@@ -3,6 +3,7 @@ package com.emagroup.sdk.uc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
@@ -65,7 +66,8 @@ public class EmaUtilsUcImpl {
             gpi.setGameId(Integer.parseInt(mChannelAppId)); // 从UC九游开放平台获取自己游戏的参数信息
             gpi.setEnablePayHistory(true);//开启查询充值历史功能
             gpi.setEnableUserChange(false);//开启账号切换功能
-            gpi.setOrientation(UCOrientation.LANDSCAPE);//LANDSCAPE：横屏，横屏游戏必须设置为横屏 PORTRAIT： 竖屏
+            gpi.setOrientation(mActivity.getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE
+                    ?UCOrientation.LANDSCAPE:UCOrientation.PORTRAIT);//LANDSCAPE：横屏，横屏游戏必须设置为横屏 PORTRAIT： 竖屏
 
             UCGameSdk.defaultSdk().initSdk(mActivity, UCLogLevel.DEBUG, false, gpi, new UCCallbackListener<String>() {//在为 true 的时候，会连接到联调测试环境（ sdk.test4.g.uc.cn），当为 false 的时候则会连接到正式环境（ sdk.g.uc.cn）。
                 @Override
@@ -132,7 +134,7 @@ public class EmaUtilsUcImpl {
                         String sid = UCGameSdk.defaultSdk().getSid();
                         Log.e("emasdk UCsid",sid);
                         getUCAccontInfo(sid,listener);  // 绑定和补充弱账户在这里面了
-
+                        submitGameRole();
                     }
                     if (code == UCGameSdkStatusCode.LOGIN_EXIT) {//登录界面关闭， 游戏需判断此时是否已登录成功进行相应操作
 
@@ -320,6 +322,25 @@ public class EmaUtilsUcImpl {
 
             }
         });
+    }
+
+    /**
+     * uc要求的必接的角色信息提交
+     */
+    private void submitGameRole() {
+        try {
+            //角色登录成功或升级时调用此段，请根据实际业务数据传入真实数据，以下数据仅是示例
+            JSONObject jsonExData = new JSONObject();
+            jsonExData.put("roleId", ULocalUtils.spGet(mActivity,"roleId_R",""));//同一区服角色ID需保持唯一性
+            jsonExData.put("roleName", ULocalUtils.spGet(mActivity,"roleName_R",""));//未取名时传默认值，不可传空
+            jsonExData.put("roleLevel", ULocalUtils.spGet(mActivity,"roleLevel_R",""));//如游戏存在转生，转职等，等级需累加
+            jsonExData.put("zoneId", ULocalUtils.spGet(mActivity,"zoneId_R",""));
+            jsonExData.put("zoneName", ULocalUtils.spGet(mActivity,"zoneId_R",""));//服务器名必须与界面展示的名称保持一致
+            jsonExData.put("roleCTime", 1456397360);//获取服务器存储的角色创建时间，不可用本地手机时间， 同一角色创建时间不可变
+            UCGameSdk.defaultSdk().submitExtendData("loginGameRole", jsonExData);
+        } catch (Exception e) {
+            //处理异常
+        }
     }
 
 }
