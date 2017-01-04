@@ -196,7 +196,7 @@ public class EmaUtilsUcImpl {
                                 try {
                                     Thread.sleep(1000);
                                     // 购买成功
-                                    //listener.onCallBack(EmaCallBackConst.PAYSUCCESS, "购买成功");  注掉是因为界面上有提示，而自己并不知道支付状态，所以直接不给了
+                                    listener.onCallBack(EmaCallBackConst.PAYSUCCESS, "购买成功");  //注掉是因为界面上有提示，而自己并不知道支付状态，所以直接不给了
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
