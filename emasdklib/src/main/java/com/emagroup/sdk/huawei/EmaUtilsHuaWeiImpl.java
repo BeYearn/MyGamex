@@ -431,9 +431,11 @@ public class EmaUtilsHuaWeiImpl {
          * 全部使用String类型存放
          */
         HashMap<String, String> playerInfo = new HashMap<>();
-        playerInfo.put(RoleInfo.GAME_RANK, (Math.random()*100)+"");
-        playerInfo.put(RoleInfo.GAME_ROLE, "猎人");
-        playerInfo.put(RoleInfo.GAME_AREA, "天空之城");
+        playerInfo.put(RoleInfo.GAME_RANK, (String) ULocalUtils.spGet(mActivity,"roleLevel_R",""));
+        playerInfo.put(RoleInfo.GAME_ROLE,(String) ULocalUtils.spGet(mActivity,"roleName_R",""));
+        playerInfo.put(RoleInfo.GAME_AREA, (String) ULocalUtils.spGet(mActivity,"zoneId_R",""));
+        //playerInfo.put(RoleInfo.GAME_SOCIATY, (String) ULocalUtils.spGet(mActivity,"zoneId_R",""));
+
         // 存储用户当前的角色信息
         GameServiceSDK.addPlayerInfo(mActivity, playerInfo, new GameEventHandler(){
             @Override
