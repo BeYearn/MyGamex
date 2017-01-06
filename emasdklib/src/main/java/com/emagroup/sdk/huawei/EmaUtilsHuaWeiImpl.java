@@ -433,7 +433,7 @@ public class EmaUtilsHuaWeiImpl {
         HashMap<String, String> playerInfo = new HashMap<>();
         playerInfo.put(RoleInfo.GAME_RANK, (String) ULocalUtils.spGet(mActivity,"roleLevel_R",""));
         playerInfo.put(RoleInfo.GAME_ROLE,(String) ULocalUtils.spGet(mActivity,"roleName_R",""));
-        playerInfo.put(RoleInfo.GAME_AREA, (String) ULocalUtils.spGet(mActivity,"zoneId_R",""));
+        playerInfo.put(RoleInfo.GAME_AREA, (String) ULocalUtils.spGet(mActivity,"zoneName_R",""));
         //playerInfo.put(RoleInfo.GAME_SOCIATY, (String) ULocalUtils.spGet(mActivity,"zoneId_R",""));
 
         // 存储用户当前的角色信息
