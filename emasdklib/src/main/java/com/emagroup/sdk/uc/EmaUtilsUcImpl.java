@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
-import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
@@ -207,7 +206,7 @@ public class EmaUtilsUcImpl {
                     Log.i("UC pay", "支付界面关闭: callback orderInfo = " + sb);
                 }
                 //listener.onCallBack(EmaCallBackConst.PAYCANELI, "支付取消");
-                EmaPay.getInstance(mActivity).cancelOrder();
+                //EmaPay.getInstance(mActivity).cancelOrder();
             }
 
         };
@@ -394,7 +393,7 @@ public class EmaUtilsUcImpl {
 
                 } catch (Exception e) {
                     //listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
-                    EmaPay.getInstance(mActivity).cancelOrder();
+                    //EmaPay.getInstance(mActivity).cancelOrder();
                 }
             }
         });
