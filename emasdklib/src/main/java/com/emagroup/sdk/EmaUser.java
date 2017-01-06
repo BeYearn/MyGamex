@@ -103,6 +103,7 @@ public class EmaUser {
         String roleName_R = data.get("roleName");
         String roleLevel_R = data.get("roleLevel");
         String zoneId_R = data.get("zoneId");
+        String zoneName_R = data.get("zoneName");
         String dataType_R = data.get("dataType");
         String ext_R = data.get("ext");
 
@@ -110,10 +111,11 @@ public class EmaUser {
         ULocalUtils.spPut(EmaSDK.mActivity,"roleName_R",roleName_R);
         ULocalUtils.spPut(EmaSDK.mActivity,"roleLevel_R",roleLevel_R);
         ULocalUtils.spPut(EmaSDK.mActivity,"zoneId_R",zoneId_R);
+        ULocalUtils.spPut(EmaSDK.mActivity,"zoneName_R",zoneName_R);
         ULocalUtils.spPut(EmaSDK.mActivity,"dataType_R",dataType_R);
         ULocalUtils.spPut(EmaSDK.mActivity,"ext_R",ext_R);
 
-        //这个稍微特殊点，因为这个sdk有3种4399和小米都在，所以通过这样的方式来给anysdk提交这个(这是登录处的，支付处的自己取)
+        //这个稍微特殊点，因为这个sdk有3种4399和小米都在，所以通过这样的方式来给anysdk提交这个(这是登录处的，支付处还有（取即可）)
         if(!"000066".equals(ULocalUtils.getChannelId(EmaSDK.mActivity))&&!"000108".equals(ULocalUtils.getChannelId(EmaSDK.mActivity))){
             if(AnySDKUser.getInstance().isFunctionSupported("submitLoginGameRole")){
                 Map<String, String> map = new HashMap<>();
@@ -122,7 +124,7 @@ public class EmaUser {
                 map.put("roleName", roleName_R);
                 map.put("roleLevel", roleLevel_R);
                 map.put("zoneId", zoneId_R);
-                map.put("zoneName", "服务器"+zoneId_R);
+                map.put("zoneName", zoneName_R);
                 map.put("balance", "66");
                 map.put("partyName", "emaUnion");
                 map.put("vipLevel", "1");

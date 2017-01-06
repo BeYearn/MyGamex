@@ -205,6 +205,7 @@ public class EmaUtilsAnyImpl {
 
         anyPayInfo.put("Coin_Name", "coin");
         anyPayInfo.put("Server_Id", (String) ULocalUtils.spGet(mActivity,"zoneId_R",""));
+        anyPayInfo.put("Server_Name", (String) ULocalUtils.spGet(mActivity,"zoneName_R",""));
         anyPayInfo.put("Role_Id",(String) ULocalUtils.spGet(mActivity,"roleId_R",""));
         anyPayInfo.put("Role_Name", (String) ULocalUtils.spGet(mActivity,"roleName_R",""));
         anyPayInfo.put("Role_Grade", (String) ULocalUtils.spGet(mActivity,"roleLevel_R",""));

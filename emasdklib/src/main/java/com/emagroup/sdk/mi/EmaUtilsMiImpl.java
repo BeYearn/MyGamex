@@ -127,13 +127,13 @@ public class EmaUtilsMiImpl {
         online.setMiBi(emaPayInfo.getPrice()); //必须是大于1的整数, 10代表10米币,即10元人民币(不为空)
 
         Bundle mBundle = new Bundle();
-        mBundle.putString(GameInfoField.GAME_USER_BALANCE, "1000");  //用户余额
+        mBundle.putString(GameInfoField.GAME_USER_BALANCE, "66");  //用户余额
         mBundle.putString(GameInfoField.GAME_USER_GAMER_VIP, "vip0");  //vip 等级
-        mBundle.putString(GameInfoField.GAME_USER_LV, "20");          //角色等级
-        mBundle.putString(GameInfoField.GAME_USER_PARTY_NAME, "猎人");  //工会，帮派
-        mBundle.putString(GameInfoField.GAME_USER_ROLE_NAME, "meteor"); //角色名称
-        mBundle.putString(GameInfoField.GAME_USER_ROLEID, "123456");   //角色id
-        mBundle.putString(GameInfoField.GAME_USER_SERVER_NAME, "峡谷");  //所在服务器
+        mBundle.putString(GameInfoField.GAME_USER_LV,(String) ULocalUtils.spGet(mActivity,"roleLevel_R",""));          //角色等级
+        mBundle.putString(GameInfoField.GAME_USER_PARTY_NAME, (String) ULocalUtils.spGet(mActivity,"zoneName_R",""));  //工会，帮派
+        mBundle.putString(GameInfoField.GAME_USER_ROLE_NAME, (String) ULocalUtils.spGet(mActivity,"roleName_R","")); //角色名称
+        mBundle.putString(GameInfoField.GAME_USER_ROLEID, (String) ULocalUtils.spGet(mActivity,"roleId_R",""));   //角色id
+        mBundle.putString(GameInfoField.GAME_USER_SERVER_NAME, (String) ULocalUtils.spGet(mActivity,"zoneName_R",""));  //所在服务器
         MiCommplatform.getInstance().miUniPayOnline(mActivity, online, mBundle,
                 new OnPayProcessListener() {
                     @Override
