@@ -68,7 +68,11 @@ public class MainActivity extends Activity implements OnClickListener {
                         Log.e("Mainactivity", EmaSDK.getInstance().getChannelId());
 
                         HashMap<String, String> gameRoleInfo = new HashMap<>();
-                        gameRoleInfo.put("roleId","woshizhongren");
+                        gameRoleInfo.put("roleId","123");
+                        gameRoleInfo.put("roleName","woshizhongren");
+                        gameRoleInfo.put("roleLevel","99");
+                        gameRoleInfo.put("zoneId","001");
+                        gameRoleInfo.put("zoneName","zhongguoqu");
                         EmaUser.getInstance().submitLoginGameRole(gameRoleInfo);
 
                         break;

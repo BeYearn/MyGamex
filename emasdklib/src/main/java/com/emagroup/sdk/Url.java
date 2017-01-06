@@ -53,6 +53,9 @@ public class Url {
     public static String getUCAccontInfo(){
         return serverUrl+"/ema-platform/channelLogin/uc";
     }
+    public static String getUCSignAndPay(){
+        return serverUrl+"/ema-platform/pay/ucsign";
+    }
     //-----------------------------------UC 特有接口---------------------------------------------------
 
 }

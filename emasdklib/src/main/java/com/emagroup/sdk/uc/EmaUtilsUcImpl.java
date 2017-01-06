@@ -26,15 +26,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.uc.gamesdk.UCGameSdk;
-import cn.uc.gamesdk.exception.UCCallbackListenerNullException;
-import cn.uc.gamesdk.exception.UCMissActivityException;
+import cn.uc.gamesdk.even.SDKEventKey;
+import cn.uc.gamesdk.even.SDKEventReceiver;
+import cn.uc.gamesdk.even.Subscribe;
 import cn.uc.gamesdk.open.GameParamInfo;
 import cn.uc.gamesdk.open.OrderInfo;
-import cn.uc.gamesdk.open.PaymentInfo;
-import cn.uc.gamesdk.open.UCCallbackListener;
-import cn.uc.gamesdk.open.UCGameSdkStatusCode;
 import cn.uc.gamesdk.open.UCLogLevel;
 import cn.uc.gamesdk.open.UCOrientation;
+import cn.uc.gamesdk.param.SDKParamKey;
+import cn.uc.gamesdk.param.SDKParams;
+
+import static cn.uc.gamesdk.param.SDKParamKey.ACCOUNT_ID;
 
 /**
  * Created by Administrator on 2016/10/9.
@@ -45,6 +47,8 @@ public class EmaUtilsUcImpl {
 
     private Activity mActivity;
     private String mChannelAppId; //uc的gameID
+    private SDKEventReceiver mUcReciverIL;
+    private SDKEventReceiver mUcReciverPay;
 
     public static EmaUtilsUcImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -62,6 +66,65 @@ public class EmaUtilsUcImpl {
 
             mChannelAppId = data.getString("channelAppId");
 
+            mUcReciverIL =new SDKEventReceiver(){
+                @Subscribe(event = SDKEventKey.ON_INIT_SUCC)
+                private void onInitSucc() {
+
+                    listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
+                    //初始化成功之后再检查公告更新等信息
+                    EmaUtils.getInstance(mActivity).checkSDKStatus();
+
+                    //uc特有 用于创建悬浮窗 悬浮按钮须指定一个 Activity 与关联，一个游戏中可以有多个 Activity 拥有悬浮按钮，彼此独立操作
+                    //UCGameSdk.defaultSdk().createFloatButton(mActivity);
+                }
+
+                @Subscribe(event = SDKEventKey.ON_INIT_FAILED)
+                private void onInitFailed() {
+                    listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+                }
+
+                @Subscribe(event = SDKEventKey.ON_LOGIN_SUCC)
+                private void onLoginSucc(String sid) {
+                    // 登陆成功
+                    //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
+
+                    Log.e("emasdk UCsid",sid);
+                    getUCAccontInfo(sid,listener);  // 绑定和补充弱账户在这里面了
+                    submitGameRole();
+                }
+
+                @Subscribe(event = SDKEventKey.ON_LOGIN_FAILED)
+                private void onLoginFailed(String desc) {
+                    // 登陆失败
+                    listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                }
+
+                @Subscribe(event = SDKEventKey.ON_LOGOUT_SUCC)
+                private void onLogoutSucc() {
+                    listener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功回调");
+                    // 切换账号时，可以再次调起登录接口
+                }
+
+                @Subscribe(event = SDKEventKey.ON_LOGOUT_FAILED)
+                private void onLogoutFailed() {
+                    listener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败回调");
+                }
+
+                @Subscribe(event = SDKEventKey.ON_EXIT_SUCC)
+                private void onExitSucc() {
+                    mActivity.finish();
+                    System.exit(0);
+                }
+
+                @Subscribe(event = SDKEventKey.ON_EXIT_CANCELED)
+                private void onExitCanceled() {
+                    //appendText("放弃退出，继续游戏");
+                }
+
+            };
+
+            UCGameSdk.defaultSdk().registeSDKEventReceiver(mUcReciverIL);
+
             GameParamInfo gpi = new GameParamInfo();
             gpi.setGameId(Integer.parseInt(mChannelAppId)); // 从UC九游开放平台获取自己游戏的参数信息
             gpi.setEnablePayHistory(true);//开启查询充值历史功能
@@ -69,48 +132,12 @@ public class EmaUtilsUcImpl {
             gpi.setOrientation(mActivity.getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE
                     ?UCOrientation.LANDSCAPE:UCOrientation.PORTRAIT);//LANDSCAPE：横屏，横屏游戏必须设置为横屏 PORTRAIT： 竖屏
 
-            UCGameSdk.defaultSdk().initSdk(mActivity, UCLogLevel.DEBUG, false, gpi, new UCCallbackListener<String>() {//在为 true 的时候，会连接到联调测试环境（ sdk.test4.g.uc.cn），当为 false 的时候则会连接到正式环境（ sdk.g.uc.cn）。
-                @Override
-                public void callback(int code, String msg) {
-                    Log.e("UCinit msg:", msg);//返回的消息
-                    switch (code) {
-                        case UCGameSdkStatusCode.SUCCESS://初始化成功,可以执行后续的登录充值操作
+            SDKParams sdkParams = new SDKParams();
+            sdkParams.put(SDKParamKey.LOG_LEVEL, UCLogLevel.DEBUG);
+            sdkParams.put(SDKParamKey.DEBUG_MODE, false);   // false则需要真实的了
+            sdkParams.put(SDKParamKey.GAME_PARAMS, gpi);
+            UCGameSdk.defaultSdk().initSdk(mActivity, sdkParams);
 
-                            listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
-                            //初始化成功之后再检查公告更新等信息
-                            EmaUtils.getInstance(mActivity).checkSDKStatus();
-
-                            //uc特有 用于创建悬浮窗 悬浮按钮须指定一个 Activity 与关联，一个游戏中可以有多个 Activity 拥有悬浮按钮，彼此独立操作
-                            UCGameSdk.defaultSdk().createFloatButton(mActivity);
-                            break;
-                        case UCGameSdkStatusCode.INIT_FAIL://初始化失败,不能进行后续操作
-
-                            listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
-
-            //对于需要支持账户切换/退出账号的游戏， 必须在此设置退出侦听器， 请放在初始化成功后监听
-            UCGameSdk.defaultSdk().setLogoutNotifyListener(new UCCallbackListener<String>() {
-                @Override
-                public void callback(int statuscode, String data) {
-                    switch (statuscode) {
-                        case UCGameSdkStatusCode.NO_INIT:
-                            break;
-                        case UCGameSdkStatusCode.NO_LOGIN:
-                            break;
-                        case UCGameSdkStatusCode.SUCCESS:
-                            listener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功回调");
-                            break;
-                        case UCGameSdkStatusCode.FAIL:
-                            listener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败回调");
-                            break;
-                    }
-                }
-            });
 
         } catch (Exception e) {
             listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
@@ -121,36 +148,11 @@ public class EmaUtilsUcImpl {
 
 
     public void realLogin(final EmaSDKListener listener, String userid, String deviceId) {
-
-
         try {
-            UCGameSdk.defaultSdk().login(new UCCallbackListener<String>() {
-                @Override
-                public void callback(int code, String msg) {
-                    if (code == UCGameSdkStatusCode.SUCCESS) {//登录成功，可以执行后续操作
-                        // 登陆成功
-                        //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
 
-                        String sid = UCGameSdk.defaultSdk().getSid();
-                        Log.e("emasdk UCsid",sid);
-                        getUCAccontInfo(sid,listener);  // 绑定和补充弱账户在这里面了
-                        submitGameRole();
-                    }
-                    if (code == UCGameSdkStatusCode.LOGIN_EXIT) {//登录界面关闭， 游戏需判断此时是否已登录成功进行相应操作
+            UCGameSdk.defaultSdk().login(mActivity,null);
 
-                    }
-                    if (code == UCGameSdkStatusCode.NO_INIT) {//没有初始化就进行登录调用，需要游戏调用SDK初始化方法
-                        // 登陆失败
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
-                    }
-                    if (code == UCGameSdkStatusCode.NO_LOGIN) {//未登录成功， 需要游戏重新调登录方法
-                        // 登陆失败
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
-
-                    }
-                }
-            });
-        } catch (UCCallbackListenerNullException e) {//异常处理
+        } catch (Exception e) {//异常处理
             listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
             e.printStackTrace();
         }
@@ -162,65 +164,94 @@ public class EmaUtilsUcImpl {
      * @param listener
      */
     public void doPayPre(final EmaSDKListener listener) {
+
+        mUcReciverPay =new SDKEventReceiver(){
+
+            @Subscribe(event = SDKEventKey.ON_CREATE_ORDER_SUCC)
+            private void onPaySucc(OrderInfo orderInfo) {
+                if (orderInfo != null) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("'orderId':'%s'", orderInfo.getOrderId()));
+                    sb.append(String.format("'orderAmount':'%s'", orderInfo.getOrderAmount()));
+                    sb.append(String.format("'payWay':'%s'", orderInfo.getPayWay()));
+                    sb.append(String.format("'payWayName':'%s'", orderInfo.getPayWayName()));
+                    Log.i("UC pay", "支付下单成功: callback orderInfo = " + sb);
+
+                    //订单生成生成，非充值成功，充值结果由服务端回调判断,请勿显示充值成功的弹窗或toast
+                    if (orderInfo != null) {
+                        String ordered = orderInfo.getOrderId();//获取订单号
+                        float amount = orderInfo.getOrderAmount();//获取订单金额
+                        int payWay = orderInfo.getPayWay();//获取充值类型，具体可参考支付通道编码列表
+                        String payWayName = orderInfo.getPayWayName();//充值类型的中文名称
+                    }
+                    try {
+                        Thread.sleep(1000);
+                        // 购买成功
+                        listener.onCallBack(EmaCallBackConst.PAYSUCCESS, "购买成功");  //注掉是因为界面上有提示，而自己并不知道支付状态，所以直接不给了
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Subscribe(event = SDKEventKey.ON_PAY_USER_EXIT)
+            private void onPayUserExit(OrderInfo orderInfo) {
+                if (orderInfo != null) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.format("'orderId':'%s'", orderInfo.getOrderId()));
+                    sb.append(String.format("'orderAmount':'%s'", orderInfo.getOrderAmount()));
+                    sb.append(String.format("'payWay':'%s'", orderInfo.getPayWay()));
+                    sb.append(String.format("'payWayName':'%s'", orderInfo.getPayWayName()));
+
+                    Log.i("UC pay", "支付界面关闭: callback orderInfo = " + sb);
+                }
+                //listener.onCallBack(EmaCallBackConst.PAYCANELI, "支付取消");
+                EmaPay.getInstance(mActivity).cancelOrder();
+            }
+
+        };
+
+        UCGameSdk.defaultSdk().registeSDKEventReceiver(mUcReciverPay);
+
     }
 
     public void realPay(final EmaSDKListener listener, EmaPayInfo emaPayInfo) {
 
+        SDKParams sdkParams = new SDKParams();
+        //sdkParams.put(SDKParamKey.CALLBACK_INFO, "");
+        sdkParams.put(SDKParamKey.SERVER_ID, (String) ULocalUtils.spGet(mActivity,"zoneId_R",""));
+        sdkParams.put(SDKParamKey.ROLE_ID, (String) ULocalUtils.spGet(mActivity,"roleId_R",""));
+        sdkParams.put(SDKParamKey.ROLE_NAME,(String) ULocalUtils.spGet(mActivity,"roleName_R",""));
+        sdkParams.put(SDKParamKey.GRADE, (String) ULocalUtils.spGet(mActivity,"roleLevel_R",""));
+        //sdkParams.put(SDKParamKey.NOTIFY_URL, "");服务器通知地址，如果为空以服务端配置地址作为通知地址，
+        sdkParams.put(SDKParamKey.AMOUNT,emaPayInfo.getPrice()+"");
+        sdkParams.put(SDKParamKey.CP_ORDER_ID, emaPayInfo.getOrderShortId());
+        sdkParams.put(ACCOUNT_ID, EmaUser.getInstance().getAllianceUid());
+        sdkParams.put(SDKParamKey.SIGN_TYPE, "MD5");
 
-        PaymentInfo pInfo = new PaymentInfo(); //创建Payment对象，用于传递充值信息
+        String rawSign = "accountId="+EmaUser.getInstance().getAllianceUid()+
+                "amount="+emaPayInfo.getPrice()+
+                "cpOrderId="+emaPayInfo.getOrderShortId()+
+                "grade="+ULocalUtils.spGet(mActivity,"roleLevel_R","")+
+                "roleId="+ULocalUtils.spGet(mActivity,"roleId_R","")+
+                "roleName="+ULocalUtils.spGet(mActivity,"roleName_R","")+
+                "serverId="+ULocalUtils.spGet(mActivity,"zoneId_R","");
 
-        pInfo.setCustomInfo("custOrderId=PX299392#ip=139.91.192.29#...");//设置充值自定义参数，此参数不作任何处理，在充值完成后通知游戏服务器充值结果时原封不动传给游戏服务器。此参数为可选参数，默认为空。充值前建议
-        pInfo.setRoleId((String) ULocalUtils.spGet(mActivity,"roleId_R","")); //设置用户的游戏角色的ID，此为可选参数
-        pInfo.setRoleName((String) ULocalUtils.spGet(mActivity,"roleName_R","")); //设置用户的游戏角色名字，此为可选参数
-        pInfo.setGrade((String) ULocalUtils.spGet(mActivity,"roleLevel_R","")); //设置用户的游戏角色等级，此为可选参数
-        pInfo.setAmount(emaPayInfo.getPrice()); //单位：元 设置允许充值的金额，此为可选参数，默认为 0。如果设置了此金额不为 0，则表示只允许用户按指定金额充值；如果不指定金额或指定为 0，则表示用户在充值时可以自由选择或输入希望充入的金额。 设置定额充值的游戏服务端收到回调信息必须校验 amount 值与客户端下单时传递的是否一致
-        //pInfo.setNotifyUrl("http://192.168.1.1/notifypage.do");// 回调地址，非必填参数，此处设置或开放平台录入，优先取客户端设置的地址，设置后游戏在支付完成后SDK回调充值信息到此地址，必须为带有http头的URL形式。
-        pInfo.setTransactionNumCP(emaPayInfo.getOrderShortId());// 设置CP自有的订单号，此为可选参数，对于需要使用此参数的游戏， 充值前建议先判断下此参数传递的值是否正常不为空再调充值接口，注意长度不能超过30
-
-        //如游戏为横屏，请在initSDK接口增加横屏属性
-        try {
-            UCGameSdk.defaultSdk().pay(pInfo, new UCCallbackListener<OrderInfo>() {
-                        @Override
-                        public void callback(int statudcode, OrderInfo orderInfo) {
-                            if (statudcode == UCGameSdkStatusCode.NO_INIT) {
-                                //没有初始化就进行调用，需要游戏调用SDK初始化方法
-                            }
-                            if (statudcode == UCGameSdkStatusCode.SUCCESS) {
-                                //订单生成生成，非充值成功，充值结果由服务端回调判断,请勿显示充值成功的弹窗或toast
-                                if (orderInfo != null) {
-                                    String ordered = orderInfo.getOrderId();//获取订单号
-                                    float amount = orderInfo.getOrderAmount();//获取订单金额
-                                    int payWay = orderInfo.getPayWay();//获取充值类型，具体可参考支付通道编码列表
-                                    String payWayName = orderInfo.getPayWayName();//充值类型的中文名称
-                                }
-                                try {
-                                    Thread.sleep(1000);
-                                    // 购买成功
-                                    listener.onCallBack(EmaCallBackConst.PAYSUCCESS, "购买成功");  //注掉是因为界面上有提示，而自己并不知道支付状态，所以直接不给了
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            if (statudcode == UCGameSdkStatusCode.PAY_USER_EXIT) {
-                                //用户退出充值界面。
-                            }
-                        }
-                    }
-            );
-        } catch (UCCallbackListenerNullException e) {
-            //异常处理
-            // 购买失败
-            //call一次取消订单
-            EmaPay.getInstance(mActivity).cancelOrder();
-
-            listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
-        }
+        Log.e("sign",rawSign);
+        
+        signAndPay(rawSign,sdkParams,listener);
 
     }
 
 
     public void logout() {
-        UCGameSdk.defaultSdk().logout();
+        try {
+            UCGameSdk.defaultSdk().logout(mActivity, null);
+        } catch (Exception e) {
+            //activity为空，异常处理
+        }
+
     }
 
     public void swichAccount() {
@@ -228,11 +259,11 @@ public class EmaUtilsUcImpl {
     }
 
     public void doShowToolbar() {
-        UCGameSdk.defaultSdk().showFloatButton(mActivity,0,80);
+        //UCGameSdk.defaultSdk().showFloatButton(mActivity,0,80);
     }
 
     public void doHideToobar() {
-        UCGameSdk.defaultSdk().hideFloatButton(mActivity);
+        //UCGameSdk.defaultSdk().hideFloatButton(mActivity);
     }
 
     public void onResume() {
@@ -245,31 +276,21 @@ public class EmaUtilsUcImpl {
     }
 
     public void onDestroy() {
-        UCGameSdk.defaultSdk().destoryFloatButton(mActivity);
+        UCGameSdk.defaultSdk().unregisterSDKEventReceiver(mUcReciverIL);
+        UCGameSdk.defaultSdk().unregisterSDKEventReceiver(mUcReciverPay);
+
+        //UCGameSdk.defaultSdk().destoryFloatButton(mActivity);
     }
 
     public void onBackPressed(EmaBackPressedAction action) {
         //action.doBackPressedAction();  uc有自己的逻辑
+
         try {
-            UCGameSdk.defaultSdk().exitSDK(mActivity, new UCCallbackListener<String>() {
-                public void callback(final int statuscode, final String data) {
-                    switch (statuscode) {
-                        case UCGameSdkStatusCode.SDK_EXIT:// 退出程序
-                            mActivity.finish();
-                            System.exit(0);
-                            break;
-                        case UCGameSdkStatusCode.SDK_EXIT_CONTINUE:// 继续游戏
-                            break;
-                        case UCGameSdkStatusCode.NO_INIT:// 没有初始化
-                            break;
-                    }
-                }
-            });
-        } catch (UCCallbackListenerNullException e) {
-            e.printStackTrace();
-        } catch (UCMissActivityException e) {
-            e.printStackTrace();
+            UCGameSdk.defaultSdk().exit(mActivity, null);
+        } catch (Exception e){
+
         }
+
     }
 
 
@@ -312,7 +333,7 @@ public class EmaUtilsUcImpl {
                     Log.e("getUCAccontInfo", "结果:" + accountId + ".." + nickName);
 
                     // uc 登录成功后显示那个浮标
-                    UCGameSdk.defaultSdk().showFloatButton(mActivity,0,80);
+                    //UCGameSdk.defaultSdk().showFloatButton(mActivity,0,80);
 
                 } catch (Exception e) {
                     listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
@@ -329,18 +350,55 @@ public class EmaUtilsUcImpl {
      */
     private void submitGameRole() {
         try {
-            //角色登录成功或升级时调用此段，请根据实际业务数据传入真实数据，以下数据仅是示例
-            JSONObject jsonExData = new JSONObject();
-            jsonExData.put("roleId", ULocalUtils.spGet(mActivity,"roleId_R",""));//同一区服角色ID需保持唯一性
-            jsonExData.put("roleName", ULocalUtils.spGet(mActivity,"roleName_R",""));//未取名时传默认值，不可传空
-            jsonExData.put("roleLevel", ULocalUtils.spGet(mActivity,"roleLevel_R",""));//如游戏存在转生，转职等，等级需累加
-            jsonExData.put("zoneId", ULocalUtils.spGet(mActivity,"zoneId_R",""));
-            jsonExData.put("zoneName", ULocalUtils.spGet(mActivity,"zoneId_R",""));//服务器名必须与界面展示的名称保持一致
-            jsonExData.put("roleCTime", 1456397360);//获取服务器存储的角色创建时间，不可用本地手机时间， 同一角色创建时间不可变
-            UCGameSdk.defaultSdk().submitExtendData("loginGameRole", jsonExData);
+            //角色登录成功或升级时调用此段，请根据实际业务数据传入真实数据，
+            SDKParams params = new SDKParams();
+            params.put(SDKParamKey.STRING_ROLE_ID,ULocalUtils.spGet(mActivity,"roleId_R",""));
+            params.put(SDKParamKey.STRING_ROLE_NAME, ULocalUtils.spGet(mActivity,"roleName_R",""));
+            params.put(SDKParamKey.LONG_ROLE_LEVEL,ULocalUtils.spGet(mActivity,"roleLevel_R",""));
+            params.put(SDKParamKey.LONG_ROLE_CTIME, 1456397360);
+            params.put(SDKParamKey.STRING_ZONE_ID, ULocalUtils.spGet(mActivity,"zoneId_R",""));
+            params.put(SDKParamKey.STRING_ZONE_NAME, ULocalUtils.spGet(mActivity,"zoneName_R",""));
+            try {
+                UCGameSdk.defaultSdk().submitRoleData(mActivity, params);
+            } catch (Exception e) {
+                //传入参数错误异常处理
+            }
+
         } catch (Exception e) {
             //处理异常
         }
+    }
+
+    /**
+     * 带上sign并发支付
+     */
+    private void signAndPay(final String rawSign, final SDKParams sdkParams, final EmaSDKListener listener) {
+
+        ThreadUtil.runInSubThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                String url = Url.getUCSignAndPay();
+                Map<String, String> paramMap = new HashMap<>();
+                paramMap.put("signSrc", rawSign);
+                paramMap.put("appId", ULocalUtils.getAppId(mActivity));
+                paramMap.put("allianceId", ULocalUtils.getChannelId(mActivity));
+
+                String result = new HttpRequestor().doPost(url, paramMap);
+                JSONObject jsonObject = new JSONObject(result);
+                String sign = jsonObject.getString("message");
+
+                sdkParams.put(SDKParamKey.SIGN, sign);
+
+                UCGameSdk.defaultSdk().pay(mActivity, sdkParams);
+
+                } catch (Exception e) {
+                    //listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
+                    EmaPay.getInstance(mActivity).cancelOrder();
+                }
+            }
+        });
+
     }
 
 }
