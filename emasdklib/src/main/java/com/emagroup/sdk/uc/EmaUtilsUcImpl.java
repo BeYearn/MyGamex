@@ -285,7 +285,16 @@ public class EmaUtilsUcImpl {
         //action.doBackPressedAction();  uc有自己的逻辑
 
         try {
-            UCGameSdk.defaultSdk().exit(mActivity, null);
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        UCGameSdk.defaultSdk().exit(mActivity, null);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception e){
 
         }
