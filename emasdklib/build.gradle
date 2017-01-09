@@ -33,4 +33,5 @@ dependencies {
     compile files('libs/SDK_TY_4.6.11.jar')
     compile files('libs/alipay.jar')
     compile files('libs/ucgamesdk.jar')
+    compile files('libs/coolcloud-uac-sdk-base.2.2.6.jar')
 }
