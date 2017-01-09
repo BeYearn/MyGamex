@@ -360,16 +360,18 @@ public class EmaUtilsUcImpl {
         try {
             //角色登录成功或升级时调用此段，请根据实际业务数据传入真实数据，
             SDKParams params = new SDKParams();
-            params.put(SDKParamKey.STRING_ROLE_ID,ULocalUtils.spGet(mActivity,"roleId_R",""));
-            params.put(SDKParamKey.STRING_ROLE_NAME, ULocalUtils.spGet(mActivity,"roleName_R",""));
-            params.put(SDKParamKey.LONG_ROLE_LEVEL,ULocalUtils.spGet(mActivity,"roleLevel_R",""));
-            params.put(SDKParamKey.LONG_ROLE_CTIME, 1456397360);
-            params.put(SDKParamKey.STRING_ZONE_ID, ULocalUtils.spGet(mActivity,"zoneId_R",""));
-            params.put(SDKParamKey.STRING_ZONE_NAME, ULocalUtils.spGet(mActivity,"zoneName_R",""));
+            params.put(SDKParamKey.STRING_ROLE_ID, ULocalUtils.spGet(mActivity,"roleId_R","")+"");
+            params.put(SDKParamKey.STRING_ROLE_NAME, ULocalUtils.spGet(mActivity,"roleName_R","")+"");
+            params.put(SDKParamKey.LONG_ROLE_LEVEL,Long.parseLong((String)ULocalUtils.spGet(mActivity,"roleLevel_R","")));
+            params.put(SDKParamKey.LONG_ROLE_CTIME, Long.parseLong("1456397360"));
+            params.put(SDKParamKey.STRING_ZONE_ID, ULocalUtils.spGet(mActivity,"zoneId_R","")+"");
+            params.put(SDKParamKey.STRING_ZONE_NAME, ULocalUtils.spGet(mActivity,"zoneName_R","")+"");
             try {
                 UCGameSdk.defaultSdk().submitRoleData(mActivity, params);
+                Log.e("submitRoleData",params.toString());
             } catch (Exception e) {
                 //传入参数错误异常处理
+                Log.e("submitRoleData error",e.toString());
             }
 
         } catch (Exception e) {
