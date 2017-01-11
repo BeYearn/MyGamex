@@ -49,13 +49,10 @@ public class Url {
 
 
 
-    //-----------------------------------UC 特有接口---------------------------------------------------
-    public static String getUCAccontInfo(){
-        return serverUrl+"/ema-platform/channelLogin/uc";
+    //-----------------------------------coolpad 特有接口---------------------------------------------------
+    public static String getCoolPadAccontInfo(){
+        return serverUrl+"/ema-platform/extra/coolpadCheckToken";
     }
-    public static String getUCSignAndPay(){
-        return serverUrl+"/ema-platform/pay/ucsign";
-    }
-    //-----------------------------------UC 特有接口---------------------------------------------------
+    //-----------------------------------coolpad 特有接口---------------------------------------------------
 
 }

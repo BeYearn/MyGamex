@@ -75,7 +75,7 @@
             android:value="n20012" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n000255" />
+            android:value="n000078" />
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n1001" />
@@ -112,7 +112,84 @@
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
+                    <!--coolpad支付-->
+        <activity
+            android:name="com.yulong.paysdk.module.main.CoolPayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name"
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity
+            android:name="com.yulong.paysdk.module.operational.OperationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name" >
+        </activity>
+        <activity
+            android:name="com.yulong.paysdk.module.me.MeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.yulong.paysdk.module.payment.PaymentActivity"
+            android:label="@string/coolpay_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.yulong.paysdk.module.main.CoolPayActivityDialog"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.yulong.paysdk.module.charge.ChargeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.yulong.paysdk.module.qq.CallbackActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="qwallet1105429247" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:excludeFromRecents="true"
+            android:label="@string/coolpay_name"
+            android:screenOrientation="portrait" />
+
+                <!-- alipay sdk begin -->
+        <service
+            android:name="com.yulong.paysdk.aidl.ExcuteFlatService"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.yulong.paysdk.aidl.ExcuteFlatService" >
+                </action>
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.yulong.paysdk.module.main.CoolPayActivity$ResultReceiver" >
+            <intent-filter>
+                <action android:name="com.yulong.paysdk.receiver.ResultReceiver.onFlatStart" />
+                <action android:name="com.yulong.paysdk.receiver.ResultReceiver.onPayResult" />
+            </intent-filter>
+        </receiver>
         <!--coolpad 声明end-->
 
 
