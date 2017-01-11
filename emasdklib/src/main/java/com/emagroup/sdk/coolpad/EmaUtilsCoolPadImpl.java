@@ -16,6 +16,7 @@ import com.coolcloud.uac.android.common.Constants;
 import com.coolcloud.uac.android.common.Params;
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
@@ -27,6 +28,7 @@ import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 import com.yulong.paysdk.beens.CoolPayResult;
+import com.yulong.paysdk.beens.CoolYunAccessInfo;
 import com.yulong.paysdk.beens.PayInfo;
 import com.yulong.paysdk.coolpayapi.CoolpayApi;
 import com.yulong.paysdk.payinterface.IPayResult;
@@ -51,6 +53,11 @@ public class EmaUtilsCoolPadImpl {
     private CoolpayApi mCoolPay;
     private IPayResult mPayResult;
     private String mChannelAppKey;
+    private String mAccessToken;
+    private String mExpires_in;
+    private String mOpenId;
+    private String mRefresh_token;
+    private String mChannelPayKey;
 
     public static EmaUtilsCoolPadImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -69,6 +76,7 @@ public class EmaUtilsCoolPadImpl {
             mChannelAppId = data.getString("channelAppId");
             Log.e("cpid",mChannelAppId);
             mChannelAppKey = data.getString("channelAppKey");
+            mChannelPayKey = data.getString("channelAppSecret");
 
             mCoolcloud = Coolcloud.get(mActivity, mChannelAppId);  //账户用api
 
@@ -169,10 +177,25 @@ public class EmaUtilsCoolPadImpl {
             public void onResult(CoolPayResult result) {
                 if (null != result) {
                     String resultStr = result.getResult();
-                    Log.d("ss77", "resultStr:" + resultStr);
-                    Log.d("swx", "ResultStatus:" + result.getResultStatus());
+                    int resultStatus = result.getResultStatus();
+                    Log.d("coolPadPay", "resultStr:" + resultStr+ "ResultStatus:" + resultStatus);
                     try {
+                        if(0==resultStatus){    // 支付成功
+                            // 购买成功
+                            listener.onCallBack(EmaCallBackConst.PAYSUCCESS, "购买成功");
+                        }else if(-1==resultStatus){   // z支付失败
+                            // 购买失败
+                            //call一次取消订单
+                            EmaPay.getInstance(mActivity).cancelOrder();
 
+                            listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
+                        }else if(-2==resultStatus){   // 支付取消
+                            // 取消购买
+                            //call一次取消订单
+                            EmaPay.getInstance(mActivity).cancelOrder();
+
+                            listener.onCallBack(EmaCallBackConst.PAYCANELI, "取消购买");
+                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -187,75 +210,22 @@ public class EmaUtilsCoolPadImpl {
         PayInfo payInfo = new PayInfo();
         payInfo.setPrice(emaPayInfo.getPrice()); // 支付价格 单位为 分
         payInfo.setAppId(mChannelAppId);
-        payInfo.setPayKey(mChannelAppKey);
+        payInfo.setPayKey(mChannelPayKey);
         payInfo.setName(emaPayInfo.getProductName());
         payInfo.setPoint(Integer.parseInt(emaPayInfo.getProductId()));
         payInfo.setQuantity(1);
         payInfo.setCpOrder(emaPayInfo.getOrderId());
 
-        //mCoolPay.startPay(mActivity, payInfo, accessInfo, mPayResult, CoolpayApi.PAY_STYLE_DIALOG, mActivity.getResources().getConfiguration().orientation);
+        //将获取的酷云账号信息传递给支付SDK
+        CoolYunAccessInfo accessInfo = new CoolYunAccessInfo();
+        accessInfo.setAccessToken(mAccessToken);
+        accessInfo.setExpiresIn(mExpires_in);
+        accessInfo.setOpenId(mOpenId);
+        accessInfo.setRefreshToken(mRefresh_token);
 
 
+        mCoolPay.startPay(mActivity, payInfo, accessInfo, mPayResult, CoolpayApi.PAY_STYLE_DIALOG, mActivity.getResources().getConfiguration().orientation);
 
-
-
-
-
-
-
-
-
-
-        /*MiBuyInfoOnline online = new MiBuyInfoOnline();
-        online.setCpOrderId(emaPayInfo.getOrderId()); //订单号唯一(不为空)
-        online.setCpUserInfo("cpUserInfo"); //此参数在用户支付成功后会透传给CP的服务器
-        online.setMiBi(emaPayInfo.getPrice()); //必须是大于1的整数, 10代表10米币,即10元人民币(不为空)
-
-        Bundle mBundle = new Bundle();
-        mBundle.putString(GameInfoField.GAME_USER_BALANCE, "1000");  //用户余额
-        mBundle.putString(GameInfoField.GAME_USER_GAMER_VIP, "vip0");  //vip 等级
-        mBundle.putString(GameInfoField.GAME_USER_LV, "20");          //角色等级
-        mBundle.putString(GameInfoField.GAME_USER_PARTY_NAME, "猎人");  //工会，帮派
-        mBundle.putString(GameInfoField.GAME_USER_ROLE_NAME, "meteor"); //角色名称
-        mBundle.putString(GameInfoField.GAME_USER_ROLEID, "123456");   //角色id
-        mBundle.putString(GameInfoField.GAME_USER_SERVER_NAME, "峡谷");  //所在服务器
-        MiCommplatform.getInstance().miUniPayOnline(mActivity, online, mBundle,
-                new OnPayProcessListener() {
-                    @Override
-                    public void finishPayProcess(int code) {
-                        switch (code) {
-                            case MiErrorCode.MI_XIAOMI_GAMECENTER_SUCCESS:
-                                // 购买成功
-                                listener.onCallBack(EmaCallBackConst.PAYSUCCESS, "购买成功");
-                                break;
-                            case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_PAY_CANCEL:
-                                // 取消购买
-                                //call一次取消订单
-                                EmaPay.getInstance(mActivity).cancelOrder();
-
-                                listener.onCallBack(EmaCallBackConst.PAYCANELI, "取消购买");
-                                break;
-                            case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_PAY_FAILURE:
-                                // 购买失败
-                                //call一次取消订单
-                                EmaPay.getInstance(mActivity).cancelOrder();
-
-                                listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
-                                break;
-                            case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_ACTION_EXECUTED:
-                                //操作正在进行中
-                                //统一的emasdk中没有这个回调，不设置了
-                                break;
-                            default:
-                                // 购买失败
-                                //call一次取消订单
-                                EmaPay.getInstance(mActivity).cancelOrder();
-
-                                listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
-                                break;
-                        }
-                    }
-                });*/
     }
 
 
@@ -344,13 +314,17 @@ public class EmaUtilsCoolPadImpl {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
 
-                    JSONObject datadata = data.getJSONObject("data");
+                    //授权令牌
+                    mAccessToken = data.getString("access_token");
+                    //该access token的有效期，单位为秒。默认2592000秒（30天）
+                    mExpires_in = data.getString("expires_in");
+                    //用户唯一标识
+                    mOpenId = data.getString("openid");
+                    //在授权自动续期步骤中，获取新的Access_Token时需要提供的参数。
+                    mRefresh_token = data.getString("refresh_token");
 
-                    String accountId = datadata.getString("accountId");
-                    String nickName = datadata.getString("nickName");
-
-                    EmaUser.getInstance().setAllianceUid(accountId);
-                    EmaUser.getInstance().setNickName(nickName);
+                    EmaUser.getInstance().setAllianceUid(mOpenId);
+                    //EmaUser.getInstance().setNickName(nickName);
 
                     //绑定服务
                     Intent serviceIntent = new Intent(mActivity, EmaService.class);
@@ -358,7 +332,7 @@ public class EmaUtilsCoolPadImpl {
                     //补充弱账户信息
                     EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
 
-                    Log.e("getUCAccontInfo", "结果:" + accountId + ".." + nickName);
+                    Log.e("getCoolPadAccontInfo", "结果:" + mOpenId + "..");
 
                 } catch (Exception e) {
                     listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
