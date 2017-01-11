@@ -153,6 +153,10 @@ public class EmaUtilsAnyImpl {
      * @param listener
      */
     public void doPayPre(final EmaSDKListener listener) {
+
+        //支付过程中若 SDK 没有回调结果，就认为支付正在进行中，再次调用支付的时候会回调 PAYRESULT_NOW_PAYING，可以调用该函数重置支付状态
+        AnySDKIAP.getInstance().resetPayState();
+
         AnySDKIAP.getInstance().setListener(new AnySDKListener() {
             @Override
             public void onCallBack(int arg0, String arg1) {
