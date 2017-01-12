@@ -215,6 +215,7 @@ public class EmaUtilsCoolPadImpl {
         payInfo.setPoint(Integer.parseInt(emaPayInfo.getProductId()));
         payInfo.setQuantity(1);
         payInfo.setCpOrder(emaPayInfo.getOrderId());
+        payInfo.setCpPrivate(mOpenId);   // 透传信息
 
         //将获取的酷云账号信息传递给支付SDK
         CoolYunAccessInfo accessInfo = new CoolYunAccessInfo();
