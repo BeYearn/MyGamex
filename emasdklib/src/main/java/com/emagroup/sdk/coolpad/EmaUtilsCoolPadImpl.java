@@ -16,6 +16,7 @@ import com.coolcloud.uac.android.common.Constants;
 import com.coolcloud.uac.android.common.Params;
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
@@ -129,39 +130,6 @@ public class EmaUtilsCoolPadImpl {
                     }
                 });
 
-
-       /* //可以通过实现OnLoginProcessListener接口来捕获登录结果
-        MiCommplatform.getInstance().miLogin(mActivity, new OnLoginProcessListener() {
-            @Override
-            public void finishLoginProcess(int i, MiAccountInfo miAccountInfo) {
-                switch (i) {
-                    case MiErrorCode.MI_XIAOMI_GAMECENTER_SUCCESS:
-                        // 登陆成功
-                        //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
-
-                        //获取用户的登陆后的 UID(即用户唯一标识)
-                        long uid = miAccountInfo.getUid();
-                        String nikename = miAccountInfo.getNikename();
-                        EmaUser.getInstance().setAllianceUid(uid + "");
-                        EmaUser.getInstance().setNickName(nikename);
-
-                        //获取用户的登陆的 Session(请参考 3.3用户session验证接口)
-                        String session = miAccountInfo.getSessionId();//若没有登录返回 null
-                        //请开发者完成将uid和session提交给开发者自己服务器进行session验证
-
-                        //绑定服务
-                        Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                        mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
-
-                        //补充弱账户信息
-                        EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
-
-                        break;
-
-
-                }
-            }
-        });*/
     }
 
     /**
@@ -301,7 +269,8 @@ public class EmaUtilsCoolPadImpl {
             @Override
             public void run() {
                 try {
-                    //耗时操作 阻塞
+                    openProgressDialog();
+
                     String url = Url.getCoolPadAccontInfo();
 
                     Map<String, String> paramMap = new HashMap<>();
@@ -339,11 +308,23 @@ public class EmaUtilsCoolPadImpl {
                     listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
                     Log.e("getUCAccontInfo", "maybe is SocketTimeoutException");
                     e.printStackTrace();
+
+                    closeProgressDialog();
                 }
 
             }
         });
     }
 
+    private void openProgressDialog(){
+        Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
+        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE,EmaConst.EMA_BC_PROGRESS_START);
+        mActivity.sendBroadcast(intent);
+    }
 
+    private void closeProgressDialog(){
+        Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
+        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE,EmaConst.EMA_BC_PROGRESS_CLOSE);
+        mActivity.sendBroadcast(intent);
+    }
 }
