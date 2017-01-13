@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.coolcloud.uac.android.api.Coolcloud;
 import com.coolcloud.uac.android.api.ErrInfo;
@@ -14,6 +13,7 @@ import com.coolcloud.uac.android.api.OnResultListener;
 import com.coolcloud.uac.android.api.ResultFuture;
 import com.coolcloud.uac.android.common.Constants;
 import com.coolcloud.uac.android.common.Params;
+import com.coolcloud.uac.android.gameassistplug.GameAssistApi;
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaConst;
@@ -59,6 +59,8 @@ public class EmaUtilsCoolPadImpl {
     private String mOpenId;
     private String mRefresh_token;
     private String mChannelPayKey;
+    private GameAssistApi mGameAssistApi;
+    private EmaSDKListener mListenerLogin;
 
     public static EmaUtilsCoolPadImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -81,6 +83,22 @@ public class EmaUtilsCoolPadImpl {
 
             mCoolcloud = Coolcloud.get(mActivity, mChannelAppId);  //账户用api
 
+            if (mGameAssistApi == null) {                        //悬浮窗
+                mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mGameAssistApi = (GameAssistApi) mCoolcloud.getGameAssistApi(mActivity);
+                        mGameAssistApi.addOnSwitchingAccountListen(new GameAssistApi.SwitchingAccount() {
+                            @Override
+                            public void onSwitchingAccounts() {
+                                swichAccount();
+                            }
+                        });
+                    }
+                });
+            }
+
+
             listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
 
             //初始化成功之后再检查公告更新等信息
@@ -95,6 +113,7 @@ public class EmaUtilsCoolPadImpl {
 
 
     public void realLogin(final EmaSDKListener listener, String userid, String deviceId) {
+        mListenerLogin=listener;
 
         Bundle input = new Bundle();
         // 设置横屏显示
@@ -204,7 +223,10 @@ public class EmaUtilsCoolPadImpl {
     }
 
     public void swichAccount() {
-        Bundle input = new Bundle();
+        Log.e("coolpad","swichAccount");
+        logout();
+        mListenerLogin.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
+        /*Bundle input = new Bundle();
         // 设置屏幕横竖屏默认为竖屏
         input.putInt(Constants.KEY_SCREEN_ORIENTATION, mActivity.getResources().getConfiguration().orientation);
         // 设置需要权限 一般都为get_basic_userinfo这个常量
@@ -217,19 +239,24 @@ public class EmaUtilsCoolPadImpl {
             public void onResult(Bundle result) {
                 // 返回成功，获取授权码
                 String code = result.getString(Params.KEY_AUTHCODE);
+                Log.e("coolPadloginCode",code);
+                getCoolPAccountInfo(code,mListenerLogin);
             }
             @Override
-            public void onError(ErrInfo s) {
-                // 登录失败
-                Toast.makeText(mActivity, s.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onError(ErrInfo error) {
+                // 出现错误，通过error.getError()和error.getMessage()获取错误信息
+                Log.e("coolpLoginerror",error.getError()+".."+error.getMessage());
+                // 登陆失败
+                mListenerLogin.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
             }
 
             @Override
             public void onCancel() {
-                // 登录被取消
-                Toast.makeText(mActivity, "login cancel...", Toast.LENGTH_SHORT).show();
+                // 操作被取消
+                // 取消登录
+                mListenerLogin.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
             }
-        });
+        });*/
     }
 
     public void doShowToolbar() {
@@ -239,9 +266,15 @@ public class EmaUtilsCoolPadImpl {
     }
 
     public void onResume() {
+        if (mGameAssistApi != null) {
+            mGameAssistApi.onResume();
+        }
     }
 
     public void onPause() {
+        if (mGameAssistApi != null) {
+            mGameAssistApi.onPause();
+        }
     }
 
     public void onStop() {

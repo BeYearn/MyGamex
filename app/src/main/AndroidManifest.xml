@@ -86,38 +86,18 @@
         <!--coolpad 声明begin-->
 
         <activity
-            android:name="com.coolcloud.uac.android.api.view.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity
-            android:name="com.coolcloud.uac.android.api.view.FindpwdActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity
-            android:name="com.coolcloud.uac.android.api.view.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity
-            android:name="com.coolcloud.uac.android.api.view.OAuth2Activity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity
-            android:name="com.coolcloud.uac.android.api.view.RegisterActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity
-            android:name="com.coolcloud.uac.android.qihuplug.view.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity
-            android:name="com.coolcloud.uac.android.api.view.RnaDialogActivity"
-            android:theme="@style/CoolcloudUacActivityStyle"/>
-
-        <activity
-            android:name="com.coolcloud.uac.android.gameassistplug.GameAssistContentActivity"
-            android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-
-                    <!--coolpad支付-->
-        <activity
             android:name="com.yulong.paysdk.module.main.CoolPayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/coolpay_name"
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            android:theme="@android:style/Theme.NoTitleBar" >
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
         <activity
             android:name="com.yulong.paysdk.module.operational.OperationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -174,7 +154,8 @@
             android:label="@string/coolpay_name"
             android:screenOrientation="portrait" />
 
-                <!-- alipay sdk begin -->
+        <!-- alipay sdk begin -->
+
         <service
             android:name="com.yulong.paysdk.aidl.ExcuteFlatService"
             android:process=":remote" >
@@ -190,6 +171,52 @@
                 <action android:name="com.yulong.paysdk.receiver.ResultReceiver.onPayResult" />
             </intent-filter>
         </receiver>
+        <!-- coolcloud2 -->
+        <activity
+            android:name="com.coolcloud.uac.android.api.view.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.coolcloud.uac.android.api.view.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.coolcloud.uac.android.api.view.OAuth2Activity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.coolcloud.uac.android.api.view.AuthenticateActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.coolcloud.uac.android.api.view.FindpwdActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.coolcloud.uac.android.api.view.RegisterActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.coolcloud.uac.android.gameassistplug.GameAssistContentActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.ipaynow.wechatpay.plugin.inner_plugin.wechat_plugin.activity.WeChatNotifyActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="com.ipaynow.qqpay.plugin.ipview.QQPayAndNotifyView"
+            android:configChanges="keyboardHidden|navigation|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="com.coolcloud.uac.android.api.view.RnaDialogActivity"
+            android:theme="@style/CoolcloudUacActivityStyle" >
+        </activity>
         <!--coolpad 声明end-->
 
 
