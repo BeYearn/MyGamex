@@ -1,8 +1,12 @@
 package com.emagroup.sdk;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
@@ -58,6 +62,7 @@ public class EmaUtils {
     private String maintainContent;
     private String showStatus;
 
+    private ProgressDialog progressDialog; //菊花窗
     //绑定服务
     public ServiceConnection mServiceCon = new ServiceConnection() {
         @Override
@@ -68,8 +73,35 @@ public class EmaUtils {
         }
     };
 
+    //广播接收，用来全局控制dialog的
+    private BroadcastReceiver dialogBCReciver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String progressState = intent.getStringExtra(EmaConst.EMA_BC_PROGRESS_STATE);
+            Log.e("dialogBCReciver",progressState);
+
+            if(null==progressDialog){
+                progressDialog = new ProgressDialog(activity);
+                progressDialog.setCanceledOnTouchOutside(false);
+            }
+
+            if(EmaConst.EMA_BC_PROGRESS_START.equals(progressState)){
+                progressDialog.show();
+            }else if(EmaConst.EMA_BC_PROGRESS_CLOSE.equals(progressState)) {
+                progressDialog.dismiss();
+            }
+        }
+    };
+
+
     private EmaUtils(Activity activity) {
         this.activity=activity;
+
+        //注册dialog广播
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(EmaConst.EMA_BC_PROGRESS_ACTION);
+        filter.setPriority(Integer.MAX_VALUE);
+        activity.registerReceiver(dialogBCReciver,filter);
     }
 
 

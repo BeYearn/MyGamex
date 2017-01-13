@@ -15,4 +15,10 @@ public class EmaConst {
 	public static final String EMA_GAMETRANS_CODE="gameTransCode"; //游戏数据透传字段
 
 
+	public static final String EMA_BC_PROGRESS_ACTION = "broadcast.progress.close";
+	public static final String EMA_BC_PROGRESS_STATE = "progressState";
+	public static final String EMA_BC_PROGRESS_CLOSE = "bc_progress_close"; // 广播关闭progress
+	public static final String EMA_BC_PROGRESS_START = "bc_progress_start";
+
+
 }

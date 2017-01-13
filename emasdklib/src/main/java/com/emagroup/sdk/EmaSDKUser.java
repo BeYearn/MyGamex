@@ -1,6 +1,7 @@
 package com.emagroup.sdk;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -151,9 +152,14 @@ public class EmaSDKUser {
                     EmaUser.getInstance().setToken(token);
                     EmaUser.getInstance().setIsLogin(true);
                     listener.onCallBack(EmaCallBackConst.LOGINSUCCESS,"登陆成功回调");
+
+                    //有可能在别处有转菊花，此处登录成功，就将其关闭
+                    closeProgressDialog();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("doCallbackUrl","maybe is SocketTimeoutException");
+                    closeProgressDialog();
                 }
 
             }
@@ -168,5 +174,17 @@ public class EmaSDKUser {
     public void swichAccount() {
         EmaUtils.getInstance(mActivity).swichAccount();
         EmaUser.getInstance().clearUserInfo();
+    }
+
+    private void openProgressDialog(){
+        Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
+        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE,EmaConst.EMA_BC_PROGRESS_START);
+        mActivity.sendBroadcast(intent);
+    }
+
+    private void closeProgressDialog(){
+        Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
+        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE,EmaConst.EMA_BC_PROGRESS_CLOSE);
+        mActivity.sendBroadcast(intent);
     }
 }
