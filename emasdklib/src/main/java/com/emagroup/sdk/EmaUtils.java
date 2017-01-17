@@ -400,15 +400,27 @@ public class EmaUtils {
     }
 
     public void onNewIntent(Intent intent) {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){//小米渠道
 
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).onNewIntent(intent);
+        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){//小米渠道
 
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).onActivityResult(requestCode,resultCode,data);
+        }
     }
 
     public void onRestart() {
+        if("000066".equals(ULocalUtils.getChannelId(activity))){//小米渠道
 
+        }else{  //否则走any渠道
+            EmaUtilsAnyImpl.getInstance(activity).onRestart();
+        }
     }
 
 }

@@ -271,4 +271,16 @@ public class EmaUtilsAnyImpl {
             action.doBackPressedAction();
         }
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        PluginWrapper.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void onNewIntent(Intent intent) {
+        PluginWrapper.onNewIntent(intent);
+    }
+
+    public void onRestart() {
+        PluginWrapper.onRestart();
+    }
 }
