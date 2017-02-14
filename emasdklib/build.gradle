@@ -35,6 +35,5 @@ dependencies {
     compile files('libs/buoyopensdk.jar')
     compile files('libs/CloudUpdate_SDK_1.1.18.jar')
     compile files('libs/hianalytics_v2.8.jar')
-    compile files('libs/huaweipay_plugin.jar')
     compile files('libs/IHuaweipay.jar')
 }
