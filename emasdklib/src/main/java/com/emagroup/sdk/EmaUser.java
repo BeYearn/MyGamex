@@ -2,8 +2,11 @@ package com.emagroup.sdk;
 
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.Map;
+
+import static com.emagroup.sdk.EmaSDK.mActivity;
 
 /**
  * Created by Administrator on 2016/9/7.
@@ -103,13 +106,18 @@ public class EmaUser {
         String dataType_R = data.get("dataType");
         String ext_R = data.get("ext");
 
-        ULocalUtils.spPut(EmaSDK.mActivity,"roleId_R",roleId_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"roleName_R",roleName_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"roleLevel_R",roleLevel_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"zoneId_R",zoneId_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"zoneName_R",zoneName_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"dataType_R",dataType_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"ext_R",ext_R);
+        EmaUtils.getInstance(mActivity).submitGameRole(data);
+        for (Map.Entry<String,String> entry : data.entrySet()) {
+            Log.e("//"+entry.getKey(),entry.getValue());
+        }
+
+        ULocalUtils.spPut(mActivity,"roleId_R",roleId_R);
+        ULocalUtils.spPut(mActivity,"roleName_R",roleName_R);
+        ULocalUtils.spPut(mActivity,"roleLevel_R",roleLevel_R);
+        ULocalUtils.spPut(mActivity,"zoneId_R",zoneId_R);
+        ULocalUtils.spPut(mActivity,"zoneName_R",zoneName_R);
+        ULocalUtils.spPut(mActivity,"dataType_R",dataType_R);
+        ULocalUtils.spPut(mActivity,"ext_R",ext_R);
     }
 
 }

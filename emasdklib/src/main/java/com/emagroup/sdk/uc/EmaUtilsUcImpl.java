@@ -89,7 +89,6 @@ public class EmaUtilsUcImpl {
 
                     Log.e("emasdk UCsid",sid);
                     getUCAccontInfo(sid,listener);  // 绑定和补充弱账户在这里面了
-                    submitGameRole();
                 }
 
                 @Subscribe(event = SDKEventKey.ON_LOGIN_FAILED)
@@ -356,16 +355,16 @@ public class EmaUtilsUcImpl {
     /**
      * uc要求的必接的角色信息提交
      */
-    private void submitGameRole() {
+    public void submitGameRole(Map<String,String> data) {
         try {
             //角色登录成功或升级时调用此段，请根据实际业务数据传入真实数据，
             SDKParams params = new SDKParams();
-            params.put(SDKParamKey.STRING_ROLE_ID, ULocalUtils.spGet(mActivity,"roleId_R","")+"");
-            params.put(SDKParamKey.STRING_ROLE_NAME, ULocalUtils.spGet(mActivity,"roleName_R","")+"");
-            params.put(SDKParamKey.LONG_ROLE_LEVEL,Long.parseLong((String)ULocalUtils.spGet(mActivity,"roleLevel_R","")));
+            params.put(SDKParamKey.STRING_ROLE_ID, data.get("roleId"));
+            params.put(SDKParamKey.STRING_ROLE_NAME, data.get("roleName"));
+            params.put(SDKParamKey.LONG_ROLE_LEVEL,data.get("roleLevel"));
             params.put(SDKParamKey.LONG_ROLE_CTIME, Long.parseLong("1456397360"));
-            params.put(SDKParamKey.STRING_ZONE_ID, ULocalUtils.spGet(mActivity,"zoneId_R","")+"");
-            params.put(SDKParamKey.STRING_ZONE_NAME, ULocalUtils.spGet(mActivity,"zoneName_R","")+"");
+            params.put(SDKParamKey.STRING_ZONE_ID, data.get("zoneId"));
+            params.put(SDKParamKey.STRING_ZONE_NAME, data.get("zoneName"));
             try {
                 UCGameSdk.defaultSdk().submitRoleData(mActivity, params);
                 Log.e("submitRoleData",params.toString());

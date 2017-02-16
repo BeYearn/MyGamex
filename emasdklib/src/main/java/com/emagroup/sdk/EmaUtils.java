@@ -385,4 +385,11 @@ public class EmaUtils {
 
     }
 
+
+
+    public void submitGameRole(Map<String, String> data){
+        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
+            EmaUtilsUcImpl.getInstance(activity).submitGameRole(data);
+        }
+    }
 }
