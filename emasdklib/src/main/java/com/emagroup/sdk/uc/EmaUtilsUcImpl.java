@@ -361,7 +361,7 @@ public class EmaUtilsUcImpl {
             SDKParams params = new SDKParams();
             params.put(SDKParamKey.STRING_ROLE_ID, data.get("roleId"));
             params.put(SDKParamKey.STRING_ROLE_NAME, data.get("roleName"));
-            params.put(SDKParamKey.LONG_ROLE_LEVEL,data.get("roleLevel"));
+            params.put(SDKParamKey.LONG_ROLE_LEVEL,Long.parseLong(data.get("roleLevel")));   // 坑爹！！的long型
             params.put(SDKParamKey.LONG_ROLE_CTIME, Long.parseLong("1456397360"));
             params.put(SDKParamKey.STRING_ZONE_ID, data.get("zoneId"));
             params.put(SDKParamKey.STRING_ZONE_NAME, data.get("zoneName"));
