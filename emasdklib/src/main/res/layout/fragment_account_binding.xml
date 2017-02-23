@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_6"
+    android:orientation="vertical"
+    >
+
+    <include
+        android:id="@+id/view_information_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/view_information_input"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_binding_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+        <TextView
+            android:id="@+id/tv_remind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="4dp"
+            android:textColor="@color/color_8"
+            android:background="@color/color_6"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_3"
+                android:text="@string/str_already_email_binding"
+                android:padding="10dp"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:id="@+id/tv_binding_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_2"
+                android:text=""
+                android:padding="10dp"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_9"
+            android:text="@string/str_update_email_send"
+            android:padding="12dp"
+            android:gravity="center"
+            android:drawableLeft="@drawable/icon_remove_email_send"
+            android:drawablePadding="4dp"
+            android:textSize="15sp"
+            />
+        <View
+            android:id="@+id/line_bottom_email"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_7" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_account_btn"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:layout_below="@id/view_information_input"
+        />
+
+
+
+</LinearLayout>

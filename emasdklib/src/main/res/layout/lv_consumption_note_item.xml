@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    >
+
+    <TextView
+        android:id="@+id/tv_note_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/color_3"
+        android:textSize="13sp"
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:gravity="center|left"
+        android:layout_toLeftOf="@+id/tv_game_name"
+        android:singleLine="true"
+        android:layout_marginRight="8dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_game_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/color_3"
+        android:textSize="13sp"
+        android:paddingTop="8dp"
+        android:gravity="center|left"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_pay_channel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/color_3"
+        android:textSize="13sp"
+        android:paddingTop="8dp"
+        android:paddingRight="10dp"
+        android:gravity="center|left"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_consumption_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/color_9"
+        android:textSize="14sp"
+        android:gravity="center|left"
+        android:paddingLeft="10dp"
+        android:paddingTop="16dp"
+        android:layout_below="@id/tv_note_id"
+        />
+
+    <TextView
+        android:id="@+id/tv_pay_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/color_9"
+        android:textSize="14sp"
+        android:gravity="center|left"
+        android:paddingRight="10dp"
+        android:paddingTop="16dp"
+        android:layout_below="@id/tv_pay_channel"
+        android:layout_alignParentRight="true"
+        />
+
+    <TextView
+        android:id="@+id/tv_pay_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/color_4"
+        android:textSize="13sp"
+        android:gravity="center|left"
+        android:paddingLeft="10dp"
+        android:paddingTop="16dp"
+        android:layout_below="@id/tv_consumption_number"
+        />
+
+    <View
+        android:id="@+id/line_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_7"
+        android:layout_below="@id/tv_pay_time"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+
+</RelativeLayout>

@@ -10,7 +10,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.emagroup.sdk.uc.EmaUtilsUcImpl;
+import com.emagroup.sdk.mhr.EmaUtilsMhrImpl;
 import com.igexin.sdk.PushManager;
 
 import org.json.JSONObject;
@@ -289,8 +289,8 @@ public class EmaUtils {
     }
 
     private void realInit(JSONObject data) {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).realInit(mListener,data);
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).realInit(mListener,data);
         }
     }
 
@@ -301,75 +301,75 @@ public class EmaUtils {
      * @param deviceKey
      */
     public void realLogin(EmaSDKListener listener, String userid, String deviceKey) {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).realLogin(listener,userid,deviceKey);
         }
 
     }
 
     public void logout() {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).logout();
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).logout();
         }
     }
 
     public void swichAccount() {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).swichAccount();
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).swichAccount();
         }
     }
 
     public void doPayPre(EmaSDKListener listener) {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).doPayPre(listener);
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).doPayPre(listener);
         }
     }
 
     public void realPay(EmaSDKListener listener, EmaPayInfo emaPayInfo) {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).realPay(listener,emaPayInfo);
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).realPay(listener,emaPayInfo);
         }
     }
 
     public void doShowToolbar() {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).doShowToolbar();
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).doShowToolbar();
         }
     }
 
     public void doHideToobar() {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).doHideToobar();
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).doHideToobar();
         }
     }
 
     public void onResume() {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).onResume();
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).onResume();
         }
     }
 
     public void onPause() {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).onPause();
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).onPause();
         }
     }
 
     public void onStop() {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).onStop();
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).onStop();
         }
     }
 
     public void onDestroy() {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).onDestroy();
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).onDestroy();
         }
     }
 
     public void onBackPressed(EmaBackPressedAction action) {
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).onBackPressed(action);
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).onBackPressed(action);
         }
     }
 
@@ -388,8 +388,8 @@ public class EmaUtils {
 
 
     public void submitGameRole(Map<String, String> data){
-        if("000255".equals(ULocalUtils.getChannelId(activity))){   //uc
-            EmaUtilsUcImpl.getInstance(activity).submitGameRole(data);
+        if("500002".equals(ULocalUtils.getChannelId(activity))){   //漫画人
+            EmaUtilsMhrImpl.getInstance(activity).submitGameRole(data);
         }
     }
 }

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_title"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:background="@color/color_1">
+
+    <ImageView
+        android:id="@+id/iv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/ed_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" />
+
+    <ImageView
+        android:id="@+id/iv_right2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@id/iv_right"
+        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:drawableLeft="@drawable/icon_login_back"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="@string/str_back_login"
+        android:textColor="@android:color/black"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:drawablePadding="2dp"
+        />
+
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingBottom="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="46dp"
+        android:paddingTop="8dp"
+        android:src="@drawable/icon_black_back" />
+
+    <View
+        android:id="@+id/v_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_title_down_line" />
+
+</RelativeLayout>

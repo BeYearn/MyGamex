@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme">
+        <!--<item name="android:windowBackground">@mipmap/start_logo</item>-->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="dialogStyle">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+<!--        <item name="android:windowIsFloating">true</item>-->
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="dialogStyleFloating">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="picDialogStyle">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="dialogBottomAnimStyle" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/slice_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/slice_bottom_out</item>
+    </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+</resources>

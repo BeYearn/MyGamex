@@ -38,33 +38,39 @@
     </permission><!--替换为第三方应用的包名-->
     <!-- 个推SDK权限配置结束 -->
 
-
-    <!--小米权限-->
-    <uses-permission android:name="android.permission.GET_TASKS"  />
-    <uses-permission android:name="com.xiaomi.sdk.permission.PAYMENT" />
-    <!--小米权限-->
-
-    <!--uc权限-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!--mhr权限 start -->
+    <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 允许程序修改全局音频设置 -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true" />
-    <!--uc权限-->
+    <!-- 一个签名级别的权限。应用程序不会除非它有相同的签名系统使用它-->
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <!-- 允许程序读取用户联系人数据 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- 允许读取手机状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 新增的SD卡读取权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 允许程序访问有关GSM网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许程序访问Wi-Fi网络状态信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许程序监控一个将收到短信息，记录或处理 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <!-- 允许程序读取短信息 -->
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <!-- 允许应用程序获得当前运行任务的信息：任务的简短描述，运行着什么 activity等 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 允许一个程序访问精良位置(如GPS -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 允许一个程序访问粗略位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Float Window -->
+    <!-- 允许一个程序打开窗口使用TYPE_SYSTEM_ALERT，显示在其他所有程序的顶层 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 允许使用窗体覆盖在window上 -->
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <!--mhr权限 end -->
 
 
     <application
@@ -86,10 +92,10 @@
         <service android:name="com.emagroup.sdk.EmaService" />
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="n20015"/>
+            android:value="n20012"/>
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n000255"/>
+            android:value="n500002"/>
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n1001" />
@@ -97,30 +103,25 @@
             android:name="EMA_WHICH_ENVI"
             android:value="testing" />
 
-        <!--uc 声明begin-->
+        <!--mhr 声明begin-->
         <activity
-            android:name="cn.uc.gamesdk.activity.ProxyActivity"
+            android:name="com.yingqidm.gamesdk.guided.activity.GuidedActivity"
+            android:label="@string/app_name"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="adjustResize" >
-            <intent-filter>
-                <action android:name="cn.uc.gamesdk.sdkweb" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
+        <!-- 悬浮窗点击后页面 -->
+        <activity android:name="com.yingqidm.gamesdk.account.activity.AccountActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <!-- 支付宝H5支付页面-->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
-            android:screenOrientation="behind" >
-        </activity>
-        <activity
-            android:name="com.alipay.sdk.auth.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-            android:exported="false"
-            android:screenOrientation="behind" >
-        </activity>
-        <!--uc 声明end-->
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <!--mhr 声明end-->
 
 
         <!-- 个推SDK配置开始 -->

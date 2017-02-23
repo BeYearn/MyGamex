@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_circle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:layout_margin="10dp"
+        >
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_circle_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_game_circle"
+        android:textSize="13sp"
+        android:textColor="@color/color_3"
+        android:background="@color/color_6"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="5dp"
+        android:layout_below="@id/ll_circle_layout"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_circle_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/icon_down_more"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:text="@string/str_more"
+        android:textSize="13sp"
+        android:textColor="@color/color_3"
+        android:drawablePadding="4dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="5dp"
+        android:layout_below="@id/ll_circle_layout"
+        android:background="@color/color_6"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>
