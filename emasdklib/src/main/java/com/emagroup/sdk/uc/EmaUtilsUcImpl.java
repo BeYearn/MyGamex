@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
@@ -357,12 +358,17 @@ public class EmaUtilsUcImpl {
      */
     public void submitGameRole(Map<String,String> data) {
         try {
+
+            if("2".equals(data.get("dataType"))){  // 2 是指角色创建时，就记录下这个时间，以前的就算了，取当前的好了
+                ULocalUtils.spPut(mActivity,"uid"+EmaUser.getInstance().getmUid(), System.currentTimeMillis()/1000+"");
+            }
+
             //角色登录成功或升级时调用此段，请根据实际业务数据传入真实数据，
             SDKParams params = new SDKParams();
             params.put(SDKParamKey.STRING_ROLE_ID, data.get("roleId"));
             params.put(SDKParamKey.STRING_ROLE_NAME, data.get("roleName"));
             params.put(SDKParamKey.LONG_ROLE_LEVEL,Long.parseLong(data.get("roleLevel")));   // 坑爹！！的long型
-            params.put(SDKParamKey.LONG_ROLE_CTIME, Long.parseLong("1456397360"));
+            params.put(SDKParamKey.LONG_ROLE_CTIME, getCTime());
             params.put(SDKParamKey.STRING_ZONE_ID, data.get("zoneId"));
             params.put(SDKParamKey.STRING_ZONE_NAME, data.get("zoneName"));
             try {
@@ -375,6 +381,22 @@ public class EmaUtilsUcImpl {
 
         } catch (Exception e) {
             //处理异常
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * 返回创角时间
+     */
+    private Long getCTime(){
+        String ctime = (String) ULocalUtils.spGet(mActivity, "uid" + EmaUser.getInstance().getmUid(), "");
+        if(TextUtils.isEmpty(ctime)){
+            String ct= System.currentTimeMillis()/1000+"";
+            ULocalUtils.spPut(mActivity,"uid"+EmaUser.getInstance().getmUid(), ct);
+            return Long.parseLong(ct);
+        }else {
+            return Long.parseLong(ctime);
         }
     }
 

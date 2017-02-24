@@ -72,7 +72,9 @@ public class MainActivity extends Activity implements OnClickListener {
                         gameRoleInfo.put("roleId","123");
                         gameRoleInfo.put("roleName","woshizhongren");
                         gameRoleInfo.put("roleLevel","99");
-                        gameRoleInfo.put("zoneId","001");
+                        String zoneId="001"+ (int)(1+(Math.random()*(10-1+1)));
+                        Log.e("submitRoleData",zoneId);
+                        gameRoleInfo.put("zoneId",zoneId);
                         gameRoleInfo.put("zoneName","zhongguoqu");
                         EmaUser.getInstance().submitLoginGameRole(gameRoleInfo);
 
