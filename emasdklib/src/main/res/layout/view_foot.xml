@@ -10,7 +10,7 @@
             style="?android:attr/progressBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminateDrawable="@anim/foot_loading" />
+            android:indeterminateDrawable="@drawable/foot_loading" />
 
         <TextView
             android:id="@+id/tv_loading"

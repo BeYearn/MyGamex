@@ -177,7 +177,7 @@ public class EmaUtilsMhrImpl {
 
     public void onResume() {
         //游戏界面被隐藏,onResume 调用
-        MHRGameSDK.defaultSDK().onResumeSuspendWindow();
+        //MHRGameSDK.defaultSDK().onResumeSuspendWindow();
     }
 
     public void onPause() {
