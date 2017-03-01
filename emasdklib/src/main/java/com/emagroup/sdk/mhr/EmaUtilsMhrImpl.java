@@ -65,7 +65,7 @@ public class EmaUtilsMhrImpl {
             MHRGameSDK.defaultSDK().setOrientation(mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
                     ? MHROrientation.LANDSCAPE : MHROrientation.PORTRAIT);
 
-            MHRGameSDK.defaultSDK().initSDK(mActivity, gameParamInfo, true, new MHRCallbackListener<String>() {//true为是否debug,上线前,记得改为false /为true 方便调试,有日志打印
+            MHRGameSDK.defaultSDK().initSDK(mActivity, gameParamInfo, false, new MHRCallbackListener<String>() {//true为是否debug,上线前,记得改为false /为true 方便调试,有日志打印
                 @Override
                 public void callback(MHRGameSDKStatusCode statusCode, String result) {
                     if (statusCode == MHRGameSDKStatusCode.LOGIN_SUCCESS) {
