@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
@@ -41,6 +40,7 @@ public class EmaUtilsMhrImpl {
 
     private Activity mActivity;
     private String mChannelAppId; //uc的gameID
+    private EmaPayInfo mPayInfo;
 
     public static EmaUtilsMhrImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -71,7 +71,14 @@ public class EmaUtilsMhrImpl {
                     if (statusCode == MHRGameSDKStatusCode.LOGIN_SUCCESS) {
                         System.out.println("用户登录ID=================" + result);
 
-                        //getUCAccontInfo(sid, listener);  // 绑定和补充弱账户在这里面了
+                        EmaUser.getInstance().setAllianceUid(result);
+                        EmaUser.getInstance().setNickName("");
+
+                        //绑定服务
+                        Intent serviceIntent = new Intent(mActivity, EmaService.class);
+                        mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
+                        //补充弱账户信息
+                        EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
                     }
                 }
             });
@@ -113,10 +120,7 @@ public class EmaUtilsMhrImpl {
                 //获取到买家ID,支付渠道,支付类型,调用服务器接口,配置支付json,并签名
                 //返回支付json和签名,调用2.8
 
-                //获取到支付json 和签名信息后调用支付
-                MHRGameSDK.defaultSDK().orderInfoSuccess(channel, "签名", "支付json");
-                //获取到支付json 和签名信息失败后调用
-                MHRGameSDK.defaultSDK().orderInfoFailure("调用支付失败提示信息");
+                realRealPay(buyerId,channel,proxyType);
             }
 
             @Override
@@ -124,16 +128,16 @@ public class EmaUtilsMhrImpl {
                 String message = "";
                 switch (payStatus) {
                     case PAY_SUCCESS:
-                        message = "支付成功";
+                        listener.onCallBack(EmaCallBackConst.PAYSUCCESS, "购买成功");
                         break;
                     case PAY_FAIL:
-                        message = "支付失败";
+                        listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
                         break;
                     case PAY_CANCEL:
-                        message = "支付取消";
+                        listener.onCallBack(EmaCallBackConst.PAYCANELI, "购买取消");
                         break;
                     case PAY_SUBMIT_ORDER:
-                        message = "订单已经提交，支付结果未知";
+                        listener.onCallBack(EmaCallBackConst.PAYREPEAT, "订单已经提交，支付结果未知");
                         break;
                 }
                 //(message +"\t\n支付数据:"+payOrderInfo);
@@ -145,9 +149,10 @@ public class EmaUtilsMhrImpl {
 
     public void realPay(final EmaSDKListener listener, EmaPayInfo emaPayInfo) {
 
+        mPayInfo=emaPayInfo;
         PaymentInfo paymentInfo = new PaymentInfo();
-        paymentInfo.setGoodsInfo("元宝");//显示的商品名字
-        paymentInfo.setSumInfo(30);//显示商品数量
+        paymentInfo.setGoodsInfo(emaPayInfo.getProductName());//显示的商品名字
+        paymentInfo.setSumInfo(Integer.parseInt(emaPayInfo.getProductNum()));//显示商品数量
         MHRGameSDK.defaultSDK().pay(paymentInfo);
 
     }
@@ -213,113 +218,66 @@ public class EmaUtilsMhrImpl {
     }
 
 
-    //-----------------------------------UC的各种网络请求方法-------------------------------------------------------------------------
-
-    public void getUCAccontInfo(final String sid, final EmaSDKListener listener) {
-        ThreadUtil.runInSubThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //耗时操作 阻塞
-                    String url = Url.getUCAccontInfo();
-
-                    Map<String, String> paramMap = new HashMap<String, String>();
-                    paramMap.put("gameId", mChannelAppId);
-                    paramMap.put("sid", sid);
-                    paramMap.put("appId", ULocalUtils.getAppId(mActivity));
-                    paramMap.put("channelId", ULocalUtils.getChannelId(mActivity));
-
-                    String result = new HttpRequestor().doPost(url, paramMap);
-                    Log.e("emasdkgetUCAccontInfo", result);
-
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONObject data = jsonObject.getJSONObject("data");
-
-                    JSONObject datadata = data.getJSONObject("data");
-
-                    String accountId = datadata.getString("accountId");
-                    String nickName = datadata.getString("nickName");
-
-                    EmaUser.getInstance().setAllianceUid(accountId);
-                    EmaUser.getInstance().setNickName(nickName);
-
-                    //绑定服务
-                    Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                    mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
-                    //补充弱账户信息
-                    EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
-
-                    Log.e("getUCAccontInfo", "结果:" + accountId + ".." + nickName);
-
-                    // uc 登录成功后显示那个浮标
-                    //UCGameSdk.defaultSdk().showFloatButton(mActivity,0,80);
-
-                } catch (Exception e) {
-                    listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
-                    Log.e("getUCAccontInfo", "maybe is SocketTimeoutException");
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
-
-    /**
-     * uc要求的必接的角色信息提交
-     */
-    public void submitGameRole(Map<String, String> data) {
-        try {
-            /*//角色登录成功或升级时调用此段，请根据实际业务数据传入真实数据，
-            SDKParams params = new SDKParams();
-            params.put(SDKParamKey.STRING_ROLE_ID, data.get("roleId"));
-            params.put(SDKParamKey.STRING_ROLE_NAME, data.get("roleName"));
-            params.put(SDKParamKey.LONG_ROLE_LEVEL, Long.parseLong(data.get("roleLevel")));   // 坑爹！！的long型
-            params.put(SDKParamKey.LONG_ROLE_CTIME, Long.parseLong("1456397360"));
-            params.put(SDKParamKey.STRING_ZONE_ID, data.get("zoneId"));
-            params.put(SDKParamKey.STRING_ZONE_NAME, data.get("zoneName"));
-            try {
-                UCGameSdk.defaultSdk().submitRoleData(mActivity, params);
-                Log.e("submitRoleData", params.toString());
-            } catch (Exception e) {
-                //传入参数错误异常处理
-                Log.e("submitRoleData error", e.toString());
-            }
-*/
-        } catch (Exception e) {
-            //处理异常
-        }
-    }
+    //-----------------------------------mhr的网络请求方法-------------------------------------------------------------------------
 
     /**
      * 带上sign并发支付
      */
-    /*private void signAndPay(final String rawSign, final SDKParams sdkParams, final EmaSDKListener listener) {
+    private void realRealPay(final String buyerId, final String channel, final int proxyType) {
 
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    String url = Url.getUCSignAndPay();
+                    String url = Url.getMhrSignJson();
                     Map<String, String> paramMap = new HashMap<>();
-                    paramMap.put("signSrc", rawSign);
-                    paramMap.put("appId", ULocalUtils.getAppId(mActivity));
-                    paramMap.put("allianceId", ULocalUtils.getChannelId(mActivity));
+                    paramMap.put("orderId", mPayInfo.getOrderId());
+                    paramMap.put("payChannel", channel);
+                    paramMap.put("proxyType", proxyType+"");
+                    paramMap.put("buyerId",buyerId);
 
                     String result = new HttpRequestor().doPost(url, paramMap);
                     JSONObject jsonObject = new JSONObject(result);
-                    String sign = jsonObject.getString("message");
+                    if(jsonObject.getInt("status")==0){
 
-                    sdkParams.put(SDKParamKey.SIGN, sign);
 
-                    UCGameSdk.defaultSdk().pay(mActivity, sdkParams);
+                        JSONObject data = jsonObject.getJSONObject("data");
+                        final String json = data.getString("json");
+                        final String sign = data.getString("sign");
 
+                        mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //获取到支付json 和签名信息后调用支付
+                                MHRGameSDK.defaultSDK().orderInfoSuccess(channel,sign, json);
+                            }
+                        });
+
+                    }else {
+                        mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //获取到支付json 和签名信息失败后调用
+                                MHRGameSDK.defaultSDK().orderInfoFailure("调用支付失败");
+                            }
+                        });
+                    }
                 } catch (Exception e) {
-                    //listener.onCallBack(EmaCallBackConst.PAYFALIED, "购买失败");
-                    //EmaPay.getInstance(mActivity).cancelOrder();
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //获取到支付json 和签名信息失败后调用
+                            MHRGameSDK.defaultSDK().orderInfoFailure("调用支付失败");
+                        }
+                    });
+                    e.printStackTrace();
                 }
             }
         });
 
-    }*/
+    }
 
+    public void submitGameRole(Map<String, String> data) {
+
+    }
 }

@@ -49,13 +49,10 @@ public class Url {
 
 
 
-    //-----------------------------------UC 特有接口---------------------------------------------------
-    public static String getUCAccontInfo(){
-        return serverUrl+"/ema-platform/channelLogin/uc";
+    //-----------------------------------mhr 特有接口---------------------------------------------------
+    public static String getMhrSignJson(){
+        return serverUrl+"/ema-platform/extra/mhrCreateOrder";
     }
-    public static String getUCSignAndPay(){
-        return serverUrl+"/ema-platform/pay/ucsign";
-    }
-    //-----------------------------------UC 特有接口---------------------------------------------------
+    //-----------------------------------mhr 特有接口---------------------------------------------------
 
 }
