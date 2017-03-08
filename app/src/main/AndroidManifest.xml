@@ -101,7 +101,7 @@
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="testing" />
+            android:value="staging" />
 
         <!--mhr 声明begin-->
         <activity
