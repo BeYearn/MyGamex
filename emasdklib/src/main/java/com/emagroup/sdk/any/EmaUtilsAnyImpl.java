@@ -84,20 +84,7 @@ public class EmaUtilsAnyImpl {
                             break;
                         case UserWrapper.ACTION_RET_LOGIN_SUCCESS://登陆成功回调
 
-                            //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
-
-                            EmaUser.getInstance().setAllianceUid(AnySDKUser.getInstance().getUserID());
-                            EmaUser.getInstance().setNickName("");
-
-                            //显示toolbar
-                            EmaSDK.getInstance().doShowToolbar();
-
-                            //绑定服务
-                            Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                            mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
-
-                            //补充弱账户信息
-                            EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity),ULocalUtils.getChannelId(mActivity),ULocalUtils.getChannelTag(mActivity),ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                            afterLoginSuccess(listener);
 
                             break;
                         case UserWrapper.ACTION_RET_LOGIN_CANCEL://登陆取消回调
@@ -113,7 +100,10 @@ public class EmaUtilsAnyImpl {
                             listener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败回调");
                             break;
                         case UserWrapper.ACTION_RET_ACCOUNTSWITCH_SUCCESS://切换账号成功回调
-                            listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS,"切换成功回调");
+
+                            afterLoginSuccess(listener);
+
+                            //listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS,"切换成功回调");
                             break;
                         case UserWrapper.ACTION_RET_ACCOUNTSWITCH_FAIL://切换账号失败回调
                             listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHFAIL,"切换失败回调");
@@ -282,5 +272,26 @@ public class EmaUtilsAnyImpl {
 
     public void onRestart() {
         PluginWrapper.onRestart();
+    }
+
+
+    //----------------------------------------any--------------------------------------------------
+
+    private void afterLoginSuccess(EmaSDKListener listener){
+        //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
+
+        EmaUser.getInstance().setAllianceUid(AnySDKUser.getInstance().getUserID());
+        EmaUser.getInstance().setNickName("");
+
+        //显示toolbar
+        EmaSDK.getInstance().doShowToolbar();
+
+        //绑定服务
+        Intent serviceIntent = new Intent(mActivity, EmaService.class);
+        mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
+
+        //补充弱账户信息
+        EmaSDKUser.getInstance().updateWeakAccount(listener,ULocalUtils.getAppId(mActivity),ULocalUtils.getChannelId(mActivity),ULocalUtils.getChannelTag(mActivity),ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+
     }
 }
