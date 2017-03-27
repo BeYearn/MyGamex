@@ -101,9 +101,8 @@ public class EmaUtilsAnyImpl {
                             break;
                         case UserWrapper.ACTION_RET_ACCOUNTSWITCH_SUCCESS://切换账号成功回调
 
-                            afterLoginSuccess(listener);
-
-                            //listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS,"切换成功回调");
+                            //afterLoginSuccess(listener);
+                            listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS,"切换成功回调");
                             break;
                         case UserWrapper.ACTION_RET_ACCOUNTSWITCH_FAIL://切换账号失败回调
                             listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHFAIL,"切换失败回调");
