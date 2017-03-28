@@ -107,17 +107,17 @@ public class EmaUser {
         String dataType_R = data.get("dataType");
         String ext_R = data.get("ext");
 
-        ULocalUtils.spPut(EmaSDK.mActivity,"roleId_R",roleId_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"roleName_R",roleName_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"roleLevel_R",roleLevel_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"zoneId_R",zoneId_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"zoneName_R",zoneName_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"dataType_R",dataType_R);
-        ULocalUtils.spPut(EmaSDK.mActivity,"ext_R",ext_R);
+        ULocalUtils.spPut(EmaSDK.mActivity, "roleId_R", roleId_R);
+        ULocalUtils.spPut(EmaSDK.mActivity, "roleName_R", roleName_R);
+        ULocalUtils.spPut(EmaSDK.mActivity, "roleLevel_R", roleLevel_R);
+        ULocalUtils.spPut(EmaSDK.mActivity, "zoneId_R", zoneId_R);
+        ULocalUtils.spPut(EmaSDK.mActivity, "zoneName_R", zoneName_R);
+        ULocalUtils.spPut(EmaSDK.mActivity, "dataType_R", dataType_R);
+        ULocalUtils.spPut(EmaSDK.mActivity, "ext_R", ext_R);
 
         //这个稍微特殊点，因为这个sdk有3种4399和小米都在，所以通过这样的方式来给anysdk提交这个(这是登录处的，支付处还有（取即可）)
-        if(!"000066".equals(ULocalUtils.getChannelId(EmaSDK.mActivity))&&!"000108".equals(ULocalUtils.getChannelId(EmaSDK.mActivity))){
-            if(AnySDKUser.getInstance().isFunctionSupported("submitLoginGameRole")){
+        if (!"000066".equals(ULocalUtils.getChannelId(EmaSDK.mActivity))) {
+            if (AnySDKUser.getInstance().isFunctionSupported("submitLoginGameRole")) {
                 Map<String, String> map = new HashMap<>();
                 map.put("dataType", dataType_R);
                 map.put("roleId", roleId_R);
@@ -132,8 +132,16 @@ public class EmaUser {
                 map.put("roleLevelMTime", "-1");
 
                 AnySDKParam param = new AnySDKParam(map);
-                AnySDKUser.getInstance().callFunction("submitLoginGameRole",param);
+                AnySDKUser.getInstance().callFunction("submitLoginGameRole", param);
+
+
+                if ("2".equals(map.put("dataType", "1"))) {// 2为创建角色，有些渠道需要两次，创建一次登录成功一次，所以索性所有渠道都直接再来一次登录的
+                    param = new AnySDKParam(map);
+                    AnySDKUser.getInstance().callFunction("submitLoginGameRole", param);
+                }
+
             }
+
         }
     }
 
