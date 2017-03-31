@@ -160,9 +160,13 @@ public class EmaPay {
      * 取消订单
      */
     public void cancelOrder() {
+        Log.e("EmaPay","cancelOrder");
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
+                if(null==mPayInfo){
+                 return;
+                }
                 Map<String, String> params = new HashMap<>();
                 params.put("orderId", TextUtils.isEmpty(mPayInfo.getOrderId())?"no order id":mPayInfo.getOrderId());
                 params.put("token", mEmaUser.getToken());
