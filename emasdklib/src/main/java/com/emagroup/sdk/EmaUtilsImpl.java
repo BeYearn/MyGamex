@@ -2,6 +2,7 @@ package com.emagroup.sdk;
 
 import android.app.Activity;
 
+import com.emagroup.sdk.emasdk.EmaUtilsInterface;
 import com.emagroup.sdk.sdkcom.EmaBackPressedAction;
 import com.emagroup.sdk.sdkcom.EmaPayInfo;
 import com.emagroup.sdk.sdkcom.EmaSDKListener;
@@ -15,13 +16,11 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/10/9.
  */
-public class EmaUtilsImpl {
+public class EmaUtilsImpl implements EmaUtilsInterface{
 
     private static EmaUtilsImpl instance;
-
     private Activity mActivity;
-    private String mChannelAppId; //uc的gameID
-    private EmaPayInfo mPayInfo;
+
 
     public static EmaUtilsImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -44,7 +43,7 @@ public class EmaUtilsImpl {
     }
 
     /**
-     * xiaomi的监听在发起支付时已设置好 此处空实现
+     * 用于支付前的一些操作
      *
      * @param listener
      */
