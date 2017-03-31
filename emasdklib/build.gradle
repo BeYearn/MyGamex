@@ -29,4 +29,6 @@ android {
 
 dependencies {
     compile files('libs/GetuiSDK2.9.0.0.jar')
+    compile files('libs/alipay.jar')
+    compile files('libs/ucgamesdk.jar')
 }

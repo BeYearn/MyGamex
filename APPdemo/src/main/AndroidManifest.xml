@@ -37,9 +37,28 @@
         android:protectionLevel="normal"></permission><!--替换为第三方应用的包名-->
     <!-- 个推SDK权限配置结束 -->
 
-    <!--xxx权限 start -->
+    <!--uc权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
-    <!--xxx权限 end -->
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+    <!--uc权限-->
 
 
     <application
@@ -65,17 +84,36 @@
             android:value="n20012" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n500002" />
+            android:value="n000255" />
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="staging" />
+            android:value="testing" />
 
-        <!--xxx 组件声明begin-->
-
-        <!--xxx 组件声明end-->
+        <!--uc 声明begin-->
+        <activity
+            android:name="cn.uc.gamesdk.activity.ProxyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="cn.uc.gamesdk.sdkweb" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"/>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"/>
+        <!--uc 声明end-->
 
 
         <!-- 个推SDK配置开始 -->
