@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="320dp"
-    android:layout_height="290dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/ema_shape_webview_dialog"
     android:gravity="left|right"
     android:orientation="vertical"
-    android:padding="3dp" >
+    android:padding="3dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/ema_title" />
 
-       <!-- <View
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="15dp"
-            android:background="#1B6AAE" />
+        <!-- <View
+             android:layout_width="1dp"
+             android:layout_height="20dp"
+             android:layout_marginLeft="5dp"
+             android:layout_marginRight="5dp"
+             android:layout_marginTop="15dp"
+             android:background="#1B6AAE" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:paddingTop="15dp"
-            android:text="手机一键登录"
-            android:textColor="#1B6AAE" />-->
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginRight="10dp"
+             android:paddingTop="15dp"
+             android:text="手机一键登录"
+             android:textColor="#1B6AAE" />-->
     </RelativeLayout>
 
     <RelativeLayout
@@ -42,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="25dp" >
+        android:layout_marginTop="20dp">
 
         <EditText
             android:id="@+id/ema_phone_info_inputText"
@@ -61,8 +60,7 @@
             android:textColor="#ff6600"
             android:textColorHint="#673300"
             android:textCursorDrawable="@drawable/ema_edittext_cursor"
-            android:textSize="16sp" >
-        </EditText>
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/ema_btn_get_auth_code"
@@ -77,17 +75,17 @@
             android:paddingRight="15dp"
             android:text="重新获取"
             android:textColor="#ff7111"
-            android:textSize="13sp"/>
+            android:textSize="13sp" />
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal" >
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/ema_btn_start_work"
@@ -98,71 +96,124 @@
             android:background="@drawable/ema_button_blue_long"
             android:minHeight="45dp"
             android:text="进入游戏"
+            android:layout_margin="8dp"
             android:textColor="@android:color/white" />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/ema_tourist_login"
+            android:textColor="#ff7111" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:weightSum="2"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/ema_btn_return_login"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ema_button_orange"
-            android:minHeight="45dp"
-            android:text="账号登录"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/ema_btn_return_register"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:background="@drawable/ema_button_blue"
-            android:minHeight="45dp"
-            android:text="游客登录"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
 
     <TextView
-        android:visibility="gone"
-        android:textColor="@android:color/holo_red_light"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
-        android:text="首次登陆，帐号密码会下发到手机，请妥善保管"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:text="首次登陆，帐号密码会下发到手机，请妥善保管"
+        android:textColor="@android:color/holo_red_light"
+        android:visibility="gone" />
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-       android:layout_gravity="center_horizontal"
-        >
-        <ImageView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-           android:id="@+id/ema_wachate_login"
-            android:src="@drawable/ema_wachate_login"
-            android:layout_height="40dp" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="3dp">
 
-        <ImageView
-            android:id="@+id/ema_qq_login"
-            android:layout_weight="1"
+        <RelativeLayout
             android:layout_width="0dp"
-            android:src="@drawable/ema_qq_login"
-            android:layout_height="40dp" />
+            android:layout_height="60dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ema_btn_return_register"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:src="@drawable/ema_login_tourist" />
+
+            <TextView
+                android:textColor="#673300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ema_btn_return_register"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="游客"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ema_wechat_login_rela"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ema_wachate_login"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:src="@drawable/ema_wachate_login" />
+
+            <TextView
+                android:textColor="#673300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ema_wachate_login"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="微信"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/ema_qq_login_rela"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ema_qq_login"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:src="@drawable/ema_qq_login" />
+
+            <TextView
+                android:textColor="#673300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ema_qq_login"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="QQ"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ema_btn_return_login"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:src="@drawable/ema_floating_icon" />
+
+            <TextView
+                android:textColor="#673300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ema_btn_return_login"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="帐号"
+                android:textSize="12sp" />
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

@@ -11,14 +11,13 @@
         android:id="@+id/ema_login_succ_txtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
         android:text="这是一个测试文本"
         android:textColor="#ffffff"
         android:textSize="15dp"/>
 
     <Button
-        android:visibility="invisible"
+        android:layout_marginLeft="10dp"
         android:id="@+id/ema_login_succ_buttonView"
         android:layout_width="75dp"
         android:layout_height="30dp"

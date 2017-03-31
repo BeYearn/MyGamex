@@ -1,54 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="320dp"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/ema_shape_webview_dialog"
     android:gravity="left|right"
     android:orientation="vertical"
-    android:padding="3dp" >
+    android:padding="3dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         >
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_marginTop="5dp"
-            android:layout_centerHorizontal="true"
+            android:id="@+id/ema_normalLogin_phoneLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/ema_login_return"
+            android:padding="8dp" />
+
+        <ImageView
             android:id="@+id/ema_login_image_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-			android:layout_marginLeft="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/ema_title" />
-
-        <!--<View
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="#1B6AAE"
-            android:visibility="gone"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:text="帐号登录"
-            android:textColor="#1B6AAE"
-            android:visibility="gone"/>-->
-
-      <!--  <TextView
-            android:id="@+id/ema_login_btn_login_by_anlaiye"
-            android:layout_width="120dp"
-            android:layout_height="36dp"
-            android:layout_margin="5dp"
-            android:text="俺来也登录"
-            android:textColor="@android:color/black"
-            android:gravity="left|center_vertical"
-            android:visibility="invisible"
-            android:paddingLeft="15dp"
-            android:background="@drawable/ema_logo_anlaiye_bg" />-->
     </RelativeLayout>
 
     <RelativeLayout
@@ -57,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp" >
+        android:layout_marginTop="20dp">
 
         <EditText
             android:id="@+id/ema_normal_name_editText"
@@ -79,11 +59,9 @@
             android:textColor="#ff6600"
             android:textColorHint="#673300"
             android:textCursorDrawable="@drawable/ema_edittext_cursor"
-            android:textSize="16sp" >
-        </EditText>
+            android:textSize="16sp" />
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/ema_account_go_list"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -91,7 +69,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="false"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp" >
+            android:layout_marginRight="15dp"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="15dp"
@@ -117,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp" >
+        android:layout_marginTop="15dp">
 
         <EditText
             android:id="@+id/ema_normal_pass_editText"
@@ -139,8 +118,7 @@
             android:textColor="#ff6600"
             android:textColorHint="#673300"
             android:textCursorDrawable="@drawable/ema_edittext_cursor"
-            android:textSize="16sp" >
-        </EditText>
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="18dp"
@@ -162,92 +140,74 @@
             android:textColor="#ff7111"
             android:textSize="10dp" />
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/ema_normalLogin_enterGame"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:adjustViewBounds="false"
-            android:background="@drawable/ema_button_blue_long"
-            android:minHeight="45dp"
-            android:text="进入游戏"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/ema_normalLogin_enterGame"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="5dp"
+        android:adjustViewBounds="false"
+        android:background="@drawable/ema_button_blue_long"
+        android:minHeight="45dp"
+        android:text="进入游戏"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/ema_normallogin_change_emalogin"
         android:layout_width="300dp"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:adjustViewBounds="false"
         android:background="@drawable/ema_button_blue_long"
         android:minHeight="45dp"
-        android:visibility="gone"
         android:text="柠檬水账号登陆"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:weightSum="2"
         android:layout_gravity="center"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/ema_normalLogin_phoneLogin"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/ema_button_orange"
-            android:minHeight="45dp"
-            android:text="手机登录"
-            android:textColor="@android:color/white" />
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="2">
 
         <Button
             android:id="@+id/ema_normalLogin_oneKeyReg"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
+            android:layout_weight="1"
             android:background="@drawable/ema_button_blue"
             android:minHeight="45dp"
             android:text="游客登录"
             android:textColor="@android:color/white" />
     </LinearLayout>
 
-<!--    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-        <ImageView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:id="@+id/ema_wachate_login"
-            android:src="@drawable/ema_wachate_login"
-            android:layout_height="40dp" />
+    <!--    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:id="@+id/ema_wachate_login"
+                android:src="@drawable/ema_wachate_login"
+                android:layout_height="40dp" />
 
-        <ImageView
-            android:id="@+id/ema_qq_login"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:src="@drawable/ema_qq_login"
-            android:layout_height="40dp" />
-    </LinearLayout>-->
+            <ImageView
+                android:id="@+id/ema_qq_login"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:src="@drawable/ema_qq_login"
+                android:layout_height="40dp" />
+        </LinearLayout>-->
 </LinearLayout>
