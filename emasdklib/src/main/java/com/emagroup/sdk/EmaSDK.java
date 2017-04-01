@@ -1,16 +1,8 @@
-package com.emagroup.sdk.emasdk;
+package com.emagroup.sdk;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-
-import com.emagroup.sdk.sdkcom.EmaBackPressedAction;
-import com.emagroup.sdk.sdkcom.EmaConst;
-import com.emagroup.sdk.sdkcom.EmaPayInfo;
-import com.emagroup.sdk.sdkcom.EmaSDKListener;
-import com.emagroup.sdk.sdkcom.EmaUser;
-import com.emagroup.sdk.sdkcom.InitCheck;
-import com.emagroup.sdk.sdkcom.ULocalUtils;
 
 import java.util.Map;
 

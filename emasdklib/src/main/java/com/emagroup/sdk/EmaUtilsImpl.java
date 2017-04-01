@@ -2,12 +2,6 @@ package com.emagroup.sdk;
 
 import android.app.Activity;
 
-import com.emagroup.sdk.emasdk.EmaUtilsInterface;
-import com.emagroup.sdk.sdkcom.EmaBackPressedAction;
-import com.emagroup.sdk.sdkcom.EmaPayInfo;
-import com.emagroup.sdk.sdkcom.EmaSDKListener;
-import com.emagroup.sdk.sdkcom.Url;
-
 import org.json.JSONObject;
 
 import java.util.Map;

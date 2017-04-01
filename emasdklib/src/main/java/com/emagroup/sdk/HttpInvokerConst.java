@@ -1,4 +1,4 @@
-package com.emagroup.sdk.sdkcom;
+package com.emagroup.sdk;
 
 public class HttpInvokerConst {
 

@@ -1,4 +1,4 @@
-package com.emagroup.sdk.sdkcom;
+package com.emagroup.sdk;
 
 import android.app.Dialog;
 import android.content.Context;

@@ -58,7 +58,7 @@
         </activity>
 
 
-        <service android:name="com.emagroup.sdk.sdkcom.EmaService" />
+        <service android:name="com.emagroup.sdk.EmaService" />
 
         <meta-data
             android:name="EMA_APP_ID"
@@ -89,7 +89,7 @@
             android:name="PUSH_APPSECRET"
             android:value="JWupfp2Z9f6XBp5rqzaga3" /> <!-- 替换为第三方应用的APPSECRET -->
         <receiver
-            android:name="com.emagroup.sdk.emasdk.PushDemoReceiver"
+            android:name="com.emagroup.sdk.PushDemoReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.augb87iFQ1AcrdvCWfN9L4" /> <!--上面获得的PUSH_APPID-->

@@ -1,4 +1,4 @@
-package com.emagroup.sdk.sdkcom;
+package com.emagroup.sdk;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

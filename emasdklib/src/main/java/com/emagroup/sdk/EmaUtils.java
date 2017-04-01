@@ -1,4 +1,4 @@
-package com.emagroup.sdk.emasdk;
+package com.emagroup.sdk;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -12,25 +12,12 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 
-import com.emagroup.sdk.EmaUtilsImpl;
-import com.emagroup.sdk.sdkcom.EmaAlertDialog;
-import com.emagroup.sdk.sdkcom.EmaBackPressedAction;
-import com.emagroup.sdk.sdkcom.EmaConst;
-import com.emagroup.sdk.sdkcom.EmaPayInfo;
-import com.emagroup.sdk.sdkcom.EmaSDKListener;
-import com.emagroup.sdk.sdkcom.EmaSDKUser;
-import com.emagroup.sdk.sdkcom.EmaService;
-import com.emagroup.sdk.sdkcom.EmaUser;
-import com.emagroup.sdk.sdkcom.EmaWebviewDialog;
-import com.emagroup.sdk.sdkcom.InitCheck;
-import com.emagroup.sdk.sdkcom.ULocalUtils;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
 
-import static com.emagroup.sdk.emasdk.EmaSDK.mActivity;
+import static com.emagroup.sdk.EmaSDK.mActivity;
 
 
 /**
