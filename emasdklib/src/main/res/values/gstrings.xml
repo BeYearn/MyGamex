@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Settings</string>
+    <string name="str_confirm">确定</string>
+    <string name="str_cancel">取消</string>
+    <string name="str_update">修改</string>
+
+    <!-- guided -->
+    <string name="str_username">用户名</string>
+    <string name="str_password">密码</string>
+    <string name="str_email">邮箱</string>
+    <string name="str_email_mao">邮箱：</string>
+    <string name="str_login">登录</string>
+    <string name="str_welcome_login">欢迎登录</string>
+    <string name="str_register">注册</string>
+    <string name="str_register_account">注册账号</string>
+    <string name="str_password_forget">忘记密码</string>
+    <string name="str_account_forget">忘记账户</string>
+    <string name="str_password_show">显示密码</string>
+    <string name="str_quick_register">快速注册</string>
+    <string name="str_will_again_login">下次自动登录</string>
+    <string name="str_back_login">返回登录</string>
+    <string name="str_back_register">返回正常注册</string>
+    <string name="str_show_password">显示密码</string>
+    <string name="str_register_and_login">注册并登录</string>
+    <string name="str_mhr_login">漫画人账号登录</string>
+    <string name="str_found_for_password">用于找回密码</string>
+    <string name="str_validate">验证</string>
+    <string name="str_validate_error">验证失败</string>
+    <string name="str_CN">中国</string>
+    <string name="str_change_account">切换账号</string>
+
+    <string name="str_found_for_mail">用绑定过的邮箱找回</string>
+    <string name="str_found_for_phone">用绑定过的手机找回</string>
+    <string name="str_account_login_current">当前设备登录账号</string>
+
+
+    <!-- account -->
+    <string name="str_my_game">我的游戏</string>
+    <string name="str_my_gift">我的礼包</string>
+    <string name="str_my_circle">我的圈子</string>
+    <string name="str_game_circle">游戏圈子</string>
+    <string name="str_account_binding">绑定账号</string>
+    <string name="str_area_code">选择国家和地区代码</string>
+    <string name="str_account_consumption_note">消费记录</string>
+    <string name="str_binding_email">绑定邮箱</string>
+    <string name="str_validate_email">验证邮箱</string>
+    <string name="str_binding_email_input">输入邮箱</string>
+    <string name="str_binding_ok">绑定成功</string>
+    <string name="str_binding_not">解绑成功</string>
+    <string name="str_binding_phone">绑定手机</string>
+    <string name="str_remove_binding">解除绑定</string>
+    <string name="str_validate_phone">验证手机</string>
+    <string name="str_binding_phone_input">输入绑定手机</string>
+    <string name="str_phone_number_input">输入手机号码</string>
+    <string name="str_binding_code_input">输入验证码</string>
+    <string name="str_all_input">输入用户名/邮箱</string>
+    <string name="str_already_email_binding">已绑定邮箱</string>
+    <string name="str_code">验证码</string>
+    <string name="str_send_code">发送验证码</string>
+    <string name="str_once_send_code">再次发送</string>
+    <string name="str_login_change">切换登录账号</string>
+    <string name="str_take_photo">拍照</string>
+    <string name="str_select_from_photos">从相册选择</string>
+    <string name="str_accord_login">自动登录</string>
+    <string name="str_email_ok">邮件已发送到您的邮箱</string>
+    <string name="str_new_password">设置新密码</string>
+    <string name="str_new_password_input">输入新密码</string>
+    <string name="str_new_password_confirm">确认新密码</string>
+    <string name="str_login_name">登录名</string>
+    <string name="str_last_time">最近一次登录</string>
+
+    <string name="str_order_number">订单号：</string>
+    <string name="str_pay_fail">支付失败</string>
+    <string name="str_pay_success">支付成功</string>
+    <string name="str_deposit_ok">充值成功</string>
+    <string name="str_pay_sum">交易金额：</string>
+    <string name="str_fee_value">消费金额：</string>
+    <string name="str_deposit_type">充值类型：</string>
+    <string name="str_deposit_number">充值数量：</string>
+    <string name="str_pay_style">支付方式：</string>
+    <string name="str_commit_time">提交时间：</string>
+    <string name="str_pay_time">付款时间：</string>
+    <string name="str_order_state">订单状态：</string>
+    <string name="str_any_wrong">有任何问题请</string>
+    <string name="str_consult_kf">咨询客服</string>
+    <string name="str_gift_list">礼包列表</string>
+    <string name="str_gift_record">领取记录</string>
+    <string name="str_dole">领取</string>
+
+    <string name="str_g_add_people">人加入</string>
+    <string name="str_g_surplus">剩余\u0020\u003a\u0020</string>
+    <string name="str_g_packet_code">礼包码\u0020\u003a\u0020</string>
+    <string name="str_g_activation_code">激活码\u0020\u003a\u0020</string>
+    <string name="str_g_long_copy">长按复制</string>
+    <string name="str_copy_ok">复制成功</string>
+    <string name="str_g_copy">复制</string>
+
+    <!-- remind -->
+    <string name="str_input_repassword_error">输入的密码不一致</string>
+    <string name="str_input_email_style_error">您的邮箱格式不正确</string>
+    <string name="str_input_null">输入不能为空</string>
+    <string name="str_update_name_null">修改昵称不能为空</string>
+    <string name="str_bind_null">该账号未绑定手机和电子邮箱</string>
+    <string name="str_password_input_type">~!@#$%^*()+._,/\';[]*-`={}：?0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
+    <string name="str_s_select_outside_tip"> 请确认已经插入SD卡</string>
+    <string name="str_crop_error">裁剪图片失败,请您尝试从相册中选择图片!</string>
+    <string name="str_get_photo_error">照片获取失败,建议您选择相册试试</string>
+    <string name="str_load_ing">加载中&#8230;</string>
+    <string name="str_load_error">加载失败</string>
+    <string name="str_load_success">加载成功</string>
+    <string name="str_load_not_more">没有更多了</string>
+    <string name="str_more">更多</string>
+    <string name="str_register_error">注册失败</string>
+    <string name="str_login_error">账号或密码错误</string>
+    <string name="str_update_ok">修改成功</string>
+    <string name="str_update_error">修改失败</string>
+    <string name="str_onclick_pair">再按一次退出登录</string>
+    <string name="str_g_packet_error">领取礼包失败,请稍后再试</string>
+    <string name="str_g_copy_error">*未复制成功,请再点击复制</string>
+    <string name="str_input_exceed">输入超过限制</string>
+    <string name="str_input_pwd_short">密码长度需大于6位</string>
+    <string name="str_code_send_phone">验证码已发送至手机</string>
+    <string name="str_update_email_send">已向原来邮箱发送修改邮件</string>
+    <string name="str_input_account_hint">请输入用户名、邮箱</string>
+    <string name="str_input_register_account_hint">请输入用户名</string>
+    <string name="str_input_password_hint">请输入密码</string>
+    <string name="str_account_note_error">没有找到该账户信息</string>
+
+    <!-- float window -->
+    <string name="str_account">账户</string>
+    <string name="str_gift">礼包</string>
+    <string name="str_circle">圈子</string>
+    <string name="str_chat">客服</string>
+
+    <!-- pay -->
+    <string name="str_goods">购买商品：</string>
+    <string name="str_rmb">商品数量：</string>
+    <string name="str_channels">支付方式：</string>
+
+</resources>

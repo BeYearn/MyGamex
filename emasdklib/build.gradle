@@ -29,4 +29,9 @@ android {
 
 dependencies {
     compile files('libs/GetuiSDK2.9.0.0.jar')
+    compile files('libs/MHRGameSDK-pro.jar')
+    compile files('libs/MobCommons-2016.0624.1326.jar')
+    compile files('libs/MobTools-2016.0624.1326.jar')
+    compile files('libs/SMSSDK-2.1.1.jar')
+    compile files('libs/android-support-v4.jar')
 }

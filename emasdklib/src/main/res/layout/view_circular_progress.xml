@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_circular"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    >
+
+    <ProgressBar
+        android:id="@+id/cp_circular"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:indeterminateDrawable="@drawable/bg_progress_small"
+        android:background="@android:color/transparent"
+        android:layout_centerInParent="true"
+        />
+
+</RelativeLayout>

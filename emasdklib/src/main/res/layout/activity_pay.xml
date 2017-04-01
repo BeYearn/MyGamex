@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/color_6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_describe"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:paddingTop="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:id="@+id/tv_goods_tip"
+            android:text="@string/str_goods"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_goods"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:layout_toRightOf="@id/tv_goods_tip"
+            android:textSize="15sp"
+            android:singleLine="true"
+            android:textColor="@color/color_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:id="@+id/tv_rmb_tip"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv_goods_tip"
+            android:text="@string/str_rmb"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_sum"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:layout_alignTop="@id/tv_rmb_tip"
+            android:layout_toRightOf="@id/tv_rmb_tip"
+            android:textSize="15sp"
+            android:singleLine="true"
+            android:textColor="@color/color_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_sum"
+            android:background="@color/color_4"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_below="@id/rl_describe"
+        android:layout_above="@+id/btn_pay"
+        android:layout_width="match_parent"
+        android:background="@color/color_6"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="15dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="选择支付方式"
+                android:textSize="16sp"
+                android:textColor="@color/color_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_notice"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/color_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_pay1"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/color_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/ll_channels1"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_pay2"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/color_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/ll_channels2"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/btn_pay"
+        android:layout_width="match_parent"
+        android:background="@color/color_8"
+        android:textSize="16sp"
+        android:padding="15dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:textColor="@android:color/white"
+        android:text="确认支付"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

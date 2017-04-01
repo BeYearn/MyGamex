@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_6"
+    >
+
+    <ListView
+        android:id="@+id/lv_my_game"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:listSelector="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:divider="@android:color/transparent"
+        android:scrollbars="none"
+        android:layout_above="@+id/rl_bottom_item"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:visibility="gone"
+        >
+
+        <Button
+            android:id="@+id/btn_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_found_for_mail"
+            android:textSize="14sp"
+            android:textColor="@color/color_8"
+            android:background="@drawable/bg_found_account"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="8dp"
+            />
+
+        <Button
+            android:id="@+id/btn_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_found_for_phone"
+            android:textColor="@color/color_8"
+            android:textSize="14sp"
+            android:background="@drawable/bg_found_account"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            />
+
+    </RelativeLayout>
+
+    <com.yingqidm.gamesdk.account.widget.SlideBar
+        android:id="@+id/view_slidebar"
+        android:layout_width="20dp"
+        android:layout_height="360dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>
