@@ -5,20 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.emagroup.sdk.emasdk.EmaUtilsInterface;
-import com.emagroup.sdk.sdkcom.EmaBackPressedAction;
-import com.emagroup.sdk.sdkcom.EmaCallBackConst;
-import com.emagroup.sdk.sdkcom.EmaConst;
-import com.emagroup.sdk.sdkcom.EmaPayInfo;
-import com.emagroup.sdk.sdkcom.EmaSDKListener;
-import com.emagroup.sdk.sdkcom.EmaUser;
-import com.emagroup.sdk.sdkcom.HttpRequestor;
-import com.emagroup.sdk.sdkcom.InitCheck;
-import com.emagroup.sdk.sdkcom.ThreadUtil;
-import com.emagroup.sdk.sdkcom.ULocalUtils;
-import com.emagroup.sdk.sdkcom.Url;
-
 import org.json.JSONObject;
 
 import java.util.HashMap;

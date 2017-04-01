@@ -1,2 +1,2 @@
 include ':emasdklib'
-include ':APPdemo'
+include ':app'
