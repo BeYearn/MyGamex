@@ -1,1 +1,1 @@
-include ':emasdklib', ':APPdemo'
+include ':emasdklib', ':app'
