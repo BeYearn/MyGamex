@@ -116,7 +116,7 @@ public class InitCheck {
     /**
      * 检查sdk是否维护状态，并能拿到appkey
      */
-    private void checkSDKStatus() {
+    public void checkSDKStatus() {
         Map<String, String> params = new HashMap<>();
         params.put("appId", ULocalUtils.getAppId(mActivity));
         params.put("channelId", ULocalUtils.getChannelId(mActivity));
