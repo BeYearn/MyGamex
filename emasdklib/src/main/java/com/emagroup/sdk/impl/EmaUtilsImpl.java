@@ -1,10 +1,24 @@
-package com.emagroup.sdk;
+package com.emagroup.sdk.impl;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.emagroup.sdk.EmaBackPressedAction;
+import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
+import com.emagroup.sdk.EmaPayInfo;
+import com.emagroup.sdk.EmaSDKListener;
+import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtilsInterface;
+import com.emagroup.sdk.HttpRequestor;
+import com.emagroup.sdk.InitCheck;
+import com.emagroup.sdk.ThreadUtil;
+import com.emagroup.sdk.ULocalUtils;
+import com.emagroup.sdk.Url;
+
 import org.json.JSONObject;
 
 import java.util.HashMap;
