@@ -2,7 +2,10 @@ package com.emagroup.sdk;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,7 +67,15 @@ public class EmaAlertDialog extends Dialog {
 			@Override
 			public void onClick(View arg0) {
 				//开始更新
-				ToastHelper.toast(mContext,"开始更新。。。（测试）");
+				//ToastHelper.toast(mContext,"开始更新（测试）。。");
+				if(!TextUtils.isEmpty((String) mContentMap.get("updateUrl"))){
+					Intent intent = new Intent();
+					intent.setAction(Intent.ACTION_VIEW);
+					Uri upadateUrl =Uri.parse((String) mContentMap.get("updateUrl"));  // url必须写全（"https://www.baidu.com"）
+					intent.setData(upadateUrl);
+					mContext.startActivity(intent);
+				}
+
 			}
 		});
 
@@ -73,7 +84,7 @@ public class EmaAlertDialog extends Dialog {
 			public void onClick(View v) {
 				if(1==clickType){
 					EmaAlertDialog.this.dismiss();
-					//dialogFrom.dismiss();
+					dialogFrom.dismiss();
 				}else if(2==clickType){
 					System.exit(0);
 				}
@@ -101,6 +112,6 @@ public class EmaAlertDialog extends Dialog {
 			mTxtPromptView.setText(contentStr);
 		}
 		mImgPromptView.setImageResource(drawableId);*/
-		mTxtPromptView.setText("有更新！！！");
+		mTxtPromptView.setText("检测到新版本，请赶紧更新");
 	}
 }

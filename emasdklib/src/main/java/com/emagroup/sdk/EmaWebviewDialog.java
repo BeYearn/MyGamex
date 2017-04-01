@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import java.util.Map;
@@ -60,6 +59,11 @@ public class EmaWebviewDialog extends Dialog {
 		mWebView = (WebView) findViewById(mResourceManager.getIdentifier("webView_dialog", "id"));//dialog显示的webview
 
 		mBtnSure= (TextView) findViewById(mResourceManager.getIdentifier("ema_tv_sure", "id"));
+		if(1==clickType){
+			mBtnSure.setText("退出游戏");
+		}else if(2==clickType){
+			mBtnSure.setText("进入游戏");
+		}
 		mBtnCancle= (TextView) findViewById(mResourceManager.getIdentifier("ema_tv_cancel", "id"));
 
 		mBtnSure.setOnClickListener(new View.OnClickListener() {
@@ -69,18 +73,20 @@ public class EmaWebviewDialog extends Dialog {
 					System.exit(0);
 				}else if(2==clickType){
 					EmaWebviewDialog.this.dismiss();
-					//dialogFrom.dismiss();
+					dialogFrom.dismiss();
 					String whichUpdate = (String) mContentMap.get("whichUpdate");
 					if(!"none".equals(whichUpdate)){//有更新
 						Message message = Message.obtain();
 						if("hard".equals(whichUpdate)){
 							message.what=ALERT_SHOW;
-							message.arg1=2;  // 两个按钮
+							message.arg1=1;  // 强更的话只有一个确定按钮
 							message.arg2=2;  // 确定开始更新 取消退出
+							message.obj=mContentMap;
 						}else {
 							message.what=ALERT_SHOW;
 							message.arg1=2;
 							message.arg2=1;  // 确定开始更新 取消继续进去
+							message.obj=mContentMap;
 						}
 						mHandler.sendMessage(message);
 					}
@@ -100,7 +106,7 @@ public class EmaWebviewDialog extends Dialog {
 
 				} else{
 					EmaWebviewDialog.this.dismiss();
-					//dialogFrom.dismiss();
+					dialogFrom.dismiss();
 				}
 			}
 		});
@@ -118,12 +124,12 @@ public class EmaWebviewDialog extends Dialog {
 	private void initData(){
 		String contentUrl = (String) mContentMap.get("maintainContent");
 		mWebView.loadUrl(contentUrl);
-		mWebView.setWebViewClient(new WebViewClient(){
+		/*mWebView.setWebViewClient(new WebViewClient(){
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				view.loadUrl(url);
 				return true;
 			}
-		});
+		});*/
 	}
 }
