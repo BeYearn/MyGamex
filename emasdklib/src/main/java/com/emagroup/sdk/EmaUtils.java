@@ -185,15 +185,15 @@ public class EmaUtils {
     }
 
     public void onNewIntent(Intent intent) {
-
+        EmaUtilsImpl.getInstance(activity).onNewIntent(intent);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        EmaUtilsImpl.getInstance(activity).onActivityResult(requestCode,requestCode,data);
     }
 
     public void onRestart() {
-
+        EmaUtilsImpl.getInstance(activity).onRestart();
     }
 
 
