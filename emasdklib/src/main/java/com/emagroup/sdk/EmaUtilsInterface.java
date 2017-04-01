@@ -1,5 +1,7 @@
 package com.emagroup.sdk;
 
+import android.content.Intent;
+
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -36,5 +38,11 @@ public interface EmaUtilsInterface {
     void onBackPressed(EmaBackPressedAction action);
 
     void submitGameRole(Map<String, String> data);
+
+    void onActivityResult(int requestCode, int resultCode, Intent data);
+
+    void onNewIntent(Intent intent);
+
+    void onRestart();
 
 }
