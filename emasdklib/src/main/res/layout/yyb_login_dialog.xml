@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/yyb_login_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20.0dip">
+
+        <Button
+            android:id="@+id/login_qq_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yyb_img_qq" />
+
+        <Button
+            android:id="@+id/login_wx_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24.0dip"
+            android:background="@drawable/yyb_img_wx" />
+    </LinearLayout>
+</RelativeLayout>
