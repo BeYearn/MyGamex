@@ -1,4 +1,4 @@
-package com.emagroup.sdk.sdkcom;
+package com.emagroup.sdk;
 
 import android.app.Service;
 import android.content.Intent;

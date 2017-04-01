@@ -1,4 +1,4 @@
-package com.emagroup.sdk.emasdk;
+package com.emagroup.sdk;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,14 +7,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.emagroup.sdk.sdkcom.EmaPayInfo;
-import com.emagroup.sdk.sdkcom.EmaSDKListener;
-import com.emagroup.sdk.sdkcom.EmaUser;
-import com.emagroup.sdk.sdkcom.HttpRequestor;
-import com.emagroup.sdk.sdkcom.ThreadUtil;
-import com.emagroup.sdk.sdkcom.ULocalUtils;
-import com.emagroup.sdk.sdkcom.Url;
 
 import org.json.JSONObject;
 

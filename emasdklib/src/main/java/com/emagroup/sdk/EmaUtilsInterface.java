@@ -1,8 +1,4 @@
-package com.emagroup.sdk.emasdk;
-
-import com.emagroup.sdk.sdkcom.EmaBackPressedAction;
-import com.emagroup.sdk.sdkcom.EmaPayInfo;
-import com.emagroup.sdk.sdkcom.EmaSDKListener;
+package com.emagroup.sdk;
 
 import org.json.JSONObject;
 

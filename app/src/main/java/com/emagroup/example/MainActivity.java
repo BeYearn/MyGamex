@@ -14,13 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.emagroup.sdk.emasdk.EmaSDK;
-import com.emagroup.sdk.sdkcom.EmaBackPressedAction;
-import com.emagroup.sdk.sdkcom.EmaCallBackConst;
-import com.emagroup.sdk.sdkcom.EmaConst;
-import com.emagroup.sdk.sdkcom.EmaSDKListener;
-import com.emagroup.sdk.sdkcom.EmaUser;
-import com.emagroup.sdk.sdkcom.ToastHelper;
+import com.emagroup.sdk.EmaSDK;
+import com.emagroup.sdk.EmaBackPressedAction;
+import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
+import com.emagroup.sdk.EmaSDKListener;
+import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.ToastHelper;
 
 import java.util.HashMap;
 
