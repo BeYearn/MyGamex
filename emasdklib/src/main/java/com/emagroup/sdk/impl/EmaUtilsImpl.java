@@ -1,6 +1,12 @@
-package com.emagroup.sdk;
+package com.emagroup.sdk.impl;
 
 import android.app.Activity;
+
+import com.emagroup.sdk.EmaBackPressedAction;
+import com.emagroup.sdk.EmaPayInfo;
+import com.emagroup.sdk.EmaSDKListener;
+import com.emagroup.sdk.EmaUtilsInterface;
+import com.emagroup.sdk.Url;
 
 import org.json.JSONObject;
 
@@ -10,7 +16,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/10/9.
  */
-public class EmaUtilsImpl implements EmaUtilsInterface{
+public class EmaUtilsImpl implements EmaUtilsInterface {
 
     private static EmaUtilsImpl instance;
     private Activity mActivity;

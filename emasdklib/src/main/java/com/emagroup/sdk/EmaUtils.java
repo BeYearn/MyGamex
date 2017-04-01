@@ -12,6 +12,8 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 
+import com.emagroup.sdk.impl.EmaUtilsImpl;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
