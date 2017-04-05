@@ -326,6 +326,21 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+
+    }
+
+    @Override
+    public void onRestart() {
+
+    }
+
     //-----------------------------------uc的网络请求方法-------------------------------------------------------------------------
 
     public void getUCAccontInfo(final String sid, final EmaSDKListener listener) {
