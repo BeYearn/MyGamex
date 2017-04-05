@@ -37,9 +37,22 @@
         android:protectionLevel="normal"></permission><!--替换为第三方应用的包名-->
     <!-- 个推SDK权限配置结束 -->
 
-    <!--xxx权限 start -->
-
-    <!--xxx权限 end -->
+    <!--华为权限start-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="com.huawei.hwid.permission.ACCESS" />
+    <uses-permission android:name="com.huawei.appmarket.provider.readPermission"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!--华为权限end-->
 
 
     <application
@@ -62,20 +75,64 @@
 
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="n20012" />
+            android:value="n20015" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n500002" />
+            android:value="n000054" />
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="staging" />
+            android:value="testing" />
 
-        <!--xxx 组件声明begin-->
+        <!--华为组件声明 start-->
+        <!-- 浮标依赖的Activity声明，建议将此Activity的屏幕方向与应用的屏幕方向设置为一样的 -->
+        <activity
+            android:name="com.huawei.gameservice.sdk.view.dialog.NoticeActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:theme="@style/buoy_baseDialog"/>
+        <activity
+            android:name="com.huawei.gameservice.sdk.view.dialog.UpdateActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:theme="@style/buoy_baseDialog"/>
+        <activity
+            android:name="com.huawei.gameservice.sdk.view.dialog.BaseDialogActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:theme="@style/buoy_baseDialog" >
+        </activity>
+        <activity
+            android:name="com.huawei.gameservice.sdk.view.dialog.DownloadProgressDialogActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:theme="@style/buoy_baseDialog" >
+        </activity>
+        <activity
+            android:name="com.huawei.gameservice.sdk.view.SplashImageActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="com.huawei.gameservice.sdk.view.DummyActivity"
+            android:exported="false"
+            android:theme="@style/buoy_baseDialog" >
+        </activity>
 
-        <!--xxx 组件声明end-->
+        <!-- 浮标中下载依赖的广播 -->
+        <receiver android:name="com.huawei.gameservice.sdk.service.download.DownloadBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+            </intent-filter>
+        </receiver>
+
+
+        <!--原provider已经干掉了 注意： 如果游戏的targetSDK大于等于24时，在游戏中必须申明此Provider，否则影响N版本下使用SDK安装华为游戏中心； 如果游戏的targetSDK小于24，则可以不配置此Provider -->
+        <!-- 其中android:authorities里“游戏包名”必须要替换为游戏自己包名，否则会导致冲突，游戏无法安装！-->
+
+        <!--华为组件声明end-->
 
 
         <!-- 个推SDK配置开始 -->
