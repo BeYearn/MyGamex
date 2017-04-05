@@ -26,6 +26,16 @@ import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ToastHelper;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
+import com.tencent.ysdk.api.YSDKApi;
+import com.tencent.ysdk.framework.common.eFlag;
+import com.tencent.ysdk.framework.common.ePlatform;
+import com.tencent.ysdk.module.pay.PayListener;
+import com.tencent.ysdk.module.pay.PayRet;
+import com.tencent.ysdk.module.user.PersonInfo;
+import com.tencent.ysdk.module.user.UserListener;
+import com.tencent.ysdk.module.user.UserLoginRet;
+import com.tencent.ysdk.module.user.UserRelationRet;
+import com.tencent.ysdk.module.user.WakeupRet;
 
 import org.json.JSONObject;
 
@@ -45,10 +55,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     private static EmaUtilsImpl instance;
     private Activity mActivity;
     private EmaSDKListener mILlistener;
-    private boolean isInitSucc;
     private String appid;
-    private boolean isLoginSucc;
+    private boolean isInitSucc=false;   //防止进入登录重复死循环
+    private boolean isLoginSucc=false;  //因为官方sdk的login做了自动登录，xxx  应用宝这边因为需要选择是微信还是qq登录（这一步应用宝要我们实现）的特殊性，所以每次调用就会弹框一次,这个字段就是为了防止二次登录
     private ProgressDialog mProgressDialog;
+    protected ePlatform platform = ePlatform.None;
 
 
     public static EmaUtilsImpl getInstance(Activity activity) {
@@ -73,6 +84,14 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             Log.e("yybappid",appid);
 
             // yyb的初始化放到了前面sdk里面的初始化，因为在线程转换后在此处不灵了
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    YSDKApi.onCreate(mActivity);
+                    YSDKApi.handleIntent(mActivity.getIntent());
+                }
+            });
+
 
             YSDKApi.setUserListener(new UserListener() {
                 @Override
@@ -86,7 +105,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
                         isInitSucc=true;
                         //初始化成功之后再检查公告更新等信息
-                        EmaUtils.getInstance(mActivity).checkSDKStatus();
+                        InitCheck.getInstance(mActivity).checkSDKStatus();
                     }
 
                     switch (ret.flag) {
@@ -104,7 +123,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                             mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                             //补充弱账户信息
-                            EmaSDKUser.getInstance().updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                            EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
 
                             Log.e("yybloginSuccessful", ret.toString());
 
@@ -257,7 +276,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     @Override
-    public void realPay(final EmaSDKListener listener, EmaPayInfo emaPayInfo) {
+    public void realPay(final EmaSDKListener listener, final EmaPayInfo emaPayInfo) {
         String zoneId = "1";  //大区id
         String saveValue = emaPayInfo.getPrice()+""; //充值数额
         boolean isCanChange = false;   // 设置的充值数额是否可改

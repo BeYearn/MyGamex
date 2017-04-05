@@ -11,6 +11,8 @@ import android.widget.Button;
 
 import com.emagroup.sdk.ResourceManager;
 import com.emagroup.sdk.ToastHelper;
+import com.tencent.ysdk.api.YSDKApi;
+import com.tencent.ysdk.framework.common.ePlatform;
 
 import java.util.HashMap;
 

@@ -37,9 +37,25 @@
         android:protectionLevel="normal"></permission><!--替换为第三方应用的包名-->
     <!-- 个推SDK权限配置结束 -->
 
-    <!--xxx权限 start -->
-
-    <!--xxx权限 end -->
+    <!--应用宝权限start-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true" />
+    <!--应用宝权限end-->
 
 
     <application
@@ -50,6 +66,7 @@
         <activity
             android:name="com.emagroup.example.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -73,9 +90,85 @@
             android:name="EMA_WHICH_ENVI"
             android:value="staging" />
 
-        <!--xxx 组件声明begin-->
+        <!--应用宝 组件 start-->
+        <!--  QQ接入配置 START -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-        <!--xxx 组件声明end-->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1105915816" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- QQ接入配置 END -->
+
+        <!-- 微信接入配置 START -->
+        <activity
+            android:name="com.tencent.tmgp.dragontcg1.wxapi.WXEntryActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="WXEntryActivity"
+            android:launchMode="singleTop"
+            android:taskAffinity="com.tencent.tmgp.dragontcg1.diff">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <!-- 注意：此处应改为 游戏的微信appid -->
+                <data android:scheme="wxabd0afbfdcbb5c0c" />
+            </intent-filter>
+        </activity>
+        <!-- 微信接入配置 END -->
+
+        <!--实名制 start-->
+        <activity
+            android:name="com.tencent.ysdk.module.realName.impl.RegisterRealNameActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        <!--实名制 end-->
+
+        <!--支付组件start-->
+        <activity
+            android:name="com.tencent.midas.proxyactivity.APMidasPayProxyActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.tencent.midas.wx.APMidasWXPayActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true" />
+
+        <activity
+            android:name="com.tencent.midas.qq.APMidasQQWalletActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="qwallet100703379"/>
+                <!-- TODO GAME 这里为米大师的默认配置，游戏不要修改 -->
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.midas.jsbridge.APWebJSBridgeActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <!--支付组件 end-->
+
+        <!--应用宝 组件 start-->
 
 
         <!-- 个推SDK配置开始 -->
