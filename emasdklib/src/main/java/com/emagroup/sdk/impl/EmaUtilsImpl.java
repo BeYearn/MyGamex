@@ -16,7 +16,6 @@ import com.coolcloud.uac.android.common.Params;
 import com.coolcloud.uac.android.gameassistplug.GameAssistApi;
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
-import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
@@ -332,7 +331,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             @Override
             public void run() {
                 try {
-                    openProgressDialog();
+                    EmaUtils.getInstance(mActivity).openProgressDialog();
 
                     String url = getCoolPadAccontInfo();
 
@@ -372,23 +371,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                     Log.e("getUCAccontInfo", "maybe is SocketTimeoutException");
                     e.printStackTrace();
 
-                    closeProgressDialog();
+                    EmaUtils.getInstance(mActivity).closeProgressDialog();
                 }
 
             }
         });
-    }
-
-    private void openProgressDialog(){
-        Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
-        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE,EmaConst.EMA_BC_PROGRESS_START);
-        mActivity.sendBroadcast(intent);
-    }
-
-    private void closeProgressDialog(){
-        Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
-        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE,EmaConst.EMA_BC_PROGRESS_CLOSE);
-        mActivity.sendBroadcast(intent);
     }
 
     //-----------------------------------xxx 特有接口---------------------------------------------------
