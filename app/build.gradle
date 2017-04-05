@@ -4,7 +4,8 @@ android {
     compileSdkVersion 19
     buildToolsVersion "23.0.3"
     defaultConfig {
-        applicationId "com.emagroup.example"
+        //applicationId "com.emagroup.example"
+        applicationId "com.emagroup.dragontcg.mi"
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 1

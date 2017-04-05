@@ -37,9 +37,9 @@
         android:protectionLevel="normal"></permission><!--替换为第三方应用的包名-->
     <!-- 个推SDK权限配置结束 -->
 
-    <!--xxx权限 start -->
-
-    <!--xxx权限 end -->
+    <!--小米权限-->
+    <uses-permission android:name="android.permission.GET_TASKS"  />
+    <uses-permission android:name="com.xiaomi.sdk.permission.PAYMENT" />
 
 
     <application
@@ -65,13 +65,13 @@
             android:value="n20012" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n500002" />
+            android:value="n000066" />
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="staging" />
+            android:value="production" />
 
         <!--xxx 组件声明begin-->
 
