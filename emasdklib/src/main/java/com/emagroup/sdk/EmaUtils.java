@@ -101,16 +101,16 @@ public class EmaUtils {
                 case EmaConst.EMA_BC_PROGRESS_ACTION:
 
                     String progressState = intent.getStringExtra(EmaConst.EMA_BC_PROGRESS_STATE);
-                    Log.e("dialogBCReciver",progressState);
+                    Log.e("dialogBCReciver", progressState);
 
-                    if(null==progressDialog){
+                    if (null == progressDialog) {
                         progressDialog = new ProgressDialog(activity);
                         progressDialog.setCanceledOnTouchOutside(false);
                     }
 
-                    if(EmaConst.EMA_BC_PROGRESS_START.equals(progressState)){
+                    if (EmaConst.EMA_BC_PROGRESS_START.equals(progressState)) {
                         progressDialog.show();
-                    }else if(EmaConst.EMA_BC_PROGRESS_CLOSE.equals(progressState)) {
+                    } else if (EmaConst.EMA_BC_PROGRESS_CLOSE.equals(progressState)) {
                         progressDialog.dismiss();
                     }
                     break;
@@ -131,14 +131,15 @@ public class EmaUtils {
         mActivity.registerReceiver(getkeyOkReciver, filter);
     }
 
-    public void openProgressDialog(){
+    public void openProgressDialog() {
         Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
-        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE,EmaConst.EMA_BC_PROGRESS_START);
+        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE, EmaConst.EMA_BC_PROGRESS_START);
         mActivity.sendBroadcast(intent);
     }
-    public void closeProgressDialog(){
+
+    public void closeProgressDialog() {
         Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
-        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE,EmaConst.EMA_BC_PROGRESS_CLOSE);
+        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE, EmaConst.EMA_BC_PROGRESS_CLOSE);
         mActivity.sendBroadcast(intent);
     }
 
@@ -230,25 +231,27 @@ public class EmaUtils {
 
     public void submitGameRole(Map<String, String> data) {
 
-        String roleId_R = data.get("roleId");
-        String roleName_R = data.get("roleName");
-        String roleLevel_R = data.get("roleLevel");
-        String zoneId_R = data.get("zoneId");
-        String zoneName_R = data.get("zoneName");
-        String dataType_R = data.get("dataType");
-        String ext_R = data.get("ext");
+        String roleId_R = data.get(EmaConst.SUBMIT_ROLE_ID);
+        String roleName_R = data.get(EmaConst.SUBMIT_ROLE_NAME);
+        String roleLevel_R = data.get(EmaConst.SUBMIT_ROLE_LEVEL);
+        String zoneId_R = data.get(EmaConst.SUBMIT_ZONE_ID);
+        String zoneName_R = data.get(EmaConst.SUBMIT_ZONE_NAME);
+        String roleCt_R = data.get(EmaConst.SUBMIT_ROLE_CT);
+        String dataType_R = data.get(EmaConst.SUBMIT_DATA_TYPE);
+        String ext_R = data.get(EmaConst.SUBMIT_EXT);
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
             Log.e("//" + entry.getKey(), entry.getValue());
         }
 
-        ULocalUtils.spPut(mActivity, "roleId_R", roleId_R);
-        ULocalUtils.spPut(mActivity, "roleName_R", roleName_R);
-        ULocalUtils.spPut(mActivity, "roleLevel_R", roleLevel_R);
-        ULocalUtils.spPut(mActivity, "zoneId_R", zoneId_R);
-        ULocalUtils.spPut(mActivity, "zoneName_R", zoneName_R);
-        ULocalUtils.spPut(mActivity, "dataType_R", dataType_R);
-        ULocalUtils.spPut(mActivity, "ext_R", ext_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ROLE_ID, roleId_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ROLE_NAME, roleName_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ROLE_LEVEL, roleLevel_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ZONE_ID, zoneId_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ZONE_NAME, zoneName_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ROLE_CT, roleCt_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_DATA_TYPE, dataType_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_EXT, ext_R);
 
         EmaUtilsImpl.getInstance(activity).submitGameRole(data);
 
