@@ -23,6 +23,7 @@ import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.ToastHelper;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -69,13 +70,16 @@ public class MainActivity extends Activity implements OnClickListener {
                         Log.e("Mainactivity", EmaUser.getInstance().getAllianceUid());
                         Log.e("Mainactivity", EmaSDK.getInstance().getChannelId());
 
-                        HashMap<String, String> gameRoleInfo = new HashMap<>();
-                        gameRoleInfo.put("roleId", "123");
-                        gameRoleInfo.put("roleName", "woshizhongren");
-                        gameRoleInfo.put("roleLevel", "99");
-                        gameRoleInfo.put("zoneId", "001");
-                        gameRoleInfo.put("zoneName", "zhongguoqu");
-                        EmaSDK.getInstance().submitLoginGameRole(gameRoleInfo);
+                        Map<String,String > param=new HashMap<String, String>();
+                        param.put(EmaConst.SUBMIT_ROLE_ID,"00001");
+                        param.put(EmaConst.SUBMIT_ROLE_NAME,"emasdk");
+                        param.put(EmaConst.SUBMIT_ROLE_LEVEL,"11");
+                        param.put(EmaConst.SUBMIT_ZONE_ID,"20003");
+                        param.put(EmaConst.SUBMIT_ZONE_NAME,"emasever");
+                        param.put(EmaConst.SUBMIT_ROLE_CT,"1234567899");
+                        param.put(EmaConst.SUBMIT_DATA_TYPE,"0");
+                        param.put(EmaConst.SUBMIT_EXT,"99999");
+                        EmaSDK.getInstance().submitGameRole(param);
 
                         break;
                     case EmaCallBackConst.LOGINCANELL://登陆取消回调
