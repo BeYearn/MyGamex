@@ -200,15 +200,14 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         anyPayInfo.put("Product_Name",emaPayInfo.getProductName());
         anyPayInfo.put("Product_Count", emaPayInfo.getProductNum());
         anyPayInfo.put("EXT",emaPayInfo.getOrderId());
-
         anyPayInfo.put("Coin_Name", "coin");
-        anyPayInfo.put("Server_Id", (String) ULocalUtils.spGet(mActivity,"zoneId_R",""));
-        anyPayInfo.put("Server_Name", (String) ULocalUtils.spGet(mActivity,"zoneName_R",""));
-        anyPayInfo.put("Role_Id",(String) ULocalUtils.spGet(mActivity,"roleId_R",""));
-        anyPayInfo.put("Role_Name", (String) ULocalUtils.spGet(mActivity,"roleName_R",""));
-        anyPayInfo.put("Role_Grade", (String) ULocalUtils.spGet(mActivity,"roleLevel_R",""));
-        anyPayInfo.put("Server_Name", "lemonade-game.com");
-        anyPayInfo.put("Role_Balance", "10");
+
+        anyPayInfo.put("Role_Id",(String) ULocalUtils.spGet(mActivity,EmaConst.SUBMIT_ROLE_ID,""));
+        anyPayInfo.put("Role_Name", (String) ULocalUtils.spGet(mActivity,EmaConst.SUBMIT_ROLE_NAME,""));
+        anyPayInfo.put("Role_Grade", (String) ULocalUtils.spGet(mActivity,EmaConst.SUBMIT_ROLE_LEVEL,""));
+        anyPayInfo.put("Server_Id", (String) ULocalUtils.spGet(mActivity,EmaConst.SUBMIT_ZONE_ID,""));
+        anyPayInfo.put("Server_Name", (String) ULocalUtils.spGet(mActivity,EmaConst.SUBMIT_ZONE_NAME,""));
+        anyPayInfo.put("Role_Balance", "66");
 
         /*EmaSDKIAP iap = EmaSDKIAP.getInstance();
         ArrayList<String> idArrayList = iap.getPluginId();
@@ -279,7 +278,30 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     public void submitGameRole(Map<String, String> data) {
+        if (AnySDKUser.getInstance().isFunctionSupported("submitLoginGameRole")) {
+            Map<String, String> map = new HashMap<>();
+            map.put("dataType", data.get(EmaConst.SUBMIT_DATA_TYPE));
+            map.put("roleId", data.get(EmaConst.SUBMIT_ROLE_ID));
+            map.put("roleName", data.get(EmaConst.SUBMIT_ROLE_NAME));
+            map.put("roleLevel", data.get(EmaConst.SUBMIT_ROLE_LEVEL));
+            map.put("zoneId", data.get(EmaConst.SUBMIT_ZONE_ID));
+            map.put("zoneName", data.get(EmaConst.SUBMIT_ZONE_NAME));
+            map.put("balance", "66");
+            map.put("partyName", "emaUnion");
+            map.put("vipLevel", "1");
+            map.put("roleCTime", data.get(EmaConst.SUBMIT_ROLE_CT));
+            map.put("roleLevelMTime", "-1");
 
+            AnySDKParam param = new AnySDKParam(map);
+            AnySDKUser.getInstance().callFunction("submitLoginGameRole", param);
+
+
+            if ("2".equals(map.put("dataType", "1"))) {// 2为创建角色，有些渠道需要两次，创建一次登录成功一次，所以索性所有渠道都直接再来一次登录的
+                param = new AnySDKParam(map);
+                AnySDKUser.getInstance().callFunction("submitLoginGameRole", param);
+            }
+
+        }
     }
 
     //-----------------------------------xxx的网络请求方法-------------------------------------------------------------------------
