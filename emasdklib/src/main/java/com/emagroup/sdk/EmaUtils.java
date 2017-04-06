@@ -1,6 +1,7 @@
 package com.emagroup.sdk;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -67,10 +68,12 @@ public class EmaUtils {
     };
 
 
+    private ProgressDialog progressDialog;
     /**
      * 广播接收，
      * 1用来进一步初始化
      * 2登录成功后的逻辑
+     * 3全局控制菊花窗
      */
     private BroadcastReceiver getkeyOkReciver = new BroadcastReceiver() {
         @Override
@@ -94,10 +97,26 @@ public class EmaUtils {
                     //补充弱账户信息
                     EmaSDKUser.getInstance(mActivity).updateWeakAccount(mListener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
                     break;
+
+                case EmaConst.EMA_BC_PROGRESS_ACTION:
+
+                    String progressState = intent.getStringExtra(EmaConst.EMA_BC_PROGRESS_STATE);
+                    Log.e("dialogBCReciver", progressState);
+
+                    if (null == progressDialog) {
+                        progressDialog = new ProgressDialog(activity);
+                        progressDialog.setCanceledOnTouchOutside(false);
+                    }
+
+                    if (EmaConst.EMA_BC_PROGRESS_START.equals(progressState)) {
+                        progressDialog.show();
+                    } else if (EmaConst.EMA_BC_PROGRESS_CLOSE.equals(progressState)) {
+                        progressDialog.dismiss();
+                    }
+                    break;
             }
         }
     };
-
 
     public void initBroadcastRevicer(EmaSDKListener listener) {
 
@@ -107,8 +126,21 @@ public class EmaUtils {
         IntentFilter filter = new IntentFilter();
         filter.addAction(EmaConst.EMA_BC_GETCHANNEL_OK_ACTION);
         filter.addAction(EmaConst.EMA_BC_LOGIN_OK_ACTION);
+        filter.addAction(EmaConst.EMA_BC_PROGRESS_ACTION);
         filter.setPriority(Integer.MAX_VALUE);
         mActivity.registerReceiver(getkeyOkReciver, filter);
+    }
+
+    public void openProgressDialog() {
+        Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
+        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE, EmaConst.EMA_BC_PROGRESS_START);
+        mActivity.sendBroadcast(intent);
+    }
+
+    public void closeProgressDialog() {
+        Intent intent = new Intent(EmaConst.EMA_BC_PROGRESS_ACTION);
+        intent.putExtra(EmaConst.EMA_BC_PROGRESS_STATE, EmaConst.EMA_BC_PROGRESS_CLOSE);
+        mActivity.sendBroadcast(intent);
     }
 
 
@@ -189,7 +221,7 @@ public class EmaUtils {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        EmaUtilsImpl.getInstance(activity).onActivityResult(requestCode,requestCode,data);
+        EmaUtilsImpl.getInstance(activity).onActivityResult(requestCode, resultCode, data);
     }
 
     public void onRestart() {
@@ -199,25 +231,27 @@ public class EmaUtils {
 
     public void submitGameRole(Map<String, String> data) {
 
-        String roleId_R = data.get("roleId");
-        String roleName_R = data.get("roleName");
-        String roleLevel_R = data.get("roleLevel");
-        String zoneId_R = data.get("zoneId");
-        String zoneName_R = data.get("zoneName");
-        String dataType_R = data.get("dataType");
-        String ext_R = data.get("ext");
+        String roleId_R = data.get(EmaConst.SUBMIT_ROLE_ID);
+        String roleName_R = data.get(EmaConst.SUBMIT_ROLE_NAME);
+        String roleLevel_R = data.get(EmaConst.SUBMIT_ROLE_LEVEL);
+        String zoneId_R = data.get(EmaConst.SUBMIT_ZONE_ID);
+        String zoneName_R = data.get(EmaConst.SUBMIT_ZONE_NAME);
+        String roleCt_R = data.get(EmaConst.SUBMIT_ROLE_CT);
+        String dataType_R = data.get(EmaConst.SUBMIT_DATA_TYPE);
+        String ext_R = data.get(EmaConst.SUBMIT_EXT);
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
             Log.e("//" + entry.getKey(), entry.getValue());
         }
 
-        ULocalUtils.spPut(mActivity, "roleId_R", roleId_R);
-        ULocalUtils.spPut(mActivity, "roleName_R", roleName_R);
-        ULocalUtils.spPut(mActivity, "roleLevel_R", roleLevel_R);
-        ULocalUtils.spPut(mActivity, "zoneId_R", zoneId_R);
-        ULocalUtils.spPut(mActivity, "zoneName_R", zoneName_R);
-        ULocalUtils.spPut(mActivity, "dataType_R", dataType_R);
-        ULocalUtils.spPut(mActivity, "ext_R", ext_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ROLE_ID, roleId_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ROLE_NAME, roleName_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ROLE_LEVEL, roleLevel_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ZONE_ID, zoneId_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ZONE_NAME, zoneName_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_ROLE_CT, roleCt_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_DATA_TYPE, dataType_R);
+        ULocalUtils.spPut(mActivity, EmaConst.SUBMIT_EXT, ext_R);
 
         EmaUtilsImpl.getInstance(activity).submitGameRole(data);
 

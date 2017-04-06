@@ -117,7 +117,7 @@ public class InitCheck {
      * 检查sdk是否维护状态，并能拿到appkey
      */
     public void checkSDKStatus() {
-        Map<String, String> params = new HashMap<>();
+        final Map<String, String> params = new HashMap<>();
         params.put("appId", ULocalUtils.getAppId(mActivity));
         params.put("channelId", ULocalUtils.getChannelId(mActivity));
 
@@ -126,134 +126,131 @@ public class InitCheck {
         String sign = ULocalUtils.getAppId(mActivity) + ULocalUtils.getChannelId(mActivity)
                 + ULocalUtils.getChannelTag(mActivity) + ULocalUtils.getDeviceId(mActivity)
                 + EmaUser.getInstance().getAppkey();
-
-        //String sign =ConfigManager.getInstance(mActivity).getAppId()+ConfigManager.getInstance(mActivity).getChannel()+EmaUser.getInstance().getAppKey();
-        //LOG.e("rawSign",sign);
         sign = ULocalUtils.MD5(sign);
         params.put("sign", sign);
 
-        Message message = Message.obtain();
-        try {
-            String result = new HttpRequestor().doPost(Url.getSystemInfo(), params);
+        final Message message = Message.obtain();
+        ThreadUtil.runInSubThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String result = new HttpRequestor().doPost(Url.getSystemInfo(), params);
+                    JSONObject json = new JSONObject(result);
+                    int resultCode = json.getInt("status");
 
-            try {
-                JSONObject json = new JSONObject(result);
-                int resultCode = json.getInt("status");
+                    HashMap<String, String> contentMap = new HashMap<>();
 
-                HashMap<String, String> contentMap = new HashMap<>();
+                    switch (resultCode) {
+                        case HttpInvokerConst.SDK_RESULT_SUCCESS:// 请求状态成功
+                            Log.e("checkSDKStatus", "请求状态成功！！");
 
-                switch (resultCode) {
-                    case HttpInvokerConst.SDK_RESULT_SUCCESS:// 请求状态成功
-                        Log.e("checkSDKStatus", "请求状态成功！！");
+                            JSONObject dataObj = json.getJSONObject("data");
 
-                        JSONObject dataObj = json.getJSONObject("data");
-
-                        try {
-                            JSONObject appVersionInfo = dataObj.getJSONObject("appVersionInfo");
-                            necessary = appVersionInfo.getInt("necessary");
-                            Log.e("necessary", necessary + "");
-                            updateUrl = appVersionInfo.getString("updateUrl");
-                            version = appVersionInfo.getInt("version");
-                        } catch (Exception e) {
-                            Log.e("checkSDKStatus", "jiexi appVersionInfo error", e);
-                        }
-
-                        try {
-                            JSONObject maintainInfo = dataObj.getJSONObject("maintainInfo");
-                            maintainBg = maintainInfo.getString("maintainBg");
-                            maintainContent = maintainInfo.getString("maintainContent");
-                            showStatus = maintainInfo.getString("status");// 0-维护/1-公告
-                        } catch (Exception e) {
-                            Log.e("checkSDKStatus", "jiexi maintainInfo error", e);
-                        }
-
-                        try {
-                            //将得到的menubar信息存sp，在toolbar那边取
-                            String menuBarInfo = dataObj.getString("menuBarInfo");
-                            ULocalUtils.spPut(mActivity, "menuBarInfo", menuBarInfo);
-                            Log.e("checkSDKStatus", "menuBarInfo");
-                            //三个三方登录是否显示
-                            //Ema.getInstance().saveQQLoginVisibility(new JSONObject(menuBarInfo).getInt("support_qq_login"));
-                            //Ema.getInstance().saveWeboLoginVisibility(new JSONObject(menuBarInfo).getInt("support_weibo_login"));
-                            //Ema.getInstance().saveWachatLoginVisibility(new JSONObject(menuBarInfo).getInt("support_weixin_login"));
-                            //记录微信qq支付是否支持
-                            //USharedPerUtil.setParam(mActivity, EmaConst.SUPPORT_QQ_PAY, new JSONObject(menuBarInfo).getInt("support_qq_pay"));
-                            //USharedPerUtil.setParam(mActivity, EmaConst.SUPPORT_WX_PAY, new JSONObject(menuBarInfo).getInt("support_weixin_pay"));
-                        } catch (Exception e) {
-                            ULocalUtils.spPut(mActivity, "menuBarInfo", "");
-                            Log.e("checkSDKStatus", "jiexi menuBarInfo error", e);
-                        }
-
-
-                        contentMap.put("updateUrl", updateUrl);
-                        contentMap.put("maintainContent", maintainContent);
-                        contentMap.put("whichUpdate", "none");
-
-                        if (TextUtils.isEmpty(showStatus)) {
-
-                            if (!TextUtils.isEmpty(updateUrl)) {
-                                HashMap<String, String> updateMap = new HashMap<>();
-                                updateMap.put("updateUrl", updateUrl);
-
-                                if (ULocalUtils.getVersionCode(mActivity) < version) { // 需要更新
-                                    Log.e("gengxin",ULocalUtils.getVersionCode(mActivity) + "..." + version);
-                                    if (1 == necessary) {  //necessary 1强更
-                                        message.arg1 = 1;  //arg1是显示类型，1的话就是只显示确定按钮
-                                        message.arg2 = 2;
-                                    } else {
-                                        message.arg1 = 2;
-                                        message.arg2 = 1;
-                                    }
-                                    message.what = ALERT_SHOW;
-                                    message.obj = updateMap;        //内容
-                                    mHandler.sendMessage(message);
-                                }
+                            try {
+                                JSONObject appVersionInfo = dataObj.getJSONObject("appVersionInfo");
+                                necessary = appVersionInfo.getInt("necessary");
+                                Log.e("necessary", necessary + "");
+                                updateUrl = appVersionInfo.getString("updateUrl");
+                                version = appVersionInfo.getInt("version");
+                            } catch (Exception e) {
+                                Log.e("checkSDKStatus", "jiexi appVersionInfo error", e);
                             }
 
-                        } else if ("1".equals(showStatus)) { //显示公告
+                            try {
+                                JSONObject maintainInfo = dataObj.getJSONObject("maintainInfo");
+                                maintainBg = maintainInfo.getString("maintainBg");
+                                maintainContent = maintainInfo.getString("maintainContent");
+                                showStatus = maintainInfo.getString("status");// 0-维护/1-公告
+                            } catch (Exception e) {
+                                Log.e("checkSDKStatus", "jiexi maintainInfo error", e);
+                            }
 
-                            message.what = ALERT_WEBVIEW_SHOW;
-                            message.arg1 = 1;               //显示形式 1只有确定按钮
-                            message.arg2 = 2;                    //------2确定按钮按下顺利进  3有更新，有后续dialog
-                            message.obj = contentMap; //内容
+                            try {
+                                //将得到的menubar信息存sp，在toolbar那边取
+                                String menuBarInfo = dataObj.getString("menuBarInfo");
+                                ULocalUtils.spPut(mActivity, "menuBarInfo", menuBarInfo);
+                                Log.e("checkSDKStatus", "menuBarInfo");
+                                //三个三方登录是否显示
+                                //Ema.getInstance().saveQQLoginVisibility(new JSONObject(menuBarInfo).getInt("support_qq_login"));
+                                //Ema.getInstance().saveWeboLoginVisibility(new JSONObject(menuBarInfo).getInt("support_weibo_login"));
+                                //Ema.getInstance().saveWachatLoginVisibility(new JSONObject(menuBarInfo).getInt("support_weixin_login"));
+                                //记录微信qq支付是否支持
+                                //USharedPerUtil.setParam(mActivity, EmaConst.SUPPORT_QQ_PAY, new JSONObject(menuBarInfo).getInt("support_qq_pay"));
+                                //USharedPerUtil.setParam(mActivity, EmaConst.SUPPORT_WX_PAY, new JSONObject(menuBarInfo).getInt("support_weixin_pay"));
+                            } catch (Exception e) {
+                                ULocalUtils.spPut(mActivity, "menuBarInfo", "");
+                                Log.e("checkSDKStatus", "jiexi menuBarInfo error", e);
+                            }
 
-                            if (!TextUtils.isEmpty(updateUrl)) {
-                                if (ULocalUtils.getVersionCode(mActivity) < version) { // 需要更新
-                                    Log.e("gengxin", ULocalUtils.getVersionCode(mActivity)+ "..." + version);
-                                    if (1 == necessary) {  //necessary 1强更
-                                        contentMap.put("whichUpdate", "hard");
-                                    } else {
-                                        contentMap.put("whichUpdate", "soft");
+
+                            contentMap.put("updateUrl", updateUrl);
+                            contentMap.put("maintainContent", maintainContent);
+                            contentMap.put("whichUpdate", "none");
+
+                            if (TextUtils.isEmpty(showStatus)) {
+
+                                if (!TextUtils.isEmpty(updateUrl)) {
+                                    HashMap<String, String> updateMap = new HashMap<>();
+                                    updateMap.put("updateUrl", updateUrl);
+
+                                    if (ULocalUtils.getVersionCode(mActivity) < version) { // 需要更新
+                                        Log.e("gengxin", ULocalUtils.getVersionCode(mActivity) + "..." + version);
+                                        if (1 == necessary) {  //necessary 1强更
+                                            message.arg1 = 1;  //arg1是显示类型，1的话就是只显示确定按钮
+                                            message.arg2 = 2;
+                                        } else {
+                                            message.arg1 = 2;
+                                            message.arg2 = 1;
+                                        }
+                                        message.what = ALERT_SHOW;
+                                        message.obj = updateMap;        //内容
+                                        mHandler.sendMessage(message);
                                     }
                                 }
-                            } else {
-                                contentMap.put("whichUpdate", "none");
+
+                            } else if ("1".equals(showStatus)) { //显示公告
+
+                                message.what = ALERT_WEBVIEW_SHOW;
+                                message.arg1 = 1;               //显示形式 1只有确定按钮
+                                message.arg2 = 2;                    //------2确定按钮按下顺利进  3有更新，有后续dialog
+                                message.obj = contentMap; //内容
+
+                                if (!TextUtils.isEmpty(updateUrl)) {
+                                    if (ULocalUtils.getVersionCode(mActivity) < version) { // 需要更新
+                                        Log.e("gengxin", ULocalUtils.getVersionCode(mActivity) + "..." + version);
+                                        if (1 == necessary) {  //necessary 1强更
+                                            contentMap.put("whichUpdate", "hard");
+                                        } else {
+                                            contentMap.put("whichUpdate", "soft");
+                                        }
+                                    }
+                                } else {
+                                    contentMap.put("whichUpdate", "none");
+                                }
+                                mHandler.sendMessage(message);
+
+                            } else if ("0".equals(showStatus)) { //维护状态
+                                message.what = ALERT_WEBVIEW_SHOW;
+                                message.arg1 = 1;               //显示形式 1只有确定按钮
+                                message.arg2 = 1;                    //-------1确定按钮按下退出
+                                message.obj = contentMap; //内容
+                                mHandler.sendMessage(message);
                             }
-                            mHandler.sendMessage(message);
 
-                        } else if ("0".equals(showStatus)) { //维护状态
-                            message.what = ALERT_WEBVIEW_SHOW;
-                            message.arg1 = 1;               //显示形式 1只有确定按钮
-                            message.arg2 = 1;                    //-------1确定按钮按下退出
-                            message.obj = contentMap; //内容
-                            mHandler.sendMessage(message);
-                        }
-
-                        mListener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化完成"); //一连串走完了到这里
-                        break;
-                    default:
-                        Log.e("checkSDKStatus", "请求状态失败！！" + json.getString("message"));
-                        //ToastHelper.toast(mActivity,json.getString("message"));
-                        mListener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败!!");
-                        break;
+                            mListener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化完成"); //一连串走完了到这里
+                            break;
+                        default:
+                            Log.e("checkSDKStatus", "请求状态失败！！" + json.getString("message"));
+                            //ToastHelper.toast(mActivity,json.getString("message"));
+                            mListener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败!!");
+                            break;
+                    }
+                } catch (Exception e) {
+                    Log.e("checkSDKStatus", "sdk status error", e);
+                    mListener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败!!"); //一连串走完了到这里
                 }
-            } catch (Exception e) {
-                Log.e("checkSDKStatus", "sdk status error", e);
-                mListener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败!!"); //一连串走完了到这里
             }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        });
     }
 
 

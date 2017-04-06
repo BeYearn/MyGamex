@@ -150,7 +150,7 @@ public class EmaSDK {
     /**
      * 统计游戏角色信息
      */
-    public void submitLoginGameRole(Map<String, String> data) {
+    public void submitGameRole(Map<String, String> data) {
         EmaUtils.getInstance(EmaSDK.mActivity).submitGameRole(data);
     }
 
