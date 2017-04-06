@@ -11,6 +11,7 @@ import com.android.huawei.pay.util.HuaweiPayUtil;
 import com.android.huawei.pay.util.Rsa;
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDK;
@@ -465,9 +466,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
          * 全部使用String类型存放
          */
         HashMap<String, String> playerInfo = new HashMap<>();
-        playerInfo.put(RoleInfo.GAME_RANK, (String) ULocalUtils.spGet(mActivity, "roleLevel_R", ""));
-        playerInfo.put(RoleInfo.GAME_ROLE, (String) ULocalUtils.spGet(mActivity, "roleName_R", ""));
-        playerInfo.put(RoleInfo.GAME_AREA, (String) ULocalUtils.spGet(mActivity, "zoneName_R", ""));
+        playerInfo.put(RoleInfo.GAME_RANK, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_LEVEL, ""));
+        playerInfo.put(RoleInfo.GAME_ROLE, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_NAME, ""));
+        playerInfo.put(RoleInfo.USER_ID, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_ID, ""));
+        playerInfo.put(RoleInfo.GAME_AREA, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ZONE_NAME, ""));
+        playerInfo.put(RoleInfo.CREATE_TIME, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_CT, ""));
         //playerInfo.put(RoleInfo.GAME_SOCIATY, (String) ULocalUtils.spGet(mActivity,"zoneId_R",""));
 
         // 存储用户当前的角色信息
