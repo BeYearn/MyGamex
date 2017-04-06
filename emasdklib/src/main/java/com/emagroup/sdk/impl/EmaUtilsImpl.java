@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
@@ -140,11 +141,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         Bundle mBundle = new Bundle();
         mBundle.putString(GameInfoField.GAME_USER_BALANCE, "66");  //用户余额
         mBundle.putString(GameInfoField.GAME_USER_GAMER_VIP, "vip0");  //vip 等级
-        mBundle.putString(GameInfoField.GAME_USER_LV, (String) ULocalUtils.spGet(mActivity, "roleLevel_R", ""));          //角色等级
-        mBundle.putString(GameInfoField.GAME_USER_PARTY_NAME, (String) ULocalUtils.spGet(mActivity, "zoneName_R", ""));  //工会，帮派
-        mBundle.putString(GameInfoField.GAME_USER_ROLE_NAME, (String) ULocalUtils.spGet(mActivity, "roleName_R", "")); //角色名称
-        mBundle.putString(GameInfoField.GAME_USER_ROLEID, (String) ULocalUtils.spGet(mActivity, "roleId_R", ""));   //角色id
-        mBundle.putString(GameInfoField.GAME_USER_SERVER_NAME, (String) ULocalUtils.spGet(mActivity, "zoneName_R", ""));  //所在服务器
+        mBundle.putString(GameInfoField.GAME_USER_LV, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_LEVEL, ""));          //角色等级
+        mBundle.putString(GameInfoField.GAME_USER_PARTY_NAME, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ZONE_NAME, ""));  //工会，帮派
+        mBundle.putString(GameInfoField.GAME_USER_ROLE_NAME, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_NAME, "")); //角色名称
+        mBundle.putString(GameInfoField.GAME_USER_ROLEID, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_ID, ""));   //角色id
+        mBundle.putString(GameInfoField.GAME_USER_SERVER_NAME, (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ZONE_NAME, ""));  //所在服务器
         MiCommplatform.getInstance().miUniPayOnline(mActivity, online, mBundle,
                 new OnPayProcessListener() {
                     @Override
