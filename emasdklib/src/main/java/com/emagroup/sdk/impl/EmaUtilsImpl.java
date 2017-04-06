@@ -208,6 +208,21 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+
+    }
+
+    @Override
+    public void onRestart() {
+
+    }
+
     //-----------------------------------xxx的网络请求方法-------------------------------------------------------------------------
 
     /**
