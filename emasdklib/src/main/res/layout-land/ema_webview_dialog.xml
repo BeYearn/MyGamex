@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
-    android:layout_height="400dp"
+    android:layout_width="500dp"
+    android:layout_height="330dp"
     android:background="@drawable/ema_shape_webview_dialog"
     android:orientation="vertical"
     android:weightSum="6">
