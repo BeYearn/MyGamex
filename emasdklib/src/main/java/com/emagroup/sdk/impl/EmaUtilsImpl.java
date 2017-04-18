@@ -43,11 +43,13 @@ import static cn.uc.gamesdk.param.SDKParamKey.ACCOUNT_ID;
  */
 public class EmaUtilsImpl implements EmaUtilsInterface {
 
+    private static final String TAG = "uc impl";
     private static EmaUtilsImpl instance;
     private Activity mActivity;
     private String mChannelAppId;
     private SDKEventReceiver mUcReciverIL;
     private SDKEventReceiver mUcReciverPay;
+    private boolean mRepeatCreate = false;
 
 
     public static EmaUtilsImpl getInstance(Activity activity) {
@@ -122,7 +124,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
             };
 
-            UCGameSdk.defaultSdk().registeSDKEventReceiver(mUcReciverIL);
+            Intent intent = mActivity.getIntent();
+            String pullupInfo = intent.getDataString();
+
+            UCGameSdk.defaultSdk().registerSDKEventReceiver(mUcReciverIL);
 
             GameParamInfo gpi = new GameParamInfo();
             gpi.setGameId(Integer.parseInt(mChannelAppId)); // 从UC九游开放平台获取自己游戏的参数信息
@@ -135,7 +140,15 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             sdkParams.put(SDKParamKey.LOG_LEVEL, UCLogLevel.DEBUG);
             sdkParams.put(SDKParamKey.DEBUG_MODE, false);   // false则需要真实的了
             sdkParams.put(SDKParamKey.GAME_PARAMS, gpi);
+            sdkParams.put(SDKParamKey.PULLUP_INFO,pullupInfo);
             UCGameSdk.defaultSdk().initSdk(mActivity, sdkParams);
+
+            if ((mActivity.getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+                Log.i(TAG, "onCreate with flag FLAG_ACTIVITY_BROUGHT_TO_FRONT");
+                mRepeatCreate = true;
+                mActivity.finish();
+                return;
+            }
 
 
         } catch (Exception e) {
@@ -210,7 +223,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
         };
 
-        UCGameSdk.defaultSdk().registeSDKEventReceiver(mUcReciverPay);
+        UCGameSdk.defaultSdk().registerSDKEventReceiver(mUcReciverPay);
 
     }
 
@@ -260,12 +273,24 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     public void onResume() {
+        if (this.mRepeatCreate) {
+            Log.i("onResume", "is repeat activity!");
+            return;
+        }
     }
 
     public void onPause() {
+        if (this.mRepeatCreate) {
+            Log.i(TAG, "AppActivity:onPause is repeat activity!");
+            return;
+        }
     }
 
     public void onStop() {
+        if (this.mRepeatCreate) {
+            Log.i(TAG, "onStop is repeat activity!");
+            return;
+        }
     }
 
     public void onDestroy() {
@@ -273,6 +298,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         UCGameSdk.defaultSdk().unregisterSDKEventReceiver(mUcReciverPay);
 
         //UCGameSdk.defaultSdk().destoryFloatButton(mActivity);
+
+        if (this.mRepeatCreate) {
+            Log.i(TAG, "onDestroy is repeat activity!");
+            return;
+        }
     }
 
     public void onBackPressed(final EmaBackPressedAction action) {
@@ -323,17 +353,24 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        if (this.mRepeatCreate) {
+            Log.i(TAG, "onActivityResult is repeat activity!");
+            return;
+        }
     }
 
     @Override
     public void onNewIntent(Intent intent) {
-
+        if (this.mRepeatCreate) {
+            Log.i(TAG, "onNewIntent is repeat activity!");
+        }
     }
 
     @Override
     public void onRestart() {
-
+        if (this.mRepeatCreate) {
+            Log.i(TAG, "onRestart is repeat activity!");
+        }
     }
 
     //-----------------------------------uc的网络请求方法-------------------------------------------------------------------------
