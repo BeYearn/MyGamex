@@ -184,6 +184,11 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
         <activity
+            android:name="com.coolcloud.uac.android.plug.view.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateVisible" >
+        </activity>
+        <activity
             android:name="com.coolcloud.uac.android.api.view.OAuth2Activity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
@@ -220,6 +225,26 @@
             android:name="com.coolcloud.uac.android.api.view.RnaDialogActivity"
             android:theme="@style/CoolcloudUacActivityStyle" >
         </activity>
+        <activity
+            android:name="com.coolcloud.uac.android.gameassistplug.GameAssistMessageActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/CoolcloudUacActivityStyle"/>
+
+        <activity
+            android:name="com.coolcloud.uac.android.gameassistplug.GameAssistMsgListActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <!-- 接收酷云、酷派账号退出广播 -->
+        <receiver android:name="com.coolcloud.uac.android.common.LoginStatusReceiver">
+            <intent-filter>
+                <action android:name="com.coolcloud.uac.LOGOUT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 小助手消息service -->
+        <service android:name="com.coolcloud.uac.android.gameassistplug.message.AssistMsgService"/>
+
         <!--coolpad 声明end-->
 
 
