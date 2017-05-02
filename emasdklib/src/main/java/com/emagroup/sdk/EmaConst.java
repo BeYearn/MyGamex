@@ -9,14 +9,14 @@ public class EmaConst {
 
 
 	//----------------------------------------------------------------------------------submitgamerole
-	public static final String SUBMIT_ROLE_ID = "sm_roleId";//角色信息
-	public static final String SUBMIT_ROLE_NAME = "sm_roleName";//角色名称
-	public static final String SUBMIT_ROLE_LEVEL = "sm_roleLevel";//角色级别
-	public static final String SUBMIT_ZONE_ID = "sm_zoneId";//服务器id
-	public static final String SUBMIT_ZONE_NAME = "sm_zoneName";//服务器名称
-	public static final String SUBMIT_ROLE_CT = "sm_roleCreateTime";//创角时间
-	public static final String SUBMIT_DATA_TYPE = "sm_dataType";//创角时间
-	public static final String SUBMIT_EXT = "sm_ext";//创角时间
+	public static final String SUBMIT_ROLE_ID = "roleId";//角色信息
+	public static final String SUBMIT_ROLE_NAME = "roleName";//角色名称
+	public static final String SUBMIT_ROLE_LEVEL = "roleLevel";//角色级别
+	public static final String SUBMIT_ZONE_ID = "zoneId";//服务器id
+	public static final String SUBMIT_ZONE_NAME = "zoneName";//服务器名称
+	public static final String SUBMIT_ROLE_CT = "roleCreateTime";//创角时间
+	public static final String SUBMIT_DATA_TYPE = "dataType";//创角时间
+	public static final String SUBMIT_EXT = "ext";//创角时间
 
 
 //------------------------------------------------------------------------------------
