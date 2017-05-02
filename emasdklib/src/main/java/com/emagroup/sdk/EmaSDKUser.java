@@ -114,10 +114,15 @@ public class EmaSDKUser {
                     Log.e("doCallbackUrl:token", token);
                     EmaUser.getInstance().setToken(token);
                     EmaUser.getInstance().setIsLogin(true);
+
                     listener.onCallBack(EmaCallBackConst.LOGINSUCCESS,"登陆成功回调");
+
+                    EmaUtils.getInstance(mActivity).closeProgressDialog();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("doCallbackUrl","maybe is SocketTimeoutException");
+
+                    EmaUtils.getInstance(mActivity).closeProgressDialog();
                 }
 
             }
