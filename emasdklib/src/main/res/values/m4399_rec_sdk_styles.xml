@@ -11,7 +11,7 @@
     
     <style name="m4399ActivityTheme" parent="android:Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/m4399_rec_btn_normal_grey</item>
+        <item name="android:windowBackground">@color/m4399_ope_transparent</item>
     </style>
 
 	<style name="m4399PermissionActivityStyle" parent="android:Theme.Dialog">
@@ -29,9 +29,8 @@
     </style>
     
 	<style name="m4399RecTitleTextStyle" >
-	    <item name="android:layout_width">0dp</item>
+	    <item name="android:layout_width">wrap_content</item>
 	    <item name="android:layout_height">wrap_content</item>
-	    <item name="android:layout_weight">1.0</item>
 	    <item name="android:textSize">21sp</item>
 	    <item name="android:textColor">@color/m4399_rec_color_white</item>
 	    <item name="android:text">@string/m4399_rec_main_title</item>
@@ -111,7 +110,7 @@
 	</style>
 	
 	<style name="m4399RecRmdGridviewStyle">
-	    <item name="android:layout_width">match_parent</item>
+	    <item name="android:layout_width">match_parent</item>e
 	    <item name="android:layout_height">wrap_content</item>
 	    <item name="android:layout_marginTop">@dimen/m4399_rec_gridview_vspacing</item>
 	    <item name="android:layout_marginBottom">@dimen/m4399_rec_gridview_vspacing</item>
@@ -119,6 +118,8 @@
 	    <item name="android:listSelector">@null</item>
 	    <item name="android:verticalSpacing">@dimen/m4399_rec_gridview_hspacing</item>
 	    <item name="android:horizontalSpacing">@dimen/m4399_rec_gridview_hspacing</item>
+	    <item name="android:isScrollContainer">false</item>
+	    <item name="android:scrollbars">none</item>
 	</style>
 	
 	<style name="m4399RecWyBankBtnStyle" parent="m4399RecRmdGridviewStyle">

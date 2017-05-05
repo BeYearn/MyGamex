@@ -118,6 +118,17 @@
             android:name="cn.m4399.operate.ui.activity.CustomWebActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="cn.m4399.operate.ui.activity.CommonActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@style/m4399ActivityTheme">
+        </activity>
+        <activity
+            android:name="cn.m4399.operate.ui.activity.GetActivationCodeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/m4399TransparentStyle">
+        </activity>
 
         <!--　以下为第三方支付SDK Activity&Service配置　-->
         <activity
@@ -126,11 +137,6 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="com.alipay.sdk.auth.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind"/>
         <!-- For YouYiFu -->
         <activity
             android:name="com.arcsoft.hpay100.HPaySdkActivity"

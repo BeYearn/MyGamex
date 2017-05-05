@@ -11,6 +11,7 @@
     <dimen name="m4399_rec_paddingLeft">8dp</dimen>
     <dimen name="m4399_rec_paddingRight">8dp</dimen>
     <dimen name="m4399_rec_payment_icon_size">68dp</dimen>
+    <dimen name="m4399_rec_payment_text_size">11sp</dimen>
     <dimen name="m4399_rec_payment_icon_padding">6dp</dimen>
     <dimen name="m4399_rec_table_paddingTop">7dp</dimen>
     <dimen name="m4399_rec_foot_height">26dp</dimen>
@@ -31,5 +32,6 @@
     <dimen name="m4399_rec_record_header_text_size">16sp</dimen>
     <dimen name="m4399_rec_record_item_text_size">13sp</dimen>
     <dimen name="m4399_rec_liantong_cfm_captcha_padding">4dp</dimen>
+    <dimen name="m4399_rec_gameinfo_top_margin">20dp</dimen>
 
 </resources>

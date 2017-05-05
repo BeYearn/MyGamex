@@ -78,6 +78,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|left"
+                android:layout_marginTop="8dip"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -101,6 +102,32 @@
 
                 <TextView
                     android:id="@+id/hpay_dy_tv_bhtxf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|left"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:gravity="center_vertical|left"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|left"
+                    android:textColor="#333333"
+                    android:text="@string/m4399_rec_corp_name"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:text="@string/m4399_rec_corp_namecontents"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dip"

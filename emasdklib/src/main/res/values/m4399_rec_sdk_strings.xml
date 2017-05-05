@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="m4399_rec_main_title">选择支付方式</string>
-    <string name="m4399_rec_amount_payment">支付金额： </string>
+    <string name="m4399_rec_amount_payment">支付金额</string>
     <string name="m4399_rec_unit_yuan">元</string>
     <string name="m4399_rec_unit_youbi">游币</string>
     <string name="m4399_rec_zhifubaozc">支付宝充值</string>
@@ -16,8 +16,8 @@
     <string name="m4399_rec_youbi_exchange">游币兑换</string>
     <string name="m4399_rec_qq_wallet">QQ钱包</string>
     <string name="m4399_rec_good_subject">（%s）</string>
-    <string name="m4399_rec_acount">账号 :</string>
-    <string name="m4399_rec_other_sum">其他金额：</string>
+    <string name="m4399_rec_acount">账号</string>
+    <string name="m4399_rec_other_sum">其他金额</string>
     <string name="m4399_rec_input_cash_hint">请输入你要充值的金额</string>
     <string name="m4399_rec_confirm_pay">确认支付</string>
     <string name="m4399_rec_hotline_4399"><u>400-633-4399 </u></string>
@@ -28,6 +28,7 @@
     <string name="m4399_rec_return">其他充值方式</string>
     <string name="m4399_rec_cfm_return">返回</string>
     <string name="m4399_rec_previous_step">上一步</string>
+    <string name="m4399_rec_one_yuan_coupon">1 Yuan Coupon</string>
 
     <!-- For identifying code check dialog -->
     <string name="m4399_rec_cancel">取消</string>
@@ -77,7 +78,7 @@
     <!-- For youbi fragment -->
     <string name="m4399_rec_vertical_line"> | </string>
     <string name="m4399_rec_youbi_inquiring">查询游币中</string>
-    <string name="m4399_rec_youbi_prefix">可用余额 :</string>
+    <string name="m4399_rec_youbi_prefix">可用余额</string>
     <string name="m4399_rec_youbi_edittext_hint">输入你要兑换的游币金额</string>
     <string name="m4399_rec_inquiry_fail">查询游币失败</string>
     <string name="m4399_rec_youbi_not_sufficient">可用游币余额不足，建议选择其它支付方式进行充值</string>
@@ -106,6 +107,7 @@
     <!-- For order or input sum checker -->
     <string name="m4399_rec_amount_illegal">金额必须是整数，且首位不能是0</string>
     <string name="m4399_rec_amount_exceed">所填金额超出范围 (%1s)，请重新填写</string>
+    <string name="m4399_rec_amount_error_formatter">所填金额超出范围 (%1$d - %2$d)，请重新填写</string>
 
     <!-- For pay result -->
     <string name="m4399_rec_result_no_network">网络异常</string>
@@ -119,7 +121,7 @@
     <string name="m4399_rec_result_server_communication_error">网络异常，请检查网络设置，在充值过程中请保持手机网络畅通。</string>
     <string name="m4399_rec_result_inquriying_result">支付结果在确认中</string>
     <string name="m4399_rec_result_user_canclled">取消支付操作</string>
-    <string name="m4399_rec_result_leave_wap">离开支付页面</string>
+    <string name="m4399_rec_result_leave_wap">您已离开支付页面</string>
     <string name="m4399_rec_result_failed_pay">订单支付失败</string>
     <string name="m4399_rec_result_failed_pay_online">网页支付失败</string>
     <string name="m4399_rec_result_failed_exchange_youbi">兑换游币失败</string>
@@ -291,5 +293,25 @@
     <string name="m4399_rec_qq_wallet_not_support">您的手机还不支持QQ钱包充值，请安装手机QQ后再重试</string>
     <string name="m4399_rec_result_qq_failed">支付未完成，订单已取消</string>
     <!-- <string name=""></string> -->
+    <string name="m4399_rec_corp_name">收款单位：</string>
+    <string name="m4399_rec_corp_namecontents">四三九九网络股份有限公司</string>
 
+    <!-- For coupou-->
+    <string name="m4399_rec_coupou_usage_alert_a">使用优惠券：</string>
+    <string name="m4399_rec_coupou_usage_alert_b">修改优惠券</string>
+    <string name="m4399_rec_coupon_no_available">暂无可用优惠券</string>
+    <string name="m4399_rec_coupon_donot_use">暂不使用优惠券</string>
+    <string name="m4399_rec_coupon_to_select">选择优惠券</string>
+    <string name="m4399_rec_coupou_off_formatter">%d元</string>
+    <string name="m4399_rec_coupon_info_formatter">%d元优惠券</string>
+    <string name="m4399_rec_coupon_no_amount">无可用优惠券</string>
+    <string name="m4399_rec_coupon_query_exception">网络请求异常，查询优惠券失败</string>
+    <string name="m4399_rec_coupon_consume_exception">网络请求异常，使用优惠券失败</string>
+    <string name="m4399_rec_coupon_unlock_exception">网络请求异常，解锁优惠券失败</string>
+    <string name="m4399_rec_coupon_consuming_message">@string/m4399_rec_on_processing</string>
+    <string name="m4399_rec_coupon_limit_formatter">最低充值%d元才可使用此优惠券哦</string>
+    <string name="m4399_rec_coupon_coupon_unavailable">不支持优惠后金额，请重新选择充值方式</string>
+
+    <string name="m4399_rec_validate_failure_check_net">验证用户失败，请检查网络~</string>
+    <string name="m4399_rec_validate_failure_neterror">网络请求异常，验证失败</string>
 </resources>
