@@ -91,6 +91,16 @@
             android:value="staging" />
 
         <!--应用宝 组件 start-->
+
+        <!-- SDK接入YSDK实名制接入配置 START -->
+        <activity
+            android:name="com.tencent.ysdk.module.realName.impl.RegisterRealNameActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        <!--SDK接入YSDK实名制接入配置 END -->
+
         <!--  QQ接入配置 START -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -168,7 +178,7 @@
             android:windowSoftInputMode="stateAlwaysHidden"/>
         <!--支付组件 end-->
 
-        <!--应用宝 组件 start-->
+        <!--应用宝 组件 end-->
 
 
         <!-- 个推SDK配置开始 -->
