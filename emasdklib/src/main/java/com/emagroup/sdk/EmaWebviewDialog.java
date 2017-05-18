@@ -73,7 +73,9 @@ public class EmaWebviewDialog extends Dialog {
                     System.exit(0);
                 } else if (2 == clickType) {
                     EmaWebviewDialog.this.dismiss();
-                    dialogFrom.dismiss();
+                    if(null!=dialogFrom){
+                        dialogFrom.dismiss();
+                    }
                     String whichUpdate = (String) mContentMap.get("whichUpdate");
                     if (!"none".equals(whichUpdate)) {//有更新
                         Message message = Message.obtain();
@@ -106,7 +108,9 @@ public class EmaWebviewDialog extends Dialog {
 
                 } else {
                     EmaWebviewDialog.this.dismiss();
-                    dialogFrom.dismiss();
+                    if(null!=dialogFrom){
+                        dialogFrom.dismiss();
+                    }
                 }
             }
         });
