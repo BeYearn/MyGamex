@@ -232,7 +232,8 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         Log.e("coolpad","swichAccount");
         logout();
         mListenerLogin.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
-        /*Bundle input = new Bundle();
+
+        Bundle input = new Bundle();
         // 设置屏幕横竖屏默认为竖屏
         input.putInt(Constants.KEY_SCREEN_ORIENTATION, mActivity.getResources().getConfiguration().orientation);
         // 设置需要权限 一般都为get_basic_userinfo这个常量
@@ -262,7 +263,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 // 取消登录
                 mListenerLogin.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
             }
-        });*/
+        });
     }
 
     @Override
