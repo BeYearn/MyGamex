@@ -156,6 +156,9 @@ public class EmaUtils {
         return instance;
     }
 
+    public void immediateInit(EmaSDKListener listener){
+        EmaUtilsImpl.getInstance(activity).immediateInit(listener);
+    }
 
     private void realInit(JSONObject data) {
         EmaUtilsImpl.getInstance(activity).realInit(mListener, data);
