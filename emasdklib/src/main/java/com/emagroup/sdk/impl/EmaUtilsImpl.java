@@ -74,8 +74,149 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     @Override
-    public void immediateInit(EmaSDKListener listener) {
+    public void immediateInit(final EmaSDKListener listener) {
+        YSDKApi.onCreate(mActivity);
+        YSDKApi.handleIntent(mActivity.getIntent());
+        YSDKApi.setUserListener(new UserListener() {
+            @Override
+            public void OnLoginNotify(UserLoginRet ret) {
 
+                if(eFlag.Succ==ret.flag){
+                    isLoginSucc=true;
+                    Log.e("isLoginSucc","///"+isLoginSucc);
+                }
+                if(!isInitSucc){
+                    listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
+                    isInitSucc=true;
+                    //初始化成功之后再检查公告更新等信息
+                    InitCheck.getInstance(mActivity).checkSDKStatus();
+                }
+
+                switch (ret.flag) {
+                    case eFlag.Succ: // 登陆成功
+
+                        platform = ePlatform.getEnum(ret.platform);
+
+                        String uid = ret.open_id;   //用户在该appid下的唯一性标示，appid内唯一
+                        String nikename = ret.nick_name;
+                        EmaUser.getInstance().setAllianceUid(uid + "");
+                        EmaUser.getInstance().setNickName(nikename);
+
+                        //绑定服务
+                        Intent serviceIntent = new Intent(mActivity, EmaService.class);
+                        mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
+
+                        //补充弱账户信息
+                        EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+
+                        Log.e("yybloginSuccessful", ret.toString());
+
+                        //  YSDKApi.queryUserInfo(platform);  //在onRelationNotify 中回应
+
+                        break;
+                    // 游戏逻辑，对登录失败情况分别进行处理
+                    case eFlag.QQ_LoginFail:
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录失败，请重试");
+                        //mainActivity.showToastTips("QQ登录失败，请重试");
+                        //mainActivity.letUserLogout();
+                        break;
+                    case eFlag.QQ_NetworkErr:
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        //mainActivity.showToastTips("QQ登录异常，请重试");
+                        //mainActivity.letUserLogout();
+                        break;
+                    case eFlag.QQ_NotInstall:
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "手机未安装手Q，请安装后重试");
+                        ToastHelper.toast(mActivity, "手机未安装手Q，请安装后重试");
+                        //mainActivity.letUserLogout();
+                        break;
+                    case eFlag.QQ_NotSupportApi:
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "手机手Q版本太低，请升级后重试");
+                        ToastHelper.toast(mActivity, "手机手Q版本太低，请升级后重试");
+                        //mainActivity.letUserLogout();
+                        break;
+                    case eFlag.WX_NotInstall:
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        //mainActivity.showToastTips("手机未安装微信，请安装后重试");
+                        //mainActivity.letUserLogout();
+                        break;
+                    case eFlag.WX_NotSupportApi:
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        //mainActivity.showToastTips("手机微信版本太低，请升级后重试");
+                        //mainActivity.letUserLogout();
+                        break;
+                    case eFlag.Login_TokenInvalid:
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        //mainActivity.showToastTips("您尚未登录或者之前的登录已过期，请重试");
+                        //mainActivity.letUserLogout();
+                        break;
+                    case eFlag.Login_NotRegisterRealName:
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        // 显示登录界面
+                        //mainActivity.showToastTips("您的账号没有进行实名认证，请实名认证后重试");
+                        //mainActivity.letUserLogout();
+                        break;
+                    default:
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        // 显示登录界面
+                        //mainActivity.letUserLogout();
+                        break;
+                }
+            }
+
+            @Override
+            public void OnWakeupNotify(WakeupRet ret) {
+                Log.e("yybLogin", "OnWakeupNotify" + ret.toString());
+                Log.d("yybOnWakeupNotify", "called");
+                Log.d("yybOnWakeupNotify", "flag:" + ret.flag);
+                Log.d("yybOnWakeupNotify", "msg:" + ret.msg);
+                Log.d("yybOnWakeupNotify", "platform:" + ret.platform);
+                // TODO GAME 游戏需要在这里增加处理异账号的逻辑
+                if (eFlag.Wakeup_YSDKLogining == ret.flag) {
+                    // 用拉起的账号登录，登录结果在OnLoginNotify()中回调
+                } else if (ret.flag == eFlag.Wakeup_NeedUserSelectAccount) {
+                    // 异账号时，游戏需要弹出提示框让用户选择需要登录的账号
+                    Log.d("yybOnWakeupNotify", "diff account");
+                    showDiffLogin();
+                } else if (ret.flag == eFlag.Wakeup_NeedUserLogin) {
+                    // 没有有效的票据，登出游戏让用户重新登录
+                    Log.d("yybOnWakeupNotify", "need login");
+                    YSDKApi.logout();
+                } else {
+                    Log.d("yybOnWakeupNotify", "logout");
+                    YSDKApi.logout();
+                }
+            }
+
+            @Override
+            public void OnRelationNotify(UserRelationRet relationRet) {
+                Log.e("yybLogin", "OnRelationNotify" + relationRet.toString());
+                String result = "";
+                result = result + "flag:" + relationRet.flag + "\n";
+                result = result + "msg:" + relationRet.msg + "\n";
+                result = result + "platform:" + relationRet.platform + "\n";
+
+                if (relationRet.persons != null && relationRet.persons.size() > 0) {
+                    PersonInfo personInfo = (PersonInfo) relationRet.persons.firstElement();
+                    String builder = "UserInfoResponse json: \n" +
+                            "nick_name: " + personInfo.nickName + "\n" +
+                            "open_id: " + personInfo.openId + "\n" +
+                            "userId: " + personInfo.userId + "\n" +
+                            "gender: " + personInfo.gender + "\n" +
+                            "picture_small: " + personInfo.pictureSmall + "\n" +
+                            "picture_middle: " + personInfo.pictureMiddle + "\n" +
+                            "picture_large: " + personInfo.pictureLarge + "\n" +
+                            "provice: " + personInfo.province + "\n" +
+                            "city: " + personInfo.city + "\n" +
+                            "country: " + personInfo.country + "\n";
+                    result = result + builder;
+                    Log.e("yybOnRelationNotify", result);
+
+                } else {
+                    result = result + "relationRet.persons is bad";
+                }
+            }
+        });
     }
 
     @Override
@@ -87,157 +228,6 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
             appid=data.getString("channelAppId");
             Log.e("yybappid",appid);
-
-            // yyb的初始化放到了前面sdk里面的初始化，因为在线程转换后在此处不灵了
-            mActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    YSDKApi.onCreate(mActivity);
-                    YSDKApi.handleIntent(mActivity.getIntent());
-                }
-            });
-
-
-            YSDKApi.setUserListener(new UserListener() {
-                @Override
-                public void OnLoginNotify(UserLoginRet ret) {
-
-                    if(eFlag.Succ==ret.flag){
-                        isLoginSucc=true;
-                        Log.e("isLoginSucc","///"+isLoginSucc);
-                    }
-                    if(!isInitSucc){
-                        listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
-                        isInitSucc=true;
-                        //初始化成功之后再检查公告更新等信息
-                        InitCheck.getInstance(mActivity).checkSDKStatus();
-                    }
-
-                    switch (ret.flag) {
-                        case eFlag.Succ: // 登陆成功
-
-                            platform = ePlatform.getEnum(ret.platform);
-
-                            String uid = ret.open_id;   //用户在该appid下的唯一性标示，appid内唯一
-                            String nikename = ret.nick_name;
-                            EmaUser.getInstance().setAllianceUid(uid + "");
-                            EmaUser.getInstance().setNickName(nikename);
-
-                            //绑定服务
-                            Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                            mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
-
-                            //补充弱账户信息
-                            EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
-
-                            Log.e("yybloginSuccessful", ret.toString());
-
-                            //  YSDKApi.queryUserInfo(platform);  //在onRelationNotify 中回应
-
-                            break;
-                        // 游戏逻辑，对登录失败情况分别进行处理
-                        case eFlag.QQ_LoginFail:
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录失败，请重试");
-                            //mainActivity.showToastTips("QQ登录失败，请重试");
-                            //mainActivity.letUserLogout();
-                            break;
-                        case eFlag.QQ_NetworkErr:
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
-                            //mainActivity.showToastTips("QQ登录异常，请重试");
-                            //mainActivity.letUserLogout();
-                            break;
-                        case eFlag.QQ_NotInstall:
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "手机未安装手Q，请安装后重试");
-                            ToastHelper.toast(mActivity, "手机未安装手Q，请安装后重试");
-                            //mainActivity.letUserLogout();
-                            break;
-                        case eFlag.QQ_NotSupportApi:
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "手机手Q版本太低，请升级后重试");
-                            ToastHelper.toast(mActivity, "手机手Q版本太低，请升级后重试");
-                            //mainActivity.letUserLogout();
-                            break;
-                        case eFlag.WX_NotInstall:
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
-                            //mainActivity.showToastTips("手机未安装微信，请安装后重试");
-                            //mainActivity.letUserLogout();
-                            break;
-                        case eFlag.WX_NotSupportApi:
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
-                            //mainActivity.showToastTips("手机微信版本太低，请升级后重试");
-                            //mainActivity.letUserLogout();
-                            break;
-                        case eFlag.Login_TokenInvalid:
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
-                            //mainActivity.showToastTips("您尚未登录或者之前的登录已过期，请重试");
-                            //mainActivity.letUserLogout();
-                            break;
-                        case eFlag.Login_NotRegisterRealName:
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
-                            // 显示登录界面
-                            //mainActivity.showToastTips("您的账号没有进行实名认证，请实名认证后重试");
-                            //mainActivity.letUserLogout();
-                            break;
-                        default:
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
-                            // 显示登录界面
-                            //mainActivity.letUserLogout();
-                            break;
-                    }
-                }
-
-                @Override
-                public void OnWakeupNotify(WakeupRet ret) {
-                    Log.e("yybLogin", "OnWakeupNotify" + ret.toString());
-                    Log.d("yybOnWakeupNotify", "called");
-                    Log.d("yybOnWakeupNotify", "flag:" + ret.flag);
-                    Log.d("yybOnWakeupNotify", "msg:" + ret.msg);
-                    Log.d("yybOnWakeupNotify", "platform:" + ret.platform);
-                    // TODO GAME 游戏需要在这里增加处理异账号的逻辑
-                    if (eFlag.Wakeup_YSDKLogining == ret.flag) {
-                        // 用拉起的账号登录，登录结果在OnLoginNotify()中回调
-                    } else if (ret.flag == eFlag.Wakeup_NeedUserSelectAccount) {
-                        // 异账号时，游戏需要弹出提示框让用户选择需要登录的账号
-                        Log.d("yybOnWakeupNotify", "diff account");
-                        showDiffLogin();
-                    } else if (ret.flag == eFlag.Wakeup_NeedUserLogin) {
-                        // 没有有效的票据，登出游戏让用户重新登录
-                        Log.d("yybOnWakeupNotify", "need login");
-                        YSDKApi.logout();
-                    } else {
-                        Log.d("yybOnWakeupNotify", "logout");
-                        YSDKApi.logout();
-                    }
-                }
-
-                @Override
-                public void OnRelationNotify(UserRelationRet relationRet) {
-                    Log.e("yybLogin", "OnRelationNotify" + relationRet.toString());
-                    String result = "";
-                    result = result + "flag:" + relationRet.flag + "\n";
-                    result = result + "msg:" + relationRet.msg + "\n";
-                    result = result + "platform:" + relationRet.platform + "\n";
-
-                    if (relationRet.persons != null && relationRet.persons.size() > 0) {
-                        PersonInfo personInfo = (PersonInfo) relationRet.persons.firstElement();
-                        String builder = "UserInfoResponse json: \n" +
-                                "nick_name: " + personInfo.nickName + "\n" +
-                                "open_id: " + personInfo.openId + "\n" +
-                                "userId: " + personInfo.userId + "\n" +
-                                "gender: " + personInfo.gender + "\n" +
-                                "picture_small: " + personInfo.pictureSmall + "\n" +
-                                "picture_middle: " + personInfo.pictureMiddle + "\n" +
-                                "picture_large: " + personInfo.pictureLarge + "\n" +
-                                "provice: " + personInfo.province + "\n" +
-                                "city: " + personInfo.city + "\n" +
-                                "country: " + personInfo.country + "\n";
-                        result = result + builder;
-                        Log.e("yybOnRelationNotify", result);
-
-                    } else {
-                        result = result + "relationRet.persons is bad";
-                    }
-                }
-            });
 
             if(!isInitSucc){
                 listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");  // 防止某时OnLoginNotify开始并不自动调用的
