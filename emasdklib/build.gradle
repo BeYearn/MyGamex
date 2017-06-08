@@ -29,4 +29,16 @@ android {
 
 dependencies {
     compile files('libs/GetuiSDK2.9.0.0.jar')
+    compile files('libs/alipaysdk.jar')
+    compile files('libs/alipaysecsdk.jar')
+    compile files('libs/alipayutdid.jar')
+    compile files('libs/android-support-v4.jar')
+    compile files('libs/bsgame-sdk-1.0.1.jar')
+    compile files('libs/gson-2.8.0.jar')
+    compile files('libs/ipaynow_onlywechat_v2.0.2d.jar')
+    compile files('libs/okhttp-3.4.1.jar')
+    compile files('libs/okio-1.9.0.jar')
+    compile files('libs/wftsdk.jar')
+    compile files('libs/xqt-wx-pay5.0.jar')
+    compile files('libs/zxing.jar')
 }

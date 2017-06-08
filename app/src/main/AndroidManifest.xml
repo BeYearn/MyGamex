@@ -37,9 +37,23 @@
         android:protectionLevel="normal"></permission><!--替换为第三方应用的包名-->
     <!-- 个推SDK权限配置结束 -->
 
-    <!--xxx权限 start -->
-
-    <!--xxx权限 end -->
+    <!--bluestack权限 start -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 星期天微信支付 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.webkit.permission.PLUGIN" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="cn.swiftpass.wxpay.permission.MMOAUTH_CALLBACK" />
+    <uses-permission android:name="cn.swiftpass.wxpay.permission.MM_MESSAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!-- 星期天微信支付 -->
+    <!--bluestack权限 end -->
 
 
     <application
@@ -62,20 +76,54 @@
 
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="n20012" />
+            android:value="n20015" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n500002" />
+            android:value="n500003" />
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="staging" />
+            android:value="testing" />
 
-        <!--xxx 组件声明begin-->
+        <!--bluestack 组件声明begin-->
+        <activity
+            android:name="com.shunwang.bluestack.ui.LoginActiviy"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/DialogNotitleBarTheme" />
+        <activity
+            android:name="com.shunwang.bluestack.ui.ForgetPwdActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/DialogNotitleBarTheme" />
 
-        <!--xxx 组件声明end-->
+        <activity
+            android:name="com.shunwang.bluestack.ui.RechargeActiviy"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/DialogNotitleBarTheme" />
+        <activity
+            android:name="com.shunwang.bluestack.ui.CouponActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/DialogNotitleBarTheme" />
+        <!-- 星期天微信支付 -->
+        <activity
+            android:name="com.ipaynow.wechatpay.plugin.inner_plugin.wechat_plugin.activity.WeChatNotifyActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="WeChatPayActivity"
+            android:screenOrientation="behind" />
+        <activity
+            android:name="com.switfpass.pay.activity.QQWapPayWebView"
+            android:screenOrientation="portrait" />
+        <!-- 星期天微信支付 -->
+        <!-- 支付宝h5页面 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- 支付宝h5页面 -->
+        <!--bluestack 组件声明end-->
 
 
         <!-- 个推SDK配置开始 -->
