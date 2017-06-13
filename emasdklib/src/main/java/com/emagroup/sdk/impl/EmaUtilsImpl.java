@@ -76,6 +76,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     @Override
+    public void immediateInit(EmaSDKListener listener) {
+
+    }
+
+    @Override
     public void realInit(final EmaSDKListener listener, JSONObject data) {
         try {
             //酷派的 appid 5000005536
