@@ -29,4 +29,7 @@ android {
 
 dependencies {
     compile files('libs/GetuiSDK2.9.0.0.jar')
+    compile files('libs/oacg_game_sdk.jar')
+    compile(name: 'oacg_game_sdk', ext: 'aar')
+    compile files('libs/android-support-v4.jar')
 }
