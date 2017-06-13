@@ -51,6 +51,12 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         this.mActivity = activity;
     }
 
+    @Override
+    public void immediateInit(EmaSDKListener listener) {
+
+    }
+
+    @Override
     public void realInit(final EmaSDKListener listener, JSONObject data) {
         try {
 
