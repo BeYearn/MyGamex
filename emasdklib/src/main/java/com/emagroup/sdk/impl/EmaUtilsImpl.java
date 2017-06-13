@@ -54,7 +54,13 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         this.mActivity = activity;
     }
 
-    public void realInit(final EmaSDKListener listener, JSONObject data){
+    @Override
+    public void immediateInit(EmaSDKListener listener) {
+
+    }
+
+    @Override
+    public void realInit(final EmaSDKListener listener, JSONObject data) {
 
         try {
             String channelAppKey = data.getString("channelAppKey");
