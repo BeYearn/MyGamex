@@ -71,6 +71,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     @Override
+    public void immediateInit(EmaSDKListener listener) {
+
+    }
+
+    @Override
     public void realInit(final EmaSDKListener listener, JSONObject data) {
         this.mListener = listener;
         this.mData = data;
