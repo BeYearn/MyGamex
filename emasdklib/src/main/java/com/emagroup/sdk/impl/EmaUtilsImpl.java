@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaConst;
+import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
@@ -47,6 +48,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     private Activity mActivity;
     private boolean isInitSuccess = false;
     private boolean isPaySucc = false;
+    private EmaSDKListener mILlistener;
 
     public static EmaUtilsImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -61,6 +63,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void immediateInit(EmaSDKListener listener) {
+        this.mILlistener=listener;
         BSGameSDK.getInstance().initSdk(mActivity, BSOrientation.SENSOR, new
                 BSCallbackListener<String>() {
                     @Override
@@ -161,6 +164,8 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                     case BSGameSdkStatusCode.PAY_EXIT:
                         // 支付界面退出，此时应该判断是支付成功或失败
                         if (!isPaySucc) {
+                            //call一次取消订单
+                            EmaPay.getInstance(mActivity).cancelOrder();
                             listener.onCallBack(EmaCallBackConst.PAYCANELI, "支付取消");
                         }
                         break;
@@ -183,9 +188,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         // 还没有登录或者已经注销
                         break;
                     case BSGameSdkStatusCode.SUCCESS:
+                        mILlistener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
                         // 注销成功
                         break;
                     case BSGameSdkStatusCode.FAIL:
+                        mILlistener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败");
                         // 注销失败
                         break;
                 }
