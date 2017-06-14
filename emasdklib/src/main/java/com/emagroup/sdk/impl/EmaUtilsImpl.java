@@ -62,6 +62,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     private String mExpires_in;
     private String mOpenId;
     private String mRefresh_token;
+    private EmaSDKListener mILlistener;
 
 
     public static EmaUtilsImpl getInstance(Activity activity) {
@@ -77,7 +78,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void immediateInit(EmaSDKListener listener) {
-
+        this.mILlistener=listener;
     }
 
     @Override
@@ -229,8 +230,14 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void logout() {
         Log.e("coolpad","logout");
+        mILlistener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
         mCoolcloud.logout(mActivity);
-        swichAccount();
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                swichAccount();
+            }
+        });
     }
 
     @Override
