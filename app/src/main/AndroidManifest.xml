@@ -89,10 +89,10 @@
 
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="n20012" />
+            android:value="n20015" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n500002" />
+            android:value="n500005" />
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n1001" />

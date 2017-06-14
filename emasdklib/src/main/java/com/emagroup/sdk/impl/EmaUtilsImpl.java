@@ -56,7 +56,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     public void realInit(final EmaSDKListener listener, JSONObject data) {
 
         try {
-            String gameId = "10019";//data.getString("gameid");  //"1052"; //从data来
+            String gameId = data.getString("channelAppId");  //"1052"; //从data来
             boolean isLandscape = mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE; //是否是横屏
             OACGGameSDK.getInstance().init(mActivity, gameId, isLandscape);
             listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
