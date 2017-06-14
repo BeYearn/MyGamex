@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
@@ -124,11 +125,15 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
             @Override
             public void onPayErr(String errorinfo) {
+                // call一次取消订单
+                EmaPay.getInstance(mActivity).cancelOrder();
                 listener.onCallBack(EmaCallBackConst.PAYFALIED, "支付失败");
             }
 
             @Override
             public void onPayCancel() {
+                // call一次取消订单
+                EmaPay.getInstance(mActivity).cancelOrder();
                 listener.onCallBack(EmaCallBackConst.PAYCANELI, "支付取消");
             }
         });
