@@ -35,6 +35,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     private static EmaUtilsImpl instance;
     private Activity mActivity;
+    private EmaSDKListener mILlistener;
 
 
     public static EmaUtilsImpl getInstance(Activity activity) {
@@ -50,7 +51,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void immediateInit(EmaSDKListener listener) {
-
+        this.mILlistener=listener;
     }
 
     @Override
@@ -142,6 +143,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void logout() {
         OACGGameSDK.getInstance().logout();
+        mILlistener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
     }
 
     @Override
