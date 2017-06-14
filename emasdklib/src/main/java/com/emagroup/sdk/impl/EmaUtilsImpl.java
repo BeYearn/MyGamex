@@ -80,7 +80,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                                 break;
                         }
                     }
-                }, BSEnvironment.DEVELOPMENT);     //BSEnvironment.ONLINE 正式环境
+                }, BSEnvironment.ONLINE);     //BSEnvironment.ONLINE 正式环境
     }
 
     @Override
