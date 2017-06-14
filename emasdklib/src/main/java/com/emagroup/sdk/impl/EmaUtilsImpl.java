@@ -140,7 +140,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void realPay(final EmaSDKListener listener, final EmaPayInfo emaPayInfo) {
         isPaySucc = false;
-        BSGameSDK.getInstance().pay(mActivity, 10, new BSCallbackListener<Object>() {
+        BSGameSDK.getInstance().pay(mActivity,emaPayInfo.getPrice(), new BSCallbackListener<Object>() {
             @Override
             public void callback(int code, Object object) {
                 LogUtil.e("BSGameSdk充值接口返回数据 code:" + code + ";msg:" + object);
