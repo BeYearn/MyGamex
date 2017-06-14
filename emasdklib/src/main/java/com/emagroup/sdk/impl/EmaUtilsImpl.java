@@ -230,14 +230,17 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     public void logout() {
         Log.e("coolpad","logout");
         mCoolcloud.logout(mActivity);
+        swichAccount();
     }
 
     @Override
     public void swichAccount() {
         Log.e("coolpad","swichAccount");
-        logout();
-        mListenerLogin.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
+        //logout();
 
+        if(mListenerLogin==null){
+            return;
+        }
         Bundle input = new Bundle();
         // 设置屏幕横竖屏默认为竖屏
         input.putInt(Constants.KEY_SCREEN_ORIENTATION, mActivity.getResources().getConfiguration().orientation);
