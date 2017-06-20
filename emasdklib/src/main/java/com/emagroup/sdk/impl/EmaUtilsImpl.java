@@ -51,7 +51,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void immediateInit(EmaSDKListener listener) {
-        this.mILlistener=listener;
+        this.mILlistener = listener;
     }
 
     @Override
@@ -109,41 +109,49 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     @Override
-    public void realPay(final EmaSDKListener listener, EmaPayInfo emaPayInfo) {
-        //创建支付订单
-        PayRequestData data = new PayRequestData();
-        data.setAmount(emaPayInfo.getPrice()); //金额(元) 支付金额不能小于 1， 否则将无法生成订单
-        data.setOrderId(emaPayInfo.getOrderId()); //订单号
-        data.setSubject(emaPayInfo.getProductName()); //订单名
-        data.setDescript(emaPayInfo.getDescription()); //订单简介
-        data.setOrderType("充值"); //订单的类型
-        //调用 SDK 支付接口
-        OACGGameSDK.getInstance().pay(mActivity, data, new OnPayListener() {
+    public void realPay(final EmaSDKListener listener, final EmaPayInfo emaPayInfo) {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
-            public void onPayComplete(String orderid) {
-                listener.onCallBack(EmaCallBackConst.PAYSUCCESS, "支付成功");
-            }
+            public void run() {
 
-            @Override
-            public void onPayErr(String errorinfo) {
-                // call一次取消订单
-                EmaPay.getInstance(mActivity).cancelOrder();
-                listener.onCallBack(EmaCallBackConst.PAYFALIED, "支付失败");
-            }
+                //创建支付订单
+                PayRequestData data = new PayRequestData();
+                data.setAmount(emaPayInfo.getPrice()); //金额(元) 支付金额不能小于 1， 否则将无法生成订单
+                data.setOrderId(emaPayInfo.getOrderId()); //订单号
+                data.setSubject(emaPayInfo.getProductName()); //订单名
+                data.setDescript(emaPayInfo.getDescription()); //订单简介
+                data.setOrderType("充值"); //订单的类型
+                //调用 SDK 支付接口
+                OACGGameSDK.getInstance().pay(mActivity, data, new OnPayListener() {
+                    @Override
+                    public void onPayComplete(String orderid) {
+                        listener.onCallBack(EmaCallBackConst.PAYSUCCESS, "支付成功");
+                    }
 
-            @Override
-            public void onPayCancel() {
-                // call一次取消订单
-                EmaPay.getInstance(mActivity).cancelOrder();
-                listener.onCallBack(EmaCallBackConst.PAYCANELI, "支付取消");
+                    @Override
+                    public void onPayErr(String errorinfo) {
+                        // call一次取消订单
+                        EmaPay.getInstance(mActivity).cancelOrder();
+                        listener.onCallBack(EmaCallBackConst.PAYFALIED, "支付失败");
+                    }
+
+                    @Override
+                    public void onPayCancel() {
+                        // call一次取消订单
+                        EmaPay.getInstance(mActivity).cancelOrder();
+                        listener.onCallBack(EmaCallBackConst.PAYCANELI, "支付取消");
+                    }
+                });
+
             }
         });
+
     }
 
     @Override
     public void logout() {
         OACGGameSDK.getInstance().logout();
-        mILlistener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
+        mILlistener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功");
     }
 
     @Override
