@@ -1,7 +1,6 @@
 package com.emagroup.sdk.impl;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,9 +11,7 @@ import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaService;
 import com.emagroup.sdk.EmaUser;
-import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ULocalUtils;
@@ -99,10 +96,6 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         //获取用户的登陆的 Session(请参考 3.3用户session验证接口)
                         String session = miAccountInfo.getSessionId();//若没有登录返回 null
                         //请开发者完成将uid和session提交给开发者自己服务器进行session验证
-
-                        //绑定服务
-                        Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                        mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                         //补充弱账户信息
                         EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
