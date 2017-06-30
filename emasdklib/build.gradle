@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 22
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 19
+        minSdkVersion 15
+        targetSdkVersion 22
     }
 
     buildTypes {
@@ -41,4 +41,5 @@ android {
 dependencies {
     compile(name: 'YSDK_Android_1.3.1_670', ext: 'aar')
     compile files('libs/GetuiSDK2.9.0.0.jar')
+    compile 'com.android.support:support-v4:22.1.1'
 }
