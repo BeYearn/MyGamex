@@ -1,7 +1,6 @@
 package com.emagroup.sdk.impl;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 
 import com.emagroup.sdk.EmaBackPressedAction;
@@ -11,9 +10,7 @@ import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaService;
 import com.emagroup.sdk.EmaUser;
-import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
 import com.emagroup.sdk.InitCheck;
@@ -108,10 +105,6 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         //登录成功(loginResult可获取guid和accessToken)，请cp自行处理自己的登录逻辑
                         String guid = loginResult.getGuid();
                         EmaUser.getInstance().setAllianceUid(guid);
-
-                        //绑定服务
-                        Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                        mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                         //补充弱账户信息
                         EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
