@@ -20,6 +20,7 @@ import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
+import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.InitCheck;
@@ -321,8 +322,9 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         //显示toolbar
         EmaSDK.getInstance().doShowToolbar();
 
-        Intent intent = new Intent(EmaConst.EMA_BC_LOGIN_OK_ACTION);
-        mActivity.sendBroadcast(intent);
+        /*Intent intent = new Intent(EmaConst.EMA_BC_LOGIN_OK_ACTION);
+        mActivity.sendBroadcast(intent);*/
+        EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
 
     }
 
