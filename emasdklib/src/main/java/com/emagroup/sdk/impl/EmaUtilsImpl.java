@@ -11,6 +11,7 @@ import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
+import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
@@ -409,8 +410,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                     EmaUser.getInstance().setAllianceUid(accountId);
                     EmaUser.getInstance().setNickName(nickName);
 
-                    Intent intent = new Intent(EmaConst.EMA_BC_LOGIN_OK_ACTION);
-                    mActivity.sendBroadcast(intent);
+                    /*Intent intent = new Intent(EmaConst.EMA_BC_LOGIN_OK_ACTION);
+                    mActivity.sendBroadcast(intent);*/
+                    //补充弱账户信息
+                    EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
 
                     Log.e("getUCAccontInfo", "结果:" + accountId + ".." + nickName);
 
