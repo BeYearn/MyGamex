@@ -1,7 +1,6 @@
 package com.emagroup.sdk.impl;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -13,9 +12,7 @@ import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaService;
 import com.emagroup.sdk.EmaUser;
-import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
@@ -143,10 +140,6 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
                     //User类型的用户信息中将包含State登录凭证，该信息可用于游戏服务端进行用户信息二次验证
                     String state = userInfo.getState();
-
-                    //绑定服务
-                    Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                    mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                     //补充弱账户信息
                     EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
