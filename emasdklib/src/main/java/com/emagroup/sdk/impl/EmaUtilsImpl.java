@@ -53,6 +53,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     @Override
+    public void immediateInit(EmaSDKListener listener) {
+
+    }
+
+    @Override
     public void realInit(final EmaSDKListener listener, JSONObject data) {
         mActivity.runOnUiThread(new Runnable() {  //萨比4399需要自己实现闪屏
             @Override

@@ -29,6 +29,8 @@ public class EmaSDK {
 
         InitCheck.getInstance(activity).initServerUrl();
 
+        EmaUtils.getInstance(activity).immediateInit(listener);
+
         EmaUtils.getInstance(activity).initBroadcastRevicer(listener);
 
         //sdk初始化，先sdk初始化，完了再请求公告更新等信息

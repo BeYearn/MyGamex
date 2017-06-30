@@ -11,6 +11,13 @@ import java.util.Map;
  */
 public interface EmaUtilsInterface {
 
+    /**
+     * 无延迟，立刻初始化的
+     * 用来初始化一些严格要求在oncreate中的语句（比如应用宝的YSDKApi.onCreate(this)严格眼球）
+     * @param listener
+     */
+    void immediateInit(EmaSDKListener listener);
+
     void realInit(EmaSDKListener listener, JSONObject data);
 
     void realLogin(EmaSDKListener listener, String userid, String deviceId);

@@ -29,3 +29,7 @@ proguard-project.txt
 /gradle
 gradlew
 .DS_Store
+
+# 游戏的资源文件
+    #次元的
+textfield.xml
