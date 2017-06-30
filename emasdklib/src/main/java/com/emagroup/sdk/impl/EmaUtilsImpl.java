@@ -1,7 +1,6 @@
 package com.emagroup.sdk.impl;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 
@@ -11,9 +10,7 @@ import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
 import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaService;
 import com.emagroup.sdk.EmaUser;
-import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
@@ -77,10 +74,6 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 String openid = cbUserInfoData.getOpenid();
                 EmaUser.getInstance().setNickName(name);
                 EmaUser.getInstance().setAllianceUid(openid);
-
-                //绑定服务
-                Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                 //补充弱账户信息
                 EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
