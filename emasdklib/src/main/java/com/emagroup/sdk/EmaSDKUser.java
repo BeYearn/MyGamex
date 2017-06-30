@@ -1,6 +1,8 @@
 package com.emagroup.sdk;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -116,6 +118,10 @@ public class EmaSDKUser {
                     EmaUser.getInstance().setIsLogin(true);
 
                     listener.onCallBack(EmaCallBackConst.LOGINSUCCESS,"登陆成功回调");
+
+                    //绑定服务
+                    Intent serviceIntent = new Intent(mActivity, EmaService.class);
+                    mActivity.bindService(serviceIntent, EmaUtils.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
 
                     EmaUtils.getInstance(mActivity).closeProgressDialog();
                 } catch (Exception e) {
