@@ -29,6 +29,5 @@ android {
 
 dependencies {
     compile files('libs/GetuiSDK2.9.0.0.jar')
-    compile 'com.android.support:support-v4:22.1.1'
     compile files('libs/m4399OperateSDK-v2.12.1.4-05021431.jar')
 }
