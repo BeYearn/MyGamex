@@ -37,6 +37,9 @@ public class EmaUtils {
     private EmaSDKListener mListener;
 
     private static final int ALERT_WEBVIEW_SHOW = 21;
+
+    private EmaService mEmaService; //拿到的心跳服务实例
+
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -63,7 +66,8 @@ public class EmaUtils {
         }
 
         @Override
-        public void onServiceConnected(ComponentName arg0, IBinder arg1) {
+        public void onServiceConnected(ComponentName arg0, IBinder ibinder) {
+            mEmaService = ((EmaService.LocalBinder) ibinder).getService();
         }
     };
 
@@ -212,6 +216,10 @@ public class EmaUtils {
     }
 
     public void onDestroy() {
+
+        //解绑心跳服务
+        activity.unbindService(mServiceCon);
+
         EmaUtilsImpl.getInstance(activity).onDestroy();
     }
 
@@ -228,6 +236,12 @@ public class EmaUtils {
     }
 
     public void onRestart() {
+
+        //回到前台时重新走心跳间隔逻辑
+        if(null!=mEmaService){
+            mEmaService.reStartHeart();
+        }
+
         EmaUtilsImpl.getInstance(activity).onRestart();
     }
 

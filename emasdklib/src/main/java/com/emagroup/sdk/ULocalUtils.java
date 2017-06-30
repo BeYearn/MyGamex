@@ -184,7 +184,17 @@ public class ULocalUtils {
         return DEVICE_ID;
     }
 
-
+    /**
+     * 获取应用名称
+     *
+     * @param context
+     * @return
+     */
+    public static String getApplicationName(Context context) {
+        PackageManager pm = context.getPackageManager();
+        String appName = context.getApplicationInfo().loadLabel(pm).toString();
+        return appName;
+    }
 
     /**
      * 获取versioncode 整数
