@@ -6,14 +6,15 @@ import android.content.res.Configuration;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
-import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
+import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
 import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
+import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 import com.yingqidm.gamesdk.IPayCallbackListener;
 import com.yingqidm.gamesdk.MHRCallbackListener;
@@ -78,9 +79,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         EmaUser.getInstance().setAllianceUid(result);
                         EmaUser.getInstance().setNickName("");
 
-                        Intent intent = new Intent(EmaConst.EMA_BC_LOGIN_OK_ACTION);
-                        mActivity.sendBroadcast(intent);
-
+                        EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
                     }
                 }
             });
