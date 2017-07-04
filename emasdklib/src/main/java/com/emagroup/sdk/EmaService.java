@@ -12,8 +12,6 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.anysdk.framework.java.R;
-
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -31,6 +29,8 @@ public class EmaService extends Service {
     private static final int INTERVAL_TIME_FIRST = 1000 * 30;//30秒
     private static final int INTERVAL_TIME_SENCOND = 1000 * 50 * 2;//2分钟
     private static final int INTERVAL_TIME_THIRD = 1000 * 60 * 5;//5分钟
+
+    private ResourceManager mResourceManager;
 
     private static String HEART_CODE = "";         //用来避免code重复通知
 
@@ -83,6 +83,7 @@ public class EmaService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        mResourceManager = ResourceManager.getInstance(this);
     }
 
     public void reStartHeart() {
@@ -154,11 +155,11 @@ public class EmaService extends Service {
     }
 
 
-    private static void showNotification(Context context, String title, String content) {
+    private void showNotification(Context context, String title, String content) {
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setPriority(PRIORITY_MAX);
-        mBuilder.setSmallIcon(R.drawable.ema_bottom_promotion_checked);
+        mBuilder.setSmallIcon(mResourceManager.getIdentifier("ema_bottom_promotion_checked","drawable"));//R.drawable.ema_bottom_promotion_checked
         mBuilder.setContentTitle(title);
         mBuilder.setContentText(content);
 
