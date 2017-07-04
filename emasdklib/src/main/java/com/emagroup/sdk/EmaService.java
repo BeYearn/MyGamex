@@ -140,6 +140,7 @@ public class EmaService extends Service {
                                 String applicationName = ULocalUtils.getApplicationName(EmaService.this);
                                 showNotification(EmaService.this,applicationName + " 通知", "您的验证码为：" + code);
                                 HEART_CODE = code;
+                                ToastHelper.toast(EmaService.this,"请于通知栏查收您的验证码~");
                             }
                         }
                     }
