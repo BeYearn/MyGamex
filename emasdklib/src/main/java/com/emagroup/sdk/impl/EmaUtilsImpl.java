@@ -2,11 +2,16 @@ package com.emagroup.sdk.impl;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
+import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
+import com.emagroup.sdk.EmaSDKUser;
+import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtilsInterface;
+import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 
 import org.json.JSONObject;
@@ -22,6 +27,8 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     private static EmaUtilsImpl instance;
     private Activity mActivity;
 
+    public static final int EMA_LOGIN_REQUEST_CODE = 101;
+    private EmaSDKListener mInitLoginListener;
 
     public static EmaUtilsImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -36,7 +43,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void immediateInit(EmaSDKListener listener) {
-
+        this.mInitLoginListener = listener;
     }
 
     @Override
@@ -46,7 +53,8 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void realLogin(final EmaSDKListener listener, String userid, String deviceId) {
-
+        Intent intent = new Intent(mActivity, EmaLoginActivity.class);
+        mActivity.startActivityForResult(intent,EMA_LOGIN_REQUEST_CODE);
     }
 
     /**
@@ -110,7 +118,14 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        //从启动的登录页面返回的
+        if(resultCode== EmaCallBackConst.LOGINSUCCESS){
+            //补充弱账户信息
+            EmaSDKUser.getInstance(mActivity).updateWeakAccount(mInitLoginListener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+            Log.e("googleplay", "loginsusscess");
+        }else if(resultCode == EmaCallBackConst.LOGINFALIED){
+            mInitLoginListener.onCallBack(EmaCallBackConst.LOGINFALIED, "登录失败");
+        }
     }
 
     @Override
@@ -124,6 +139,12 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     //-----------------------------------xxx的网络请求方法-------------------------------------------------------------------------
+
+
+    public void gpCallBack(int type,EmaSDKListener listener){
+
+    }
+
 
 
     //-----------------------------------xxx 特有接口---------------------------------------------------

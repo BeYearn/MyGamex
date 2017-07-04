@@ -1,17 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.emagroup.sdk"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="com.emagroup.oversea.sdk">      google-service配置文件中的包名得与此相同（在那个moudule配置那些服务，哪个moudule的package就得和配置相同）
 
-    <uses-sdk
-        android:minSdkVersion="10"
-        android:targetSdkVersion="10" />
+    <application android:allowBackup="true"
+        android:supportsRtl="true">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    </application>
 
 </manifest>
