@@ -159,7 +159,8 @@ public class EmaService extends Service {
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setPriority(PRIORITY_MAX);
-        mBuilder.setSmallIcon(mResourceManager.getIdentifier("ema_bottom_promotion_checked","drawable"));//R.drawable.ema_bottom_promotion_checked
+        //mBuilder.setSmallIcon(mResourceManager.getIdentifier("ema_bottom_promotion_checked","drawable"));//R.drawable.ema_bottom_promotion_checked
+        mBuilder.setSmallIcon(ULocalUtils.getAppIconId(context));
         mBuilder.setContentTitle(title);
         mBuilder.setContentText(content);
 
