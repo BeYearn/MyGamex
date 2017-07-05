@@ -13,6 +13,11 @@ import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import org.json.JSONObject;
 
@@ -21,6 +26,10 @@ import java.util.Map;
 
 /**
  * Created by Administrator on 2016/10/9.
+ *
+ * 0.签名要对
+ * 1.需要在加入googleplay服务依赖的moudule中的跟目录放入google-services.json文件（从gp后台管理来的）
+ *
  */
 public class EmaUtilsImpl implements EmaUtilsInterface {
 
@@ -29,6 +38,8 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     public static final int EMA_LOGIN_REQUEST_CODE = 101;
     private EmaSDKListener mInitLoginListener;
+
+    private GoogleApiClient mGoogleApiClient; //和loginactivity不是同一个
 
     public static EmaUtilsImpl getInstance(Activity activity) {
         if (instance == null) {
@@ -44,6 +55,14 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void immediateInit(EmaSDKListener listener) {
         this.mInitLoginListener = listener;
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(mActivity)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     @Override
@@ -75,6 +94,21 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void logout() {
 
+        if(!mGoogleApiClient.isConnected()){
+            return;
+        }
+        //貌似得和登录时的mGoogleApiClient得是同一个？ 暂放
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        if(status.isSuccess()){
+                            mInitLoginListener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
+                        }else {
+                            mInitLoginListener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败");
+                        }
+                    }
+                });
     }
 
     @Override
