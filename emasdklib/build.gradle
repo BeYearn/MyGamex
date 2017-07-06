@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 22
@@ -33,5 +32,8 @@ dependencies {
     compile 'com.android.support:support-v4:22.1.1'
 
     compile 'com.android.support:appcompat-v7:22.1.0'
-    compile 'com.google.android.gms:play-services-auth:9.0.0'
+    compile 'com.google.android.gms:play-services-auth:9.8.0'
+    compile 'com.google.android.gms:play-services-plus:9.8.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

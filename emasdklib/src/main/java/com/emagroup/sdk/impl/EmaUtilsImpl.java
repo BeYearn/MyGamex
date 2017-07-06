@@ -1,7 +1,9 @@
 package com.emagroup.sdk.impl;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
@@ -18,18 +20,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.PlusShare;
 
 import org.json.JSONObject;
 
 import java.util.Map;
 
+import static android.app.Activity.RESULT_OK;
+
 
 /**
  * Created by Administrator on 2016/10/9.
- *
+ * <p>
  * 0.签名要对
  * 1.需要在加入googleplay服务依赖的moudule中的跟目录放入google-services.json文件（从gp后台管理来的）
- *
  */
 public class EmaUtilsImpl implements EmaUtilsInterface {
 
@@ -73,7 +77,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void realLogin(final EmaSDKListener listener, String userid, String deviceId) {
         Intent intent = new Intent(mActivity, EmaLoginActivity.class);
-        mActivity.startActivityForResult(intent,EMA_LOGIN_REQUEST_CODE);
+        mActivity.startActivityForResult(intent, EMA_LOGIN_REQUEST_CODE);
     }
 
     /**
@@ -94,7 +98,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void logout() {
 
-        if(!mGoogleApiClient.isConnected()){
+        if (!mGoogleApiClient.isConnected()) {
             return;
         }
         //貌似得和登录时的mGoogleApiClient得是同一个？ 暂放
@@ -102,10 +106,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        if(status.isSuccess()){
-                            mInitLoginListener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
-                        }else {
-                            mInitLoginListener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败");
+                        if (status.isSuccess()) {
+                            mInitLoginListener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功");
+                        } else {
+                            mInitLoginListener.onCallBack(EmaCallBackConst.LOGOUTFALIED, "登出失败");
                         }
                     }
                 });
@@ -153,13 +157,33 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //从启动的登录页面返回的
-        if(resultCode== EmaCallBackConst.LOGINSUCCESS){
+        if (resultCode == EmaCallBackConst.LOGINSUCCESS) {
             //补充弱账户信息
             EmaSDKUser.getInstance(mActivity).updateWeakAccount(mInitLoginListener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
             Log.e("googleplay", "loginsusscess");
-        }else if(resultCode == EmaCallBackConst.LOGINFALIED){
+        } else if (resultCode == EmaCallBackConst.LOGINFALIED) {
             mInitLoginListener.onCallBack(EmaCallBackConst.LOGINFALIED, "登录失败");
         }
+
+
+        //google+的 图片分享来的
+        if(requestCode == ShareDialog.REQ_SELECT_PHOTO) {
+            if(resultCode == RESULT_OK) {
+                Uri selectedImage = data.getData();
+                ContentResolver cr = mActivity.getContentResolver();
+                String mime = cr.getType(selectedImage);
+
+                PlusShare.Builder share = new PlusShare.Builder(mActivity);
+                //share.setText("hello everyone!");
+                share.addStream(selectedImage);
+                share.setType(mime);
+                mActivity.startActivityForResult(share.getIntent(), 0);
+            }
+        }
+
+
+        //从google分享处返回
+        //if (requestCode == )
     }
 
     @Override
@@ -175,10 +199,9 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     //-----------------------------------xxx的网络请求方法-------------------------------------------------------------------------
 
 
-    public void gpCallBack(int type,EmaSDKListener listener){
+    public void gpCallBack(int type, EmaSDKListener listener) {
 
     }
-
 
 
     //-----------------------------------xxx 特有接口---------------------------------------------------

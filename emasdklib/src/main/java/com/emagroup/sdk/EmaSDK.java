@@ -2,9 +2,11 @@ package com.emagroup.sdk;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.util.Map;
+
 
 /**
  * Created by Young on 2016/7/9.
@@ -118,6 +120,19 @@ public class EmaSDK {
 
     public String getChannelTag() {
         return ULocalUtils.getChannelTag(mActivity);
+    }
+
+    public void doShareImage(final Activity activity, final EmaSDKListener listener, final Bitmap bitmap) {
+        ULocalUtils.doShare(activity, listener, bitmap);
+    }
+
+    public void doShareText(final Activity activity, final EmaSDKListener listener, final String text) {
+        ULocalUtils.doShare(activity, listener, text);
+    }
+
+    public void doShareWebPage(final Activity activity, final EmaSDKListener listener, final String url,
+                               final String title, final String description, final Bitmap bitmap) {
+        ULocalUtils.doShare(activity, listener, url,title,description,bitmap);
     }
 
     public void onNewIntent(Intent intent) {

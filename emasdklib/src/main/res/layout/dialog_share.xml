@@ -31,7 +31,7 @@
         android:layout_alignStart="@+id/btn_close">
 
         <LinearLayout
-            android:id="@+id/linear_sina_weibo"
+            android:id="@+id/ll_share_google"
             android:layout_marginTop="22.5dp"
             android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="新浪微博"
+                android:text="google+"
                 android:layout_marginTop="11dp"
                 android:textSize="10sp"
                 android:textColor="#6a6a6a"/>

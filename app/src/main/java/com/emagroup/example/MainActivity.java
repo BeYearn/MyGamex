@@ -37,6 +37,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button btLogout;
     private Button btShowBar;
     private Button btHideBar;
+    private Button btnShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class MainActivity extends Activity implements OnClickListener {
         btLogout = (Button) findViewById(R.id.bt_logout);
         btShowBar = (Button) findViewById(R.id.bt_showbar);
         btHideBar = (Button) findViewById(R.id.bt_hidebar);
+        btnShare = (Button) findViewById(R.id.bt_share);
 
         //EmaSDK.getInstance().init("6cdd60ea0045eb7a6ec44c54d29ed402",this, new EmaSDKListener() {      //
         EmaSDK.getInstance().init("864ed48309c7f9a259f769b92cc52814", this, new EmaSDKListener() {       //20012
@@ -115,6 +117,7 @@ public class MainActivity extends Activity implements OnClickListener {
         btLogout.setOnClickListener(this);
         btShowBar.setOnClickListener(this);
         btHideBar.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
 
         Log.e("++++++++++", Thread.currentThread().getName());
     }
@@ -172,6 +175,14 @@ public class MainActivity extends Activity implements OnClickListener {
                         }
                     }
                 });
+                break;
+            case R.id.bt_share:
+                EmaSDK.getInstance().doShareText(MainActivity.this, new EmaSDKListener() {
+                    @Override
+                    public void onCallBack(int resultCode, String decr) {
+
+                    }
+                },"hehehehehehehehehheehehehehehehehehehehhehe");
                 break;
         }
 

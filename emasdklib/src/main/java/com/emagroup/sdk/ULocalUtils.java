@@ -1,5 +1,6 @@
 package com.emagroup.sdk;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,11 +8,14 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.emagroup.sdk.impl.ShareDialog;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -33,6 +37,7 @@ public class ULocalUtils {
     public static class EmaSdkInfo {
 
         private static NamedNodeMap NodeMap;
+
         //
         //初始化，读取XML
         public static void readXml(String filename, Context context) {
@@ -88,7 +93,6 @@ public class ULocalUtils {
         }
 
 
-
         /**
          * 根据key获取metaData的string类型的数据
          *
@@ -119,7 +123,7 @@ public class ULocalUtils {
          * @param key
          * @return
          */
-        public static int getIntegerFromMetaData(Context context, String key){
+        public static int getIntegerFromMetaData(Context context, String key) {
             ApplicationInfo ai;
             int value = 0;
             try {
@@ -138,34 +142,36 @@ public class ULocalUtils {
 
     /**
      * 获得官方定义的appid
+     *
      * @param context
      * @return
      */
-    public static String getAppId(Context context){
-        return ULocalUtils.EmaSdkInfo.getStringFromMetaData(context,"EMA_APP_ID").substring(1);
+    public static String getAppId(Context context) {
+        return ULocalUtils.EmaSdkInfo.getStringFromMetaData(context, "EMA_APP_ID").substring(1);
     }
 
     /**
      * 我们和anysdk对于渠道id的定义一样（即使用anysdk的渠道号）
+     *
      * @return
      */
-    public static String getChannelId(Context context){
-        String channelId=ULocalUtils.EmaSdkInfo.getStringFromMetaData(context,"EMA_CHANNEL_ID").substring(1);
-        if(Integer.parseInt(channelId)==26){  //说明没有改，就是原包的值(以后有可能==||70等)，则读下面这个（anysdk的）；否则就是单接的那种，读EMA。。这个
-            channelId = ULocalUtils.EmaSdkInfo.getStringFromMetaData(context,"ASC_ChannelID").substring(1);
+    public static String getChannelId(Context context) {
+        String channelId = ULocalUtils.EmaSdkInfo.getStringFromMetaData(context, "EMA_CHANNEL_ID").substring(1);
+        if (Integer.parseInt(channelId) == 26) {  //说明没有改，就是原包的值(以后有可能==||70等)，则读下面这个（anysdk的）；否则就是单接的那种，读EMA。。这个
+            channelId = ULocalUtils.EmaSdkInfo.getStringFromMetaData(context, "ASC_ChannelID").substring(1);
         }
         return channelId;
     }
 
-    public static String getChannelTag(Context context){
-        return ULocalUtils.EmaSdkInfo.getStringFromMetaData(context,"EMA_CHANNEL_TAG").substring(1);
+    public static String getChannelTag(Context context) {
+        return ULocalUtils.EmaSdkInfo.getStringFromMetaData(context, "EMA_CHANNEL_TAG").substring(1);
     }
 
 
-    public static String getDeviceId(Context context){
+    public static String getDeviceId(Context context) {
         //1.获取deviceID 其实是IMEI
-       // TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-       // return tm.getDeviceId();
+        // TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        // return tm.getDeviceId();
 
         /*//2.获取Android ID  不可靠，可能为null，如果恢复出厂设置会改变，root的话可以任意改变
        // mSzAndroidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);*/
@@ -175,14 +181,14 @@ public class ULocalUtils {
 
         String DEVICE_ID = tm.getDeviceId();
         String MacAddress = manager.getConnectionInfo().getMacAddress();
-        String AndroidSerialNum=android.os.Build.SERIAL;
+        String AndroidSerialNum = android.os.Build.SERIAL;
 
-        if(TextUtils.isEmpty(DEVICE_ID)){
-            String oneIdNoMd5=MacAddress+AndroidSerialNum;
+        if (TextUtils.isEmpty(DEVICE_ID)) {
+            String oneIdNoMd5 = MacAddress + AndroidSerialNum;
             String oneId = MD5(oneIdNoMd5).substring(8, 24);
             return oneId;
         }
-        Log.e("DEVICE_ID"+"MAC",DEVICE_ID+"......"+MacAddress+"..."+AndroidSerialNum);
+        Log.e("DEVICE_ID" + "MAC", DEVICE_ID + "......" + MacAddress + "..." + AndroidSerialNum);
         return DEVICE_ID;
     }
 
@@ -200,6 +206,7 @@ public class ULocalUtils {
 
     /**
      * 获得appicon 的 id
+     *
      * @param context
      * @return
      */
@@ -217,19 +224,44 @@ public class ULocalUtils {
         }
     }
 
+    /**
+     * 分享弹窗，进一步选择哪个渠道分享
+     */
+    public static void doShare(Activity activity, EmaSDKListener listener, Bitmap bitmap) {
+        ShareDialog shareDialog = ShareDialog.create(activity);
+        shareDialog.setCallbackListener(listener);
+        shareDialog.setShareBitMap(bitmap);
+        shareDialog.showDialog();
+    }
+
+    public static void doShare(Activity activity, EmaSDKListener listener, String text) {
+        ShareDialog shareDialog = ShareDialog.create(activity);
+        shareDialog.setCallbackListener(listener);
+        shareDialog.setShareString(text);
+        shareDialog.showDialog();
+    }
+
+    public static void doShare(Activity activity, EmaSDKListener listener, String url, String title, String description, Bitmap bitmap) {
+        ShareDialog shareDialog = ShareDialog.create(activity);
+        shareDialog.setCallbackListener(listener);
+        shareDialog.setShareWebPage(url,title,description,bitmap);
+        shareDialog.showDialog();
+    }
+
 
     /**
      * 获取versioncode 整数
+     *
      * @param context
      * @return
      */
-    public static int getVersionCode(Context context){
-        PackageManager packageManager=context.getPackageManager();
+    public static int getVersionCode(Context context) {
+        PackageManager packageManager = context.getPackageManager();
         PackageInfo packageInfo;
-        int versionCode=0;
+        int versionCode = 0;
         try {
-            packageInfo=packageManager.getPackageInfo(context.getPackageName(),0);
-            versionCode=packageInfo.versionCode;
+            packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            versionCode = packageInfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -270,12 +302,11 @@ public class ULocalUtils {
      * @param key
      * @param object
      */
-    public static void spPut(Context context, String key, Object object)
-    {
+    public static void spPut(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        if(null==object){
+        if (null == object) {
             return;
         } else if (object instanceof String) {
             editor.putString(key, (String) object);
@@ -293,6 +324,7 @@ public class ULocalUtils {
 
         editor.commit();
     }
+
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      *
@@ -301,8 +333,7 @@ public class ULocalUtils {
      * @param defaultObject
      * @return
      */
-    public static Object spGet(Context context, String key, Object defaultObject)
-    {
+    public static Object spGet(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE);
 
         if (defaultObject instanceof String) {

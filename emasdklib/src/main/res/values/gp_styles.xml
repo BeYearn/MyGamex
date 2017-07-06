@@ -2,5 +2,6 @@
     <style name="Theme.ema.dialog" parent="Theme.AppCompat.Dialog">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
 </resources>
