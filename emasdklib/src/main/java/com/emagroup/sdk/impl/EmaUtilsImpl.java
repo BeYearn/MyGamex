@@ -42,6 +42,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     private static EmaUtilsImpl instance;
     private Activity mActivity;
+    private EmaSDKListener mInitLoginListener;
 
 
     public static EmaUtilsImpl getInstance(Activity activity) {
@@ -57,6 +58,8 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void immediateInit(EmaSDKListener listener) {
+
+        mInitLoginListener = listener;
 
         //汉风SDK默认情况下是横屏页面.如需要设置为竖屏界面:
         Configuration mConfiguration = mActivity.getResources().getConfiguration(); //获取设置的配置信息
@@ -128,7 +131,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             e.printStackTrace();
         }
 
-        //设置切换账号回调侦听
+       /*
+
+       好像没乱用
+       //设置切换账号回调侦听
         NSdk.getInstance().setAccountSwitchListener(new NSdkListener<String>() {
             @Override
             public void callback(int i, String s) {
@@ -141,7 +147,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         break;
                 }
             }
-        });
+        });*/
 
     }
 
@@ -173,6 +179,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             payInfo.roleId = (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_ID, "");
             payInfo.roleName = (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_NAME, "");
             payInfo.roleLevel = Integer.parseInt(ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_LEVEL, "")+"");
+            payInfo.privateField = emaPayInfo.getOrderId();
 
             NSdk.getInstance().pay(mActivity, payInfo, new NSdkListener<String>() {
                 @Override
@@ -211,6 +218,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void logout() {
+        mInitLoginListener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");   //上面切换帐号的回调设置好像没什么用啊  干脆这样了
         //该接口用于切换账号，会先注销已登录账号并拉起登录页面
         NSdk.getInstance().accountSwitch(mActivity);
     }
@@ -351,7 +359,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                             EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
 
                         }else {
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败");
+                            NSdk.getInstance().accountSwitch(mActivity);    //验证sid 失败
                         }
 
                     } else {
