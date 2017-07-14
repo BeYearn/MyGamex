@@ -3,6 +3,7 @@ package com.emagroup.sdk.impl;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
@@ -10,12 +11,14 @@ import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
+import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtilsInterface;
+import com.emagroup.sdk.HttpRequestor;
 import com.emagroup.sdk.InitCheck;
+import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ToastHelper;
 import com.emagroup.sdk.ULocalUtils;
-import com.emagroup.sdk.Url;
 import com.hanfeng.guildsdk.Constants;
 import com.hanfeng.nsdk.NSdk;
 import com.hanfeng.nsdk.NSdkListener;
@@ -28,6 +31,7 @@ import com.hanfeng.nsdk.exception.NSdkException;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -62,16 +66,17 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     }
 
     @Override
-    public void realInit(final EmaSDKListener listener, JSONObject data) {
+    public void realInit(final EmaSDKListener listener, final JSONObject data) {
 
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
-                NSAppInfo appinfo = new NSAppInfo();
-                appinfo.appId = "10000";
-                appinfo.appKey = "424ae8a4fe9a342a1fbb64";
                 try {
+                    NSAppInfo appinfo = new NSAppInfo();
+                    appinfo.appId = data.getString("channelAppId");//"80397";
+                    appinfo.appKey = data.getString("channelAppKey");//"adf64336b810cdce6fa652";
+
                     NSdk.getInstance().init(mActivity, appinfo, new NSdkListener<String>() {
                         @Override
                         public void callback(int code, String response) {
@@ -104,7 +109,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                     switch (code) {
                         case NSdkStatusCode.LOGIN_SUCCESS:
                             // TODO: 获取并处理result.sid
-                            doResultHFsid(result.sid);
+                            doResultHFsid(listener, result.uid, result.sid);
                             break;
                         case NSdkStatusCode.LOGIN_CANCLE:
                             listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消");
@@ -163,11 +168,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             payInfo.ratio = 10;                                                                    //比率 瞎填
             payInfo.buyNum = Integer.parseInt(emaPayInfo.getProductNum()); //购买数量
             payInfo.coinNum = 2000;                                                                     //金币数量  瞎填
-            payInfo.serverId = (int) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ZONE_ID, "");
-            payInfo.uid = EmaUser.getInstance().getAllianceUid();
+            payInfo.serverId = Integer.parseInt(ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ZONE_ID, "")+"");    //汉风的serverID 必须是int型的
+            payInfo.uid = TextUtils.isEmpty(EmaUser.getInstance().getAllianceUid()) ? "" : EmaUser.getInstance().getAllianceUid();
             payInfo.roleId = (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_ID, "");
             payInfo.roleName = (String) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_NAME, "");
-            payInfo.roleLevel = (int) ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_LEVEL, 1);
+            payInfo.roleLevel = Integer.parseInt(ULocalUtils.spGet(mActivity, EmaConst.SUBMIT_ROLE_LEVEL, "")+"");
 
             NSdk.getInstance().pay(mActivity, payInfo, new NSdkListener<String>() {
                 @Override
@@ -185,15 +190,14 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                             break;
                         case NSdkStatusCode.PAY_PAYING:
                             // 正在支付，支付结果未知结果处理
-                            ToastHelper.toast(mActivity,"正在处理该笔订单");
+                            ToastHelper.toast(mActivity, "正在处理该笔订单");
                             break;
-                        case NSdkStatusCode.PAY_NOCALLBACK:
+                        case NSdkStatusCode.PAY_NOCALLBACK:     //PAY_NOCALLBACK是在拉起渠道支付的界面的时候就会返回该状态码，这个状态码是为了兼容一些没有支付回调的渠道，如无特殊要求，该状态码可以不做处理
                             // 某些渠道支付无回调情况处理
-                            ToastHelper.toast(mActivity,"正在处理该笔订单");
+                            ToastHelper.toast(mActivity, "正在处理该笔订单");
                             break;
                         default:
-                            // TODO: 其他支付错误回调结果
-                            ToastHelper.toast(mActivity,response);
+                            ToastHelper.toast(mActivity, response);
                             break;
                     }
                 }
@@ -286,7 +290,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         roleinfo.zoneId = data.get(EmaConst.SUBMIT_ZONE_ID);
         roleinfo.zoneName = data.get(EmaConst.SUBMIT_ZONE_NAME);
         roleinfo.dataType = data.get(EmaConst.SUBMIT_DATA_TYPE);
-        roleinfo.userId= EmaUser.getInstance().getAllianceUid();
+        roleinfo.userId = EmaUser.getInstance().getAllianceUid();
         roleinfo.ext = "";
 
         NSdk.getInstance().submitGameInfo(mActivity, roleinfo);
@@ -313,15 +317,57 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     /**
      * 获取并处理result.uid
      *
-     * @param sid 在游戏会话验证（验证sid）失败时，要调用此接口，不要调用login，防止出现用户修改密码后，一直验证失败的情况。
+     * @param listener
+     * @param uid
+     * @param sid      在游戏会话验证（验证sid）失败时，要调用logout(本质是accountSwitch) ，不要调用login，防止出现用户修改密码后，一直验证失败的情况。
      */
-    private void doResultHFsid(String sid) {
+    private void doResultHFsid(final EmaSDKListener listener, final String uid, final String sid) {
+        ThreadUtil.runInSubThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    HashMap<String, String> params = new HashMap<>();
+                    params.put("appId", ULocalUtils.getAppId(mActivity));
+                    params.put("channelId", ULocalUtils.getChannelId(mActivity));
+                    params.put("hfChannel", NSdk.getInstance().getChannel());
+                    params.put("userId", uid);
+                    params.put("sid", sid);
+                    params.put("version", NSdk.getInstance().getSdkVersion());
 
+                    String result = new HttpRequestor().doPost(getYhSigLogin(), params);
+                    JSONObject json = new JSONObject(result);
+                    int resultCode = json.getInt("status");
+
+                    if (resultCode == 0) {
+
+                        JSONObject data = json.getJSONObject("data");
+                        String status = data.getString("status");
+
+                        if("YHYZ_000".equals(status)){
+                            String userId = data.getString("userId");
+
+                            EmaUser.getInstance().setAllianceUid(userId);
+                            EmaUser.getInstance().setNickName("");
+                            EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+
+                        }else {
+                            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败");
+                        }
+
+                    } else {
+                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     //-----------------------------------xxx 特有接口---------------------------------------------------
 
-    public static String getMhrSignJson() {
-        return Url.getServerUrl() + "/ema-platform/extra/mhrCreateOrder";
+    public static String getYhSigLogin() {
+        //return Url.getServerUrl() + "/ema-platform/channelLogin/hanfeng";
+        return "http://192.168.10.104:8080/ema-platform/channelLogin/hanfeng";
     }
 }

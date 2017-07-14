@@ -4,7 +4,8 @@ android {
     compileSdkVersion 22
     buildToolsVersion "23.0.3"
     defaultConfig {
-        applicationId "com.emagroup.example"
+        //applicationId "com.emagroup.example"
+        applicationId "com.hf.sbtl"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1

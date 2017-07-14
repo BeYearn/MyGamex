@@ -61,9 +61,10 @@
     <!--hfsdk 权限声明end-->
 
     <application
+        android:name="com.hanfeng.guildsdk.HfsdkApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="沙巴屠龙"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.emagroup.example.MainActivity"
@@ -83,16 +84,17 @@
             android:value="n20012" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n500002" />
+            android:value="n500006" />
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="staging" />
+            android:value="testing" />
 
 
-        <!-- hfsdk的组件声明   start-->
+        <!-- hfsdk的组件声明 start
+        游戏如果自定义Application，Application类必须继承com.yongyong.nsdk.NSdkApplication-->
         <activity
                 android:name="com.hanfeng.guildsdk.YhSDKActivity"
                 android:configChanges="orientation|keyboardHidden|keyboard|screenLayout|screenSize"

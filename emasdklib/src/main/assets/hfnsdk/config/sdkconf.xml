@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configer>
-	<landscape value="true" />
-	<channelid value="1" />
-	<subchannelid value="0" />
-	<debug value="true" />
-	<sdkversion value="1.0.7" />
-	<logmodel value="1" />
-	<td value = "A7E045B6D01046198E1557F784D1263F"/>
-	<ry value = "993c19d06d97bbcc86763f24556b9b6d"/>
-	<hasjointd value = "false"/>
-	<hasjoinry value = "false"/>
-	<component type="sdk" value="com.yinhan.nsdk.hanfeng.v2_0_0.HanfengNSdk" />
-	<component type="activity" value="com.yinhan.nsdk.hanfeng.v2_0_0.HanfengNSdk" />
+    <landscape value="true" />
+    <channelid value="1" />
+    <subchannelid value="0" />
+    <debug value="false" />      <!--false正式环境-->
+    <sdkversion value="1.0.7" />
+    <logmodel value="1" />
+    <td value="37534B4CCBF44100B07530C98E1121D0" />
+    <ry value="a0e6641714b35ea8192b456477e0499c" />
+    <hasjointd value="false" />
+    <hasjoinry value="false" />
+    <component type="sdk" value="com.yinhan.nsdk.hanfeng.v2_0_0.HanfengNSdk" />
+    <component type="activity" value="com.yinhan.nsdk.hanfeng.v2_0_0.HanfengNSdk" />
 </configer>
