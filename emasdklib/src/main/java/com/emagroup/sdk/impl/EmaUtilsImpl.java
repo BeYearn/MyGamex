@@ -19,6 +19,7 @@ import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ToastHelper;
 import com.emagroup.sdk.ULocalUtils;
+import com.emagroup.sdk.Url;
 import com.hanfeng.guildsdk.Constants;
 import com.hanfeng.nsdk.NSdk;
 import com.hanfeng.nsdk.NSdkListener;
@@ -375,7 +376,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     //-----------------------------------xxx 特有接口---------------------------------------------------
 
     public static String getYhSigLogin() {
-        //return Url.getServerUrl() + "/ema-platform/channelLogin/hanfeng";
-        return "http://192.168.10.104:8080/ema-platform/channelLogin/hanfeng";
+        return Url.getServerUrl() + "/ema-platform/channelLogin/hanfeng";
+        //return "http://192.168.10.104:8080/ema-platform/channelLogin/hanfeng";
     }
 }

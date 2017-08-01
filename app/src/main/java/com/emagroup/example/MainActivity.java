@@ -51,8 +51,9 @@ public class MainActivity extends Activity implements OnClickListener {
         btShowBar = (Button) findViewById(R.id.bt_showbar);
         btHideBar = (Button) findViewById(R.id.bt_hidebar);
 
+        EmaSDK.getInstance().init("800a924c499772bac7b76432803ea47a", this, new EmaSDKListener() {       //10001
         //EmaSDK.getInstance().init("6cdd60ea0045eb7a6ec44c54d29ed402",this, new EmaSDKListener() {      //
-        EmaSDK.getInstance().init("864ed48309c7f9a259f769b92cc52814", this, new EmaSDKListener() {       //20012
+        //EmaSDK.getInstance().init("864ed48309c7f9a259f769b92cc52814", this, new EmaSDKListener() {       //20012
             //EmaSDK.getInstance().init("5600441101c8818c4480d3c503742a3b",this, new EmaSDKListener() {      //20015
             @Override
             public void onCallBack(int arg0, String arg1) {
@@ -89,6 +90,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         showDialog("登陆失败");
                         break;
                     case EmaCallBackConst.LOGOUTSUCCESS://登出成功回调
+                        ToastHelper.toast(MainActivity.this,"登出成功");
                         break;
                     case EmaCallBackConst.LOGOUTFALIED://登出失败回调
                         break;
@@ -145,7 +147,7 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.bt_pay:
 
                 HashMap<String, String> payInfoMap = new HashMap<>();
-                payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_ID, "YLZHS_0001");
+                payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_ID, "1000");
                 payInfoMap.put(EmaConst.EMA_PAYINFO_PRODUCT_COUNT, "1");
                 payInfoMap.put(EmaConst.EMA_GAMETRANS_CODE, "游戏透传参数");
                 //payInfoMap.put("Product_Name","gold");

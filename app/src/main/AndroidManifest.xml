@@ -81,7 +81,7 @@
 
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="n20012" />
+            android:value="n10001" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
             android:value="n500006" />
@@ -90,7 +90,7 @@
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="testing" />
+            android:value="staging" />
 
 
         <!-- hfsdk的组件声明 start
