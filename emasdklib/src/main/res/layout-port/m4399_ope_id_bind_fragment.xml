@@ -101,6 +101,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textIsSelectable="true"
             android:layout_marginLeft="@dimen/m4399_ope_bind_label_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

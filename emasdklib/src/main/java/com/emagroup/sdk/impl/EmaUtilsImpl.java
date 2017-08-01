@@ -107,9 +107,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
                         // 个人中心里切换帐号的回调
                         @Override
-                        public void onSwitchUserAccountFinished(User userInfo) {
+                        public void onSwitchUserAccountFinished(boolean b, User user) {
                             listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS, "切换帐号成功");
                         }
+
                     });
                 }
             });

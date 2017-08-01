@@ -11,6 +11,16 @@
         android:layout_height="wrap_content" />-->
     <include layout="@layout/m4399_ope_perfect_navigation_bar"/>
 
+    <cn.m4399.recharge.thirdparty.smoothprogressbar.SmoothProgressBar
+        android:id="@+id/smooth_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        style="@style/m4399OpePocketProgressBar"
+        android:progress="0"
+        android:indeterminate="false"/>
+
+
+
     <cn.m4399.operate.ui.widget.CommonEditView
         android:id="@+id/perfect_nickname"
         android:layout_width="match_parent"

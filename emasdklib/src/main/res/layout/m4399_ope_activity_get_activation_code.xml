@@ -4,12 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:background="@color/m4399_ope_usercenter_white">
-
-<!--    <fragment
-        android:id="@+id/activation_code_webview"
-        android:name="cn.m4399.operate.ui.fragment.CustomWebFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
     <FrameLayout
         android:id="@+id/framelayout"
         android:layout_width="match_parent"
@@ -18,3 +12,4 @@
     </FrameLayout>
 
 </LinearLayout>
+

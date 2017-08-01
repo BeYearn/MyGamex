@@ -18,6 +18,11 @@
         <EditText
             android:id="@+id/content_edit"
             style="@style/m4399PerfectTextCenter"/>
+
+        <cn.m4399.operate.ui.widget.LimitEditText
+            android:visibility="gone"
+            android:id="@+id/content_edit_second"
+            style="@style/m4399PerfectTextCenter"/>
         <TextView
             android:id="@+id/content_tv"
             android:visibility="gone"

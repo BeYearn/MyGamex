@@ -8,7 +8,7 @@
               android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/framelayout"
+        android:id="@+id/center_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <cn.m4399.operate.ui.widget.NavigationBarView
+    <cn.m4399.operate.ui.widget.CommonNavView
         android:id="@+id/webview_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

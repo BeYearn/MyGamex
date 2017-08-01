@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <cn.m4399.operate.ui.widget.CommonNavView
+        android:id="@+id/index_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <cn.m4399.recharge.thirdparty.smoothprogressbar.SmoothProgressBar
+        android:id="@+id/smooth_progressbar"
+        style="@style/m4399OpePocketProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:indeterminate="false"
+        android:progress="0" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--账号信息、消息、礼包、官网-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/m4399_ope_usercenter_white"
+                android:paddingBottom="16dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="16dp">
+
+                <RelativeLayout
+                    android:id="@+id/index_head_avater_view"
+                    android:layout_width="54dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:id="@+id/index_user_avater"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:src="@drawable/m4399_ope_avatar_default" />
+
+                    <ImageView
+                        android:id="@+id/index_user_setting"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/m4399_ope_index_setting_gray" />
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/index_user_name_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="100dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@id/index_head_avater_view"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/index_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="#dd000000"
+                        android:textSize="17sp" />
+
+
+                </LinearLayout>
+
+
+                <cn.m4399.recharge.ui.widget.InquiryBar
+                    android:id="@+id/inquiry_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/index_user_name_view"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/index_head_avater_view" />
+
+                <include
+                    layout="@layout/m4399_ope_client_qq_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:visibility="gone" />
+
+                <include
+                    layout="@layout/m4399_ope_index_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/index_user_name_view"
+                    android:gravity="center_vertical" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#eeeeee" />
+
+            <!-- 优惠券、游戏圈、攻略、常见问题、我要反馈 -->
+            <LinearLayout
+                android:id="@+id/index_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/m4399_ope_usercenter_white"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="18dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/index_coupon_pa"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/index_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/m4399_ope_coupon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/m4399_ope_usercenter_coupon_center"
+                            android:textColor="#dd000000"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/index_problems_pa"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/index_problems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/m4399_ope_problem" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/m4399_ope_common_problems"
+                            android:textColor="#dd000000"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/index_feedback_pa"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+
+                    <LinearLayout
+                        android:id="@+id/index_feedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/m4399_ope_complaint" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/m4399_ope_feedback"
+                            android:textColor="#dd000000"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/index_items2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/m4399_ope_usercenter_white"
+                android:orientation="horizontal"
+                android:paddingBottom="18dp"
+                android:visibility="gone"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:id="@+id/index_game_circle_pa"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/index_game_circle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/m4399_ope_game_circle" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/m4399_ope_pop_circle"
+                            android:textColor="#dd000000"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/index_strategy_pa"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/index_strategy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/m4399_ope_strategy" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/m4399_ope_strategy"
+                            android:textColor="#dd000000"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--游戏视频-->
+            <RelativeLayout
+                android:id="@+id/index_vedio_re"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/m4399_ope_usercenter_white"
+                android:paddingBottom="18dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/m4399_ope_game_vedios"
+                    android:textColor="#dd000000"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/index_more_vedio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="@string/m4399_ope_index_more_vedios"
+                        android:textColor="#89000000"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="12dp"
+                        android:src="@drawable/m4399_ope_usercenter_right_arrow" />
+                </LinearLayout>
+
+                <cn.m4399.operate.ui.widget.GridView4ScrollView
+                    android:id="@+id/index_vedio_gv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/index_more_vedio"
+                    android:horizontalSpacing="8dp"
+                    android:listSelector="@null"
+                    android:numColumns="2">
+
+
+                </cn.m4399.operate.ui.widget.GridView4ScrollView>
+
+            </RelativeLayout>
+            <!--猜你喜欢-->
+            <RelativeLayout
+                android:id="@+id/index_game_re"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/m4399_ope_usercenter_white"
+                android:paddingBottom="18dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/index_guess_ulike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/m4399_ope_guess_ulike"
+                    android:textColor="#dd000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/index_recommend_reason_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="80dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_toRightOf="@id/index_guess_ulike"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#42000000"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/index_more_game"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="@string/m4399_ope_index_more_games"
+                        android:textColor="#89000000"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="12dp"
+                        android:src="@drawable/m4399_ope_usercenter_right_arrow" />
+                </LinearLayout>
+
+                <cn.m4399.operate.ui.widget.GridView4ScrollView
+                    android:id="@+id/index_game_gv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/index_more_game"
+                    android:listSelector="@color/m4399_ope_transparent"
+                    android:numColumns="4">
+
+
+                </cn.m4399.operate.ui.widget.GridView4ScrollView>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

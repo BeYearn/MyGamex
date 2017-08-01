@@ -25,7 +25,7 @@
 
         <EditText
             android:id="@+id/phone_bind_phone"
-            style="@style/m4399BindEditStyle"
+            style="@style/m4399BindPhoneEditStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number"
@@ -43,7 +43,7 @@
 
         <EditText
             android:id="@+id/phone_bind_code"
-            style="@style/m4399BindEditStyle"
+            style="@style/m4399BindPhoneEditStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -67,7 +67,7 @@
 
         <EditText
             android:id="@+id/phone_bind_msg_code"
-            style="@style/m4399BindEditStyle"
+            style="@style/m4399BindPhoneEditStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
