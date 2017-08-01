@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    compile(name: 'YSDK_Android_1.3.1_670', ext: 'aar')
+    compile(name: 'YSDK_Android_1.3.4_802', ext: 'aar')
     compile files('libs/GetuiSDK2.9.0.0.jar')
     compile 'com.android.support:support-v4:22.1.1'
 }
