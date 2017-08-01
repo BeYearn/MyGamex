@@ -24,11 +24,11 @@ import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 import com.huawei.gameservice.sdk.GameServiceSDK;
-import com.huawei.gameservice.sdk.api.GameEventHandler;
-import com.huawei.gameservice.sdk.api.PayResult;
-import com.huawei.gameservice.sdk.api.Result;
-import com.huawei.gameservice.sdk.api.UserResult;
+import com.huawei.gameservice.sdk.control.GameEventHandler;
+import com.huawei.gameservice.sdk.model.PayResult;
+import com.huawei.gameservice.sdk.model.Result;
 import com.huawei.gameservice.sdk.model.RoleInfo;
+import com.huawei.gameservice.sdk.model.UserResult;
 import com.huawei.gameservice.sdk.util.LogUtil;
 
 import org.json.JSONException;

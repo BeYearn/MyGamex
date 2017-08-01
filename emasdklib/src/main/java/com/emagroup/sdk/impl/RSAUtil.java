@@ -5,7 +5,8 @@ See LICENSE.txt for this sample's licensing information.
 
 package com.emagroup.sdk.impl;
 
-import com.huawei.gameservice.sdk.net.http.ByteUtil;
+
+import com.huawei.gameservice.sdk.util.ByteUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.security.Key;

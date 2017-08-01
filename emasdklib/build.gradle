@@ -32,6 +32,6 @@ dependencies {
     compile files('libs/android-support-v4.jar')
     compile files('libs/buoyopensdk.jar')
     compile files('libs/CloudUpdate_SDK_1.1.18.jar')
-    compile files('libs/hianalytics_v2.8.jar')
     compile files('libs/IHuaweipay.jar')
+    compile files('libs/hianalytics_v2.9.jar')
 }

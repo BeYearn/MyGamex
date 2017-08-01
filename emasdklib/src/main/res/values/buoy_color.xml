@@ -9,4 +9,10 @@
     <color name="buoy_button_text_color">#cd000000</color>
     <color name="buoy_save_title">#ff000000</color>
     <color name="buoy_save_detail">#7f000000</color>
+    <color name="buoy_transparent">#00000000</color>
+    <color name="buoy_progressbar_color">#007dff</color>
+    <color name="buoy_button_select_pressed">#0076f2</color>
+    <color name="buoy_blue_text_007dff">#007dff</color>
+    <color name="buoy_button_select_stroke">#4C007dff</color>
+    <color name="buoy_blue_text_007dff_alpha_20">#33007dff</color>
 </resources>

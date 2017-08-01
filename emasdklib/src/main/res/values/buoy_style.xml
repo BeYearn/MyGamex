@@ -9,6 +9,19 @@
         <item name="android:windowBackground">@android:color/transparent</item><!-- 背景透明 -->
     </style>
     
+    <!-- 统一设置自定义Dialog样式 -->
+    <style name="buoyDialog" parent="@android:style/Theme.Dialog">
+
+        <item name="android:colorForeground">#fff</item>
+        <item name="android:backgroundDimAmount">0.2</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    
+    <style name="buoy_loading_activity_style" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar.TranslucentDecor">
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+    
     <!-- ProgressDilaog主题定义 -->
     <style name="buoy_progressDialog" parent="android:Theme.Dialog">
         <item name="android:windowIsTranslucent">true</item>
