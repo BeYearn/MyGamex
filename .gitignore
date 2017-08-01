@@ -33,3 +33,6 @@ gradlew
 # 游戏的资源文件
     #次元的
 textfield.xml
+
+# Keystore files
+app/appsign
