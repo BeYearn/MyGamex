@@ -170,6 +170,8 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 if (userResult.rtnCode == Result.RESULT_OK && userResult.isChange != null && userResult.isChange == 1) {// 场景三： 通知帐号变换
                     // 收到SDK的帐号变更通知，退出游戏重新登录
                     listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS, "切换成功回调");
+                    //显示toolbar
+                    EmaSDK.getInstance().doShowToolbar();
                 }
             }
 
@@ -324,7 +326,12 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void doShowToolbar() {
         // 在界面恢复的时候显示浮标，和onPause配合使用
-        GameServiceSDK.showFloatWindow(mActivity);
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                GameServiceSDK.showFloatWindow(mActivity);
+            }
+        });
     }
 
     @Override

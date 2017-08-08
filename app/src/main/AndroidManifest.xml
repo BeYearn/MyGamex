@@ -74,7 +74,7 @@
 
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="n20015" />
+            android:value="n20012" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
             android:value="n000054" />
@@ -83,7 +83,7 @@
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="testing" />
+            android:value="production" />
 
         <!--华为组件声明 start-->
         <!-- 浮标依赖的Activity声明，建议将此Activity的屏幕方向与应用的屏幕方向设置为一样的 -->
