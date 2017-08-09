@@ -46,6 +46,20 @@ import java.util.Map;
 
 /**
  * Created by Administrator on 2016/10/9.
+ *
+ *YYB 打肉鸡包注意
+ *
+ 1.清单文件中
+ <data android:scheme="tencent1105564847" />     一般先有这个
+ <data android:scheme="wx3de98218bb388751" />   这个审核后有
+ <data android:scheme="qwallet100703379"/> （这个不用改，是米大师的默认配置）
+
+ 2.assets中该ysdkconf.ini中:
+ 两个id的修改
+ url为正式环境
+
+ 3.包名.wxapi  的修改
+ *
  */
 public class EmaUtilsImpl implements EmaUtilsInterface {
 
