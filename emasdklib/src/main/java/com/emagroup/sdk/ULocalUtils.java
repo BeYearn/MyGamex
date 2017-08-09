@@ -1,10 +1,12 @@
 package com.emagroup.sdk;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -195,6 +197,26 @@ public class ULocalUtils {
         String appName = context.getApplicationInfo().loadLabel(pm).toString();
         return appName;
     }
+
+    /**
+     * 获得appicon 的 id
+     * @param context
+     * @return
+     */
+    public static int getAppIconId(Context context) {
+
+        PackageManager pm = context.getPackageManager();
+        String packageName = context.getApplicationInfo().packageName;
+
+        Intent intent = pm.getLaunchIntentForPackage(packageName);
+        ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        if (resolveInfo != null) {
+            return resolveInfo.getIconResource();
+        } else {
+            return 0;
+        }
+    }
+
 
     /**
      * 获取versioncode 整数
