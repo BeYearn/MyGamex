@@ -6,15 +6,13 @@ import android.content.res.Configuration;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
-import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 import com.yingqidm.gamesdk.IPayCallbackListener;
 import com.yingqidm.gamesdk.MHRCallbackListener;
@@ -74,23 +72,21 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 @Override
                 public void callback(MHRGameSDKStatusCode statusCode, String result) {
                     if (statusCode == MHRGameSDKStatusCode.LOGIN_SUCCESS) {
-                        System.out.println("用户登录ID=================" + result);
 
-                        EmaUser.getInstance().setAllianceUid(result);
-                        EmaUser.getInstance().setNickName("");
+                        HashMap<String, String> data = new HashMap<>();
+                        data.put(EmaConst.ALLIANCE_UID,result);
+                        data.put(EmaConst.NICK_NAME,"");
 
-                        EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",data);
                     }
                 }
             });
 
 
-            listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
-            //初始化成功之后再检查公告更新等信息
-            InitCheck.getInstance(mActivity).checkSDKStatus();
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
 
         } catch (Exception e) {
-            listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
             e.printStackTrace();
         }
     }
@@ -102,7 +98,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             MHRGameSDK.defaultSDK().startGuide();
 
         } catch (Exception e) {//异常处理
-            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
             e.printStackTrace();
         }
     }
