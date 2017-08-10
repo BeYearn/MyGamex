@@ -40,13 +40,13 @@ public class InitCheck {
                     //dismissDelay(msg.arg1);
                     break;
                 case ALERT_SHOW:
-                    new EmaAlertDialog(mActivity, null, (Map) msg.obj, msg.arg1, msg.arg2).show();
+                    new EmaAlertDialog(mActivity,(Map) msg.obj, msg.arg1, msg.arg2).show();
                     break;
                 case DISMISS_NOW:
                     //SplashDialog.this.dismiss();
                     break;
                 case ALERT_WEBVIEW_SHOW:
-                    new EmaWebviewDialog(mActivity, null, (Map) msg.obj, msg.arg1, msg.arg2, mHandler).show();
+                    new EmaWebviewDialog(mActivity,(Map) msg.obj, msg.arg1, msg.arg2, mHandler).show();
                     break;
                 case GET_CHANNRLKEY_OK:
                     //发一个继续初始化的广播  在EmaUtils中接收
@@ -153,7 +153,7 @@ public class InitCheck {
                                 updateUrl = appVersionInfo.getString("updateUrl");
                                 version = appVersionInfo.getInt("version");
                             } catch (Exception e) {
-                                Log.e("checkSDKStatus", "jiexi appVersionInfo error", e);
+                                Log.w("checkSDKStatus", "jiexi appVersionInfo error", e);
                             }
 
                             try {
@@ -162,14 +162,14 @@ public class InitCheck {
                                 maintainContent = maintainInfo.getString("maintainContent");
                                 showStatus = maintainInfo.getString("status");// 0-维护/1-公告
                             } catch (Exception e) {
-                                Log.e("checkSDKStatus", "jiexi maintainInfo error", e);
+                                Log.w("checkSDKStatus", "jiexi maintainInfo error", e);
                             }
 
                             try {
                                 //将得到的menubar信息存sp，在toolbar那边取
                                 String menuBarInfo = dataObj.getString("menuBarInfo");
                                 ULocalUtils.spPut(mActivity, "menuBarInfo", menuBarInfo);
-                                Log.e("checkSDKStatus", "menuBarInfo");
+                                Log.e("menuBarInfo", menuBarInfo);
                                 //三个三方登录是否显示
                                 //Ema.getInstance().saveQQLoginVisibility(new JSONObject(menuBarInfo).getInt("support_qq_login"));
                                 //Ema.getInstance().saveWeboLoginVisibility(new JSONObject(menuBarInfo).getInt("support_weibo_login"));
@@ -179,7 +179,7 @@ public class InitCheck {
                                 //USharedPerUtil.setParam(mActivity, EmaConst.SUPPORT_WX_PAY, new JSONObject(menuBarInfo).getInt("support_weixin_pay"));
                             } catch (Exception e) {
                                 ULocalUtils.spPut(mActivity, "menuBarInfo", "");
-                                Log.e("checkSDKStatus", "jiexi menuBarInfo error", e);
+                                Log.w("checkSDKStatus", "jiexi menuBarInfo error", e);
                             }
 
 
@@ -241,7 +241,6 @@ public class InitCheck {
                             break;
                         default:
                             Log.e("checkSDKStatus", "请求状态失败！！" + json.getString("message"));
-                            //ToastHelper.toast(mActivity,json.getString("message"));
                             mListener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败!!");
                             break;
                     }
