@@ -59,6 +59,40 @@ public class EmaUtils {
         }
     };
 
+
+    /**
+     * 设置 初始化 和 登录 信息回调
+     *
+     * @param msgCode 标识码
+     * @param msg     标识信息
+     * @param data 用途:1 在登录成功时,拿到username,userid
+     */
+    public void makeUserCallBack(int msgCode, String msg, Map<String, String> data) {     //// TODO: 2017/8/10 支付的回调也可以在EmaPay中像这样统一管理
+        if (mListener == null) {
+            Log.e("makeUserCallBack", "未设置回调");
+            return;
+        }
+
+        if (msgCode == EmaCallBackConst.INITSUCCESS) {
+            //初始化成功之后再检查公告更新等信息
+            InitCheck.getInstance(mActivity).checkSDKStatus();
+
+        } else if (msgCode == EmaCallBackConst.LOGINSUCCESS_CHANNEL){  //渠道登录成功后进一步平台登录
+
+            if(data!=null){
+                String allianceUid = data.get(EmaConst.ALLIANCE_UID);
+                String nickName = data.get(EmaConst.NICK_NAME);
+                EmaUser.getInstance().setAllianceUid(allianceUid);
+                EmaUser.getInstance().setNickName(nickName);
+                //补充弱账户信息
+                EmaSDKUser.getInstance(mActivity).updateWeakAccount(mListener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+            }else {
+                Log.e("callback","loginsuccess data null");
+            }
+        }
+
+    }
+
     //绑定服务
     public ServiceConnection mServiceCon = new ServiceConnection() {
         @Override
@@ -93,14 +127,6 @@ public class EmaUtils {
                         e.printStackTrace();
                     }
                     break;
-                case EmaConst.EMA_BC_LOGIN_OK_ACTION:
-
-                    //绑定服务
-                    Intent serviceIntent = new Intent(mActivity, EmaService.class);
-                    mActivity.bindService(serviceIntent, InitCheck.getInstance(mActivity).mServiceCon, Context.BIND_AUTO_CREATE);
-                    //补充弱账户信息
-                    EmaSDKUser.getInstance(mActivity).updateWeakAccount(mListener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
-                    break;
 
                 case EmaConst.EMA_BC_PROGRESS_ACTION:
 
@@ -129,7 +155,6 @@ public class EmaUtils {
         //注册可以进一步初始化广播
         IntentFilter filter = new IntentFilter();
         filter.addAction(EmaConst.EMA_BC_GETCHANNEL_OK_ACTION);
-        filter.addAction(EmaConst.EMA_BC_LOGIN_OK_ACTION);
         filter.addAction(EmaConst.EMA_BC_PROGRESS_ACTION);
         filter.setPriority(Integer.MAX_VALUE);
         mActivity.registerReceiver(getkeyOkReciver, filter);
@@ -160,7 +185,7 @@ public class EmaUtils {
         return instance;
     }
 
-    public void immediateInit(EmaSDKListener listener){
+    public void immediateInit(EmaSDKListener listener) {
         EmaUtilsImpl.getInstance(activity).immediateInit(listener);
     }
 
@@ -238,7 +263,7 @@ public class EmaUtils {
     public void onRestart() {
 
         //回到前台时重新走心跳间隔逻辑
-        if(null!=mEmaService){
+        if (null != mEmaService) {
             mEmaService.reStartHeart();
         }
 

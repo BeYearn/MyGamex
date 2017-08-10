@@ -15,6 +15,7 @@ public class EmaCallBackConst {
 	
 	//账号状态登录 200开始
 	public final static int LOGINSUCCESS = 200;//登录成功
+	public final static int LOGINSUCCESS_CHANNEL = 205; //渠道登录成功
 	public final static int LOGINFALIED = 201;//登录失败
 	public final static int LOGINCANELL = 202;//登录取消
 	public final static int LOGINSWITCHSUCCESS = 203;//切换账号，退出当前账号成功
