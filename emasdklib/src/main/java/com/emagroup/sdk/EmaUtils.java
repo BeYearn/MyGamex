@@ -47,13 +47,13 @@ public class EmaUtils {
                     //dismissDelay(msg.arg1);
                     break;
                 case ALERT_SHOW:
-                    new EmaAlertDialog(activity, null, (Map) msg.obj, msg.arg1, msg.arg2).show();
+                    new EmaAlertDialog(activity, (Map) msg.obj, msg.arg1, msg.arg2).show();
                     break;
                 case DISMISS_NOW:
                     //SplashDialog.this.dismiss();
                     break;
                 case ALERT_WEBVIEW_SHOW:
-                    new EmaWebviewDialog(activity, null, (Map) msg.obj, msg.arg1, msg.arg2, mHandler).show();
+                    new EmaWebviewDialog(activity, (Map) msg.obj, msg.arg1, msg.arg2, mHandler).show();
                     break;
             }
         }
