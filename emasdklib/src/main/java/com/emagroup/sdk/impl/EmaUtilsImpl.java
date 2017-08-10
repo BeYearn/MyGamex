@@ -11,17 +11,16 @@ import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ToastHelper;
-import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 import com.tencent.ysdk.api.YSDKApi;
 import com.tencent.ysdk.framework.common.eFlag;
@@ -97,10 +96,8 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                     Log.e("isLoginSucc","///"+isLoginSucc);
                 }
                 if(!isInitSucc){
-                    listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
                     isInitSucc=true;
-                    //初始化成功之后再检查公告更新等信息
-                    InitCheck.getInstance(mActivity).checkSDKStatus();
                 }
 
                 switch (ret.flag) {
@@ -109,62 +106,62 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         platform = ePlatform.getEnum(ret.platform);
 
                         String uid = ret.open_id;   //用户在该appid下的唯一性标示，appid内唯一
-                        String nikename = ret.nick_name;
-                        EmaUser.getInstance().setAllianceUid(uid + "");
-                        EmaUser.getInstance().setNickName(nikename);
+                        String nickName = ret.nick_name;
 
-                        //补充弱账户信息
-                        EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                        HashMap<String, String> userData = new HashMap<>();
+                        userData.put(EmaConst.ALLIANCE_UID,uid);
+                        userData.put(EmaConst.NICK_NAME,nickName);
+
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",userData);
 
                         Log.e("yybloginSuccessful", ret.toString());
 
                         //  YSDKApi.queryUserInfo(platform);  //在onRelationNotify 中回应
-
                         break;
                     // 游戏逻辑，对登录失败情况分别进行处理
                     case eFlag.QQ_LoginFail:
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录失败，请重试");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         //mainActivity.showToastTips("QQ登录失败，请重试");
                         //mainActivity.letUserLogout();
                         break;
                     case eFlag.QQ_NetworkErr:
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         //mainActivity.showToastTips("QQ登录异常，请重试");
                         //mainActivity.letUserLogout();
                         break;
                     case eFlag.QQ_NotInstall:
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "手机未安装手Q，请安装后重试");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         ToastHelper.toast(mActivity, "手机未安装手Q，请安装后重试");
                         //mainActivity.letUserLogout();
                         break;
                     case eFlag.QQ_NotSupportApi:
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "手机手Q版本太低，请升级后重试");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         ToastHelper.toast(mActivity, "手机手Q版本太低，请升级后重试");
                         //mainActivity.letUserLogout();
                         break;
                     case eFlag.WX_NotInstall:
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         //mainActivity.showToastTips("手机未安装微信，请安装后重试");
                         //mainActivity.letUserLogout();
                         break;
                     case eFlag.WX_NotSupportApi:
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         //mainActivity.showToastTips("手机微信版本太低，请升级后重试");
                         //mainActivity.letUserLogout();
                         break;
                     case eFlag.Login_TokenInvalid:
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         //mainActivity.showToastTips("您尚未登录或者之前的登录已过期，请重试");
                         //mainActivity.letUserLogout();
                         break;
                     case eFlag.Login_NotRegisterRealName:
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         // 显示登录界面
                         //mainActivity.showToastTips("您的账号没有进行实名认证，请实名认证后重试");
                         //mainActivity.letUserLogout();
                         break;
                     default:
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "QQ登录异常，请重试");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         // 显示登录界面
                         //mainActivity.letUserLogout();
                         break;
@@ -237,14 +234,12 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             Log.e("yybappid",appid);
 
             if(!isInitSucc){
-                listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");  // 防止某时OnLoginNotify开始并不自动调用的
+                EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);  // 防止某时OnLoginNotify开始并不自动调用的
                 isInitSucc=true;
-                //初始化成功之后再检查公告更新等信息
-                InitCheck.getInstance(mActivity).checkSDKStatus();
             }
 
         } catch (Exception e) {
-            listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
             e.printStackTrace();
         }
 
@@ -253,12 +248,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void realLogin(final EmaSDKListener listener, String userid, String deviceId) {
 
-        Log.e("yyb", "login");
+        Log.e("yyb", "login:"+isLoginSucc);
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if(!isLoginSucc){
-                    Log.e("isLoginSucc","000"+isLoginSucc);
                     YybLoginDialog.getInstance(mActivity).show();
                 }else {
                     Log.e("ysdLogin","您已登录成功");
@@ -357,7 +351,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         EmaUser.getInstance().setToken("");
         EmaUser.getInstance().setIsLogin(false);
         isLoginSucc=false;
-        mILlistener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
+        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功回调",null);
     }
 
     @Override
