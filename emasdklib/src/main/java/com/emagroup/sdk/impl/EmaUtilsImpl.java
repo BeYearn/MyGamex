@@ -15,11 +15,9 @@ import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
@@ -97,7 +95,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 Log.e("huaweiinit", result.toString());
                 if (result.rtnCode == Result.RESULT_OK) {
 
-                    listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
                     Log.e("EmaAnySDK", "HW初始化成功");
 
                     mActivity.runOnUiThread(new Runnable() {
@@ -107,11 +105,9 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                             checkUpdate();
                         }
                     });
-                    //初始化成功之后再检查公告更新等信息
-                    InitCheck.getInstance(mActivity).checkSDKStatus();
                 } else {
                     //listener.onCallBack(EmaCallBackConst.INITFALIED, "HW初始化SDK失败");
-                    listener.onCallBack(EmaCallBackConst.INITSUCCESS, "huawei初始化成功"); // 华为蛋疼！！  因为他还有二次机会（但游戏要是失败了，就不再给调别的了）
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null); // 华为蛋疼！！  因为他还有二次机会（但游戏要是失败了，就不再给调别的了）
                 }
             }
 
@@ -139,24 +135,22 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                     return;
                 }
                 if (userResult.rtnCode == Result.RESULT_ERR_CANCEL) {
-                    listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调",null);
                     return;
                 }
                 if (userResult.rtnCode != Result.RESULT_OK) {//登录失败
-                    listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                     return;
                 }
                 if (userResult.rtnCode == Result.RESULT_OK && userResult.isAuth != null && userResult.isAuth == 0) {// 场景一： 登录成功
-                    //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
-
-                    EmaUser.getInstance().setAllianceUid(userResult.playerId);
-                    EmaUser.getInstance().setNickName(userResult.displayName);
-
                     //显示toolbar
                     EmaSDK.getInstance().doShowToolbar();
 
-                    //补充弱账户信息
-                    EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                    HashMap<String, String> data = new HashMap<>();
+                    data.put(EmaConst.ALLIANCE_UID,userResult.playerId);
+                    data.put(EmaConst.NICK_NAME,userResult.displayName);
+
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",data);
 
                     //华为上传游戏信息
                     addPlayerInfo();
@@ -169,7 +163,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 }
                 if (userResult.rtnCode == Result.RESULT_OK && userResult.isChange != null && userResult.isChange == 1) {// 场景三： 通知帐号变换
                     // 收到SDK的帐号变更通知，退出游戏重新登录
-                    listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS, "切换成功回调");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS, "切换成功回调",null);
                     //显示toolbar
                     EmaSDK.getInstance().doShowToolbar();
                 }

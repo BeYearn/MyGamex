@@ -83,7 +83,7 @@
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="production" />
+            android:value="testing" />
 
         <!--华为组件声明 start-->
         <!-- 浮标依赖的Activity声明，建议将此Activity的屏幕方向与应用的屏幕方向设置为一样的 -->
