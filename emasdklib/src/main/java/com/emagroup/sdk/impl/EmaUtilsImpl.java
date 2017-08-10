@@ -6,13 +6,12 @@ import android.content.res.Configuration;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
-import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 import com.oacg.gamesdk.OACGGameSDK;
 import com.oacg.gamesdk.login.OnLoginListener;
@@ -22,6 +21,7 @@ import com.oacg.oacguaa.cbdata.CbUserInfoData;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -58,10 +58,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             String gameId = data.getString("channelAppId");  //"1052"; //从data来
             boolean isLandscape = mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE; //是否是横屏
             OACGGameSDK.getInstance().init(mActivity, gameId, isLandscape);
-            listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
         } catch (Exception e) {
             e.printStackTrace();
-            listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
         }
     }
 
@@ -72,21 +72,22 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             public void onLoginComplete(CbUserInfoData cbUserInfoData) {
                 String name = cbUserInfoData.getName();
                 String openid = cbUserInfoData.getOpenid();
-                EmaUser.getInstance().setNickName(name);
-                EmaUser.getInstance().setAllianceUid(openid);
 
-                //补充弱账户信息
-                EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                HashMap<String, String> data = new HashMap<>();
+                data.put(EmaConst.ALLIANCE_UID,openid);
+                data.put(EmaConst.NICK_NAME,name);
+
+                EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",data);
             }
 
             @Override
             public void onLoginCancel() {
-                listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登录取消");
+                EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINCANELL, "登录取消",null);
             }
 
             @Override
             public void onLoginError(String msg) {
-                listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
             }
         });
     }
@@ -144,7 +145,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void logout() {
         OACGGameSDK.getInstance().logout();
-        mILlistener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功");
+        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功",null);
     }
 
     @Override
