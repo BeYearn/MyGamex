@@ -20,10 +20,8 @@ import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDK;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 
@@ -70,7 +68,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             AnySDK.getInstance().init(mActivity, channelAppKey, channelAppSecret, channelAppPrivate, "https://platform.lemonade-game.com/ema-platform/authLogin.jsp");
             //这里之所以不回调“初始化成功”  是因为any本身就有成功回调，让它来吧；
         } catch (JSONException e) {
-            listener.onCallBack(EmaCallBackConst.INITFALIED,"初始化失败");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
             e.printStackTrace();
         }
 
@@ -80,15 +78,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 if (listener != null) {
                     switch(i) {
                         case UserWrapper.ACTION_RET_INIT_SUCCESS://初始化成功
-                            listener.onCallBack(EmaCallBackConst.INITSUCCESS,"初始化成功");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
                             Log.e("EmaAnySDK","初始化成功");
-
-                            //初始化成功之后再检查公告更新等信息
-                            InitCheck.getInstance(mActivity).checkSDKStatus();
-
                             break;
                         case UserWrapper.ACTION_RET_INIT_FAIL://初始化SDK失败回调
-                            listener.onCallBack(EmaCallBackConst.INITFALIED,"初始化SDK失败回调");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
                             break;
                         case UserWrapper.ACTION_RET_LOGIN_SUCCESS://登陆成功回调
 
@@ -96,24 +90,22 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
                             break;
                         case UserWrapper.ACTION_RET_LOGIN_CANCEL://登陆取消回调
-                            listener.onCallBack(EmaCallBackConst.LOGINCANELL,"登陆取消回调");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINCANELL,"登陆取消回调",null);
                             break;
                         case UserWrapper.ACTION_RET_LOGIN_FAIL://登陆失败回调
-                            listener.onCallBack(EmaCallBackConst.LOGINFALIED,"登陆失败回调");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED,"登陆失败回调",null);
                             break;
                         case UserWrapper.ACTION_RET_LOGOUT_SUCCESS://登出成功回调
-                            listener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功回调");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功回调",null);
                             break;
                         case UserWrapper.ACTION_RET_LOGOUT_FAIL://登出失败回调
-                            listener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败回调");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败回调",null);
                             break;
                         case UserWrapper.ACTION_RET_ACCOUNTSWITCH_SUCCESS://切换账号成功回调
-
-                            //afterLoginSuccess(listener);
-                            listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS,"切换成功回调");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS,"切换成功回调",null);
                             break;
                         case UserWrapper.ACTION_RET_ACCOUNTSWITCH_FAIL://切换账号失败回调
-                            listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHFAIL,"切换失败回调");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.ACCOUNTSWITCHFAIL,"切换失败回调",null);
                             break;
                         case UserWrapper.ACTION_RET_EXIT_PAGE://退出游戏回调
                             if(s == "onGameExit" || s == "onNo3rdExiterProvide") {
@@ -314,17 +306,18 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     //-----------------------------------xxx的网络请求方法-------------------------------------------------------------------------
 
     private void afterLoginSuccess(EmaSDKListener listener){
-        //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
-
-        EmaUser.getInstance().setAllianceUid(AnySDKUser.getInstance().getUserID());
-        EmaUser.getInstance().setNickName("");
-
         //显示toolbar
         EmaSDK.getInstance().doShowToolbar();
 
-        /*Intent intent = new Intent(EmaConst.EMA_BC_LOGIN_OK_ACTION);
-        mActivity.sendBroadcast(intent);*/
-        EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+        //获取用户的登陆后的 UID(即用户唯一标识)
+        String uid = AnySDKUser.getInstance().getUserID();
+        String nikename = "";
+
+        HashMap<String, String> data = new HashMap<>();
+        data.put(EmaConst.ALLIANCE_UID,uid);
+        data.put(EmaConst.NICK_NAME,nikename);
+
+        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",data);
 
     }
 
