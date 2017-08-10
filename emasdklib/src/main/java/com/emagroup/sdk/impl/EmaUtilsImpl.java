@@ -9,11 +9,10 @@ import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
@@ -83,11 +82,9 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void realInit(final EmaSDKListener listener, JSONObject data) {
         if (isInitSuccess) {
-            listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
-            //初始化成功之后再检查公告更新等信息
-            InitCheck.getInstance(mActivity).checkSDKStatus();
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
         } else {
-            listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
         }
     }
 
@@ -100,14 +97,18 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 switch (code) {
                     case BSGameSdkStatusCode.NO_INIT:
                         // 没有初始化或初始化失败，请调用sdk初始化接口
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登录失败",null);
                         break;
                     case BSGameSdkStatusCode.SUCCESS:
+
                         //登录成功(loginResult可获取guid和accessToken)，请cp自行处理自己的登录逻辑
                         String guid = loginResult.getGuid();
-                        EmaUser.getInstance().setAllianceUid(guid);
 
-                        //补充弱账户信息
-                        EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                        HashMap<String, String> data = new HashMap<>();
+                        data.put(EmaConst.ALLIANCE_UID,guid);
+                        data.put(EmaConst.NICK_NAME,"");
+
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",data);
 
                         break;
                     case BSGameSdkStatusCode.LOGIN_EXIT:
@@ -181,11 +182,11 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         // 还没有登录或者已经注销
                         break;
                     case BSGameSdkStatusCode.SUCCESS:
-                        mILlistener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功",null);
                         // 注销成功
                         break;
                     case BSGameSdkStatusCode.FAIL:
-                        mILlistener.onCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败",null);
                         // 注销失败
                         break;
                 }
