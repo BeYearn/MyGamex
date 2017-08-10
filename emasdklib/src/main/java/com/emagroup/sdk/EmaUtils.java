@@ -65,13 +65,15 @@ public class EmaUtils {
      *
      * @param msgCode 标识码
      * @param msg     标识信息
-     * @param data 用途:1 在登录成功时,拿到username,userid
+     * @param data 用途:1 在登录成功时,拿到username,userid 目前只有LOGINSUCCESS_CHANNEL时才会用到data
      */
     public void makeUserCallBack(int msgCode, String msg, Map<String, String> data) {     //// TODO: 2017/8/10 支付的回调也可以在EmaPay中像这样统一管理
         if (mListener == null) {
             Log.e("makeUserCallBack", "未设置回调");
             return;
         }
+
+        mListener.onCallBack(msgCode,msg);    //类似LOGINSUCCESS_CHANNEL先不对外暴露,回调过去也无所谓
 
         if (msgCode == EmaCallBackConst.INITSUCCESS) {
             //初始化成功之后再检查公告更新等信息
