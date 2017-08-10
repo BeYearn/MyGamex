@@ -10,10 +10,8 @@ import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 import com.xiaomi.gamecenter.sdk.GameInfoField;
@@ -28,6 +26,7 @@ import com.xiaomi.gamecenter.sdk.entry.MiBuyInfoOnline;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -66,12 +65,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             appInfo.setAppKey(channelAppKey);
             MiCommplatform.Init(mActivity, appInfo);
 
-            listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
-            //初始化成功之后再检查公告更新等信息
-            InitCheck.getInstance(mActivity).checkSDKStatus();
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
 
         } catch (JSONException e) {
-            listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
             e.printStackTrace();
         }
     }
@@ -90,28 +87,28 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         //获取用户的登陆后的 UID(即用户唯一标识)
                         long uid = miAccountInfo.getUid();
                         String nikename = miAccountInfo.getNikename();
-                        EmaUser.getInstance().setAllianceUid(uid + "");
-                        EmaUser.getInstance().setNickName(nikename);
+
+                        HashMap<String, String> data = new HashMap<>();
+                        data.put(EmaConst.ALLIANCE_UID,uid+"");
+                        data.put(EmaConst.NICK_NAME,nikename);
+
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",data);
 
                         //获取用户的登陆的 Session(请参考 3.3用户session验证接口)
                         String session = miAccountInfo.getSessionId();//若没有登录返回 null
                         //请开发者完成将uid和session提交给开发者自己服务器进行session验证
-
-                        //补充弱账户信息
-                        EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
-
                         break;
                     case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_LOGIN_FAIL:
                         // 登陆失败
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         break;
                     case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_CANCEL:
                         // 取消登录
-                        listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调",null);
                         break;
                     default:
                         // 登录失败
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                         break;
                 }
             }

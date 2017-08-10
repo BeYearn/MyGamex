@@ -71,7 +71,7 @@
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="production" />
+            android:value="testing" />
 
         <!--xxx 组件声明begin-->
 
