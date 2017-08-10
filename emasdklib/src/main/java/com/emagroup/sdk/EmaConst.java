@@ -29,7 +29,6 @@ public class EmaConst {
 	//----------------------------------------------------------------------------
 
 	public static final String EMA_BC_GETCHANNEL_OK_ACTION = "ema_getchannel_ok";  //获取渠道key信息成功
-	public static final String EMA_BC_LOGIN_OK_ACTION = "ema_login_ok";
 	public static final String EMA_BC_CHANNEL_INFO = "initData";
 
 
@@ -39,4 +38,10 @@ public class EmaConst {
 	public static final String EMA_BC_PROGRESS_STATE = "progressState";
 	public static final String EMA_BC_PROGRESS_CLOSE = "bc_progress_close";
 	public static final String EMA_BC_PROGRESS_START = "bc_progress_start";
+
+	//--------------------------------------------------------------------------------从渠道那里传来的uid和nikeName
+
+	public static final String ALLIANCE_UID = "allianceUid";
+	public static final String NICK_NAME = "nickName";
+
 }
