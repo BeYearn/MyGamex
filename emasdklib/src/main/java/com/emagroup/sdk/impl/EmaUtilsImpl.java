@@ -15,15 +15,13 @@ import com.coolcloud.uac.android.common.Params;
 import com.coolcloud.uac.android.gameassistplug.GameAssistApi;
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaUser;
 import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
@@ -106,13 +104,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             }
 
 
-            listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
-
-            //初始化成功之后再检查公告更新等信息
-            InitCheck.getInstance(mActivity).checkSDKStatus();
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
 
         } catch (Exception e) {
-            listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
             e.printStackTrace();
         }
     }
@@ -144,14 +139,14 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         // 出现错误，通过error.getError()和error.getMessage()获取错误信息
                         Log.e("coolpLoginerror",error.getError()+".."+error.getMessage());
                         // 登陆失败
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败",null);
                     }
 
                     @Override
                     public void onCancel() {
                         // 操作被取消
                         // 取消登录
-                        listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调",null);
                     }
                 });
 
@@ -228,7 +223,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     @Override
     public void logout() {
         Log.e("coolpad","logout");
-        mILlistener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");
+        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功",null);
         mCoolcloud.logout(mActivity);
         mActivity.runOnUiThread(new Runnable() {
             @Override
@@ -267,14 +262,14 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 // 出现错误，通过error.getError()和error.getMessage()获取错误信息
                 Log.e("coolpLoginerror",error.getError()+".."+error.getMessage());
                 // 登陆失败
-                mListenerLogin.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败",null);
             }
 
             @Override
             public void onCancel() {
                 // 操作被取消
                 // 取消登录
-                mListenerLogin.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
+                EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调",null);
             }
         });
     }
@@ -369,16 +364,15 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                     //在授权自动续期步骤中，获取新的Access_Token时需要提供的参数。
                     mRefresh_token = data.getString("refresh_token");
 
-                    EmaUser.getInstance().setAllianceUid(mOpenId);
-                    //EmaUser.getInstance().setNickName(nickName);
 
-                    //补充弱账户信息
-                    EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                    HashMap<String, String> userData = new HashMap<>();
+                    data.put(EmaConst.ALLIANCE_UID,mOpenId);
+                    data.put(EmaConst.NICK_NAME,"");
 
-                    Log.e("getCoolPadAccontInfo", "结果:" + mOpenId + "..");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",userData);
 
                 } catch (Exception e) {
-                    listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败",null);
                     Log.e("getUCAccontInfo", "maybe is SocketTimeoutException");
                     e.printStackTrace();
 
