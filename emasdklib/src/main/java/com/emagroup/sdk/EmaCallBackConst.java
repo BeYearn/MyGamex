@@ -38,10 +38,9 @@ public class EmaCallBackConst {
 	public final static int ACCOUNTSWITCHSUCCESS = 600;
 	public final static int ACCOUNTSWITCHFAIL = 601;
 
-
-
-
-
 	//接收推送消息
 	public final static int RECIVEMSG_MSG = 123;//接收到
+
+	//先不对外暴露 内部使用
+	public final static int LOGINSUCCESS_CHANNEL = 605; //渠道登录成功
 }

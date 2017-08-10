@@ -121,7 +121,7 @@ public class EmaService extends Service {
 
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("token", EmaUser.getInstance().getToken());
-                    params.put("uid", EmaUser.getInstance().getAllianceUid());
+                    params.put("uid", EmaUser.getInstance().getmUid());
                     params.put("appId", ULocalUtils.getAppId(EmaService.this));
                     params.put("allianceId", ULocalUtils.getChannelId(EmaService.this));
                     params.put("channelTag", ULocalUtils.getChannelTag(EmaService.this));
