@@ -24,6 +24,7 @@ public class EmaPay {
 
     private static EmaPay mInstance;
     private static final Object synchron = new Object();
+    private final EmaProgressDialog mProgress;
 
     private Context mContext;
     private EmaSDKListener mListener;
@@ -54,6 +55,7 @@ public class EmaPay {
 
     private EmaPay(Context context) {
         mContext = context;
+        mProgress = new EmaProgressDialog(context);
     }
 
     public static EmaPay getInstance(Context context) {
@@ -88,6 +90,9 @@ public class EmaPay {
         if (!EmaUser.getInstance().getIsLogin()) {
             Log.e(TAG, "没有登陆，或者已经退出！订单创建失败");
             return;
+        }
+        if (mProgress != null) {
+            mProgress.showProgress("请稍候...", false, false);
         }
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
@@ -146,9 +151,17 @@ public class EmaPay {
                     msg.what = ORDER_SUCCESS;
                     msg.obj = mPayInfo;
                     mHandler.sendMessage(msg);
+
+                    if (mProgress != null) {
+                        mProgress.closeProgress();
+                    }
+
                 } catch (Exception e) {
                     mHandler.sendEmptyMessage(ORDER_FAIL);
                     e.printStackTrace();
+                    if (mProgress != null) {
+                        mProgress.closeProgress();
+                    }
                 }
 
             }
@@ -163,11 +176,11 @@ public class EmaPay {
         ThreadUtil.runInSubThread(new Runnable() {
             @Override
             public void run() {
-                if(null==mPayInfo){
+                if (null == mPayInfo) {
                     return;
                 }
                 Map<String, String> params = new HashMap<>();
-                params.put("orderId", TextUtils.isEmpty(mPayInfo.getOrderId())?"no order id":mPayInfo.getOrderId());
+                params.put("orderId", TextUtils.isEmpty(mPayInfo.getOrderId()) ? "no order id" : mPayInfo.getOrderId());
                 params.put("token", EmaUser.getInstance().getToken());
                 params.put("appId", ULocalUtils.getAppId(mContext));
                 params.put("uid", EmaUser.getInstance().getmUid());
