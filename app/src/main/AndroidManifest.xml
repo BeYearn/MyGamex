@@ -82,7 +82,7 @@
 
         <meta-data
             android:name="EMA_APP_ID"
-            android:value="n20015" />
+            android:value="n20012" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
             android:value="n000255" />
@@ -91,7 +91,7 @@
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="production" />
+            android:value="testing" />
 
         <!--uc 声明begin-->
         <activity

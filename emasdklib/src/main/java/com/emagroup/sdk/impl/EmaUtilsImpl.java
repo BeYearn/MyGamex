@@ -11,11 +11,10 @@ import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
@@ -79,9 +78,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 @Subscribe(event = SDKEventKey.ON_INIT_SUCC)
                 private void onInitSucc() {
 
-                    listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
-                    //初始化成功之后再检查公告更新等信息
-                    InitCheck.getInstance(mActivity).checkSDKStatus();
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
 
                     //uc特有 用于创建悬浮窗 悬浮按钮须指定一个 Activity 与关联，一个游戏中可以有多个 Activity 拥有悬浮按钮，彼此独立操作
                     //UCGameSdk.defaultSdk().createFloatButton(mActivity);
@@ -89,7 +86,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
                 @Subscribe(event = SDKEventKey.ON_INIT_FAILED)
                 private void onInitFailed() {
-                    listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
                 }
 
                 @Subscribe(event = SDKEventKey.ON_LOGIN_SUCC)
@@ -104,18 +101,18 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 @Subscribe(event = SDKEventKey.ON_LOGIN_FAILED)
                 private void onLoginFailed(String desc) {
                     // 登陆失败
-                    listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                 }
 
                 @Subscribe(event = SDKEventKey.ON_LOGOUT_SUCC)
                 private void onLogoutSucc() {
-                    listener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功回调");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功回调",null);
                     // 切换账号时，可以再次调起登录接口
                 }
 
                 @Subscribe(event = SDKEventKey.ON_LOGOUT_FAILED)
                 private void onLogoutFailed() {
-                    listener.onCallBack(EmaCallBackConst.LOGOUTFALIED, "登出失败回调");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTFALIED, "登出失败回调",null);
                 }
 
                 @Subscribe(event = SDKEventKey.ON_EXIT_SUCC)
@@ -159,7 +156,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
 
         } catch (Exception e) {
-            listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
             e.printStackTrace();
         }
     }
@@ -171,7 +168,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
             UCGameSdk.defaultSdk().login(mActivity, null);
 
         } catch (Exception e) {//异常处理
-            listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
             e.printStackTrace();
         }
     }
@@ -407,19 +404,16 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                     String accountId = datadata.getString("accountId");
                     String nickName = datadata.getString("nickName");
 
-                    EmaUser.getInstance().setAllianceUid(accountId);
-                    EmaUser.getInstance().setNickName(nickName);
+                    HashMap<String, String> userData = new HashMap<>();
+                    userData.put(EmaConst.ALLIANCE_UID,accountId);
+                    userData.put(EmaConst.NICK_NAME,nickName);
 
-                    /*Intent intent = new Intent(EmaConst.EMA_BC_LOGIN_OK_ACTION);
-                    mActivity.sendBroadcast(intent);*/
-                    //补充弱账户信息
-                    EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",userData);
 
                     Log.e("getUCAccontInfo", "结果:" + accountId + ".." + nickName);
 
-
                 } catch (Exception e) {
-                    listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败回调",null);
                     Log.e("getUCAccontInfo", "maybe is SocketTimeoutException");
                     e.printStackTrace();
                 }
