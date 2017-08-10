@@ -15,7 +15,7 @@ import java.util.Map;
 public class EmaWebviewDialog extends Dialog {
 
     private final int showType;//显示样式 1只有确定按钮  2确定取消按钮都有
-    private final Dialog dialogFrom; //从这个dialog来
+    //private final Dialog dialogFrom; //从这个dialog来
     private final int clickType;
     private final Map mContentMap;
     private final Handler mHandler;
@@ -29,16 +29,15 @@ public class EmaWebviewDialog extends Dialog {
 
     /**
      * @param context
-     * @param dialog
      * @param contentMap
      * @param showType   1 显示一个确定按钮  2 显示确定 取消
      * @param clickType  1确定按钮按下退出   2确定按钮按下顺利进入 3确定按钮按下可选更新  4确定按钮按下强制更新
      */
-    public EmaWebviewDialog(Context context, Dialog dialog, Map contentMap, int showType, int clickType, Handler handler) {
+    public EmaWebviewDialog(Context context, Map contentMap, int showType, int clickType, Handler handler) {
         super(context, ResourceManager.getInstance(context).getIdentifier("ema_activity_dialog", "style"));
         this.showType = showType;
         this.clickType = clickType;
-        this.dialogFrom = dialog;
+        //this.dialogFrom = dialog;
         mResourceManager = ResourceManager.getInstance(context);
         setCancelable(false);
         setCanceledOnTouchOutside(false);
@@ -73,9 +72,9 @@ public class EmaWebviewDialog extends Dialog {
                     System.exit(0);
                 } else if (2 == clickType) {
                     EmaWebviewDialog.this.dismiss();
-                    if(null!=dialogFrom){
-                        dialogFrom.dismiss();
-                    }
+//                    if(null!=dialogFrom){
+//                        dialogFrom.dismiss();
+//                    }
                     String whichUpdate = (String) mContentMap.get("whichUpdate");
                     if (!"none".equals(whichUpdate)) {//有更新
                         Message message = Message.obtain();
@@ -108,9 +107,9 @@ public class EmaWebviewDialog extends Dialog {
 
                 } else {
                     EmaWebviewDialog.this.dismiss();
-                    if(null!=dialogFrom){
-                        dialogFrom.dismiss();
-                    }
+//                    if(null!=dialogFrom){
+//                        dialogFrom.dismiss();
+//                    }
                 }
             }
         });
