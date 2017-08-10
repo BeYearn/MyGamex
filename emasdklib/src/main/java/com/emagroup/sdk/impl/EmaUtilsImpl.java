@@ -8,20 +8,19 @@ import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
+import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPay;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
-import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
-import com.emagroup.sdk.ULocalUtils;
 import com.emagroup.sdk.Url;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import cn.m4399.operate.OperateCenter;
@@ -84,38 +83,29 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         // 初始化结束执行后回调
                         @Override
                         public void onInitFinished(boolean isLogin, User userInfo) {
-                            listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
 
-                            /*if(mOpeCenter.getIsLogin()){  //注：登录后如果未注销，登录状态将一直保持直至登录凭证过期或失效（若用户修改平台账户密码，所有游戏授权凭证将失效，需重新登录）。 建议游戏在初始化完成后调用登录状态查询接口查询用户当前登录状态。
-                                User currentAccount = mOpeCenter.getCurrentAccount();
-                                String uid = currentAccount.getUid();
-                                String nikename = currentAccount.getName();
-                                EmaUser.getInstance().setmUid(uid);
-                                EmaUser.getInstance().setNickName(nikename);
-                            }*/
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
 
-                            //初始化成功之后再检查公告更新等信息
-                            InitCheck.getInstance(mActivity).checkSDKStatus();
                         }
 
                         // 注销帐号的回调， 包括个人中心里的注销和logout()注销方式
                         // fromUserCenter区分是否是从个人中心注销的，若是则为true，不是为false
                         @Override
                         public void onUserAccountLogout(boolean fromUserCenter, int resultCode) {
-                            listener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功",null);
                         }
 
                         // 个人中心里切换帐号的回调
                         @Override
                         public void onSwitchUserAccountFinished(boolean b, User user) {
-                            listener.onCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS, "切换帐号成功");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS, "切换帐号成功",null);
                         }
 
                     });
                 }
             });
         } catch (JSONException e) {
-            listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
             e.printStackTrace();
         }
 
@@ -131,23 +121,21 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                 //登录结束后的游戏逻辑
                 if (16 == resultCode) {
                     // 登陆成功
-                    //登录成功回调放在下面updateWeakAccount和docallback成功以后在回调
-
                     //获取用户的登陆后的 UID(即用户唯一标识)
                     String uid = userInfo.getUid();
                     String nikename = userInfo.getName();
-                    EmaUser.getInstance().setAllianceUid(uid);
-                    EmaUser.getInstance().setNickName(nikename);
+
+                    HashMap<String, String> data = new HashMap<>();
+                    data.put(EmaConst.ALLIANCE_UID,uid);
+                    data.put(EmaConst.NICK_NAME,nikename);
+
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",data);
 
                     //User类型的用户信息中将包含State登录凭证，该信息可用于游戏服务端进行用户信息二次验证
                     String state = userInfo.getState();
-
-                    //补充弱账户信息
-                    EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
-
                 } else if (18 == resultCode) {
                     // 取消登录
-                    listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消回调",null);
                 }
             }
         });
