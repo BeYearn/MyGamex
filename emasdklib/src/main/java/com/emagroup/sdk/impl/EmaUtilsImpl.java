@@ -366,8 +366,8 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
 
                     HashMap<String, String> userData = new HashMap<>();
-                    data.put(EmaConst.ALLIANCE_UID,mOpenId);
-                    data.put(EmaConst.NICK_NAME,"");
+                    userData.put(EmaConst.ALLIANCE_UID,mOpenId);
+                    userData.put(EmaConst.NICK_NAME,"");
 
                     EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",userData);
 
