@@ -11,11 +11,10 @@ import com.emagroup.sdk.EmaCallBackConst;
 import com.emagroup.sdk.EmaConst;
 import com.emagroup.sdk.EmaPayInfo;
 import com.emagroup.sdk.EmaSDKListener;
-import com.emagroup.sdk.EmaSDKUser;
 import com.emagroup.sdk.EmaUser;
+import com.emagroup.sdk.EmaUtils;
 import com.emagroup.sdk.EmaUtilsInterface;
 import com.emagroup.sdk.HttpRequestor;
-import com.emagroup.sdk.InitCheck;
 import com.emagroup.sdk.ThreadUtil;
 import com.emagroup.sdk.ToastHelper;
 import com.emagroup.sdk.ULocalUtils;
@@ -86,16 +85,14 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         public void callback(int code, String response) {
                             if (code == NSdkStatusCode.INIT_SUCCESS) {
                                 // 初始化成功处理，可按照以下方式处理:
-                                listener.onCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功");
-                                //初始化成功之后再检查公告更新等信息
-                                InitCheck.getInstance(mActivity).checkSDKStatus();
+                                EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITSUCCESS, "初始化成功",null);
                             } else {
-                                listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+                                EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
                             }
                         }
                     });
                 } catch (Exception e) {
-                    listener.onCallBack(EmaCallBackConst.INITFALIED, "初始化失败");
+                    EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.INITFALIED, "初始化失败",null);
                     e.printStackTrace();
                 }
 
@@ -116,13 +113,13 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                             doResultHFsid(listener, result.uid, result.sid);
                             break;
                         case NSdkStatusCode.LOGIN_CANCLE:
-                            listener.onCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINCANELL, "登陆取消",null);
                             break;
                         case NSdkStatusCode.LOGIN_FAILURE:
-                            listener.onCallBack(EmaCallBackConst.LOGOUTFALIED, "登陆失败");
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败",null);
                             break;
                         default:
-                            listener.onCallBack(EmaCallBackConst.LOGOUTFALIED, result.msg);
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, result.msg,null);
                             break;
                     }
                 }
@@ -219,7 +216,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void logout() {
-        mInitLoginListener.onCallBack(EmaCallBackConst.LOGOUTSUCCESS,"登出成功");   //上面切换帐号的回调设置好像没什么用啊  干脆这样了
+        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTSUCCESS, "登出成功",null);  //上面切换帐号的回调设置好像没什么用啊  干脆这样了
         //该接口用于切换账号，会先注销已登录账号并拉起登录页面
         NSdk.getInstance().accountSwitch(mActivity);
     }
@@ -355,16 +352,18 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                         if("YHYZ_000".equals(status)){
                             String userId = data.getString("userId");
 
-                            EmaUser.getInstance().setAllianceUid(userId);
-                            EmaUser.getInstance().setNickName("");
-                            EmaSDKUser.getInstance(mActivity).updateWeakAccount(listener, ULocalUtils.getAppId(mActivity), ULocalUtils.getChannelId(mActivity), ULocalUtils.getChannelTag(mActivity), ULocalUtils.getDeviceId(mActivity), EmaUser.getInstance().getAllianceUid());
+                            HashMap<String, String> userData = new HashMap<>();
+                            userData.put(EmaConst.ALLIANCE_UID,userId);
+                            userData.put(EmaConst.NICK_NAME,"");
+
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINSUCCESS_CHANNEL, "渠道登录成功",userData);
 
                         }else {
                             NSdk.getInstance().accountSwitch(mActivity);    //验证sid 失败
                         }
 
                     } else {
-                        listener.onCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败");
+                        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGINFALIED, "登陆失败",null);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
