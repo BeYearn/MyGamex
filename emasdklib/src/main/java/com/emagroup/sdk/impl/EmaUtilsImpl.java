@@ -228,7 +228,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         try {
             this.mILlistener=listener;
 
-            isInitSucc=false;
+            //isInitSucc=false;
 
             appid=data.getString("channelAppId");
             Log.e("yybappid",appid);
