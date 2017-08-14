@@ -108,19 +108,20 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                             EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.ACCOUNTSWITCHFAIL,"切换失败回调",null);
                             break;
                         case UserWrapper.ACTION_RET_EXIT_PAGE://退出游戏回调
-                            if(s == "onGameExit" || s == "onNo3rdExiterProvide") {
+                            if(s == "onGameExit" || s == "onNo3rdExiterProvide") {   //豌豆荚||有米
                                 //弹出游戏退出界面
                                 Log.e("tuichu","1");
                             } else {
                                 Log.e("tuichu","2");
                                 //执行游戏退出逻辑
-                                /*System.exit(0);
-                                ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-                                am.killBackgroundProcesses (getPackageName());*/
-                                //android.os.Process.killProcess(android.os.Process.myPid());
                                 mActivity.finish();
                                 System.exit(0);
                             }
+                            break;
+                        case UserWrapper.ACTION_RET_GAME_EXIT_PAGE:
+                            Log.e("tuichu","3");
+                            mActivity.finish();
+                            System.exit(0);
                             break;
                     }
                 }
