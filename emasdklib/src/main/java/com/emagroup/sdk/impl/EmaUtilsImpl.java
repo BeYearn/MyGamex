@@ -75,6 +75,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         AnySDKUser.getInstance().setListener(new AnySDKListener() {
             @Override
             public void onCallBack(int i, String s) {
+                Log.e("initCB",i+" "+s);
                 if (listener != null) {
                     switch(i) {
                         case UserWrapper.ACTION_RET_INIT_SUCCESS://初始化成功
