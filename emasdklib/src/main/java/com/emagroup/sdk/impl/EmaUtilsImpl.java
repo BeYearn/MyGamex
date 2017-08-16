@@ -237,6 +237,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
     public void swichAccount() {
         Log.e("coolpad","swichAccount");
         //logout();
+        EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS, "登出成功",null);
 
         if(mListenerLogin==null){
             return;
