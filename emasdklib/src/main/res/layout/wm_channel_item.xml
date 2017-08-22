@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    <RelativeLayout
+        android:layout_width="@dimen/wmPayChannelIconSize"
+        android:layout_height="@dimen/wmPayChannelIconSize"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:id="@+id/wm_money_payway_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wm_pay_channel_alipay"/>
+        <ImageView
+            android:id="@+id/mb_selected"
+            android:layout_width="@dimen/wmPayChannelSelectIconSize"
+            android:layout_height="@dimen/wmPayChannelSelectIconSize"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/wm_money_channel_selected"
+            android:visibility="visible" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/wm_money_payway_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/wmPayChannelTextMarginTop"
+        android:text="支付宝"
+        android:textSize="10sp" />
+</LinearLayout>

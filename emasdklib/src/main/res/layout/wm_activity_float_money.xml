@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_full"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/layout_vertical"
+        android:layout_weight="1">
+
+        <include layout="@layout/wm_float_title"></include>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/layout_vertical"
+        android:layout_weight="5"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            style="@style/layout_horizontal"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            style="@style/layout_horizontal"
+            android:layout_weight="20"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/layout_vertical"
+                android:layout_weight="34"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/layout_horizontal"
+                    android:layout_weight="100"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        style="@style/layout_vertical"
+                        android:layout_weight="28"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="选择充值金额:" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/layout_vertical"
+                        android:layout_weight="2"
+                        android:orientation="horizontal"></LinearLayout>
+
+                    <LinearLayout
+                        style="@style/layout_vertical"
+                        android:layout_weight="250"
+                        android:orientation="horizontal">
+
+                        <GridView
+                            android:id="@+id/nums_gridview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:horizontalSpacing="1dp"
+                            android:listSelector="@android:color/transparent"
+                            android:numColumns="3"
+                            android:stretchMode="columnWidth"
+                            android:verticalSpacing="1dp"></GridView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/layout_horizontal"
+                    android:layout_weight="10"
+                    android:orientation="horizontal"></LinearLayout>
+
+                <LinearLayout
+                    style="@style/layout_horizontal"
+                    android:layout_weight="100"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        style="@style/layout_vertical"
+                        android:layout_weight="28"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="选择充值方式:" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/layout_vertical"
+                        android:layout_weight="5"
+                        android:orientation="horizontal"></LinearLayout>
+
+                    <LinearLayout
+                        style="@style/layout_vertical"
+                        android:layout_weight="80"
+                        android:orientation="horizontal">
+
+                        <GridView
+                            android:id="@+id/ways_gridview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/wm_money_payways_grid_bg"
+                            android:gravity="center"
+                            android:horizontalSpacing="0dp"
+                            android:listSelector="@android:color/transparent"
+                            android:numColumns="3"
+                            android:stretchMode="columnWidth"
+                            android:verticalSpacing="0dp"></GridView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/layout_vertical"
+                        android:layout_weight="7"
+                        android:orientation="horizontal"></LinearLayout>
+
+                    <LinearLayout
+                        style="@style/layout_vertical"
+                        android:layout_weight="160"
+                        android:background="@drawable/wm_money_paytips_bg"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <LinearLayout
+                            style="@style/layout_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="温情提示:" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/layout_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="1元=1M币"
+                                android:textColor="@color/colorBlueFocus" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/layout_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="如有疑问，请联系客服:" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/layout_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/wm_kefu_qq"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="QQ客服：800092051"
+                                android:textColor="@color/colorLittleGrayText" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/layout_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/wm_kefu_wechat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="微信客服：wumingshouyou"
+                                android:textColor="@color/colorLittleGrayText" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/layout_vertical"
+                android:layout_weight="1"
+                android:orientation="horizontal"></LinearLayout>
+
+            <LinearLayout
+                style="@style/layout_vertical"
+                android:layout_weight="7"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/wm_money_total_bg"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="应付：￥"
+                            android:textColor="@color/colorBlueFocus" />
+
+                        <TextView
+                            android:id="@+id/pay_real_money_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="10.00"
+                            android:textColor="@color/colorBlueFocus" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="完成支付后获得M币"
+                            android:textColor="@color/colorLittleGrayText" />
+
+                        <TextView
+                            android:id="@+id/pay_total_money_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:text="10"
+                            android:textColor="@color/colorLittleGrayText" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="个"
+                            android:textColor="@color/colorLittleGrayText" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@drawable/wm_money_paybtn">
+
+                    <TextView
+                        android:id="@+id/wm_money_paybtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="立即支付"
+                        android:textColor="@color/colorWhiteText"
+                        android:textSize="20sp">
+
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/layout_vertical"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/layout_horizontal"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+    </LinearLayout>
+</LinearLayout>

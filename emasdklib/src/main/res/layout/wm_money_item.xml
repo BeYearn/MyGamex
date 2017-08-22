@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mb_item"
+    style="@style/layout_full"
+    android:background="@drawable/wm_money_item_bg"
+    android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mb_nums"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="center"
+            android:text="200"
+            android:textColor="@color/colorBlueFocus" />
+
+        <EditText
+            android:id="@+id/mb_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:gravity="center"
+            android:hint=""
+            android:textColor="@color/colorBlueFocus"
+            android:textColorHint="@color/colorBlueFocus"
+            android:visibility="gone" />
+
+</LinearLayout>

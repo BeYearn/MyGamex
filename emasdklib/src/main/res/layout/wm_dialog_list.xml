@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="@dimen/wmDialogListWidth"
+    android:layout_height="@dimen/wmDialogListHeight"
+    android:padding="@dimen/wmDialogListPadding"
+    android:background="@drawable/wm_activity_bg">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/wmListDialogTitle"
+        android:textColor="@color/viewfinder_mask"
+        android:textSize="@dimen/wmDialogTitleSize"/>
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wmDialogListViewHeight"
+        android:layout_marginTop="@dimen/wmDialogListMarginTop"
+        android:divider="#00000000"
+        android:dividerHeight="@dimen/wmDialogListItemDividerHeight"
+        android:scrollbars="vertical">
+
+    </ListView>
+</LinearLayout>

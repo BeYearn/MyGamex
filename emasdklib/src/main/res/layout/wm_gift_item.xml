@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_full"
+    android:background="@drawable/wm_info_block_bg"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        style="@style/layout_horizontal"
+        android:layout_weight="1"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        style="@style/layout_horizontal"
+        android:layout_weight="20"
+        android:orientation="vertical">
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"></LinearLayout>
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                style="@style/layout_horizontal"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/layout_vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/wm_gift_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorBlueFocus"
+                        android:textStyle="bold"
+                        android:text="标题"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/layout_vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/wm_gift_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="内容"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/layout_horizontal"
+                android:layout_weight="1">
+                <Button
+                    android:background="@drawable/wm_button_blue"
+                    android:id="@+id/wm_gift_get"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhiteText"
+                    android:text="立即领取"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/layout_horizontal"
+        android:layout_weight="1"
+        android:orientation="vertical"></LinearLayout>
+
+</LinearLayout>

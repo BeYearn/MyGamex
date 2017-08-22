@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--480h-->
+    <!--dialog-->
+    <dimen name="wmDialogPadding">22.5dp</dimen>
+    <dimen name="wmDialogMarginTop">11.25dp</dimen>
+    <dimen name="wmDialogMarginBottom">22.5dp</dimen>
+    <dimen name="wmDialogProgressSize">33.75dp</dimen>
+    <dimen name="wmDialogTitleHeight">22.5dp</dimen>
+    <dimen name="wmDialogTitleSize">14sp</dimen>
+    <dimen name="wmDialogTextSize">14sp</dimen>
+    <dimen name="wmDialogBtnSize">14sp</dimen>
+
+    <dimen name="wmDialogAlertBtnHeight">33.75dp</dimen>
+    <dimen name="wmDialogAlertBtnMargin">16.875dp</dimen>
+
+    <dimen name="wmDialogProgressMargin">5.625dp</dimen>
+
+    <dimen name="wmDialogComfirmBtnHeight">45.0dp</dimen>
+    <dimen name="wmDialogComfirmBtnMargin">11.25dp</dimen>
+
+    <dimen name="wmDialogListWidth">168.75dp</dimen>
+    <dimen name="wmDialogListHeight">202.5dp</dimen>
+    <dimen name="wmDialogListPadding">11.25dp</dimen>
+    <dimen name="wmDialogListMarginTop">5.625dp</dimen>
+    <dimen name="wmDialogListViewHeight">157.5dp</dimen>
+    <dimen name="wmDialogListItemDividerHeight">5.625dp</dimen>
+    <dimen name="wmDialogListItemWidth">146.25dp</dimen>
+    <dimen name="wmDialogListItemHeight">31.5dp</dimen>
+
+    <!--登录注册层-->
+    <dimen name="wmLoginDialagWidth">324.0dp</dimen>
+    <dimen name="wmLoginDialagHeight">281.25dp</dimen>
+    <dimen name="wmLoginDialagPadding">11.25dp</dimen>
+    <dimen name="wmLoginTitleHeigh">22.5dp</dimen>
+    <dimen name="wmLoginTitleSize">17sp</dimen>
+    <dimen name="wmLoginTitleBackWidth">45.0dp</dimen>
+    <dimen name="wmLoginTitleVersionMargin">11.25dp</dimen>
+    <dimen name="wmLoginTitleVersionSize">12sp</dimen>
+    <dimen name="wmLoginLayoutMargin">28.125dp</dimen>
+    <dimen name="wmLoginInputLayoutMargin">13.5dp</dimen>
+    <dimen name="wmLoginInputHeight">39.375dp</dimen>
+    <dimen name="wmLoginIconInputPadding">33.75dp</dimen>
+    <dimen name="wmLoginInputSize">12sp</dimen>
+    <dimen name="wmLoginInputPicWidth">16.875dp</dimen>
+    <dimen name="wmLoginInputPicHeight">22.5dp</dimen>
+    <dimen name="wmLoginInputPicMargin">11.25dp</dimen>
+    <dimen name="wmLoginSubmitBtnPadding">11.25dp</dimen>
+    <dimen name="wmLoginSubmitBtnSize">15sp</dimen>
+    <!--第一次注册选择页-->
+    <dimen name="wmLoginRegTypeLayoutWidth">292.5dp</dimen>
+    <dimen name="wmLoginRegTypeLayoutHeight">180.0dp</dimen>
+    <dimen name="wmLoginRegTypeTitleMarginTop">13.91625dp</dimen>
+    <dimen name="wmLoginRegTypeLogoWidth">96.299995dp</dimen>
+    <dimen name="wmLoginRegTypeLogoHeight">27.5625dp</dimen>
+    <dimen name="wmLoginRegTypeLineMarginTop">10.55925dp</dimen>
+    <dimen name="wmLoginRegTypeLineHeight">2.25dp</dimen>
+    <dimen name="wmLoginRegTypeChooseHeight">55.6875dp</dimen>
+    <dimen name="wmLoginRegTypeChooseMarginTop">12.318749dp</dimen>
+    <dimen name="wmLoginRegTypeChooseMarginLeft">14.388749dp</dimen>
+    <dimen name="wmLoginRegTypeChooseMarginRight">14.388749dp</dimen>
+    <dimen name="wmLoginRegTypeChooseImgWidth">36.427498dp</dimen>
+    <dimen name="wmLoginRegTypeChooseImgHeight">38.880005dp</dimen>
+    <dimen name="wmLoginRegTypeChooseImgMarginLeft">10.8dp</dimen>
+    <dimen name="wmLoginRegTypeChooseContentMarginLeft">7.6500006dp</dimen>
+    <dimen name="wmLoginRegTypeBottomMarginTop">23.625dp</dimen>
+    <dimen name="wmLoginRegTypeBottomMarginLeft">14.388749dp</dimen>
+    <dimen name="wmLoginRegTypeBottomMarginRight">14.388749dp</dimen>
+    <dimen name="wmLoginRegTypeChooseConetntNoticeSize">11.52dp</dimen>
+    <dimen name="wmLoginRegTypeContentTitleSize">13.5dp</dimen>
+    <dimen name="wmLoginRegTypeMobileTextSize">17.279999dp</dimen>
+    <!--帐号注册-->
+    <dimen name="wmLoginAccountNoticePadding">4.5dp</dimen>
+    <dimen name="wmLoginAccountNoticeSize">10sp</dimen>
+    <!--手机号注册-->
+    <dimen name="wmLoginMobileRegCodeInputMargin">11.25dp</dimen>
+    <!--登录-->
+    <dimen name="wmLoginLogoLayoutHeight">33.75dp</dimen>
+    <dimen name="wmLoginInputArrowWidth">28.125dp</dimen>
+    <dimen name="wmLoginInputArrowMargin">5.625dp</dimen>
+    <dimen name="wmLoginAutoLoginLayoutHeight">28.125dp</dimen>
+    <dimen name="wmLoginAutoLoginMargin">5.625dp</dimen>
+    <dimen name="wmLoginAutoLoginCheckboaxWidth">28.125dp</dimen>
+    <dimen name="wmLoginAutoLoginCheckboaxHeight">28.125dp</dimen>
+    <dimen name="wmLoginAutoLoginTextMargin">5.625dp</dimen>
+    <dimen name="wmLoginAutoLoginTextSize">14sp</dimen>
+    <dimen name="wmLoginBtnHeight">42.75dp</dimen>
+    <dimen name="wmLoginBtnMargin">9.0dp</dimen>
+    <dimen name="wmLoginFloorLayoutWidth">225.0dp</dimen>
+    <!--密码找回-->
+    <dimen name="wmLoginFindPwdNoticeHeight">20.25dp</dimen>
+    <dimen name="wmLoginFindPwdNoticeMargin">5.625dp</dimen>
+    <dimen name="wmLoginFindPwdNoticeSize">11sp</dimen>
+    <dimen name="wmLoginFindPwdToNoticeMargin">2.25dp</dimen>
+
+    <!--公告层-->
+    <dimen name="wmNewsNoticeTitleHeight">22.5dp</dimen>
+    <dimen name="wmNewsNoticeTitleMargin">11.25dp</dimen>
+    <dimen name="wmNewsNoticeTitleSize">16sp</dimen>
+    <dimen name="wmNewsNoticeTitleCloseMarginRight">11.25dp</dimen>
+
+    <!--自动登录层-->
+    <dimen name="wmAutoLoginWidth">324.0dp</dimen>
+    <dimen name="wmAutoLoginHeight">90.0dp</dimen>
+    <dimen name="wmAutoLoginFaceSize">90.0dp</dimen>
+    <dimen name="wmAutoLoginPicPadding">11.25dp</dimen>
+    <dimen name="wmAutoLoginContentMargin">16.875dp</dimen>
+    <dimen name="wmAutoLoginAccountSize">15sp</dimen>
+    <dimen name="wmAutoLoginProgressMargin">5.625dp</dimen>
+    <dimen name="wmAutoLoginProgressBarSize">28.125dp</dimen>
+
+    <!--支付渠道-->
+    <dimen name="wmPayChannelIconSize">45.0dp</dimen>
+    <dimen name="wmPayChannelSelectIconSize">16.875dp</dimen>
+    <dimen name="wmPayChannelTextMarginTop">2.25dp</dimen>
+    <!--横版支付层-->
+    <dimen name="wmPayWidth">405.0dp</dimen>
+    <dimen name="wmPayHeight">253.125dp</dimen>
+    <dimen name="wmPayMargin">5.625dp</dimen>
+    <dimen name="wmPayTitleHeight">22.5dp</dimen>
+    <dimen name="wmPayBackWidth">45.0dp</dimen>
+    <dimen name="wmPayTitleSize">16sp</dimen>
+    <dimen name="wmPayLayoutMarginTop">5.625dp</dimen>
+    <dimen name="wmPayLayoutMarginLeft">11.25dp</dimen>
+    <dimen name="wmPayContextSize">15sp</dimen>
+    <dimen name="wmPayInfoHeight">39.375dp</dimen>
+    <dimen name="wmPayInfoTextSize">16sp</dimen>
+    <dimen name="wmPayInfoMargin">45.0dp</dimen>
+    <dimen name="wmPayChannelHeight">78.75dp</dimen>
+    <dimen name="wmPayChannelPadding">5.625dp</dimen>
+    <dimen name="wmPayChannelMarginLeftFirst">11.25dp</dimen>
+    <dimen name="wmPayChannelMarginLeftEnd">11.25dp</dimen>
+    <dimen name="wmPayChannelMarginRight">11.25dp</dimen>
+    <dimen name="wmPayBtnWidth">225.0dp</dimen>
+    <dimen name="wmPayBtnHeight">39.375dp</dimen>
+    <dimen name="wmPayBtnTextSize">15sp</dimen>
+
+    <!--竖版支付层-->
+    <dimen name="wmPayWidthPortrait">326.25dp</dimen>
+    <dimen name="wmPayHeightPortrait">345.375dp</dimen>
+    <dimen name="wmPayMarginPortrait">5.625dp</dimen>
+    <dimen name="wmPayTitleHeightPortrait">24.75dp</dimen>
+    <dimen name="wmPayBackWidthPortrait">45.0dp</dimen>
+    <dimen name="wmPayTitleSizePortrait">18sp</dimen>
+    <dimen name="wmPayLayoutMarginTopPortrait">5.625dp</dimen>
+    <dimen name="wmPayLayoutMarginLeftPortrait">11.25dp</dimen>
+    <dimen name="wmPayContextSizePortrait">15sp</dimen>
+    <dimen name="wmPayInfoHeightPortrait">39.375dp</dimen>
+    <dimen name="wmPayInfoTextSizePortrait">16sp</dimen>
+    <dimen name="wmPayInfoMarginPortrait">45.0dp</dimen>
+    <dimen name="wmPayChannelHeightPortrait">168.75dp</dimen>
+    <dimen name="wmPayChannelRowHeightPortrait">78.75dp</dimen>
+    <dimen name="wmPayChannelPaddingPortrait">5.625dp</dimen>
+    <dimen name="wmPayChannelMarginLeftFirstPortrait">11.25dp</dimen>
+    <dimen name="wmPayChannelMarginRightEndPortrait">11.25dp</dimen>
+    <dimen name="wmPayChannelMarginRightPortrait">11.25dp</dimen>
+    <dimen name="wmPayChannel2MarginLeftFirstPortrait">45.0dp</dimen>
+    <dimen name="wmPayChannel2MarginRightEndPortrait">45.0dp</dimen>
+    <dimen name="wmPayBtnWidthPortrait">225.0dp</dimen>
+    <dimen name="wmPayBtnHeightPortrait">39.375dp</dimen>
+    <dimen name="wmPayBtnTextSizePortrait">15sp</dimen>
+
+    <!--wuming币支付层-->
+    <dimen name="wmPayWMWidth">405.0dp</dimen>
+    <dimen name="wmPayWMHeight">253.125dp</dimen>
+    <dimen name="wmPayWMPaddingL">22.5dp</dimen>
+    <dimen name="wmPayWMPaddingT">11.25dp</dimen>
+    <dimen name="wmPayWMBackWidth">33.75dp</dimen>
+    <dimen name="wmPayWMTitleHeight">22.5dp</dimen>
+    <dimen name="wmPayWMLayoutMarginTop">5.625dp</dimen>
+    <dimen name="wmPayWMUserMoneyHeight">33.75dp</dimen>
+    <dimen name="wmPayWMUserMoneySize">14sp</dimen>
+    <dimen name="wmPayWMConsumeHeight">50.625dp</dimen>
+    <dimen name="wmPayWMConsumeSize">16sp</dimen>
+    <dimen name="wmPayWMPayBtnMarginTop">11.25dp</dimen>
+    <dimen name="wmPayWMPayBtnHeight">39.375dp</dimen>
+    <dimen name="wmPayWMPayBtnSize">14sp</dimen>
+    <!--sft卡支付层-->
+    <dimen name="wmPaySFTWidth">405.0dp</dimen>
+    <dimen name="wmPaySFTHeight">253.125dp</dimen>
+    <dimen name="wmPaySFTPaddingL">22.5dp</dimen>
+    <dimen name="wmPaySFTPaddingT">11.25dp</dimen>
+    <dimen name="wmPaySFTBackWidth">45.0dp</dimen>
+    <dimen name="wmPaySFTLayoutMarginTop">5.625dp</dimen>
+    <dimen name="wmPaySFTTitleHeight">22.5dp</dimen>
+    <dimen name="wmPaySFTChannelHeight">56.25dp</dimen>
+    <dimen name="wmPaySFTChannelPicSize">33.75dp</dimen>
+    <dimen name="wmPaySFTChannelNameSize">14sp</dimen>
+    <dimen name="wmPaySFTInputHeight">39.375dp</dimen>
+    <dimen name="wmPaySFTIconInputPadding">33.75dp</dimen>
+    <dimen name="wmPaySFTInputSize">12sp</dimen>
+    <dimen name="wmPaySFTInputPicWidth">16.875dp</dimen>
+    <dimen name="wmPaySFTInputPicHeight">22.5dp</dimen>
+    <dimen name="wmPaySFTInputPicMargin">11.25dp</dimen>
+    <dimen name="wmPaySFTPayBtnSize">16sp</dimen>
+    <!--悬浮窗 客服-->
+    <dimen name="wmFloatKefuTitleHeight">33.75dp</dimen>
+    <dimen name="wmFloatKefuMarginLeftRight">22.5dp</dimen>
+    <dimen name="wmFloatKefuTitleMarginTop">9.0dp</dimen>
+    <dimen name="wmFloatKefuListMarginTop">11.25dp</dimen>
+    <dimen name="wmFloatKefuListHeight">101.25dp</dimen>
+    <dimen name="wmFloatKefuPaddingLeft">22.5dp</dimen>
+    <dimen name="wmFloatKefuListItemImagSize">45.0dp</dimen>
+    <dimen name="wmFloatKefuListItemImagMarginBottom">9.0dp</dimen>
+    <dimen name="wmFloatKefuListItemTextHeight">45.0dp</dimen>
+    <dimen name="wmFloatKefuListItemSpace">4.5dp</dimen>
+    <dimen name="wmFloatKefuTipsHeight">60.75dp</dimen>
+    <dimen name="wmFloatKefuTipsMarginTop">4.5dp</dimen>
+    <dimen name="wmFloatKefuTipsTitleMarginTop">4.5dp</dimen>
+    <dimen name="wmFloatKefuTipsTitleMarginLeft">6.75dp</dimen>
+    <dimen name="wmFloatKefuTipsContentMarginLeft">33.75dp</dimen>
+    <dimen name="wmFloatKefuTextSize">14sp</dimen>
+    <dimen name="wmFloatKefuTipsTextSize">10sp</dimen>
+
+    <!--悬浮窗 主界面-->
+    <dimen name="wmFloatMainPointSize">11.25dp</dimen>
+
+
+
+
+</resources>

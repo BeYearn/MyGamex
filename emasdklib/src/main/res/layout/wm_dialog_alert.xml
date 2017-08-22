@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/wmDialogPadding"
+    android:background="@drawable/wm_activity_bg">
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wmDialogTitleHeight"
+        android:text="@string/app_name"
+        android:textSize="@dimen/wmDialogTitleSize"
+        android:background="@drawable/wm_green_line"
+        />
+    <TextView
+        android:id="@+id/dialog_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/wmDialogMarginTop"
+        android:layout_marginBottom="@dimen/wmDialogMarginBottom"
+        android:text="@string/app_name"
+        android:textSize="@dimen/wmDialogTextSize"/>
+    <Button
+        android:id="@+id/dialog_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wmDialogAlertBtnHeight"
+        android:layout_marginLeft="@dimen/wmDialogAlertBtnMargin"
+        android:layout_marginRight="@dimen/wmDialogAlertBtnMargin"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/colorWhiteText"
+        android:textSize="@dimen/wmDialogBtnSize"
+        android:background="@drawable/wm_button_blue"/>
+</LinearLayout>

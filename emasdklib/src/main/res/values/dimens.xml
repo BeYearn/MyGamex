@@ -1,0 +1,41 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- sdp loading dialog -->
+    <dimen name="sdp_dialog_loading_corners_radius">6dp</dimen>
+
+    <dimen name="sdp_loading_width">159dp</dimen>
+    <dimen name="sdp_loading_height">136dp</dimen>
+    <dimen name="sdp_loading_progressbar_size">54dp</dimen>
+    <dimen name="sdp_loading_top">30dp</dimen>
+    <dimen name="sdp_loading_padding_left">11dp</dimen>
+
+    <dimen name="sdp_prompt_title_margin">25dp</dimen>
+    <dimen name="sdp_prompt_content_margin">27dp</dimen>
+    <dimen name="sdp_prompt_btn_padding_top">16dp</dimen>
+
+    <!-- sdp pay dialog -->
+    <dimen name="sdp_pay_dialog_width">280dp</dimen>
+    <dimen name="sdp_pay_dialog_height">260dp</dimen>
+    <dimen name="sdp_dialog_base_corners_radius">4dp</dimen>
+
+    <!-- 签约输入框高度 -->
+    <dimen name="sdp_sign_edittext_height">42dp</dimen>
+
+    <!-- 银行Icon的高宽 -->
+    <dimen name="sdp_bank_icon_width">22dp</dimen>
+    <dimen name="sdp_bank_icon_height">22dp</dimen>
+
+    <!-- 对话框标题字体大小 -->
+    <dimen name="sdp_dialog_title_text_size">18sp</dimen>
+
+    <!-- 产品价格字体大小 -->
+    <dimen name="sdp_product_amount_text_size">22sp</dimen>
+
+    <!-- 常用字体大小,对应24px -->
+    <dimen name="sdp_normal_text_size">15sp</dimen>
+
+</resources>

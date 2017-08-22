@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBlackText">#FF000000</color><!--TextColorBlack-->
+    <color name="colorBlackGrayText">#333333</color>
+    <color name="colorGrayText">#FF505050</color><!--TextColorGray-->
+    <color name="colorDarkText">#7d7d7d</color>
+    <color name="PopViewDividerColor">#ff6f5224</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="colorHintText">#FFC7C5C5</color><!--TextColorHint-->
+    <color name="colorGrayLine">#d0d0d0</color>
+    <color name="colorGrayBtnStart">#d0d0d0</color>
+    <color name="colorGrayBtnEnd">#e0e0e0</color>
+    <color name="colorGrayBtnPressEnd">#b0b0b0</color>
+    <color name="colorFloatText">#cccccc</color>
+    <color name="colorGrayStroke">#C1C1C1</color>
+    <color name="colorLittleGrayText">#C0C2C3</color>
+
+    <color name="colorGrayBg">#E3E8E9</color>
+    <color name="colorPanelGrey">#F6F6F6</color>
+    <color name="colorLittleGrey">#99dddddd</color>
+    <color name="colorWhiteText">#FFFFFFFF</color><!--TextColorWhite/colorTitleWriteBg-->
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorBlueText">#0000ff</color>
+    <color name="colorBlueLightText">#FF33A7D3</color><!--TextColorBlue-->
+    <color name="AppBackgroundColor">#FFC0E7FA</color>
+    <color name="BgColor">#ffd1dce9</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorRedText">#ff3333</color>
+    <color name="colorOrangeText">#fe7f05</color>
+    <color name="colorRedGreyText">#FFE26926</color><!--TextColorRed-->
+    <color name="colorGreenText">#00BCBD</color>
+    <color name="colorLittleGreen">#00BBBC</color>
+    <color name="colorLightGreen">#DDEFEA</color>
+    <color name="colorGreenText2">#23C3C3</color>
+    <color name="colorLittleGrey2">#E3E8E9</color>
+    <color name="colorBlueNorBtnEnd">#00D4D4</color>
+    <color name="colorBlueNorBtnStart">#00BCBD</color>
+    <color name="colorBluePreBtnStart">#02A7A8</color>
+    <color name="colorBlueCertTitle">#00aeae</color>
+    <color name="colorBlueFocus">#49CDCC</color>
+    <color name="colorBlueStroke">#00C9C9</color>
+</resources>

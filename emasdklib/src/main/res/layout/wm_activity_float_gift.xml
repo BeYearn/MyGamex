@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_full"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/layout_vertical"
+        android:layout_weight="1">
+
+        <include layout="@layout/wm_float_title"></include>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/layout_vertical"
+        android:layout_weight="5"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            style="@style/layout_horizontal"
+            android:layout_weight="1"></LinearLayout>
+
+        <LinearLayout
+            style="@style/layout_horizontal"
+            android:layout_weight="20"
+            android:orientation="vertical">
+            <LinearLayout
+                style="@style/layout_vertical"
+                android:layout_weight="20">
+                <ListView
+                    android:divider="#00000000"
+                    android:dividerHeight="1dp"
+                    android:id="@+id/wm_gift_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </ListView>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/layout_vertical"
+                android:layout_weight="1">
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/layout_horizontal"
+            android:layout_weight="1"></LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

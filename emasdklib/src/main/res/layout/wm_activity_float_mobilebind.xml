@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPanelGrey"
+    android:orientation="vertical">
+
+    <include layout="@layout/wm_float_title"></include>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/wm_bind_mobile_layout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/wm_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/wm_float_edittext_bg"
+                android:hint="手机号"
+                android:maxLength="20"
+                android:textSize="12sp"
+                android:singleLine="true"
+                android:paddingLeft="40dp">
+            </EditText>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/wm_input_phone_icon"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/wm_mobile_code"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="6"
+                android:singleLine="true"
+                android:background="@drawable/wm_float_edittext_bg"
+                android:hint="验证码"
+                android:maxLength="6"
+                android:textSize="12sp"
+                android:paddingLeft="40dp">
+
+            </EditText>
+            <Button
+                android:id="@+id/wm_get_mobile_code"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/wm_button_blue"
+                android:text="@string/wm_send_mobile_code"
+                android:textColor="@color/colorWhiteText"
+                android:textSize="13sp"
+                android:visibility="visible"/>
+            <TextView
+                android:id="@+id/get_mobile_code_time"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/wm_time_limit_text"
+                android:textSize="13sp"
+                android:textColor="@color/colorRedText"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/set_btn"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/wm_button_blue"
+                android:text="立即绑定"
+                android:textColor="@color/colorWhiteText" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/wm_show_mobile_layout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/wm_bind_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginTop="10dp"
+            android:text="您的手机号：133***565656"
+            android:textSize="18sp"
+            >
+
+        </TextView>
+        <TextView
+            android:id="@+id/wm_bind_rebindmobile"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/colorBlueText"
+            android:text="点击修改"
+            android:textSize="18sp"
+            >
+
+        </TextView>
+    </LinearLayout>
+
+
+</LinearLayout>

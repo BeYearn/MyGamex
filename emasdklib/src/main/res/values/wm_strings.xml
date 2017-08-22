@@ -1,0 +1,139 @@
+<resources>
+    <string name="loading">努力加载中,请稍后...</string>
+
+    <string name="app_name">WMSDKCore</string>
+    <string name="htp_close">关闭</string>
+    <string name="changeAccount">切换帐号</string>
+    <string name="wm_reg_title">注 册</string>
+    <string name="wm_chose_reg_type_text">选择注册方式：</string>
+    <string name="wm_mobile_reg_text">手机注册</string>
+    <string name="wm_send_mobile_notice">发送验证短信注册,安全方便易找回</string>
+    <string name="wm_quick_reg">快速注册></string>
+    <string name="wm_has_account_to_login">已有帐号，登录></string>
+    <string name="wm_mobile_notice">请输入手机号码</string>
+    <string name="wm_send_mobile_code">获取验证码</string>
+    <string name="wm_time_limit_text">剩余120s</string>
+    <string name="wm_mobile_code_notice">请输入短信验证码</string>
+    <string name="wm_reg_user_agreement_text_1">我已同意并阅读</string>
+    <string name="wm_reg_user_agreement_text_2">《用户注册协议》</string>
+    <string name="wm_mobile_reg_btn">手机验证并登录</string>
+    <string name="wm_return_text">返回</string>
+    <string name="wm_reg_account_notice">请输入要注册的用户名</string>
+    <string name="wm_reg_password_notice">请输入密码</string>
+    <string name="wm_reg_and_login_btn">注册并登录</string>
+    <string name="wm_suggest_text">建议使用</string>
+    <string name="wm_suggest_mobile_reg_text">手机号注册</string>
+    <string name="wm_login_account_notice">请输入账号</string>
+    <string name="wm_login_password_notice">请输入密码</string>
+    <string name="wm_login_reg_btn">注册帐号</string>
+    <string name="wm_login_btn">登录游戏</string>
+    <string name="wm_login_forget_pass">忘记密码></string>
+    <string name="wm_login_change_pass">修改密码></string>
+    <string name="wm_my_home">账户</string>
+    <string name="wm_game_gift">礼包</string>
+    <string name="wm_game_news">新闻</string>
+    <string name="wm_mb_pay">M币充值</string>
+
+    <string name="sdkInitFailed">SDK初始化失败，网络异常，请检查您的网络是否打开！</string>
+    <!--sdk登录注册-->
+    <string name="wmSDKVersion">v%1$s</string>
+    <!--第一次进入-->
+    <string name="wmRegTypeChooseTitle">无名注册</string>
+    <string name="wmRegTypeChooseContent">选择注册方式:</string>
+    <string name="wmRegTypeAccount"><font style="font-weight: 500;">一键注册</font></string>
+    <string name="wmRegTypeMobileNotice">推荐您使用手机号注册</string>
+    <string name="wmRegTypeMobile">手机注册></string>
+    <string name="wmRegTypeLogin">已有账号，登录></string>
+    <!--手机号注册-->
+    <string name="wmMobileRegTitle">手机号注册</string>
+    <string name="wmMobileRegMobileHint">手机号</string>
+    <string name="wmMobileRegPWDHint">密码</string>
+    <string name="wmMobileRegCodeHint">验证码</string>
+    <string name="wmMobileRegCodeBtn">获取验证码</string>
+    <string name="wmMobileRegCodeTime">剩余120s</string>
+    <string name="wmMobileRegSubBtn">立即注册</string>
+    <!--帐号注册-->
+    <string name="wmAccountRegTitle">无名帐号注册</string>
+    <string name="wmAccountRegNotice"><![CDATA[<font color="#26c5c5">已帮您预分配无名帐号，您可以重新设置，6-20位数字、字母、下划线，以字母开头。</font><font color="#f92928">无名号是账号唯一凭证，设置成功后不可修改。</font>]]></string>
+    <string name="wmAccountRegAccountHint">请输入帐号</string>
+    <string name="wmAccountRegPwdHint">请输入6-20位数字或字母，区分大小写</string>
+    <string name="wmAccountRegSubmit">注册</string>
+    <!--登录-->
+    <string name="wmLoginAccountHint">用户名/手机号</string>
+    <string name="wmLoginPwdHint">密码</string>
+    <string name="wmLoginAuto">自动登录</string>
+    <string name="wmLoginForgetPwd">忘记密码?</string>
+    <string name="wmLoginSubmit">登录</string>
+    <string name="wmLoginAccountReg">账号注册</string>
+    <string name="wmLoginSeparate">|</string>
+    <string name="wmLoginMobileReg">手机注册</string>
+
+    <!--密码找回-->
+    <string name="wmFindPwdTitle">忘记密码</string>
+    <string name="wmFindPwdNotice">未绑定手机的用户，请联系客服QQ：800806776</string>
+    <string name="wmFindPwdMobileHint">手机号</string>
+    <string name="wmFindPwdPWDHint">新密码</string>
+    <string name="wmFindPwdCodeHint">验证码</string>
+    <string name="wmFindPwdCodeBtn">获取验证码</string>
+    <string name="wmFindPwdCodeTime">剩余120s</string>
+    <string name="wmFindPwdSubBtn">重置密码</string>
+    <!--sdk登录注册-->
+
+    <!--sdk公告-->
+    <string name="wmNewsNoticeTitle">新闻公告</string>
+
+    <!--sdk自动登录-->
+    <string name="wmAutoLoginText">正在登录中......</string>
+    <!--sdk支付层-->
+    <string name="wmPayTitle">账号充值中心</string>
+    <string name="wmPayMoney">充值金额:</string>
+    <string name="wmPayGameb">%1$s%2$s</string>
+    <string name="wmPayCNY">¥%1$s</string>
+    <string name="wmPayType">支付方式:</string>
+    <string name="wmPayBtn">立即支付</string>
+    <!--wuming币支付-->
+    <string name="wmPayWMTitle">M币充值</string>
+    <string name="wmPayWMUserMoneyTitle">当前余额:</string>
+    <string name="wmPayWMUserMoney">%1$sM币</string>
+    <string name="wmPayWMConsumeTitle">本次消费:</string>
+    <string name="wmPayWMConsume">%1$sM币</string>
+    <string name="wmPayWMPay">立即支付</string>
+    <!--盛付通卡支付-->
+    <string name="wmPaySFTTitle">选择运营商</string>
+    <string name="wmPaySFTMobile">中国移动</string>
+    <string name="wmPaySFTUnicom">中国联通</string>
+    <string name="wmPaySFTTelecom">中国电信</string>
+    <string name="wmPaySFTCardNo">卡号</string>
+    <string name="wmPaySFTCardNum">卡密</string>
+    <string name="wmPaySFTCardVal">金额: %1$s元</string>
+    <string name="wmPaySFTpay">立即支付</string>
+    <string name="wmPaySFTCardValTitle">选择充值金额</string>
+    <string name="wmListDialogTitle">选择卡面值</string>
+
+    <!--实名认证-->
+    <string name="wmIDCardTitle">身份证登记</string>
+    <string name="wmIDCardMobileTitle">游戏实名登记</string>
+    <string name="wmIDCardContent1">根据国家规定，为了保障您的权益，请登记本人实名信息</string>
+    <string name="wmIDCardContent2">未完成实名登记将无法享受部分游戏服务</string>
+    <string name="wmIDCardMobile">手机号认证</string>
+    <string name="wmIDCard">身份证认证</string>
+    <string name="wmIDCardKf">客服QQ:800806776</string>
+    <string name="wmIDCardSubmit">确认登记</string>
+    <string name="wmIDCardNameHint">请填写你的真实姓名</string>
+    <string name="wmIDCardNoHint">请输入身份号码</string>
+    <string name="wmIDCardMobileHint">请填写手机号码</string>
+    <string name="wmIDCardMobileCodeHint">请输入手机验证码</string>
+    <string name="wmIDCardMobileCodeGet">发送</string>
+    <!--悬浮窗客服-->
+    <string name="wmFloatKefuTitle">您可以通过以下方式联系到我们:</string>
+    <string name="wmFloatKefuMobile">客服电话</string>
+    <string name="wmFloatKefuQQ">客服QQ</string>
+    <string name="wmFloatKefuWechat">客服微信公众号</string>
+    <string name="wmFloatKefuTest">客服电话</string>
+    <string name="wmFloatKefuTalk">点击在线留言</string>
+    <string name="wmFloatKefuTipsTitle">温情提示:</string>
+    <string name="wmFloatKefuTipsContent1">客服电话在线时间为，周一至周五12:00-21:00（节假日请联系客服QQ）</string>
+    <string name="wmFloatKefuTipsContent2">客服QQ在线时间为，24小时全天在线。</string>
+
+
+</resources>

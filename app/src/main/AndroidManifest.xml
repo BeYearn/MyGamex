@@ -37,9 +37,27 @@
         android:protectionLevel="normal"></permission><!--替换为第三方应用的包名-->
     <!-- 个推SDK权限配置结束 -->
 
-    <!--xxx权限 start -->
 
-    <!--xxx权限 end -->
+    <!--WM权限 start -->
+
+    <!-- alipay -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" /> -->
+    <!-- weixin -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- google -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--sftPay 第一部分 start-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="com.sdp.permission.WALLET_PAY" />
+    <!--sftPay 第一部分 end-->
+
+    <!--WM权限 end -->
 
 
     <application
@@ -65,17 +83,152 @@
             android:value="n20012" />
         <meta-data
             android:name="EMA_CHANNEL_ID"
-            android:value="n500002" />
+            android:value="n500007" />
         <meta-data
             android:name="EMA_CHANNEL_TAG"
             android:value="n1001" />
         <meta-data
             android:name="EMA_WHICH_ENVI"
-            android:value="staging" />
+            android:value="testing" />
 
-        <!--xxx 组件声明begin-->
+        <!--wm 组件声明begin-->
 
-        <!--xxx 组件声明end-->
+        <activity
+            android:name="com.wuming.platform.activity.WMAutoLoginActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:theme="@style/WMAtivityStyle"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.WMLoginActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:theme="@style/DialogActivityStyle"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.WMPayActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:theme="@style/WMAtivityStyle"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatMainActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyleMain" >
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatMoneyActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyle" >
+        </activity>
+
+        <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatKeFuActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyle" >
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatPassportActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyle" >
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatMobileBindActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyle" >
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatMobileRebindActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyle" >
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatGiftActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyle" >
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.WMWebViewActivity"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatWebViewActivity"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyle">
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatEmailActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyle" >
+        </activity>
+        <activity
+            android:name="com.wuming.platform.activity.WMCertActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@style/WMCertAtivityStyle"
+            android:launchMode="singleTop">
+        </activity>
+
+        <service android:name="com.wuming.platform.openudid.WMOpenUDID_service" >
+            <intent-filter>
+                <action android:name="org.OpenUDID.GETUDID" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.wuming.platform.listener.WMIDCardReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="com.android.deskclock.ALARM_DONE" />
+                <action android:name="com.android.deskclock.ALARM_ALERT" />
+            </intent-filter>
+        </receiver>
+
+
+
+
+        <!-- alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <!-- alipay sdk end -->
+        <!--sweixin sdk begin-->
+        <activity android:name="com.switfpass.pay.activity.QQWapPayWebView"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!--sweixin sdk end-->
+        <!--sft sdk begin-->
+        <activity
+            android:name="com.shengpay.express.smc.ExpressSmcClientActivity"
+            android:screenOrientation="behind"
+            android:configChanges="keyboardHidden|orientation|screenSize" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <!--sft sdk end-->
+
+        <!--wm 组件声明end-->
 
 
         <!-- 个推SDK配置开始 -->

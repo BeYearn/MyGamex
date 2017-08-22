@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/wmDialogPadding"
+    android:background="@drawable/wm_activity_bg"
+    android:gravity="center">
+    <ProgressBar
+        android:layout_width="@dimen/wmDialogProgressSize"
+        android:layout_height="@dimen/wmDialogProgressSize"
+        android:indeterminateDrawable="@drawable/wm_loading"/>
+    <TextView
+        android:id="@+id/dialog_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/wmDialogProgressMargin"
+        android:text="@string/app_name"
+        android:textSize="@dimen/wmDialogTextSize"
+        android:textColor="@color/viewfinder_mask"/>
+</LinearLayout>

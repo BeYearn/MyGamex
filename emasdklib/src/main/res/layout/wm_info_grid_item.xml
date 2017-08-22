@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_full"
+    android:background="@drawable/wm_info_block_bg"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        style="@style/layout_horizontal"
+        android:layout_weight="1"></LinearLayout>
+
+    <LinearLayout
+        style="@style/layout_horizontal"
+        android:orientation="vertical"
+        android:layout_weight="2">
+
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:layout_weight="1"></LinearLayout>
+
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:orientation="vertical"
+            android:layout_weight="4">
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true">
+            <ImageView
+                android:id="@+id/wm_info_block_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/wm_info_kefu" />
+            <ImageView
+                android:id="@+id/wm_info_block_image_hasnew"
+                android:layout_width="@dimen/wmFloatMainPointSize"
+                android:layout_height="@dimen/wmFloatMainPointSize"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/wm_point"
+                android:visibility="visible" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:orientation="vertical"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/wm_info_block_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="客服"
+                android:textSize="10sp" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:layout_weight="1"></LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/layout_horizontal"
+        android:layout_weight="1"></LinearLayout>
+</LinearLayout>

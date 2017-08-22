@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_full"
+    android:background="@drawable/wm_info_block_bg"
+    android:orientation="horizontal">
+    <LinearLayout
+        style="@style/layout_horizontal"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/wm_email_title_new"
+                android:layout_width="@dimen/wmFloatMainPointSize"
+                android:layout_height="@dimen/wmFloatMainPointSize"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/wm_point"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/layout_horizontal"
+        android:layout_weight="20"
+        android:orientation="vertical">
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"></LinearLayout>
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+            <LinearLayout
+                style="@style/layout_horizontal"
+                android:layout_weight="4"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/layout_vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/wm_email_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorBlueFocus"
+                        android:textStyle="bold"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:text="标题"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/layout_vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/wm_email_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="内容"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:textColor="@color/colorHintText"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/layout_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/layout_horizontal"
+        android:layout_weight="1"
+        android:orientation="vertical"></LinearLayout>
+
+</LinearLayout>

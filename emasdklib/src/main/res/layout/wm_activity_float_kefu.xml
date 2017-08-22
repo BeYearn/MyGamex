@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPanelGrey"
+    android:orientation="vertical">
+
+    <include layout="@layout/wm_float_title"></include>
+
+    <TextView
+        android:textSize="@dimen/wmFloatKefuTextSize"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wmFloatKefuTitleHeight"
+        android:layout_marginLeft="@dimen/wmFloatKefuMarginLeftRight"
+        android:layout_marginRight="@dimen/wmFloatKefuMarginLeftRight"
+        android:layout_marginTop="@dimen/wmFloatKefuTitleMarginTop"
+        android:background="@drawable/wm_blue_bg"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="@dimen/wmFloatKefuPaddingLeft"
+        android:text="@string/wmFloatKefuTitle"
+        android:textColor="@color/colorWhiteText" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wmFloatKefuListHeight"
+        android:layout_marginLeft="@dimen/wmFloatKefuMarginLeftRight"
+        android:layout_marginRight="@dimen/wmFloatKefuMarginLeftRight"
+        android:layout_marginTop="@dimen/wmFloatKefuListMarginTop"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/wmFloatKefuListItemImagSize"
+                android:layout_height="@dimen/wmFloatKefuListItemImagSize"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/wmFloatKefuListItemImagMarginBottom"
+                android:background="@drawable/wm_kefu_tel" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/wmFloatKefuListItemTextHeight"
+                android:background="@drawable/wm_litle_green_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="@dimen/wmFloatKefuTextSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|bottom"
+                    android:text="@string/wmFloatKefuMobile"
+                    android:textColor="@color/colorGreenText2" />
+
+                <TextView
+                    android:textSize="@dimen/wmFloatKefuTextSize"
+                    android:id="@+id/wm_kefu_tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="@string/wmFloatKefuTest"
+                    android:textColor="@color/colorGreenText2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/wmFloatKefuListItemSpace"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/wmFloatKefuListItemImagSize"
+                android:layout_height="@dimen/wmFloatKefuListItemImagSize"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/wmFloatKefuListItemImagMarginBottom"
+                android:background="@drawable/wm_kefu_qq" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/wmFloatKefuListItemTextHeight"
+                android:background="@drawable/wm_litle_green_bg"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="@dimen/wmFloatKefuTextSize"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|bottom"
+                    android:text="@string/wmFloatKefuQQ"
+                    android:textColor="@color/colorGreenText2" />
+
+                <TextView
+                    android:textSize="@dimen/wmFloatKefuTextSize"
+                    android:layout_weight="1"
+                    android:id="@+id/wm_kefu_qq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|top"
+                    android:text="@string/wmFloatKefuTest"
+                    android:textColor="@color/colorGreenText2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/wmFloatKefuListItemSpace"
+            android:layout_weight="1"
+
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/wmFloatKefuListItemImagSize"
+                android:layout_height="@dimen/wmFloatKefuListItemImagSize"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/wmFloatKefuListItemImagMarginBottom"
+                android:background="@drawable/wm_kefu_wechat" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/wmFloatKefuListItemTextHeight"
+                android:background="@drawable/wm_litle_green_bg"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="@dimen/wmFloatKefuTextSize"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|bottom"
+                    android:text="@string/wmFloatKefuWechat"
+                    android:textColor="@color/colorGreenText2" />
+
+                <TextView
+                    android:textSize="@dimen/wmFloatKefuTextSize"
+                    android:layout_weight="1"
+                    android:id="@+id/wm_kefu_wechat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|top"
+                    android:text="@string/wmFloatKefuTest"
+                    android:textColor="@color/colorGreenText2" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/wmFloatKefuListItemSpace"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/wmFloatKefuListItemImagSize"
+                android:layout_height="@dimen/wmFloatKefuListItemImagSize"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/wmFloatKefuListItemImagMarginBottom"
+                android:background="@drawable/wm_kefu_message" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/wmFloatKefuListItemTextHeight"
+                android:background="@drawable/wm_blue_bg"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="@dimen/wmFloatKefuTextSize"
+                    android:id="@+id/wm_kefu_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/wmFloatKefuTalk"
+                    android:textColor="@color/colorWhiteText" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wmFloatKefuTipsHeight"
+        android:layout_marginLeft="@dimen/wmFloatKefuMarginLeftRight"
+        android:layout_marginRight="@dimen/wmFloatKefuMarginLeftRight"
+        android:layout_marginTop="@dimen/wmFloatKefuTipsMarginTop"
+        android:background="@drawable/wm_litle_green_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:textSize="@dimen/wmFloatKefuTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/wmFloatKefuTipsTitleMarginLeft"
+            android:layout_marginTop="@dimen/wmFloatKefuTipsTitleMarginTop"
+            android:text="@string/wmFloatKefuTipsTitle"
+            android:textColor="@color/colorGrayText" />
+
+        <TextView
+            android:id="@+id/wm_kefu_content1"
+            android:textSize="@dimen/wmFloatKefuTipsTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/wmFloatKefuTipsContentMarginLeft"
+            android:text="@string/wmFloatKefuTipsContent1"
+            android:textColor="@color/colorDarkText" />
+
+        <TextView
+            android:id="@+id/wm_kefu_content2"
+            android:textSize="@dimen/wmFloatKefuTipsTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/wmFloatKefuTipsContentMarginLeft"
+            android:text="@string/wmFloatKefuTipsContent2"
+            android:textColor="@color/colorDarkText" />
+    </LinearLayout>
+</LinearLayout>

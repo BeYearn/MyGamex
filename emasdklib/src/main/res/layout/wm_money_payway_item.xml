@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="4dp">
+
+    <RelativeLayout
+        android:id="@+id/wm_money_payway_layout"
+        android:layout_width="30dp"
+        android:layout_height="31dp"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_marginBottom="1dp"
+            android:id="@+id/wm_money_payway_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:id="@+id/wm_money_payway_selected"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/wm_money_channel_selected"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/wm_money_payway_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wm_money_payway_layout"
+        android:layout_centerHorizontal="true"
+        android:text="支付宝"
+        android:textSize="10sp" />
+</RelativeLayout>
