@@ -1,0 +1,20 @@
+对于android开发人员来说，一般只会用到keystore，但有些特殊情况（比如说做自动打包工具）
+就需要用signapk工具签名，这时需要的就是x509pem+pk8了。
+
+但是网上用keystore生成x509pem+pk8的教程实在太复杂，分了好几个步骤，还要用到什么openssl
+而使用本工具（ks2x509.jar）则可以一步搞定~
+
+此工具原本是在csdn上找到的，但原来的那个只能输入一个密码，也就是说在keystore的两个密码相同的时候才能成功，
+所以就稍微修改了一下，此工具类需要输入两个密码，用法如下：
+
+java -jar ks2x509.jar my.keystore myAlias password1 password2
+
+然后在本目录生成两个文件 用于给apk签名：
+
+java -jar signapk.jar my.x509.pem my.pk8 Demo.apk Demo_signed.apk
+
+        优化APK：
+        zipalign -v 4 Demo_signed.apk Demo_new.apk
+
+        查循APK是否优化过：
+        zipalign -c -v 4 Demo.apk
