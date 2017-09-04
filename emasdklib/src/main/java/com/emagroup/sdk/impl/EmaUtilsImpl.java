@@ -123,10 +123,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
         WMPayInfo payInfo = new WMPayInfo();
         payInfo.setAmount(emaPayInfo.getPrice()+"");//支付金额  单位：元(人民币) 注：正整数 请勿使用小数点
-        payInfo.setName("钻v石");//设置购买货币单位名称
+        payInfo.setName(emaPayInfo.getProductName());//设置购买货币单位名称
         payInfo.setServerId(ULocalUtils.spGet(mActivity,EmaConst.SUBMIT_ZONE_NAME,"100")+"");//设置区服
         payInfo.setOrderId(emaPayInfo.getOrderId());//设置订单号 请勿重复
-        payInfo.setDescription(emaPayInfo.getProductNum());//货币数量描述，不要带货币单位
+        payInfo.setDescription(emaPayInfo.getProductNum()+"份");//货币数量描述，不要带货币单位
         payInfo.setExtendInfo("extend_info");//扩展字段，发货通知时会回传（app_ext字段）
 
         WMPlatform.getInstance().doPay(payInfo, new WMPayListener() {
