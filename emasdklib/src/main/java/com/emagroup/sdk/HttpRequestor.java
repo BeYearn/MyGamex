@@ -18,6 +18,10 @@ import java.net.URLConnection;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
+
 
 public class HttpRequestor {
 
@@ -121,6 +125,11 @@ public class HttpRequestor {
 
         URL localURL = new URL(url);
 
+        HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {    //为了解决ssl verify hostname 不通过问题(HttpsURLConnection在4.4以上底层用okhttp,https会默认校验这个)
+            public boolean verify(String string, SSLSession ssls) {
+                return true;
+            }
+        });
         URLConnection connection = openConnection(localURL);
         HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
 
