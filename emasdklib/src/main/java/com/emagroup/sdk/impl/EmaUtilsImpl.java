@@ -103,7 +103,10 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                             EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.LOGOUTFALIED,"登出失败回调",null);
                             break;
                         case UserWrapper.ACTION_RET_ACCOUNTSWITCH_SUCCESS://切换账号成功回调
-                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS,"切换成功回调",null);
+
+                            EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.ACCOUNTSWITCHSUCCESS,"切换成功回调",null);  // logout和switchAccount  在游戏那边都认为为logout
+                            afterLoginSuccess(listener);
+
                             break;
                         case UserWrapper.ACTION_RET_ACCOUNTSWITCH_FAIL://切换账号失败回调
                             EmaUtils.getInstance(mActivity).makeUserCallBack(EmaCallBackConst.ACCOUNTSWITCHFAIL,"切换失败回调",null);
