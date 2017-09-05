@@ -70,7 +70,7 @@
 
     <!--密码找回-->
     <string name="wmFindPwdTitle">忘记密码</string>
-    <string name="wmFindPwdNotice">未绑定手机的用户，请联系客服QQ：800806776</string>
+    <string name="wmFindPwdNotice">未绑定手机的用户，请联系客服QQ：800092051</string>
     <string name="wmFindPwdMobileHint">手机号</string>
     <string name="wmFindPwdPWDHint">新密码</string>
     <string name="wmFindPwdCodeHint">验证码</string>
@@ -87,6 +87,7 @@
     <!--sdk支付层-->
     <string name="wmPayTitle">账号充值中心</string>
     <string name="wmPayMoney">充值金额:</string>
+    <string name="wmPayUseRedpacket">使用%1$s元红包</string>
     <string name="wmPayGameb">%1$s%2$s</string>
     <string name="wmPayCNY">¥%1$s</string>
     <string name="wmPayType">支付方式:</string>

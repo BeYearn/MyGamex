@@ -22,12 +22,41 @@
             android:textColor="@color/viewfinder_mask"
             android:text="@string/wmPayTitle"/>
     </RelativeLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/wmPayLayoutMarginTopPortrait"
-        android:layout_marginLeft="@dimen/wmPayLayoutMarginLeftPortrait"
-        android:text="@string/wmPayMoney"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/wmPayLayoutMarginTopPortrait"
+            android:layout_marginLeft="@dimen/wmPayLayoutMarginLeftPortrait"
+            android:text="@string/wmPayMoney"/>
+        <LinearLayout
+            android:id="@+id/show_use_redpacket_layout_portrait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/wmPayLayoutMarginTopPortrait"
+            android:visibility="gone">
+            <CheckBox
+                android:id="@+id/use_redpacket_checkbox_portrait"
+                android:layout_width="@dimen/wmPayUseRedpacketCheckboxWidthPortrait"
+                android:layout_height="@dimen/wmPayUseRedpacketCheckboxHeightPortrait"
+                android:checked="true"
+                android:layout_gravity="center_vertical"
+                android:button="@null"/>
+            <TextView
+                android:id="@+id/use_redpacket_text_portrait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/wmPayUseRedpacketTextMarginPortrait"
+                android:layout_gravity="center_vertical"
+                android:text="@string/wmPayUseRedpacket"
+                android:textColor="@color/colorRedText"
+                android:textSize="@dimen/wmPayUseRedpacketTextSize" />
+        </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/wmPayInfoHeightPortrait"
@@ -42,13 +71,35 @@
             android:text="@string/wmPayGameb"
             android:textSize="@dimen/wmPayInfoTextSizePortrait"
             android:textColor="@color/colorGreenText"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_product_amount_portrait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wmPayCNY"
+                android:textSize="@dimen/wmPayInfoTextSizePortrait"
+                android:textColor="@color/colorGreenText"/>
+            <TextView
+                android:id="@+id/money_show_red_line_portrait"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="@dimen/wmPayOldMoneyRedLineWeightPortrait"
+                android:layout_height="1dp"
+                android:background="@color/colorRedText"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
         <TextView
-            android:id="@+id/txt_product_amount_portrait"
+            android:id="@+id/txt_product_real_amount_portrait"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/wmPayRedpacketInfoMarginPortrait"
             android:text="@string/wmPayCNY"
-            android:textSize="@dimen/wmPayInfoTextSizePortrait"
-            android:textColor="@color/colorGreenText"/>
+            android:textSize="@dimen/wmPayInfoTextSize"
+            android:textColor="@color/colorRedText"
+            android:visibility="gone"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"

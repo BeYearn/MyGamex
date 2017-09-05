@@ -29,6 +29,8 @@
     <color name="colorRedText">#ff3333</color>
     <color name="colorOrangeText">#fe7f05</color>
     <color name="colorRedGreyText">#FFE26926</color><!--TextColorRed-->
+
+    <color name="colorGreenBg">#00d1b0</color>
     <color name="colorGreenText">#00BCBD</color>
     <color name="colorLittleGreen">#00BBBC</color>
     <color name="colorLightGreen">#DDEFEA</color>
@@ -40,4 +42,8 @@
     <color name="colorBlueCertTitle">#00aeae</color>
     <color name="colorBlueFocus">#49CDCC</color>
     <color name="colorBlueStroke">#00C9C9</color>
+
+    <color name="colorYellowBg">#f9f900</color>
+
+
 </resources>

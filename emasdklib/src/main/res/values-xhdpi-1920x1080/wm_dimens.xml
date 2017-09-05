@@ -126,6 +126,7 @@
     <dimen name="wmPayInfoHeight">59.0625dp</dimen>
     <dimen name="wmPayInfoTextSize">16sp</dimen>
     <dimen name="wmPayInfoMargin">67.5dp</dimen>
+    <dimen name="wmPayRedpacketInfoMargin">16.875dp</dimen>
     <dimen name="wmPayChannelHeight">118.125dp</dimen>
     <dimen name="wmPayChannelPadding">8.4375dp</dimen>
     <dimen name="wmPayChannelMarginLeftFirst">16.875dp</dimen>
@@ -134,6 +135,11 @@
     <dimen name="wmPayBtnWidth">337.5dp</dimen>
     <dimen name="wmPayBtnHeight">59.0625dp</dimen>
     <dimen name="wmPayBtnTextSize">15sp</dimen>
+    <dimen name="wmPayUseRedpacketCheckboxWidth">25.3125dp</dimen>
+    <dimen name="wmPayUseRedpacketCheckboxHeight">25.3125dp</dimen>
+    <dimen name="wmPayUseRedpacketTextMargin">8.4375dp</dimen>
+    <dimen name="wmPayUseRedpacketTextSize">14sp</dimen>
+    <dimen name="wmPayOldMoneyRedLineWeight">42.1875dp</dimen>
 
     <!--竖版支付层-->
     <dimen name="wmPayWidthPortrait">489.375dp</dimen>
@@ -148,6 +154,7 @@
     <dimen name="wmPayInfoHeightPortrait">59.0625dp</dimen>
     <dimen name="wmPayInfoTextSizePortrait">16sp</dimen>
     <dimen name="wmPayInfoMarginPortrait">67.5dp</dimen>
+    <dimen name="wmPayRedpacketInfoMarginPortrait">16.875dp</dimen>
     <dimen name="wmPayChannelHeightPortrait">253.125dp</dimen>
     <dimen name="wmPayChannelRowHeightPortrait">118.125dp</dimen>
     <dimen name="wmPayChannelPaddingPortrait">8.4375dp</dimen>
@@ -159,6 +166,11 @@
     <dimen name="wmPayBtnWidthPortrait">337.5dp</dimen>
     <dimen name="wmPayBtnHeightPortrait">59.0625dp</dimen>
     <dimen name="wmPayBtnTextSizePortrait">15sp</dimen>
+    <dimen name="wmPayUseRedpacketCheckboxWidthPortrait">25.3125dp</dimen>
+    <dimen name="wmPayUseRedpacketCheckboxHeightPortrait">25.3125dp</dimen>
+    <dimen name="wmPayUseRedpacketTextMarginPortrait">8.4375dp</dimen>
+    <dimen name="wmPayUseRedpacketTextSizePortrait">14sp</dimen>
+    <dimen name="wmPayOldMoneyRedLineWeightPortrait">42.1875dp</dimen>
 
     <!--wuming币支付层-->
     <dimen name="wmPayWMWidth">607.5dp</dimen>
@@ -214,6 +226,14 @@
 
     <!--悬浮窗 主界面-->
     <dimen name="wmFloatMainPointSize">16.875dp</dimen>
+    <dimen name="wmFloatMainBtnHeight">37.125dp</dimen>
+    <dimen name="wmFloatMainVipIconWidth">135.0dp</dimen>
+    <dimen name="wmFloatMainVipIconImageMarginLeft">16.875dp</dimen>
+    <dimen name="wmFloatMainVipProProgressBarHeight">16.875dp</dimen>
+    <dimen name="wmFloatMainAutoLoginSwitchHeight">23.625dp</dimen>
+    <dimen name="wmFloatMainAutoLoginSwitchWidth">23.625dp</dimen>
+    <dimen name="wmFloatMainAutoLoginSwitch11.8125dp">11.8125dp</dimen>
+    <dimen name="wmFloatMainAccountSize">12sp</dimen>
 
 
 

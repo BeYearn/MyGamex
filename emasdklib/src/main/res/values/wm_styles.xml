@@ -29,6 +29,9 @@
     <style name="WMCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/wm_checkbox_select</item>
     </style>
+    <style name="WMCheckboxRedTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/wm_checkbox_red_select</item>
+    </style>
     <style name="DialogActivityStyle" parent="android:Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -46,7 +49,7 @@
         <item name="android:windowNoTitle">true</item><!--除去title-->
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:windowBackground">@drawable/wm_dialog_activity_bg</item>
+        <item name="android:windowBackground">@drawable/wm_float_dialog_bg</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
     <style name="WMAtivityStyle" parent="android:Theme.Dialog">

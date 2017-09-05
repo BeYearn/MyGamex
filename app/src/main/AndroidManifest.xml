@@ -173,6 +173,12 @@
             android:theme="@style/DialogActivityStyle">
         </activity>
         <activity
+            android:name="com.wuming.platform.activity.Float.WMFloatWebViewNewActivity"
+            android:screenOrientation="behind"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivityStyle">
+        </activity>
+        <activity
             android:name="com.wuming.platform.activity.Float.WMFloatEmailActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
             android:screenOrientation="behind"

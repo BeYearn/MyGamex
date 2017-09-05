@@ -183,7 +183,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
 
     @Override
     public void onBackPressed(final EmaBackPressedAction action) {
-
+        action.doBackPressedAction();
     }
 
     @Override
