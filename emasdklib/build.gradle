@@ -30,4 +30,11 @@ android {
 dependencies {
     compile files('libs/GetuiSDK2.9.0.0.jar')
     compile 'com.android.support:support-v4:22.1.1'
+    compile files('libs/31you_4.2.jar')
+    compile files('libs/alipaySdk-20160825.jar')
+    compile files('libs/HeepayPlugin_v3.0.jar')
+    compile files('libs/smc_sdk_v1.4.jar')
+    compile files('libs/TenpayServiceSDK.jar')
+    compile files('libs/volly-1.0.11.jar')
+    compile files('libs/weiboSDKCore_3.1.4.jar')
 }

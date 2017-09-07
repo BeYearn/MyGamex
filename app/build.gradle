@@ -7,7 +7,7 @@ android {
         applicationId "com.emagroup.example"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 1
+        versionCode 999999
         versionName "1.0"
     }
     buildTypes {
