@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.demo_activity_main);
 
         uiHandler = new Handler();
         tvName = (TextView) findViewById(R.id.tv_login);
@@ -53,8 +53,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
         //EmaSDK.getInstance().init("800a924c499772bac7b76432803ea47a", this, new EmaSDKListener() {       //10001
         //EmaSDK.getInstance().init("6cdd60ea0045eb7a6ec44c54d29ed402",this, new EmaSDKListener() {      //
-        EmaSDK.getInstance().init("864ed48309c7f9a259f769b92cc52814", this, new EmaSDKListener() {       //20012
-            //EmaSDK.getInstance().init("5600441101c8818c4480d3c503742a3b",this, new EmaSDKListener() {      //20015
+        //EmaSDK.getInstance().init("864ed48309c7f9a259f769b92cc52814", this, new EmaSDKListener() {       //20012
+        //EmaSDK.getInstance().init("5600441101c8818c4480d3c503742a3b",this, new EmaSDKListener() {      //20015
+        EmaSDK.getInstance().init("5638ee5f9dcad39365d26117fd46dd98",this, new EmaSDKListener() {      //20026
             @Override
             public void onCallBack(int arg0, String arg1) {
                 switch (arg0) {
