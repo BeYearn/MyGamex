@@ -124,7 +124,7 @@
 
         <!-- 微信接入配置 START -->
         <activity
-            android:name="com.tencent.tmgp.dragontcg1.wxapi.WXEntryActivity"
+            android:name="com.tencent.tmgp.psm.wxapi.WXEntryActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="WXEntryActivity"

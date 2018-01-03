@@ -256,6 +256,9 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
                     YybLoginDialog.getInstance(mActivity).show();
                 }else {
                     Log.e("ysdLogin","您已登录成功");
+                    if(EmaUser.getInstance().getToken()!=null){
+                        listener.onCallBack(EmaCallBackConst.LOGINSUCCESS,"登陆成功回调");
+                    }
                 }
             }
         });

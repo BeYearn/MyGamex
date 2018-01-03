@@ -1,4 +1,4 @@
-package com.tencent.tmgp.dragontcg1.wxapi;
+package com.tencent.tmgp.psm.wxapi;
 
 
 /**
