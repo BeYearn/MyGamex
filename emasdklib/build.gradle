@@ -30,4 +30,5 @@ android {
 dependencies {
     compile files('libs/GetuiSDK2.9.0.0.jar')
     compile 'com.android.support:support-v4:22.1.1'
+    compile files('libs/HMS_SDK_2.5.3.302.jar')
 }

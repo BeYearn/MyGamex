@@ -4,16 +4,30 @@ android {
     compileSdkVersion 22
     buildToolsVersion "23.0.3"
     defaultConfig {
-        applicationId "com.emagroup.example"
+        applicationId "com.lemonade.psm.huawei"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
+
+    signingConfigs {
+        kdzq {
+            keyAlias 'emagroup_psm'
+            keyPassword 'psmema9wee'
+            storeFile file('./appsign/psm.keystore')
+            storePassword 'psmema9wee'
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.kdzq
+        }
+        debug {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.kdzq
         }
     }
 
