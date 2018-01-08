@@ -184,7 +184,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         /**
          * 生成总金额
          */
-        String amount = String.format("%.2f", emaPayInfo.getPrice());
+        String amount = emaPayInfo.getPrice()+".00";
 
         //商品名称
         payReq.productName = emaPayInfo.getProductName();
@@ -222,6 +222,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         HMSAgent.Pay.pay(payReq, new PayHandler() {
             @Override
             public void onResult(int retCode, PayResultInfo payInfo) {
+                Log.e("HWPay restCode:",retCode+"");
                 if (retCode == HMSAgent.AgentResultCode.HMSAGENT_SUCCESS && payInfo != null) {
                     boolean checkRst = PaySignUtil.checkSign(payInfo, pay_rsa_public);
                     Log.e("hwPay", "game pay: onResult: pay success and checksign=" + checkRst);
