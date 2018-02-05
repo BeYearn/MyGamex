@@ -124,7 +124,7 @@
 
         <!-- 微信接入配置 START -->
         <activity
-            android:name="com.tencent.tmgp.psm.wxapi.WXEntryActivity"
+            android:name="com.tencent.tmgp.dragontcg1.wxapi.WXEntryActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="WXEntryActivity"
@@ -138,15 +138,6 @@
             </intent-filter>
         </activity>
         <!-- 微信接入配置 END -->
-
-        <!--实名制 start-->
-        <activity
-            android:name="com.tencent.ysdk.module.realName.impl.RegisterRealNameActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="sensor"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
-        <!--实名制 end-->
 
         <!--支付组件start-->
         <activity
