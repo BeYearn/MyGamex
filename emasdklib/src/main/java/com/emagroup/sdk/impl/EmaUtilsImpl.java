@@ -3,6 +3,7 @@ package com.emagroup.sdk.impl;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.emagroup.sdk.EmaBackPressedAction;
 import com.emagroup.sdk.EmaCallBackConst;
@@ -79,6 +80,7 @@ public class EmaUtilsImpl implements EmaUtilsInterface {
         MiCommplatform.getInstance().miLogin(mActivity, new OnLoginProcessListener() {
             @Override
             public void finishLoginProcess(int i, MiAccountInfo miAccountInfo) {
+                Log.e("misdk login:",i+"");
                 switch (i) {
                     case MiErrorCode.MI_XIAOMI_GAMECENTER_SUCCESS:
                         // 登陆成功
